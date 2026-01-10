@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // If deploying to username.github.io/repo-name, uncomment and set basePath:
-  // basePath: '/your-repo-name',
+  basePath: '/markdown-wiki',
 };
 
 export default nextConfig;
