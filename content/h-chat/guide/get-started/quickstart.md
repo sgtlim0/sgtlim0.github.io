@@ -1,55 +1,64 @@
 ---
 title: H Chat Quickstart
-description: Quick guide to getting started with H Chat
+description: H Chat 설치 및 시작 가이드
 ---
 
-# H Chat Quickstart Guide
+# H Chat Quickstart
 
-## Overview
+H Chat을 빠르게 시작하는 방법을 안내합니다.
 
-H Chat is accessible through the Microsoft Teams desktop application and uses advanced AI technology to maximize work productivity.
+## 설치 방법
 
-## Installation Steps
+### 1. Microsoft Teams 데스크톱 앱 다운로드
 
-### Installing H Chat
+H Chat의 모든 기능을 사용하려면 Microsoft Teams 데스크톱 앱이 필요합니다.
 
-1. Install H Chat from the Microsoft Teams desktop app
-2. Click the link matching your company affiliation to install the H Chat app within Teams:
-   - **Standard Vehicle Manufacturer Users**: Direct Teams installation link provided
-   - **Group/International Subsidiary Users**: Separate Teams installation link provided
+> **참고**: 브라우저 기반 Teams는 일부 기능이 제한됩니다.
 
-> **Warning**: Using Microsoft Teams through a browser (rather than the desktop app) may result in limited functionality.
+### 2. 조직 선택
 
-### Setup Process
+소속에 따라 적절한 링크를 선택합니다:
+- **완성차 사용자**: 완성차용 Teams 설치 링크
+- **그룹사/해외법인 사용자**: 그룹사용 Teams 설치 링크
 
-- Click "Open in Microsoft Teams" when prompted
-- Click "Open" to launch H Chat in the Teams desktop application
-- Right-click the H Chat icon (appearing on the left sidebar) and select "Pin" for easy future access
-- Select "Open in New Window" to use H Chat simultaneously with other conversations
+### 3. Teams에서 설치
 
-## H Chat Pro Mode
+1. "Microsoft Teams에서 열기" 클릭
+2. "열기" 선택하여 Teams 데스크톱 앱에서 H Chat 실행
+3. H Chat 아이콘 우클릭 후 "고정" 선택
+4. "새 창에서 열기"로 다른 대화와 동시에 사용 가능
 
-*Note: Updated August 14, 2025*
+## Pro 모드 접근
 
-All affiliated company users with Pro contracts can now access H Chat Pro mode via Teams or web browser.
+*2025년 8월 14일 업데이트*
 
-### Web Browser Access
+Pro 계약이 있는 모든 계열사 사용자는 Teams 또는 웹 브라우저로 H Chat Pro 모드 이용 가능합니다.
 
-- Access through your company groupware portal
-- **Hyundai employees**: Follow the designated pathway in groupware
-- **Kia employees**: Follow the designated pathway in groupware
-- **Direct access**: Visit https://h-chat-pro.autoever.com
+### 웹 브라우저 접근
 
-## Quick Launch Setup (Pro Mode - Web Browser)
+- 그룹웨어 포털을 통해 접근
+- **현대 직원**: 그룹웨어 지정 경로 이용
+- **기아 직원**: 그룹웨어 지정 경로 이용
+- **직접 접근**: https://h-chat-pro.autoever.com
 
-*Instructions based on macOS Chrome; similar methods work on other OS/browsers*
+## 빠른 실행 설정
 
-1. **Install as App**: Click the install option to register H Chat as a desktop application
-2. **Complete Installation**: Confirm the installation process
-3. **Launch from OS**: Use native app search (Spotlight on macOS, Start Menu on Windows) to open H Chat
+브라우저 사용자는 H Chat을 데스크톱 앱으로 설치할 수 있습니다:
 
-## Starting Your First Conversation
+1. 브라우저에서 설치 옵션 클릭
+2. 설치 확인
+3. OS 앱 검색으로 실행 (Spotlight, Windows 시작 메뉴 등)
 
-1. Type your question in the H Chat message field
-2. View H Chat's response as the screen transitions
-3. Continue asking various questions to leverage H Chat for work-related information and productivity
+## 대화 시작하기
+
+1. H Chat 메시지 입력란에 질문 입력
+2. AI 응답 확인
+3. 다양한 질문으로 업무 생산성 향상
+
+### 예시 질문
+
+```
+회의록 요약해줘
+이 코드를 리뷰해줘
+영어로 이메일 작성해줘
+```

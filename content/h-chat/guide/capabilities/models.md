@@ -1,62 +1,43 @@
 ---
 title: H Chat Models
-description: Supported AI models in H Chat
+description: H Chat에서 지원하는 AI 모델
 ---
 
-# H Chat Supported Models
+# H Chat 지원 모델
 
-## Overview
+H Chat은 구독 모드에 따라 다양한 AI 모델을 지원합니다.
 
-H Chat supports various AI models depending on the subscription tier. The platform offers models from OpenAI, Claude (Anthropic), and Gemini, each with different capabilities and token limits.
+## Pro 모드
 
-## Pro Mode Models
+| Provider | Models |
+|----------|--------|
+| OpenAI | gpt-5, gpt-4.1, gpt-4o, gpt-5-mini, gpt-4.1-mini |
+| Claude | claude haiku 4.5, claude sonnet 4.5 |
+| Gemini | gemini 2.5 pro, gemini 2.5 flash |
 
-**OpenAI:**
-- gpt-5
-- gpt-4.1
-- gpt-4o
-- gpt-5-mini
-- gpt-4.1-mini
+*2025년 12월 3일 업데이트 - 일부 모델 추가/제거*
 
-**Claude:**
-- claude haiku 4.5
-- claude sonnet 4.5
+## Plus 모드
 
-**Gemini:**
-- gemini 2.5 pro
-- gemini 2.5 flash
+| Provider | Models |
+|----------|--------|
+| OpenAI | gpt-4.1, gpt-5-mini |
+| Claude | claude haiku 4.5 |
+| Gemini | gemini 2.5 flash, gemini 2.0 flash |
 
-*Note: Updated December 3, 2025 - some models were removed/added due to provider policy changes.*
+*2025년 11월 26일 업데이트*
 
-## Plus Mode Models
+## Basic 모드
 
-**OpenAI:**
-- gpt-4.1
-- gpt-5-mini
+| Provider | Models |
+|----------|--------|
+| OpenAI | gpt-4o-mini, gpt-4.1-mini |
+| Gemini | gemini 2.5 flash, gemini 2.0 flash |
 
-**Claude:**
-- claude haiku 4.5
+## 토큰 한도 비교
 
-**Gemini:**
-- gemini 2.5 flash
-- gemini 2.0 flash
-
-*Updated November 26, 2025*
-
-## Basic Mode Models
-
-**OpenAI:**
-- gpt-4o-mini
-- gpt-4.1-mini
-
-**Gemini:**
-- gemini 2.5 flash
-- gemini 2.0 flash
-
-## Token Limits Comparison
-
-| Provider | Model | Input Tokens | Output Tokens |
-|----------|-------|--------------|---------------|
+| Provider | Model | 입력 토큰 | 출력 토큰 |
+|----------|-------|----------|----------|
 | OpenAI | gpt-4o | 128,000 | 4,096 |
 | OpenAI | gpt-4.1 | 1,000,000 | 32,768 |
 | OpenAI | gpt-5-mini | 272,000 | 128,000 |
@@ -65,9 +46,8 @@ H Chat supports various AI models depending on the subscription tier. The platfo
 | Gemini | gemini-2.5-flash | 1,048,576 | 65,536 |
 | Gemini | gemini-2.5-pro | 1,048,576 | 65,535 |
 
-## Model Selection
+## 모델 선택 팁
 
-Choose the appropriate model based on your use case:
-- **Fast responses**: Use mini or flash models
-- **Complex tasks**: Use pro or full models
-- **Large context**: Use models with higher input token limits
+- **빠른 응답**: Mini 또는 Flash 모델 사용
+- **복잡한 작업**: Pro 또는 전체 모델 사용
+- **긴 문서 처리**: 높은 입력 토큰 한도 모델 사용 (Gemini 추천)

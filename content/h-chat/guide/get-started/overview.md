@@ -1,68 +1,53 @@
 ---
 title: H Chat Overview
-description: Overview of H Chat - Generative AI service by Hyundai AutoEver
+description: 현대차그룹 직원을 위한 생성형 AI 서비스
 ---
 
 # H Chat Overview
 
-**H Chat** is a generative AI service created by Hyundai AutoEver for the Hyundai Motor Group. The platform enables users to understand and generate natural language while supporting various tasks across business, learning, and content creation.
+**H Chat**은 현대오토에버에서 제공하는 현대차그룹 직원을 위한 생성형 AI 서비스입니다. 자연어를 이해하고 생성하는 능력을 갖추고 있으며, 다양한 업무와 학습을 지원합니다.
 
-## Core Features
+## 주요 특징
 
-The platform highlights four main strengths:
+### 안전한 연결
+기업 환경에 맞춘 보안 연결을 제공합니다. 암호화된 LLM과 전용 인프라를 사용합니다.
 
-1. **Secure connections** - Encrypted LLM with dedicated infrastructure
-2. **Continuous updates** - Regular model improvements and feature releases
-3. **Intuitive interface** - User-friendly design for complex workflows
-4. **Microsoft Teams integration** - Enhanced accessibility through familiar tools
+### 끊임없는 발전
+최신 AI 모델을 지속적으로 업데이트합니다. 정기적인 기능 개선이 이루어집니다.
 
-## Use Cases
+### 직관적인 인터페이스
+복잡한 워크플로우를 위한 사용하기 쉬운 디자인을 제공합니다.
 
-The guide identifies four primary application areas:
+### 편리한 접근성
+Microsoft Teams를 통해 쉽게 접근할 수 있습니다.
 
-### 1. Business Productivity
-- Email drafting
-- Report generation
-- Scheduling
+## 활용 분야
 
-### 2. Learning Support
-- Explanations
-- Problem-solving
-- Summarization
+### 업무 생산성 향상
+- 이메일 작성
+- 보고서 생성
+- 문서 요약 및 번역
 
-### 3. Programming Assistance
-- Code writing
-- Debugging
-- Algorithm explanation
+### 학습 보조
+- 개념 설명
+- 문제 해결
+- 학습 자료 생성
 
-### 4. Content Creation
-- Blogs
-- Marketing copy
-- Storytelling
+### 프로그래밍 지원
+- 코드 작성 및 리뷰
+- 디버깅
+- 알고리즘 설명
 
-## Available Features
+### 콘텐츠 제작
+- 블로그 글 작성
+- 마케팅 카피
+- 아이디어 생성
 
-### Getting Started
-- Overview
-- Quickstart
+## 시작하기
 
-### Capabilities
-- Models
-- Text generation
-- Web Search
-- Confluence Search
-- Image Generation
-- Customization options
+1. Microsoft Teams 데스크톱 앱 설치
+2. H Chat 앱 검색 및 설치
+3. M365 계정으로 로그인
+4. 채팅창에서 질문 시작
 
-### Pro Features
-- Personal API keys (OpenAI, Claude, Gemini support)
-- GitLab code review
-- Bitbucket code review
-- Web search integration
-- Image generation
-
-## Access & Support
-- Available in Korean and English
-- FAQ section included
-- Privacy policy and terms of service provided
-- Release notes available for updates
+자세한 내용은 [Quickstart](/h-chat/guide/get-started/quickstart) 가이드를 참조하세요.
