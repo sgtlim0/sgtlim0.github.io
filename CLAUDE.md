@@ -68,7 +68,7 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 ### Shared UI (`packages/ui/`)
 - `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard
 - `@hchat/ui/hmg` — GNB, HeroBanner, TabFilter, Footer, HmgStatCard, StepItem, DownloadItem, PillButton
-- `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings
+- `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings, AdminProviderStatus, AdminModelPricing, AdminFeatureUsage, AdminPromptLibrary, AdminAgentMonitoring
 - `@hchat/ui` (ROI) — ROISidebar, ROIOverview, ROIAdoption, ROIProductivity, ROIAnalysis, ROIOrganization, ROISentiment, ROIReports, ROISettings, ROIDataUpload, KPICard, ChartPlaceholder, InsightCard, SurveyBar, HeatmapCell, DateFilter, DepartmentFilter
 - `@hchat/ui` (ROI Charts) — MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart (pure SVG/CSS, no chart library)
 
@@ -76,10 +76,10 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 Markdown wiki with Sidebar + catch-all route. Content in `apps/wiki/content/`.
 
 ### HMG App (`apps/hmg/`)
-4 pages: Home (`/`), Publications (`/publications`), StepGuide (`/guide`), Dashboard (`/dashboard`).
+5 pages: Home (`/`), Publications (`/publications`), StepGuide (`/guide`), Dashboard (`/dashboard`). Publications supports tab filtering and download handlers.
 
 ### Admin App (`apps/admin/`)
-5 base pages: Dashboard (`/`), Usage (`/usage`), Statistics (`/statistics`), Users (`/users`), Settings (`/settings`).
+10 base pages: Dashboard (`/`), Usage (`/usage`), Statistics (`/statistics`), Users (`/users`), Settings (`/settings`), AI Providers (`/providers`), Model Pricing (`/models`), Feature Usage (`/features`), Prompt Library (`/prompts`), Agent Monitoring (`/agents`).
 
 9 ROI pages under `/roi/` layout with sidebar navigation:
 - Data Upload (`/roi/upload`) — Excel file upload with browser-local parsing
@@ -93,7 +93,7 @@ Markdown wiki with Sidebar + catch-all route. Content in `apps/wiki/content/`.
 - Settings (`/roi/settings`) — ROI parameters, data sources, cost, alerts, permissions
 
 ### Storybook (`apps/storybook/`)
-Stories for Wiki (13), Admin (12), and HMG (8) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+Stories for Wiki (13), Admin (12), HMG (12), and ROI (6) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
@@ -104,4 +104,9 @@ All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>
 - Admin: Vercel (https://hchat-admin.vercel.app)
 - Storybook: Vercel (https://hchat-wiki-storybook.vercel.app)
 
-Vercel deployment uses CLI: `VERCEL_ORG_ID=... VERCEL_PROJECT_ID=... npx vercel --prod --yes`
+Vercel projects connected via Git (auto-deploy on push to main).
+
+### CI/CD
+- GitHub Actions CI: type-check + lint + build on push/PR (`.github/workflows/ci.yml`)
+- GitHub Actions Deploy: Wiki → GitHub Pages (`.github/workflows/deploy.yml`)
+- Playwright E2E tests: `npm run test:e2e` (admin, hmg, dark-mode projects)

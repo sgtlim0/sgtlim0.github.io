@@ -104,12 +104,12 @@
 |---|------|------|------------|
 | 13 | Admin 실데이터 연동 | 현재 mock 데이터 → API 연결 (hchat-v2-extension 백엔드) | 높음 |
 | 14 | Admin 인증/인가 | 관리자 로그인 + 권한 관리 | 높음 |
-| 15 | HMG PDF 다운로드 기능 | Publications 페이지 실제 PDF 다운로드 | 중간 |
-| 16 | i18n 다국어 지원 | 한국어/영어 전환 | 중간 |
-| 17 | Admin 확장 화면: FeatureUsage | 기능별 사용량 대시보드 | 중간 |
-| 18 | Admin 확장 화면: PromptLibrary | 조직 공용 프롬프트 템플릿 관리 | 중간 |
-| 19 | Admin 확장 화면: AgentMonitoring | 에이전트 실행 모니터링 | 높음 |
-| 20 | CI/CD 파이프라인 강화 | lint + type-check + test 자동화 (turbo 파이프라인) | 중간 |
+| 15 | HMG PDF 다운로드 기능 | Publications 페이지 다운로드 핸들러 + 탭 필터링 | ✅ 완료 |
+| 16 | i18n 다국어 지원 | 한국어/영어 전환 (I18nProvider + LanguageToggle) | ✅ 완료 |
+| 17 | Admin 확장 화면: FeatureUsage | 기능별 사용량 대시보드 | ✅ 완료 |
+| 18 | Admin 확장 화면: PromptLibrary | 조직 공용 프롬프트 템플릿 관리 | ✅ 완료 |
+| 19 | Admin 확장 화면: AgentMonitoring | 에이전트 실행 모니터링 | ✅ 완료 |
+| 20 | CI/CD 파이프라인 강화 | lint + type-check + build 자동화 (GitHub Actions + turbo) | ✅ 완료 |
 
 ---
 
@@ -132,7 +132,7 @@
 | 앱 | 4개 (Wiki, HMG, Admin, Storybook) |
 | 패키지 | 2개 (tokens, ui) |
 | UI 컴포넌트 | 42개+ (공용 4 + HMG 8 + Admin 12 + ROI 18) |
-| 페이지 | 25개+ (Wiki 동적 + HMG 4 + Admin 7 + ROI 9 + _not-found) |
+| 페이지 | 28개+ (Wiki 동적 + HMG 5 + Admin 10 + ROI 9 + _not-found) |
 | ROI 차트 컴포넌트 | 5개 (MiniLine, Donut, MiniBar, Area, Radar) |
 | Storybook 스토리 | 43개+ (Wiki 13 + Admin 12 + HMG 12 + ROI 6) |
 | CSS 토큰 변수 | ~70개 (light/dark, ROI 포함) |

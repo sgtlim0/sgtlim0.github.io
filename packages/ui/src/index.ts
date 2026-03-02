@@ -11,5 +11,8 @@ export { default as ThemeToggle } from './ThemeToggle';
 export { default as FeatureCard } from './FeatureCard';
 export type { FeatureCardProps } from './FeatureCard';
 
+// i18n
+export * from './i18n';
+
 // ROI components
 export * from './roi';
