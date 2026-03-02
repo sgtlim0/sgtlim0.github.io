@@ -11,8 +11,23 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'H Chat Admin',
-  description: 'H Chat 관리자 패널 - 사용 현황, 통계, 사용자 관리',
+  title: {
+    default: 'H Chat Admin',
+    template: '%s | H Chat Admin',
+  },
+  description: '현대자동차그룹 H Chat 관리자 패널 - AI 생산성 대시보드, 사용 현황, ROI 분석, 사용자 관리',
+  keywords: ['H Chat', '현대자동차그룹', 'AI', '생산성', '관리자', 'ROI', '대시보드'],
+  openGraph: {
+    title: 'H Chat Admin',
+    description: '현대자동차그룹 H Chat AI 생산성 관리 플랫폼',
+    type: 'website',
+    locale: 'ko_KR',
+    url: 'https://hchat-admin.vercel.app',
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default function RootLayout({

@@ -10,8 +10,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "H Chat HMG",
-  description: "현대자동차그룹 H Chat - 멀티 AI 어시스턴트 플랫폼",
+  title: {
+    default: "H Chat - 현대자동차그룹",
+    template: "%s | H Chat HMG",
+  },
+  description: "현대자동차그룹 H Chat - 멀티 AI 어시스턴트 플랫폼. 업무 생산성을 혁신하는 AI 채팅 서비스.",
+  keywords: ["H Chat", "현대자동차그룹", "AI", "멀티 AI", "어시스턴트", "생산성"],
+  openGraph: {
+    title: "H Chat - 현대자동차그룹",
+    description: "현대자동차그룹 H Chat - 멀티 AI 어시스턴트 플랫폼",
+    type: "website",
+    locale: "ko_KR",
+    url: "https://hchat-hmg.vercel.app",
+  },
 };
 
 export default function RootLayout({
