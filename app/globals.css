@@ -30,6 +30,22 @@
   /* Border */
   --border: #E2E8F0;
   --border-light: #F1F5F9;
+
+  /* Admin */
+  --admin-teal: #00AAC1;
+  --admin-navy: #002C5F;
+  --admin-blue: #3A5BC5;
+  --admin-accent: #E15C39;
+  --admin-green: #118762;
+  --admin-status-success: #4CAF50;
+  --admin-status-error: #E53935;
+  --admin-status-pending: #FFA726;
+  --admin-table-stripe: #FAFAFA;
+  --admin-table-hover: #F0F7FF;
+  --admin-input-bg: #F5F5F5;
+  --admin-input-border: #E0E0E0;
+  --admin-bg-section: #FFFFFF;
+  --admin-bg-card: #FFFFFF;
 }
 
 .dark {
@@ -50,6 +66,13 @@
 
   --border: #374151;
   --border-light: #1F2937;
+
+  --admin-table-stripe: #222222;
+  --admin-table-hover: #1A2A3A;
+  --admin-input-bg: #2A2A2A;
+  --admin-input-border: #444444;
+  --admin-bg-section: #1A1A2E;
+  --admin-bg-card: #1E1E2E;
 }
 
 @theme inline {
@@ -73,6 +96,20 @@
   --color-text-white: var(--text-white);
   --color-border: var(--border);
   --color-border-light: var(--border-light);
+  --color-admin-teal: var(--admin-teal);
+  --color-admin-navy: var(--admin-navy);
+  --color-admin-blue: var(--admin-blue);
+  --color-admin-accent: var(--admin-accent);
+  --color-admin-green: var(--admin-green);
+  --color-admin-status-success: var(--admin-status-success);
+  --color-admin-status-error: var(--admin-status-error);
+  --color-admin-status-pending: var(--admin-status-pending);
+  --color-admin-table-stripe: var(--admin-table-stripe);
+  --color-admin-table-hover: var(--admin-table-hover);
+  --color-admin-input-bg: var(--admin-input-bg);
+  --color-admin-input-border: var(--admin-input-border);
+  --color-admin-bg-section: var(--admin-bg-section);
+  --color-admin-bg-card: var(--admin-bg-card);
   --font-sans: var(--font-inter);
 }
 
