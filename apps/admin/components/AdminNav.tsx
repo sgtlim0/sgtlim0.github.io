@@ -14,6 +14,9 @@ const navItems = [
   { href: '/roi/overview', label: 'ROI 대시보드' },
   { href: '/providers', label: 'AI 제공자' },
   { href: '/models', label: '모델 가격' },
+  { href: '/features', label: '기능 사용량' },
+  { href: '/prompts', label: '프롬프트' },
+  { href: '/agents', label: '에이전트' },
 ];
 
 export default function AdminNav() {

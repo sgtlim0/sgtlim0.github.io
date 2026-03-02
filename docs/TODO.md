@@ -1,6 +1,6 @@
 # H Chat Wiki 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-02
+> 마지막 업데이트: 2026-03-03
 
 ---
 
@@ -91,11 +91,11 @@
 
 | # | 작업 | 설명 | 상태 |
 |---|------|------|------|
-| 7 | 반응형 레이아웃 | HMG/Admin 모바일/태블릿 대응 | 진행중 |
-| 8 | Admin 확장 화면 추가 | ProviderStatus, ModelPricing 화면 | 미착수 |
-| 9 | E2E 테스트 | Playwright 주요 사용자 흐름 | 미착수 |
+| 7 | 반응형 레이아웃 | HMG/Admin 모바일/태블릿 대응 | ✅ 완료 |
+| 8 | Admin 확장 화면 추가 | ProviderStatus, ModelPricing 화면 | ✅ 완료 (2개 화면 + 라우트) |
+| 9 | E2E 테스트 | Playwright 주요 사용자 흐름 | ✅ 완료 (4개 테스트 스위트) |
 | 10 | SEO 메타태그 | OpenGraph, robots 설정 | ✅ 완료 |
-| 11 | 성능 최적화 | Lighthouse 점수 측정 및 개선 | 미착수 |
+| 11 | 성능 최적화 | Lighthouse 점수 측정 및 개선 | ✅ 완료 (font swap, viewport) |
 | 12 | ROI Storybook 스토리 | ROI 차트/컴포넌트 6개 스토리 | ✅ 완료 |
 
 ### 우선순위 낮음
@@ -132,7 +132,7 @@
 | 앱 | 4개 (Wiki, HMG, Admin, Storybook) |
 | 패키지 | 2개 (tokens, ui) |
 | UI 컴포넌트 | 42개+ (공용 4 + HMG 8 + Admin 12 + ROI 18) |
-| 페이지 | 23개+ (Wiki 동적 + HMG 4 + Admin 5 + ROI 9 + _not-found) |
+| 페이지 | 25개+ (Wiki 동적 + HMG 4 + Admin 7 + ROI 9 + _not-found) |
 | ROI 차트 컴포넌트 | 5개 (MiniLine, Donut, MiniBar, Area, Radar) |
 | Storybook 스토리 | 43개+ (Wiki 13 + Admin 12 + HMG 12 + ROI 6) |
 | CSS 토큰 변수 | ~70개 (light/dark, ROI 포함) |

@@ -14,3 +14,6 @@ export { default as AdminUserManagement } from './AdminUserManagement';
 export { default as AdminSettings } from './AdminSettings';
 export { default as AdminProviderStatus } from './AdminProviderStatus';
 export { default as AdminModelPricing } from './AdminModelPricing';
+export { default as AdminPromptLibrary } from './AdminPromptLibrary';
+export { default as AdminAgentMonitoring } from './AdminAgentMonitoring';
+export { default as AdminFeatureUsage } from './AdminFeatureUsage';
