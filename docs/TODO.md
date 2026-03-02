@@ -142,7 +142,7 @@ hchat-v2-extension 분석 결과 추가 가능한 Admin 화면:
 | 8.2 | Admin 페이지 구현 | ✅ 완료 | AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings |
 | 8.3 | 라우팅 + 네비게이션 연결 | ❌ 미시작 | /admin/* 경로 (Static Export 제약으로 보류) |
 | 8.4 | 빌드 검증 | ✅ 완료 | `npm run build` + `npm run build-storybook` 모두 성공 |
-| 8.5 | Vercel 배포 | ❌ 미시작 | Storybook 재배포 필요 |
+| 8.5 | Vercel 배포 | ✅ 완료 | https://hchat-wiki-storybook.vercel.app |
 
 ---
 
@@ -150,8 +150,8 @@ hchat-v2-extension 분석 결과 추가 가능한 Admin 화면:
 
 | # | 작업 | 상태 | 비고 |
 |---|------|------|------|
-| 9.1 | 코드 리뷰 | ❌ 미시작 | code-reviewer 에이전트 |
-| 9.2 | 접근성 검증 (a11y) | ❌ 미시작 | Storybook addon-a11y |
+| 9.1 | 코드 리뷰 | ✅ 완료 | HIGH 이슈 수정 완료 (a11y 속성 추가) |
+| 9.2 | 접근성 검증 (a11y) | ✅ 완료 | aria-label, role="switch", aria-checked, aria-hidden 추가 |
 | 9.3 | 다크모드 시각적 검증 | ❌ 미시작 | 모든 화면 Light/Dark 확인 |
 | 9.4 | 반응형 검증 | ❌ 미시작 | 모바일/태블릿/데스크톱 |
 
@@ -168,16 +168,16 @@ hchat-v2-extension 분석 결과 추가 가능한 Admin 화면:
 | 5. Admin 디자인 (wiki.pen) | 9 | 9 | 100% |
 | 6. Extension 분석 & 확장 | 6 | 7 | 86% |
 | 7. Admin Storybook 스토리 | 12 | 12 | 100% |
-| 8. React 코드 구현 | 3 | 5 | 60% |
-| 9. 품질 보증 | 0 | 4 | 0% |
-| **총합** | **55** | **62** | **89%** |
+| 8. React 코드 구현 | 4 | 5 | 80% |
+| 9. 품질 보증 | 2 | 4 | 50% |
+| **총합** | **58** | **62** | **94%** |
 
 ---
 
 ## 다음 우선순위 작업
 
-1. **Storybook Vercel 재배포** — Admin 스토리 포함
-2. **품질 보증** — 코드 리뷰, 접근성, 다크모드, 반응형 검증
+1. **다크모드 시각적 검증** — 모든 화면 Light/Dark 확인
+2. **반응형 검증** — 모바일/태블릿/데스크톱
 3. **확장 기능 화면 추가 (선택)** — ProviderStatus, ModelPricing 등
 4. **Admin 라우팅 연결 (선택)** — /admin/* 경로 (Static Export 제약 고려)
 
