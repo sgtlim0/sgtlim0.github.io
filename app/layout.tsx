@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
-import { getNavigation } from "@/lib/markdown";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "My Wiki",
-  description: "A simple markdown-based wiki powered by Next.js",
+  title: "H Chat Wiki",
+  description: "현대차그룹 생성형 AI 서비스 H Chat 사용 가이드",
 };
 
 export default function RootLayout({
@@ -19,15 +19,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const navigation = getNavigation();
-
   return (
-    <html lang="en">
+    <html lang="ko" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased font-sans`}>
-        <Sidebar navigation={navigation} />
-        <main className="ml-64">
-          {children}
-        </main>
+        <ThemeProvider>
+          <Sidebar />
+          <main className="ml-[280px] h-screen overflow-hidden">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ export interface PageData {
   slug: string;
   title: string;
   description?: string;
+  badges?: string[];
   content: string;
   path: string;
 }
@@ -19,9 +20,11 @@ export interface NavItem {
   children?: NavItem[];
 }
 
-// Get all markdown files recursively
+export type { Heading } from './headings';
+
 function getAllMarkdownFiles(dir: string, baseDir: string = dir): string[] {
   const files: string[] = [];
+  if (!fs.existsSync(dir)) return files;
   const items = fs.readdirSync(dir);
 
   for (const item of items) {
@@ -39,14 +42,21 @@ function getAllMarkdownFiles(dir: string, baseDir: string = dir): string[] {
   return files;
 }
 
-// Convert file path to slug
+function normalizeBadges(raw: unknown): string[] | undefined {
+  if (!raw) return undefined;
+  if (Array.isArray(raw)) return raw.map(String);
+  if (typeof raw === 'string') {
+    return raw.split(',').map((s) => s.trim()).filter(Boolean);
+  }
+  return undefined;
+}
+
 function pathToSlug(filePath: string): string {
   return filePath
     .replace(/\.md$/, '')
     .replace(/\\/g, '/');
 }
 
-// Get all pages
 export function getAllPages(): PageData[] {
   const files = getAllMarkdownFiles(contentDirectory);
 
@@ -59,25 +69,23 @@ export function getAllPages(): PageData[] {
       slug: pathToSlug(file),
       title: data.title || 'Untitled',
       description: data.description,
+      badges: normalizeBadges(data.badges),
       content,
       path: file,
     };
   });
 }
 
-// Get page by slug
 export function getPageBySlug(slug: string): PageData | null {
   const pages = getAllPages();
   return pages.find(page => page.slug === slug) || null;
 }
 
-// Build navigation structure
 export function getNavigation(): NavItem[] {
   const pages = getAllPages();
   const nav: NavItem[] = [];
   const navMap = new Map<string, NavItem>();
 
-  // Sort pages: home first, then alphabetically
   pages.sort((a, b) => {
     if (a.slug === 'home') return -1;
     if (b.slug === 'home') return 1;
@@ -88,7 +96,6 @@ export function getNavigation(): NavItem[] {
     const parts = page.slug.split('/');
 
     if (parts.length === 1) {
-      // Top-level page
       const navItem: NavItem = {
         title: page.title,
         slug: page.slug,
@@ -97,7 +104,6 @@ export function getNavigation(): NavItem[] {
       nav.push(navItem);
       navMap.set(page.slug, navItem);
     } else {
-      // Nested page
       const parentSlug = parts.slice(0, -1).join('/');
       const navItem: NavItem = {
         title: page.title,
@@ -105,7 +111,6 @@ export function getNavigation(): NavItem[] {
         path: `/${page.slug}`,
       };
 
-      // Find or create parent
       let parent = navMap.get(parentSlug);
       if (!parent) {
         parent = {
@@ -128,3 +133,5 @@ export function getNavigation(): NavItem[] {
 
   return nav;
 }
+
+export { getHeadings } from './headings';

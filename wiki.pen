@@ -1,0 +1,5665 @@
+{
+  "version": "2.8",
+  "children": [
+    {
+      "type": "frame",
+      "id": "pKthN",
+      "x": -600,
+      "y": 0,
+      "name": "Wiki/NavItem",
+      "reusable": true,
+      "width": 240,
+      "fill": "transparent",
+      "cornerRadius": 6,
+      "gap": 8,
+      "padding": [
+        8,
+        12
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "icon_font",
+          "id": "e7Hx7",
+          "name": "Icon",
+          "width": 16,
+          "height": 16,
+          "iconFontName": "file-text",
+          "iconFontFamily": "lucide",
+          "fill": "$text-secondary"
+        },
+        {
+          "type": "text",
+          "id": "pD6PI",
+          "name": "Label",
+          "fill": "$text-secondary",
+          "content": "페이지 제목",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "2ITpx",
+      "x": -600,
+      "y": 80,
+      "name": "Wiki/NavGroupHeader",
+      "reusable": true,
+      "width": 240,
+      "gap": 8,
+      "padding": [
+        8,
+        12
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "icon_font",
+          "id": "KIFr3",
+          "name": "ChevronIcon",
+          "width": 14,
+          "height": 14,
+          "iconFontName": "chevron-down",
+          "iconFontFamily": "lucide",
+          "fill": "$text-tertiary"
+        },
+        {
+          "type": "text",
+          "id": "2BSkZ",
+          "name": "GroupLabel",
+          "fill": "$text-primary",
+          "content": "섹션 제목",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "600",
+          "letterSpacing": 0.3
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ZUwkZ",
+      "x": -600,
+      "y": 160,
+      "name": "Wiki/FeatureCard",
+      "reusable": true,
+      "width": 320,
+      "fill": "$bg-card",
+      "cornerRadius": 12,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border"
+      },
+      "layout": "vertical",
+      "gap": 12,
+      "padding": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "77YT7",
+          "name": "IconWrap",
+          "width": 40,
+          "height": 40,
+          "fill": "$primary-light",
+          "cornerRadius": 10,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "5dNFK",
+              "name": "Icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "message-square",
+              "iconFontFamily": "lucide",
+              "fill": "$primary"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "YK1af",
+          "name": "Title",
+          "fill": "$text-primary",
+          "content": "AI 채팅",
+          "fontFamily": "Inter",
+          "fontSize": 16,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "GFfaR",
+          "name": "Description",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": 272,
+          "content": "Claude 모델과 실시간 스트리밍 대화",
+          "lineHeight": 1.5,
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "iE8nD",
+      "x": -600,
+      "y": 500,
+      "name": "Wiki/Badge",
+      "reusable": true,
+      "fill": "$primary-light",
+      "cornerRadius": 999,
+      "padding": [
+        4,
+        10
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "CG3fV",
+          "name": "Label",
+          "fill": "$primary",
+          "content": "v2",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "b4345",
+      "x": -600,
+      "y": 550,
+      "name": "Wiki/Breadcrumb",
+      "reusable": true,
+      "gap": 6,
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "lYBtf",
+          "name": "Home",
+          "fill": "$text-tertiary",
+          "content": "홈",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "u3FC0",
+          "name": "Sep1",
+          "fill": "$text-tertiary",
+          "content": "/",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "i1lQV",
+          "name": "Parent",
+          "fill": "$text-tertiary",
+          "content": "기능 안내",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "8g5bg",
+          "name": "Sep2",
+          "fill": "$text-tertiary",
+          "content": "/",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "mkWBO",
+          "name": "Current",
+          "fill": "$text-primary",
+          "content": "AI 채팅",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "500"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "7d4mW",
+      "x": -600,
+      "y": 600,
+      "name": "Wiki/SearchBar",
+      "reusable": true,
+      "width": 300,
+      "fill": "$bg-card",
+      "cornerRadius": 10,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border"
+      },
+      "gap": 10,
+      "padding": [
+        10,
+        14
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "icon_font",
+          "id": "jS5nf",
+          "name": "SearchIcon",
+          "width": 16,
+          "height": 16,
+          "iconFontName": "search",
+          "iconFontFamily": "lucide",
+          "fill": "$text-tertiary"
+        },
+        {
+          "type": "text",
+          "id": "aHOkX",
+          "name": "Placeholder",
+          "fill": "$text-tertiary",
+          "content": "문서 검색...",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "o6Bmy",
+          "name": "Shortcut",
+          "fill": "$text-tertiary",
+          "content": "⌘K",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "500"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Oyw0e",
+      "x": 0,
+      "y": 0,
+      "name": "WikiHome",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-page",
+      "children": [
+        {
+          "type": "frame",
+          "id": "LNhPU",
+          "name": "Sidebar",
+          "width": 280,
+          "height": "fill_container",
+          "fill": "$bg-sidebar",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "$border"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "8biaX",
+              "name": "LogoRow",
+              "width": "fill_container",
+              "gap": 10,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fdz6g",
+                  "name": "LogoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$primary",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iBuQV",
+                      "name": "H",
+                      "fill": "$text-white",
+                      "content": "H",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "azE7G",
+                  "name": "LogoText",
+                  "fill": "$text-primary",
+                  "content": "H Chat Wiki",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "id": "7pHfT",
+              "type": "ref",
+              "ref": "7d4mW",
+              "width": "fill_container",
+              "name": "search",
+              "descendants": {
+                "o6Bmy": {
+                  "content": "⌘K"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "ud4cG",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "id": "hWZ7z",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navHome",
+              "fill": "$primary-light",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "home"
+                },
+                "pD6PI": {
+                  "content": "홈",
+                  "fill": "$primary",
+                  "fontWeight": "500"
+                }
+              }
+            },
+            {
+              "id": "Oh3DU",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navStart",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "rocket"
+                },
+                "pD6PI": {
+                  "content": "빠른 시작"
+                }
+              }
+            },
+            {
+              "id": "bP08e",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpFeatures",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "AI 대화"
+                }
+              }
+            },
+            {
+              "id": "JT9Sv",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navChat",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "message-square"
+                },
+                "pD6PI": {
+                  "content": "AI 채팅"
+                }
+              }
+            },
+            {
+              "id": "i35MS",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navGroup2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "users"
+                },
+                "pD6PI": {
+                  "content": "그룹 채팅"
+                }
+              }
+            },
+            {
+              "id": "dDAeT",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "debate",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "messages-square"
+                },
+                "pD6PI": {
+                  "content": "크로스 모델 토론"
+                }
+              }
+            },
+            {
+              "id": "0qTqx",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "agent",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "bot"
+                },
+                "pD6PI": {
+                  "content": "멀티턴 에이전트"
+                }
+              }
+            },
+            {
+              "id": "F8WBF",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpTools",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "도구 & 분석"
+                }
+              }
+            },
+            {
+              "id": "Eqqsk",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navTools",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "wrench"
+                },
+                "pD6PI": {
+                  "content": "도구 패널 (7종)"
+                }
+              }
+            },
+            {
+              "id": "RS984",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "youtube",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "circle-play"
+                },
+                "pD6PI": {
+                  "content": "YouTube 분석"
+                }
+              }
+            },
+            {
+              "id": "6xVD0",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "pdf",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "file-text"
+                },
+                "pD6PI": {
+                  "content": "PDF 채팅"
+                }
+              }
+            },
+            {
+              "id": "oM4Fu",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "websearch",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "search"
+                },
+                "pD6PI": {
+                  "content": "웹 검색 + RAG"
+                }
+              }
+            },
+            {
+              "id": "QfJlK",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpBrowser",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "브라우저 통합"
+                }
+              }
+            },
+            {
+              "id": "FvkX2",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "searchCard",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "panel-top"
+                },
+                "pD6PI": {
+                  "content": "검색엔진 AI 카드"
+                }
+              }
+            },
+            {
+              "id": "ueZnx",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "writing",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "pencil"
+                },
+                "pD6PI": {
+                  "content": "글쓰기 어시스턴트"
+                }
+              }
+            },
+            {
+              "id": "PFxkF",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "bookmark",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "bookmark"
+                },
+                "pD6PI": {
+                  "content": "스마트 북마크"
+                }
+              }
+            },
+            {
+              "id": "x5HNE",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpSettings",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "설정"
+                }
+              }
+            },
+            {
+              "id": "2LWVi",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navSettings",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "settings"
+                },
+                "pD6PI": {
+                  "content": "AI 프로바이더"
+                }
+              }
+            },
+            {
+              "id": "uGiuL",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navModels",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "layers"
+                },
+                "pD6PI": {
+                  "content": "모델 가이드"
+                }
+              }
+            },
+            {
+              "id": "2uaRL",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpEtc",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "기타"
+                }
+              }
+            },
+            {
+              "id": "0jX1s",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navFaq",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "help-circle"
+                },
+                "pD6PI": {
+                  "content": "FAQ"
+                }
+              }
+            },
+            {
+              "id": "Xfvgw",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navChangelog",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "git-branch"
+                },
+                "pD6PI": {
+                  "content": "변경 로그"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tOKgJ",
+          "name": "MainContent",
+          "clip": true,
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "a3Aw7",
+              "name": "Hero",
+              "width": "fill_container",
+              "fill": "$bg-hero",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": [
+                64,
+                80
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "i0IOX",
+                  "name": "HeroBadge",
+                  "fill": "$bg-page",
+                  "cornerRadius": 999,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "gap": 8,
+                  "padding": [
+                    6,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "izCrt",
+                      "name": "StarIcon",
+                      "width": 14,
+                      "height": 14,
+                      "iconFontName": "sparkles",
+                      "iconFontFamily": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "5E3CS",
+                      "name": "BadgeText",
+                      "fill": "$primary",
+                      "content": "H Chat v3 출시 — 멀티 AI 프로바이더",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "InjdL",
+                  "name": "HeroTitle",
+                  "fill": "$text-primary",
+                  "content": "H Chat v3 사용 가이드",
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 40,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "R52Ow",
+                  "name": "HeroDesc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": 600,
+                  "content": "멀티 AI 프로바이더(Claude, GPT, Gemini) 기반 올인원 브라우저 어시스턴트.\n크로스 모델 토론, YouTube 분석, PDF 채팅 등 21가지 기능을 만나보세요.",
+                  "lineHeight": 1.6,
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Bo3xj",
+                  "name": "HeroActions",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "T4r1g",
+                      "name": "PrimaryBtn",
+                      "fill": "$primary",
+                      "cornerRadius": 10,
+                      "gap": 8,
+                      "padding": [
+                        12,
+                        24
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "jtWTl",
+                          "name": "BtnIcon",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "arrow-right",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-white"
+                        },
+                        {
+                          "type": "text",
+                          "id": "MZSXz",
+                          "name": "BtnLabel",
+                          "fill": "$text-white",
+                          "content": "빠른 시작",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zbVZX",
+                      "name": "SecondaryBtn",
+                      "fill": "transparent",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 8,
+                      "padding": [
+                        12,
+                        24
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "1lSW8",
+                          "name": "BtnLabel",
+                          "fill": "$text-primary",
+                          "content": "GitHub 저장소",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "IuTsp",
+                          "name": "BtnIcon",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "external-link",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-secondary"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "qFgBj",
+              "name": "FeaturesSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                48,
+                80
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "N3VT2",
+                  "name": "SectionTitle",
+                  "fill": "$text-primary",
+                  "content": "주요 기능",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "1O0FC",
+                  "name": "SectionDesc",
+                  "fill": "$text-secondary",
+                  "content": "H Chat이 제공하는 핵심 기능을 살펴보세요",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "w88yb",
+                  "name": "FeatureGrid",
+                  "width": "fill_container",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "id": "d7CEc",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card1",
+                      "descendants": {
+                        "5dNFK": {
+                          "iconFontName": "zap"
+                        },
+                        "YK1af": {
+                          "content": "멀티 AI 프로바이더"
+                        },
+                        "GFfaR": {
+                          "content": "AWS Bedrock Claude, OpenAI GPT, Google Gemini를 하나의 인터페이스에서 사용하세요.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "daz2C",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card2",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#F0FDF4"
+                        },
+                        "5dNFK": {
+                          "iconFontName": "messages-square",
+                          "fill": "$accent-emerald"
+                        },
+                        "YK1af": {
+                          "content": "크로스 모델 토론"
+                        },
+                        "GFfaR": {
+                          "content": "서로 다른 AI 모델 간 3라운드 토론으로 최적의 답변을 도출합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "OM5a2",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card3",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#F5F3FF"
+                        },
+                        "5dNFK": {
+                          "fill": "$accent-purple",
+                          "iconFontName": "circle-play"
+                        },
+                        "YK1af": {
+                          "content": "YouTube 콘텐츠 분석"
+                        },
+                        "GFfaR": {
+                          "content": "자막 요약, 타임스탬프, 댓글 감정 분석, 통합 인사이트 리포트 생성.",
+                          "width": "fill_container"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "irjnZ",
+                  "name": "FeatureGrid2",
+                  "width": "fill_container",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "id": "Ryi4I",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card4",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#FFF7ED"
+                        },
+                        "5dNFK": {
+                          "fill": "#F59E0B",
+                          "iconFontName": "file-text"
+                        },
+                        "YK1af": {
+                          "content": "PDF 채팅"
+                        },
+                        "GFfaR": {
+                          "content": "PDF 업로드 후 AI와 문서 내용 기반 질의응답을 수행합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "63UWE",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card5",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#FEF2F2"
+                        },
+                        "5dNFK": {
+                          "fill": "#EF4444",
+                          "iconFontName": "panel-top"
+                        },
+                        "YK1af": {
+                          "content": "검색엔진 AI 카드"
+                        },
+                        "GFfaR": {
+                          "content": "Google, Bing, Naver 검색 결과에 AI 요약 카드를 자동으로 삽입합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "0r6mm",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card6",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#ECFDF5"
+                        },
+                        "5dNFK": {
+                          "fill": "#10B981",
+                          "iconFontName": "pencil"
+                        },
+                        "YK1af": {
+                          "content": "글쓰기 어시스턴트"
+                        },
+                        "GFfaR": {
+                          "content": "모든 웹페이지 입력창에 플로팅 툴바로 7가지 AI 텍스트 변환을 지원합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Zzbmd",
+      "x": 1540,
+      "y": 0,
+      "name": "DocsPage - AI 채팅",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-page",
+      "children": [
+        {
+          "type": "frame",
+          "id": "1HStd",
+          "name": "Sidebar",
+          "width": 280,
+          "height": "fill_container",
+          "fill": "$bg-sidebar",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "$border"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "J532U",
+              "name": "LogoRow",
+              "width": "fill_container",
+              "gap": 10,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "emSrl",
+                  "name": "LogoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$primary",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bFAwy",
+                      "name": "lit2",
+                      "fill": "$text-white",
+                      "content": "H",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "BBAsS",
+                  "name": "ltx2",
+                  "fill": "$text-primary",
+                  "content": "H Chat Wiki",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "id": "FPRGa",
+              "type": "ref",
+              "ref": "7d4mW",
+              "width": "fill_container",
+              "name": "s2"
+            },
+            {
+              "type": "frame",
+              "id": "deTAU",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "id": "SkYlx",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nh2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "file-text"
+                },
+                "pD6PI": {
+                  "content": "홈"
+                }
+              }
+            },
+            {
+              "id": "DQXKb",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ns2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "rocket"
+                },
+                "pD6PI": {
+                  "content": "빠른 시작"
+                }
+              }
+            },
+            {
+              "id": "VIssr",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "gf2",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "기능 안내"
+                }
+              }
+            },
+            {
+              "id": "PEH0n",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nchat2",
+              "fill": "$primary-light",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "message-square"
+                },
+                "pD6PI": {
+                  "content": "AI 채팅",
+                  "fill": "$primary",
+                  "fontWeight": "500"
+                }
+              }
+            },
+            {
+              "id": "rjEBb",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ng2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "users"
+                },
+                "pD6PI": {
+                  "content": "그룹 채팅"
+                }
+              }
+            },
+            {
+              "id": "WcHlM",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nt2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "wrench"
+                },
+                "pD6PI": {
+                  "content": "도구 패널"
+                }
+              }
+            },
+            {
+              "id": "FD7mp",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nsw2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "cpu"
+                },
+                "pD6PI": {
+                  "content": "에이전트 스웜"
+                }
+              }
+            },
+            {
+              "id": "dhn80",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nmem2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "brain"
+                },
+                "pD6PI": {
+                  "content": "대화 메모리"
+                }
+              }
+            },
+            {
+              "id": "YYURj",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nsch2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "calendar"
+                },
+                "pD6PI": {
+                  "content": "작업 스케줄러"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "0lRmN",
+          "name": "MainContent",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "1PtWb",
+              "name": "DocContent",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                40,
+                64
+              ],
+              "children": [
+                {
+                  "id": "hXtyj",
+                  "type": "ref",
+                  "ref": "b4345",
+                  "name": "bc2",
+                  "descendants": {
+                    "lYBtf": {
+                      "content": "홈"
+                    },
+                    "i1lQV": {
+                      "content": "기능 안내"
+                    },
+                    "mkWBO": {
+                      "content": "AI 채팅"
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "ABkjj",
+                  "name": "DocHeader",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "SFgH9",
+                      "name": "BadgeRow",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "id": "MDAWw",
+                          "type": "ref",
+                          "ref": "iE8nD",
+                          "name": "docBadgeV1",
+                          "descendants": {
+                            "CG3fV": {
+                              "content": "v1"
+                            }
+                          }
+                        },
+                        {
+                          "id": "T897Y",
+                          "type": "ref",
+                          "ref": "iE8nD",
+                          "name": "docBadgeV2",
+                          "descendants": {
+                            "CG3fV": {
+                              "content": "v2"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "tS94N",
+                      "name": "DocTitle",
+                      "fill": "$text-primary",
+                      "content": "AI 채팅",
+                      "fontFamily": "Inter",
+                      "fontSize": 32,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "qOGIK",
+                      "name": "DocSubtitle",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "실시간 스트리밍 응답과 대화 메모리를 활용한 AI 채팅 기능",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Qv3JE",
+                  "name": "Divider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "eB1Cv",
+                  "name": "OverviewSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "WEAmx",
+                      "name": "SectionTitle",
+                      "fill": "$text-primary",
+                      "content": "개요",
+                      "fontFamily": "Inter",
+                      "fontSize": 22,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "AYzk5",
+                      "name": "Body",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "AI 채팅은 H Chat의 핵심 기능으로, AWS Bedrock을 통해 Claude 모델과 직접 통신합니다. Chrome 사이드패널에서 실시간 스트리밍 응답을 받으며, 대화 메모리가 자동으로 시스템 프롬프트에 주입되어 맥락을 유지합니다.",
+                      "lineHeight": 1.7,
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Ycsnt",
+                  "name": "FeaturesSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "xHGlq",
+                      "name": "SectionTitle",
+                      "fill": "$text-primary",
+                      "content": "주요 기능",
+                      "fontFamily": "Inter",
+                      "fontSize": 22,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IdCF7",
+                      "name": "FeatureList",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        8
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "JVmvE",
+                          "name": "Feat1",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "VAqaQ",
+                              "name": "feat1Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hfFBs",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "2MeoN",
+                                  "name": "feat1Title",
+                                  "fill": "$text-primary",
+                                  "content": "실시간 스트리밍 응답",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "VE6af",
+                                  "name": "feat1Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "AWS Event Stream 프로토콜을 사용하여 토큰 단위로 실시간 응답을 표시합니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "vb0JP",
+                          "name": "Feat2",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "GHxdy",
+                              "name": "feat2Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "6U0x8",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "KyuUG",
+                                  "name": "feat2Title",
+                                  "fill": "$text-primary",
+                                  "content": "대화 메모리 자동 주입",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ADpZj",
+                                  "name": "feat2Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "CLAUDE.md 스타일의 대화별 메모리가 자동으로 시스템 프롬프트에 포함됩니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "a1bMc",
+                          "name": "Feat3",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RejQH",
+                              "name": "f3Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "OajlU",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "3G5HM",
+                                  "name": "f3Title",
+                                  "fill": "$text-primary",
+                                  "content": "빠른 제안 칩",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "kSl1t",
+                                  "name": "f3Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "요약, 번역, 코드 설명 등 자주 사용하는 프롬프트를 원클릭으로 실행합니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "pO8t0",
+                          "name": "Feat4",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "3Yap1",
+                              "name": "f4Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "He44B",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "XOUuC",
+                                  "name": "f4Title",
+                                  "fill": "$text-primary",
+                                  "content": "모델 선택",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Tppdr",
+                                  "name": "f4Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Claude Sonnet 4.6(기본), Opus 4.6(최고 성능), Haiku 4.5(빠른 응답) 중 선택 가능합니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ieJDB",
+                  "name": "ModelTable",
+                  "clip": true,
+                  "width": "fill_container",
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "5TxVz",
+                      "name": "TableHeader",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "padding": [
+                        12,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ho9nB",
+                          "name": "th1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "모델",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "X5sOr",
+                          "name": "th2",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "Bedrock Model ID",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "36apV",
+                          "name": "th3",
+                          "fill": "$text-primary",
+                          "content": "용도",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "3tjC9",
+                      "name": "Row1",
+                      "width": "fill_container",
+                      "stroke": {
+                        "thickness": {
+                          "top": 1
+                        },
+                        "fill": "$border"
+                      },
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KncrO",
+                          "name": "r1c1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "Claude Sonnet 4.6",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "c0sM9",
+                          "name": "r1c2",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "us.anthropic.claude-sonnet-4-6",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hnro3",
+                          "name": "r1c3",
+                          "fill": "$primary",
+                          "content": "기본 (권장)",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "XR0TZ",
+                      "name": "Row2",
+                      "width": "fill_container",
+                      "stroke": {
+                        "thickness": {
+                          "top": 1
+                        },
+                        "fill": "$border"
+                      },
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VazBT",
+                          "name": "r2c1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "Claude Opus 4.6",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ytGcQ",
+                          "name": "r2c2",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "us.anthropic.claude-opus-4-6-v1",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "n1EoS",
+                          "name": "r2c3",
+                          "fill": "$text-secondary",
+                          "content": "최고 성능",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FPnqe",
+                      "name": "Row3",
+                      "width": "fill_container",
+                      "stroke": {
+                        "thickness": {
+                          "top": 1
+                        },
+                        "fill": "$border"
+                      },
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kNHYV",
+                          "name": "r3c1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "Claude Haiku 4.5",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "17wGv",
+                          "name": "r3c2",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "us.anthropic.claude-haiku-4-5-v1:0",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "weG7E",
+                          "name": "r3c3",
+                          "fill": "$text-secondary",
+                          "content": "빠른 응답",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JdPEw",
+                  "name": "TipBox",
+                  "width": "fill_container",
+                  "fill": "#EFF6FF",
+                  "cornerRadius": 10,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#BFDBFE"
+                  },
+                  "gap": 12,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "9U0s5",
+                      "name": "TipIcon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "lightbulb",
+                      "iconFontFamily": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pXAMT",
+                      "name": "TipTextWrap",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YBwn9",
+                          "name": "tipLabel",
+                          "fill": "$primary",
+                          "content": "팁",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Px6fS",
+                          "name": "tipContent",
+                          "fill": "#1E40AF",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Enter로 메시지를 전송하고, Shift+Enter로 줄바꿈합니다. 입력창은 최대 120px까지 자동 리사이즈됩니다.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "rRWpa",
+              "name": "TOC",
+              "width": 220,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": [
+                40,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kESho",
+                  "name": "tocTitle",
+                  "fill": "$text-tertiary",
+                  "content": "목차",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "text",
+                  "id": "QhjbN",
+                  "name": "tocItem1",
+                  "fill": "$primary",
+                  "content": "개요",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "387qJ",
+                  "name": "tocItem2",
+                  "fill": "$text-secondary",
+                  "content": "주요 기능",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "40f3W",
+                  "name": "tocItem3",
+                  "fill": "$text-secondary",
+                  "content": "지원 모델",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "QBxg5",
+                  "name": "tocItem4",
+                  "fill": "$text-secondary",
+                  "content": "사용 팁",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "JyTNF",
+                  "name": "TocDivider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "rFgkH",
+                  "name": "PrevPage",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "szE2z",
+                      "name": "tocPrevLabel",
+                      "fill": "$text-tertiary",
+                      "content": "이전",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "k4VwK",
+                      "name": "tocPrevLink",
+                      "fill": "$primary",
+                      "content": "← 빠른 시작",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "EBtlf",
+                  "name": "NextPage",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bESXd",
+                      "name": "tocNextLabel",
+                      "fill": "$text-tertiary",
+                      "content": "다음",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "LusNG",
+                      "name": "tocNextLink",
+                      "fill": "$primary",
+                      "content": "그룹 채팅 →",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "RfzE5",
+      "x": 0,
+      "y": 1000,
+      "name": "QuickStartPage",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-page",
+      "children": [
+        {
+          "type": "frame",
+          "id": "IJ3u6",
+          "name": "Sidebar",
+          "width": 280,
+          "height": "fill_container",
+          "fill": "$bg-sidebar",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "$border"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "s56nc",
+              "name": "LogoRow",
+              "width": "fill_container",
+              "gap": 10,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "702Eb",
+                  "name": "LogoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$primary",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GFyn5",
+                      "name": "lt3",
+                      "fill": "$text-white",
+                      "content": "H",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "5fVRm",
+                  "name": "ln3",
+                  "fill": "$text-primary",
+                  "content": "H Chat Wiki",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "id": "Amzrq",
+              "type": "ref",
+              "ref": "7d4mW",
+              "width": "fill_container",
+              "name": "ss3"
+            },
+            {
+              "type": "frame",
+              "id": "ogfTB",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "id": "EsDB1",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "h3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "file-text"
+                },
+                "pD6PI": {
+                  "content": "홈"
+                }
+              }
+            },
+            {
+              "id": "JYNpc",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "qs3",
+              "fill": "$primary-light",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "rocket"
+                },
+                "pD6PI": {
+                  "content": "빠른 시작",
+                  "fill": "$primary",
+                  "fontWeight": "500"
+                }
+              }
+            },
+            {
+              "id": "WqaDL",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "gf3",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "기능 안내"
+                }
+              }
+            },
+            {
+              "id": "SbhsQ",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nc3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "message-square"
+                },
+                "pD6PI": {
+                  "content": "AI 채팅"
+                }
+              }
+            },
+            {
+              "id": "42iI8",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ng3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "users"
+                },
+                "pD6PI": {
+                  "content": "그룹 채팅"
+                }
+              }
+            },
+            {
+              "id": "li3CJ",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nt3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "wrench"
+                },
+                "pD6PI": {
+                  "content": "도구 패널"
+                }
+              }
+            },
+            {
+              "id": "2Svu1",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nsw3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "cpu"
+                },
+                "pD6PI": {
+                  "content": "에이전트 스웜"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "krxeS",
+          "name": "MainContent",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "2NbD2",
+              "name": "DocContent",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                40,
+                64
+              ],
+              "children": [
+                {
+                  "id": "gM5to",
+                  "type": "ref",
+                  "ref": "b4345",
+                  "name": "bc3",
+                  "descendants": {
+                    "lYBtf": {
+                      "content": "홈"
+                    },
+                    "i1lQV": {
+                      "content": "가이드"
+                    },
+                    "mkWBO": {
+                      "content": "빠른 시작"
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "7bh3F",
+                  "name": "DocHeader",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wM9cn",
+                      "name": "dt3",
+                      "fill": "$text-primary",
+                      "content": "빠른 시작 가이드",
+                      "fontFamily": "Inter",
+                      "fontSize": 32,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "N2DQc",
+                      "name": "ds3",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "H Chat 확장 프로그램을 설치하고 첫 대화를 시작해보세요. 5분이면 충분합니다.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "yzIS2",
+                  "name": "Divider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "EQFSI",
+                  "name": "Steps",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "2fGkM",
+                      "name": "Step1",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "TChaF",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$primary",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "l1v6y",
+                              "name": "s1NumText",
+                              "fill": "$text-white",
+                              "content": "1",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "DE3jO",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "5L1rO",
+                              "name": "s1Title",
+                              "fill": "$text-primary",
+                              "content": "확장 프로그램 설치",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "e7VXm",
+                              "name": "s1Desc",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Chrome 웹 스토어에서 H Chat을 검색하거나, Vercel 배포 URL(hchat-extension.vercel.app)에서 직접 설치합니다.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "f0ufx",
+                      "name": "Step2",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "NTEST",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$primary",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "3X3TB",
+                              "name": "s2NumT",
+                              "fill": "$text-white",
+                              "content": "2",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fn3JP",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "AZ0Kc",
+                              "name": "s2T",
+                              "fill": "$text-primary",
+                              "content": "AWS Bedrock 자격증명 설정",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "UIDQb",
+                              "name": "s2D",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "설정 탭에서 AWS Access Key, Secret Key, Region을 입력합니다. 연결 테스트 버튼으로 정상 연결을 확인하세요.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "W4Idi",
+                      "name": "Step3",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "mUEk6",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$primary",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WWhej",
+                              "name": "s3NumT",
+                              "fill": "$text-white",
+                              "content": "3",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "drRwI",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "YT33S",
+                              "name": "s3T",
+                              "fill": "$text-primary",
+                              "content": "모델 선택",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "28cvI",
+                              "name": "s3D",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Claude Sonnet 4.6(기본 권장), Opus 4.6(최고 성능), Haiku 4.5(빠른 응답) 중 원하는 모델을 선택합니다.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jPoAU",
+                      "name": "Step4",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "vOJkh",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$accent-emerald",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "6MKZl",
+                              "name": "s4NumT",
+                              "width": 18,
+                              "height": 18,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "$text-white"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lF9kf",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "APv6s",
+                              "name": "s4T",
+                              "fill": "$text-primary",
+                              "content": "첫 대화 시작!",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "rI2Zc",
+                              "name": "s4D",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "사이드패널을 열고 메시지를 입력하세요. 빠른 제안 칩(요약, 번역, 코드 설명)을 활용하면 더 편리합니다.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BRrJ4",
+                  "name": "NavCards",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YUL4T",
+                      "name": "PrevCard",
+                      "width": "fill_container",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MTWHW",
+                          "name": "prevLabel",
+                          "fill": "$text-tertiary",
+                          "content": "← 이전",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "c2LkY",
+                          "name": "prevTitle",
+                          "fill": "$primary",
+                          "content": "홈",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "OrC4Y",
+                      "name": "NextCard",
+                      "width": "fill_container",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 20,
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Cbrw9",
+                          "name": "nextLabel",
+                          "fill": "$text-tertiary",
+                          "content": "다음 →",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "NYeJS",
+                          "name": "nextTitle",
+                          "fill": "$primary",
+                          "content": "AI 채팅",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "CMxFe",
+              "name": "TOC",
+              "width": 220,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": [
+                40,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kxIMN",
+                  "name": "toc3T",
+                  "fill": "$text-tertiary",
+                  "content": "목차",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "text",
+                  "id": "7nGkp",
+                  "name": "toc3i1",
+                  "fill": "$primary",
+                  "content": "확장 프로그램 설치",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "ZLhvx",
+                  "name": "toc3i2",
+                  "fill": "$text-secondary",
+                  "content": "AWS Bedrock 설정",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "JIRY0",
+                  "name": "toc3i3",
+                  "fill": "$text-secondary",
+                  "content": "모델 선택",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "r1DYA",
+                  "name": "toc3i4",
+                  "fill": "$text-secondary",
+                  "content": "첫 대화 시작",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ZGhd9",
+      "x": 3080,
+      "y": 0,
+      "name": "WikiHome - Dark",
+      "theme": {
+        "mode": "dark"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-page",
+      "children": [
+        {
+          "type": "frame",
+          "id": "7MGXm",
+          "name": "Sidebar",
+          "width": 280,
+          "height": "fill_container",
+          "fill": "$bg-sidebar",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "$border"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "ftMKL",
+              "name": "LogoRow",
+              "width": "fill_container",
+              "gap": 10,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yHGJU",
+                  "name": "LogoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$primary",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YXxqX",
+                      "name": "H",
+                      "fill": "$text-white",
+                      "content": "H",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "30YfO",
+                  "name": "LogoText",
+                  "fill": "$text-primary",
+                  "content": "H Chat Wiki",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "id": "EVttv",
+              "type": "ref",
+              "ref": "7d4mW",
+              "width": "fill_container",
+              "name": "search",
+              "descendants": {
+                "o6Bmy": {
+                  "content": "⌘K"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "i8zWR",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "id": "WEVvW",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navHome",
+              "fill": "$primary-light",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "home"
+                },
+                "pD6PI": {
+                  "content": "홈",
+                  "fill": "$primary",
+                  "fontWeight": "500"
+                }
+              }
+            },
+            {
+              "id": "JYgME",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navStart",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "rocket"
+                },
+                "pD6PI": {
+                  "content": "빠른 시작"
+                }
+              }
+            },
+            {
+              "id": "5xrZr",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpFeatures",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "AI 대화"
+                }
+              }
+            },
+            {
+              "id": "YTzbK",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navChat",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "message-square"
+                },
+                "pD6PI": {
+                  "content": "AI 채팅"
+                }
+              }
+            },
+            {
+              "id": "AWRSZ",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navGroup2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "users"
+                },
+                "pD6PI": {
+                  "content": "그룹 채팅"
+                }
+              }
+            },
+            {
+              "id": "gPwnb",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "debate2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "messages-square"
+                },
+                "pD6PI": {
+                  "content": "크로스 모델 토론"
+                }
+              }
+            },
+            {
+              "id": "kWTGg",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "agent2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "bot"
+                },
+                "pD6PI": {
+                  "content": "멀티턴 에이전트"
+                }
+              }
+            },
+            {
+              "id": "p35ww",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpTools2",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "도구 & 분석"
+                }
+              }
+            },
+            {
+              "id": "l2FxU",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navTools",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "wrench"
+                },
+                "pD6PI": {
+                  "content": "도구 패널 (7종)"
+                }
+              }
+            },
+            {
+              "id": "L2T70",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "youtube2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "circle-play"
+                },
+                "pD6PI": {
+                  "content": "YouTube 분석"
+                }
+              }
+            },
+            {
+              "id": "7tqgr",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "pdf2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "file-text"
+                },
+                "pD6PI": {
+                  "content": "PDF 채팅"
+                }
+              }
+            },
+            {
+              "id": "ageN6",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ws2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "search"
+                },
+                "pD6PI": {
+                  "content": "웹 검색 + RAG"
+                }
+              }
+            },
+            {
+              "id": "MsVmG",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpBr2",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "브라우저 통합"
+                }
+              }
+            },
+            {
+              "id": "mcIaF",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "sc2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "panel-top"
+                },
+                "pD6PI": {
+                  "content": "검색엔진 AI 카드"
+                }
+              }
+            },
+            {
+              "id": "FZ5yI",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "wr2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "pencil"
+                },
+                "pD6PI": {
+                  "content": "글쓰기 어시스턴트"
+                }
+              }
+            },
+            {
+              "id": "Wsbeg",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "bk2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "bookmark"
+                },
+                "pD6PI": {
+                  "content": "스마트 북마크"
+                }
+              }
+            },
+            {
+              "id": "RxB8R",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpSettings",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "설정"
+                }
+              }
+            },
+            {
+              "id": "slnKg",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navSettings",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "settings"
+                },
+                "pD6PI": {
+                  "content": "AI 프로바이더"
+                }
+              }
+            },
+            {
+              "id": "bLqyM",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navModels",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "layers"
+                },
+                "pD6PI": {
+                  "content": "모델 가이드"
+                }
+              }
+            },
+            {
+              "id": "ZOASi",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "grpEtc",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "기타"
+                }
+              }
+            },
+            {
+              "id": "rWBAB",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navFaq",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "help-circle"
+                },
+                "pD6PI": {
+                  "content": "FAQ"
+                }
+              }
+            },
+            {
+              "id": "PKO7u",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "navChangelog",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "git-branch"
+                },
+                "pD6PI": {
+                  "content": "변경 로그"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "8kJmv",
+          "name": "MainContent",
+          "clip": true,
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "80a9u",
+              "name": "Hero",
+              "width": "fill_container",
+              "fill": "$bg-hero",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": [
+                64,
+                80
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "TrM08",
+                  "name": "HeroBadge",
+                  "fill": "$bg-page",
+                  "cornerRadius": 999,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "gap": 8,
+                  "padding": [
+                    6,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "6nr2H",
+                      "name": "StarIcon",
+                      "width": 14,
+                      "height": 14,
+                      "iconFontName": "sparkles",
+                      "iconFontFamily": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "C6O5H",
+                      "name": "BadgeText",
+                      "fill": "$primary",
+                      "content": "H Chat v3 출시 — 멀티 AI 프로바이더",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "9oBSs",
+                  "name": "HeroTitle",
+                  "fill": "$text-primary",
+                  "content": "H Chat v3 사용 가이드",
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 40,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "Qt7gs",
+                  "name": "HeroDesc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": 600,
+                  "content": "멀티 AI 프로바이더(Claude, GPT, Gemini) 기반 올인원 브라우저 어시스턴트.\n크로스 모델 토론, YouTube 분석, PDF 채팅 등 21가지 기능을 만나보세요.",
+                  "lineHeight": 1.6,
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "oi9dh",
+                  "name": "HeroActions",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "5nlxD",
+                      "name": "PrimaryBtn",
+                      "fill": "$primary",
+                      "cornerRadius": 10,
+                      "gap": 8,
+                      "padding": [
+                        12,
+                        24
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "RpGVE",
+                          "name": "BtnIcon",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "arrow-right",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-white"
+                        },
+                        {
+                          "type": "text",
+                          "id": "8bErH",
+                          "name": "BtnLabel",
+                          "fill": "$text-white",
+                          "content": "빠른 시작",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9UHq9",
+                      "name": "SecondaryBtn",
+                      "fill": "transparent",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 8,
+                      "padding": [
+                        12,
+                        24
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "21VJS",
+                          "name": "BtnLabel",
+                          "fill": "$text-primary",
+                          "content": "GitHub 저장소",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "FCHe8",
+                          "name": "BtnIcon",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "external-link",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-secondary"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "N7EML",
+              "name": "FeaturesSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                48,
+                80
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "e1kKT",
+                  "name": "SectionTitle",
+                  "fill": "$text-primary",
+                  "content": "주요 기능",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "tEzdi",
+                  "name": "SectionDesc",
+                  "fill": "$text-secondary",
+                  "content": "H Chat v3이 제공하는 핵심 기능을 살펴보세요",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "QUBuT",
+                  "name": "FeatureGrid",
+                  "width": "fill_container",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "id": "aAgwk",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card1",
+                      "descendants": {
+                        "5dNFK": {
+                          "iconFontName": "zap"
+                        },
+                        "YK1af": {
+                          "content": "멀티 AI 프로바이더"
+                        },
+                        "GFfaR": {
+                          "content": "AWS Bedrock Claude, OpenAI GPT, Google Gemini를 하나의 인터페이스에서 사용하세요.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "abC5S",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card2",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#052E16"
+                        },
+                        "5dNFK": {
+                          "iconFontName": "messages-square",
+                          "fill": "#4ADE80"
+                        },
+                        "YK1af": {
+                          "content": "크로스 모델 토론"
+                        },
+                        "GFfaR": {
+                          "content": "서로 다른 AI 모델 간 3라운드 토론으로 최적의 답변을 도출합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "T3bQg",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card3",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#2E1065"
+                        },
+                        "5dNFK": {
+                          "fill": "#A78BFA",
+                          "iconFontName": "circle-play"
+                        },
+                        "YK1af": {
+                          "content": "YouTube 콘텐츠 분석"
+                        },
+                        "GFfaR": {
+                          "content": "자막 요약, 타임스탬프, 댓글 감정 분석, 통합 인사이트 리포트 생성.",
+                          "width": "fill_container"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "eG1Qj",
+                  "name": "FeatureGrid2",
+                  "width": "fill_container",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "id": "39vie",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card4",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#451A03"
+                        },
+                        "5dNFK": {
+                          "fill": "#FBBF24",
+                          "iconFontName": "file-text"
+                        },
+                        "YK1af": {
+                          "content": "PDF 채팅"
+                        },
+                        "GFfaR": {
+                          "content": "PDF 업로드 후 AI와 문서 내용 기반 질의응답을 수행합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "yyBQ5",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card5",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#450A0A"
+                        },
+                        "5dNFK": {
+                          "fill": "#F87171",
+                          "iconFontName": "panel-top"
+                        },
+                        "YK1af": {
+                          "content": "검색엔진 AI 카드"
+                        },
+                        "GFfaR": {
+                          "content": "Google, Bing, Naver 검색 결과에 AI 요약 카드를 자동으로 삽입합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    },
+                    {
+                      "id": "og6UL",
+                      "type": "ref",
+                      "ref": "ZUwkZ",
+                      "width": "fill_container",
+                      "name": "card6",
+                      "descendants": {
+                        "77YT7": {
+                          "fill": "#064E3B"
+                        },
+                        "5dNFK": {
+                          "fill": "#34D399",
+                          "iconFontName": "pencil"
+                        },
+                        "YK1af": {
+                          "content": "글쓰기 어시스턴트"
+                        },
+                        "GFfaR": {
+                          "content": "모든 웹페이지 입력창에 플로팅 툴바로 7가지 AI 텍스트 변환을 지원합니다.",
+                          "width": "fill_container"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "7symu",
+      "x": 4620,
+      "y": 0,
+      "name": "DocsPage - AI 채팅 - Dark",
+      "theme": {
+        "mode": "dark"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-page",
+      "children": [
+        {
+          "type": "frame",
+          "id": "IwOy9",
+          "name": "Sidebar",
+          "width": 280,
+          "height": "fill_container",
+          "fill": "$bg-sidebar",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "$border"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "SsKrm",
+              "name": "LogoRow",
+              "width": "fill_container",
+              "gap": 10,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "455OW",
+                  "name": "LogoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$primary",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "1JGT6",
+                      "name": "lit2",
+                      "fill": "$text-white",
+                      "content": "H",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "zYxNo",
+                  "name": "ltx2",
+                  "fill": "$text-primary",
+                  "content": "H Chat Wiki",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "id": "4vej4",
+              "type": "ref",
+              "ref": "7d4mW",
+              "width": "fill_container",
+              "name": "s2"
+            },
+            {
+              "type": "frame",
+              "id": "RVH8d",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "id": "xdSZl",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nh2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "file-text"
+                },
+                "pD6PI": {
+                  "content": "홈"
+                }
+              }
+            },
+            {
+              "id": "cEWLo",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ns2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "rocket"
+                },
+                "pD6PI": {
+                  "content": "빠른 시작"
+                }
+              }
+            },
+            {
+              "id": "TdjWS",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "gf2",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "기능 안내"
+                }
+              }
+            },
+            {
+              "id": "6er33",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nchat2",
+              "fill": "$primary-light",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "message-square"
+                },
+                "pD6PI": {
+                  "content": "AI 채팅",
+                  "fill": "$primary",
+                  "fontWeight": "500"
+                }
+              }
+            },
+            {
+              "id": "7fJQY",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ng2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "users"
+                },
+                "pD6PI": {
+                  "content": "그룹 채팅"
+                }
+              }
+            },
+            {
+              "id": "Xb4IB",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nt2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "wrench"
+                },
+                "pD6PI": {
+                  "content": "도구 패널"
+                }
+              }
+            },
+            {
+              "id": "VEcFS",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nsw2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "cpu"
+                },
+                "pD6PI": {
+                  "content": "에이전트 스웜"
+                }
+              }
+            },
+            {
+              "id": "1sOHs",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nmem2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "brain"
+                },
+                "pD6PI": {
+                  "content": "대화 메모리"
+                }
+              }
+            },
+            {
+              "id": "qq0KY",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nsch2",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "calendar"
+                },
+                "pD6PI": {
+                  "content": "작업 스케줄러"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rNsZD",
+          "name": "MainContent",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "NnH5I",
+              "name": "DocContent",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                40,
+                64
+              ],
+              "children": [
+                {
+                  "id": "CDjqx",
+                  "type": "ref",
+                  "ref": "b4345",
+                  "name": "bc2",
+                  "descendants": {
+                    "lYBtf": {
+                      "content": "홈"
+                    },
+                    "i1lQV": {
+                      "content": "기능 안내"
+                    },
+                    "mkWBO": {
+                      "content": "AI 채팅"
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "1aKXD",
+                  "name": "DocHeader",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "FJZL5",
+                      "name": "BadgeRow",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "id": "Vc4YG",
+                          "type": "ref",
+                          "ref": "iE8nD",
+                          "name": "docBadgeV1",
+                          "descendants": {
+                            "CG3fV": {
+                              "content": "v1"
+                            }
+                          }
+                        },
+                        {
+                          "id": "4M0Sx",
+                          "type": "ref",
+                          "ref": "iE8nD",
+                          "name": "docBadgeV2",
+                          "descendants": {
+                            "CG3fV": {
+                              "content": "v2"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "hYKq1",
+                      "name": "DocTitle",
+                      "fill": "$text-primary",
+                      "content": "AI 채팅",
+                      "fontFamily": "Inter",
+                      "fontSize": 32,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "7xIkN",
+                      "name": "DocSubtitle",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "실시간 스트리밍 응답과 대화 메모리를 활용한 AI 채팅 기능",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "hEr3c",
+                  "name": "Divider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "h0eKJ",
+                  "name": "OverviewSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hsV8k",
+                      "name": "SectionTitle",
+                      "fill": "$text-primary",
+                      "content": "개요",
+                      "fontFamily": "Inter",
+                      "fontSize": 22,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HVgKR",
+                      "name": "Body",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "AI 채팅은 H Chat의 핵심 기능으로, AWS Bedrock을 통해 Claude 모델과 직접 통신합니다. Chrome 사이드패널에서 실시간 스트리밍 응답을 받으며, 대화 메모리가 자동으로 시스템 프롬프트에 주입되어 맥락을 유지합니다.",
+                      "lineHeight": 1.7,
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Ikcfu",
+                  "name": "FeaturesSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "XZf2k",
+                      "name": "SectionTitle",
+                      "fill": "$text-primary",
+                      "content": "주요 기능",
+                      "fontFamily": "Inter",
+                      "fontSize": 22,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "rX0fS",
+                      "name": "FeatureList",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        8
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "KEDCD",
+                          "name": "Feat1",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "YS4gY",
+                              "name": "feat1Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ZaJQD",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "P622p",
+                                  "name": "feat1Title",
+                                  "fill": "$text-primary",
+                                  "content": "실시간 스트리밍 응답",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "g7irn",
+                                  "name": "feat1Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "AWS Event Stream 프로토콜을 사용하여 토큰 단위로 실시간 응답을 표시합니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "xW81t",
+                          "name": "Feat2",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Rz4mt",
+                              "name": "feat2Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "1sUXj",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "SNSUJ",
+                                  "name": "feat2Title",
+                                  "fill": "$text-primary",
+                                  "content": "대화 메모리 자동 주입",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "40Tdu",
+                                  "name": "feat2Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "CLAUDE.md 스타일의 대화별 메모리가 자동으로 시스템 프롬프트에 포함됩니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Sc8BO",
+                          "name": "Feat3",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "wRVhm",
+                              "name": "f3Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "QXIWN",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "tgRog",
+                                  "name": "f3Title",
+                                  "fill": "$text-primary",
+                                  "content": "빠른 제안 칩",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "cllxa",
+                                  "name": "f3Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "요약, 번역, 코드 설명 등 자주 사용하는 프롬프트를 원클릭으로 실행합니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "LMcSB",
+                          "name": "Feat4",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "g3ZIn",
+                              "name": "f4Dot",
+                              "fill": "$primary",
+                              "content": "•",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "rsqzl",
+                              "name": "TextWrap",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "OhHft",
+                                  "name": "f4Title",
+                                  "fill": "$text-primary",
+                                  "content": "모델 선택",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "b3dnf",
+                                  "name": "f4Desc",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Claude Sonnet 4.6(기본), Opus 4.6(최고 성능), Haiku 4.5(빠른 응답) 중 선택 가능합니다.",
+                                  "lineHeight": 1.6,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HkGwk",
+                  "name": "ModelTable",
+                  "clip": true,
+                  "width": "fill_container",
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "paxS7",
+                      "name": "TableHeader",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "padding": [
+                        12,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KHb6C",
+                          "name": "th1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "모델",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "wCiUQ",
+                          "name": "th2",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "Bedrock Model ID",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "33fbS",
+                          "name": "th3",
+                          "fill": "$text-primary",
+                          "content": "용도",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Nvmb6",
+                      "name": "Row1",
+                      "width": "fill_container",
+                      "stroke": {
+                        "thickness": {
+                          "top": 1
+                        },
+                        "fill": "$border"
+                      },
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yySf5",
+                          "name": "r1c1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "Claude Sonnet 4.6",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "sxkEZ",
+                          "name": "r1c2",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "us.anthropic.claude-sonnet-4-6",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "D5mIX",
+                          "name": "r1c3",
+                          "fill": "$primary",
+                          "content": "기본 (권장)",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IrbtU",
+                      "name": "Row2",
+                      "width": "fill_container",
+                      "stroke": {
+                        "thickness": {
+                          "top": 1
+                        },
+                        "fill": "$border"
+                      },
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Lllpu",
+                          "name": "r2c1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "Claude Opus 4.6",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Jg9Uu",
+                          "name": "r2c2",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "us.anthropic.claude-opus-4-6-v1",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "lVWgy",
+                          "name": "r2c3",
+                          "fill": "$text-secondary",
+                          "content": "최고 성능",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "cNQ0N",
+                      "name": "Row3",
+                      "width": "fill_container",
+                      "stroke": {
+                        "thickness": {
+                          "top": 1
+                        },
+                        "fill": "$border"
+                      },
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "7stfV",
+                          "name": "r3c1",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": 160,
+                          "content": "Claude Haiku 4.5",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "mZh2n",
+                          "name": "r3c2",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": 320,
+                          "content": "us.anthropic.claude-haiku-4-5-v1:0",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "dlAQe",
+                          "name": "r3c3",
+                          "fill": "$text-secondary",
+                          "content": "빠른 응답",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "0vnfF",
+                  "name": "TipBox",
+                  "width": "fill_container",
+                  "fill": "#172554",
+                  "cornerRadius": 10,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#1E3A5F"
+                  },
+                  "gap": 12,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "M0898",
+                      "name": "TipIcon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "lightbulb",
+                      "iconFontFamily": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Y3pY4",
+                      "name": "TipTextWrap",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iswom",
+                          "name": "tipLabel",
+                          "fill": "$primary",
+                          "content": "팁",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LLrxi",
+                          "name": "tipContent",
+                          "fill": "#93C5FD",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Enter로 메시지를 전송하고, Shift+Enter로 줄바꿈합니다. 입력창은 최대 120px까지 자동 리사이즈됩니다.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "YXx3e",
+              "name": "TOC",
+              "width": 220,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": [
+                40,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bxrZh",
+                  "name": "tocTitle",
+                  "fill": "$text-tertiary",
+                  "content": "목차",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "text",
+                  "id": "qxl8Q",
+                  "name": "tocItem1",
+                  "fill": "$primary",
+                  "content": "개요",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "ajxAa",
+                  "name": "tocItem2",
+                  "fill": "$text-secondary",
+                  "content": "주요 기능",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "ZhdBK",
+                  "name": "tocItem3",
+                  "fill": "$text-secondary",
+                  "content": "지원 모델",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "IGM8l",
+                  "name": "tocItem4",
+                  "fill": "$text-secondary",
+                  "content": "사용 팁",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "MJICa",
+                  "name": "TocDivider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "lfn62",
+                  "name": "PrevPage",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jBGxt",
+                      "name": "tocPrevLabel",
+                      "fill": "$text-tertiary",
+                      "content": "이전",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "qbgpa",
+                      "name": "tocPrevLink",
+                      "fill": "$primary",
+                      "content": "← 빠른 시작",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BjHe7",
+                  "name": "NextPage",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "3cJtM",
+                      "name": "tocNextLabel",
+                      "fill": "$text-tertiary",
+                      "content": "다음",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "NapyO",
+                      "name": "tocNextLink",
+                      "fill": "$primary",
+                      "content": "그룹 채팅 →",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "DB4hd",
+      "x": 3080,
+      "y": 1000,
+      "name": "QuickStartPage - Dark",
+      "theme": {
+        "mode": "dark"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-page",
+      "children": [
+        {
+          "type": "frame",
+          "id": "8Eqsm",
+          "name": "Sidebar",
+          "width": 280,
+          "height": "fill_container",
+          "fill": "$bg-sidebar",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "$border"
+          },
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "u6Ppj",
+              "name": "LogoRow",
+              "width": "fill_container",
+              "gap": 10,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KXiio",
+                  "name": "LogoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$primary",
+                  "cornerRadius": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bWtO7",
+                      "name": "lt3",
+                      "fill": "$text-white",
+                      "content": "H",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Fr9Ys",
+                  "name": "ln3",
+                  "fill": "$text-primary",
+                  "content": "H Chat Wiki",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "id": "VV1KI",
+              "type": "ref",
+              "ref": "7d4mW",
+              "width": "fill_container",
+              "name": "ss3"
+            },
+            {
+              "type": "frame",
+              "id": "NJQdM",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "id": "LwSFv",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "h3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "file-text"
+                },
+                "pD6PI": {
+                  "content": "홈"
+                }
+              }
+            },
+            {
+              "id": "R0pKW",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "qs3",
+              "fill": "$primary-light",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "rocket"
+                },
+                "pD6PI": {
+                  "content": "빠른 시작",
+                  "fill": "$primary",
+                  "fontWeight": "500"
+                }
+              }
+            },
+            {
+              "id": "JZpi8",
+              "type": "ref",
+              "ref": "2ITpx",
+              "width": "fill_container",
+              "name": "gf3",
+              "descendants": {
+                "2BSkZ": {
+                  "content": "기능 안내"
+                }
+              }
+            },
+            {
+              "id": "PggME",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nc3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "message-square"
+                },
+                "pD6PI": {
+                  "content": "AI 채팅"
+                }
+              }
+            },
+            {
+              "id": "DtvoO",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "ng3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "users"
+                },
+                "pD6PI": {
+                  "content": "그룹 채팅"
+                }
+              }
+            },
+            {
+              "id": "5zenj",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nt3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "wrench"
+                },
+                "pD6PI": {
+                  "content": "도구 패널"
+                }
+              }
+            },
+            {
+              "id": "puW9I",
+              "type": "ref",
+              "ref": "pKthN",
+              "width": "fill_container",
+              "name": "nsw3",
+              "descendants": {
+                "e7Hx7": {
+                  "iconFontName": "cpu"
+                },
+                "pD6PI": {
+                  "content": "에이전트 스웜"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "XFJw6",
+          "name": "MainContent",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "VE9fY",
+              "name": "DocContent",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                40,
+                64
+              ],
+              "children": [
+                {
+                  "id": "3kqW9",
+                  "type": "ref",
+                  "ref": "b4345",
+                  "name": "bc3",
+                  "descendants": {
+                    "lYBtf": {
+                      "content": "홈"
+                    },
+                    "i1lQV": {
+                      "content": "가이드"
+                    },
+                    "mkWBO": {
+                      "content": "빠른 시작"
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "I9LuS",
+                  "name": "DocHeader",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YWaKy",
+                      "name": "dt3",
+                      "fill": "$text-primary",
+                      "content": "빠른 시작 가이드",
+                      "fontFamily": "Inter",
+                      "fontSize": 32,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "p7S3g",
+                      "name": "ds3",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "H Chat 확장 프로그램을 설치하고 첫 대화를 시작해보세요. 5분이면 충분합니다.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "z3m56",
+                  "name": "Divider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "79Foq",
+                  "name": "Steps",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "cwVvX",
+                      "name": "Step1",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "zzH1d",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$primary",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rKsah",
+                              "name": "s1NumText",
+                              "fill": "$text-white",
+                              "content": "1",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "X4zlM",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "sIWxc",
+                              "name": "s1Title",
+                              "fill": "$text-primary",
+                              "content": "확장 프로그램 설치",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "LcDm6",
+                              "name": "s1Desc",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Chrome 웹 스토어에서 H Chat을 검색하거나, Vercel 배포 URL(hchat-extension.vercel.app)에서 직접 설치합니다.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "S6DJE",
+                      "name": "Step2",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "awbSg",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$primary",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "m4FlL",
+                              "name": "s2NumT",
+                              "fill": "$text-white",
+                              "content": "2",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "sLUyv",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "IWsaJ",
+                              "name": "s2T",
+                              "fill": "$text-primary",
+                              "content": "AWS Bedrock 자격증명 설정",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "yrQWC",
+                              "name": "s2D",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "설정 탭에서 AWS Access Key, Secret Key, Region을 입력합니다. 연결 테스트 버튼으로 정상 연결을 확인하세요.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lLp3s",
+                      "name": "Step3",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "GXDgz",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$primary",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "yYG1C",
+                              "name": "s3NumT",
+                              "fill": "$text-white",
+                              "content": "3",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iQKDu",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "XVxhf",
+                              "name": "s3T",
+                              "fill": "$text-primary",
+                              "content": "모델 선택",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "lJntV",
+                              "name": "s3D",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Claude Sonnet 4.6(기본 권장), Opus 4.6(최고 성능), Haiku 4.5(빠른 응답) 중 원하는 모델을 선택합니다.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9fiy4",
+                      "name": "Step4",
+                      "width": "fill_container",
+                      "fill": "$bg-card",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "gap": 16,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "JgZzb",
+                          "name": "StepNum",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$accent-emerald",
+                          "cornerRadius": 999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "hCezK",
+                              "name": "s4NumT",
+                              "width": 18,
+                              "height": 18,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "$text-white"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "wwp9W",
+                          "name": "Content",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "8o9v3",
+                              "name": "s4T",
+                              "fill": "$text-primary",
+                              "content": "첫 대화 시작!",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "dB8s4",
+                              "name": "s4D",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "사이드패널을 열고 메시지를 입력하세요. 빠른 제안 칩(요약, 번역, 코드 설명)을 활용하면 더 편리합니다.",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "nFcZn",
+                  "name": "NavCards",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GEN3h",
+                      "name": "PrevCard",
+                      "width": "fill_container",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "BOUse",
+                          "name": "prevLabel",
+                          "fill": "$text-tertiary",
+                          "content": "← 이전",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "IMeXb",
+                          "name": "prevTitle",
+                          "fill": "$primary",
+                          "content": "홈",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "swAXY",
+                      "name": "NextCard",
+                      "width": "fill_container",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border"
+                      },
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 20,
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "nka8K",
+                          "name": "nextLabel",
+                          "fill": "$text-tertiary",
+                          "content": "다음 →",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "YJoVS",
+                          "name": "nextTitle",
+                          "fill": "$primary",
+                          "content": "AI 채팅",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "2u8Zo",
+              "name": "TOC",
+              "width": 220,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": [
+                40,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "1WEYM",
+                  "name": "toc3T",
+                  "fill": "$text-tertiary",
+                  "content": "목차",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "text",
+                  "id": "rMvE1",
+                  "name": "toc3i1",
+                  "fill": "$primary",
+                  "content": "확장 프로그램 설치",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "VrqIA",
+                  "name": "toc3i2",
+                  "fill": "$text-secondary",
+                  "content": "AWS Bedrock 설정",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "vOfRI",
+                  "name": "toc3i3",
+                  "fill": "$text-secondary",
+                  "content": "모델 선택",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "TBxoD",
+                  "name": "toc3i4",
+                  "fill": "$text-secondary",
+                  "content": "첫 대화 시작",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "themes": {
+    "mode": [
+      "light",
+      "dark"
+    ]
+  },
+  "variables": {
+    "accent-emerald": {
+      "type": "color",
+      "value": "#10B981"
+    },
+    "accent-purple": {
+      "type": "color",
+      "value": "#8B5CF6"
+    },
+    "bg-card": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F8FAFC",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1F2937",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-code": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F1F5F9",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1F2937",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-hero": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#EFF6FF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1E3A5F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-hover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F1F5F9",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#374151",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-page": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#111827",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-sidebar": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F8FAFC",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1F2937",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "border": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E2E8F0",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#374151",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "border-light": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F1F5F9",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1F2937",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "danger": {
+      "type": "color",
+      "value": "#EF4444"
+    },
+    "primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#2563EB",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#3B82F6",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "primary-hover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#1D4ED8",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#2563EB",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "primary-light": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#EFF6FF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1E3A5F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "success": {
+      "type": "color",
+      "value": "#22C55E"
+    },
+    "text-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0F172A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#F1F5F9",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#64748B",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#94A3B8",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "text-tertiary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#94A3B8",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#64748B",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "text-white": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "warning": {
+      "type": "color",
+      "value": "#F59E0B"
+    }
+  }
+}
