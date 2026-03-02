@@ -131,7 +131,7 @@ export default function ROIDataUpload() {
           <div>
             <h2 className="text-base font-bold text-[var(--roi-text-primary)]">이용 통계 파일 업로드</h2>
             <p className="text-sm text-[var(--roi-text-secondary)] mt-1">
-              웍스AI에서 다운로드한 이용 통계 Excel 파일을 업로드하세요. 파일은 브라우저 로컬에서만 처리되며, 서버로 전송되지 않습니다.
+              H Chat에서 다운로드한 이용 통계 Excel 파일을 업로드하세요. 파일은 브라우저 로컬에서만 처리되며, 서버로 전송되지 않습니다.
             </p>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function ROIDataUpload() {
             <p className="text-xs font-semibold text-[var(--roi-text-primary)]">사용 안내</p>
           </div>
           <ul className="text-xs text-[var(--roi-text-secondary)] space-y-1.5">
-            <li>• 웍스AI 관리자 페이지에서 이용 통계 파일을 다운로드하세요.</li>
+            <li>• H Chat 관리자 페이지에서 이용 통계 파일을 다운로드하세요.</li>
             <li>• 여러 기간의 데이터를 순차적으로 업로드 할 수 있습니다.</li>
             <li>• 동일 기간 데이터를 업로드 시 기존 데이터가 업데이트됩니다.</li>
             <li>• 모든 데이터는 브라우저에서만 처리되며, 언제든 삭제할 수 있습니다.</li>
@@ -307,7 +307,7 @@ export default function ROIDataUpload() {
 
       {/* Footer */}
       <p className="text-center text-xs text-[var(--roi-text-muted)] py-4">
-        &copy; 2026 웍스AI - 생산성 대시보드 | 모든 데이터는 브라우저에서만 처리됩니다
+        &copy; 2026 H Chat - 생산성 대시보드 | 모든 데이터는 브라우저에서만 처리됩니다
       </p>
     </div>
   );

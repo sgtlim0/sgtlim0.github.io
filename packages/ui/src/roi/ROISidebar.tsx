@@ -22,9 +22,9 @@ export default function ROISidebar() {
     <aside className="w-60 shrink-0 min-h-[calc(100vh-80px)] bg-[var(--roi-sidebar-bg)] flex flex-col">
       <div className="px-5 py-6">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-xs font-bold text-white">W</div>
+          <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-xs font-bold text-white">H</div>
           <div>
-            <h2 className="text-sm font-bold text-white tracking-wider">웍스AI</h2>
+            <h2 className="text-sm font-bold text-white tracking-wider">H Chat</h2>
             <p className="text-[10px] text-[var(--roi-sidebar-text)]/70">생산성 대시보드</p>
           </div>
         </div>
