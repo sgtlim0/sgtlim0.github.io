@@ -20,10 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const menuItems = [
-    { label: "회사소개", href: "/" },
-    { label: "사업영역", href: "/" },
-    { label: "기술혁신", href: "/" },
-    { label: "지속가능경영", href: "/" },
+    { label: "서비스 소개", href: "/" },
+    { label: "사용 가이드", href: "/guide" },
+    { label: "대시보드", href: "/dashboard" },
+    { label: "자료실", href: "/publications" },
   ];
 
   return (
