@@ -10,6 +10,8 @@ node_modules
 
 # testing
 /coverage
+tests/e2e/screenshots/
+playwright-report/
 
 # next.js
 .next/

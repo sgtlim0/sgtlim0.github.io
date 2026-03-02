@@ -12,6 +12,8 @@ const navItems = [
   { href: '/users', label: '사용자 관리' },
   { href: '/settings', label: '설정' },
   { href: '/roi/overview', label: 'ROI 대시보드' },
+  { href: '/providers', label: 'AI 제공자' },
+  { href: '/models', label: '모델 가격' },
 ];
 
 export default function AdminNav() {

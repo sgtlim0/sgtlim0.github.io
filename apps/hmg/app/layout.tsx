@@ -7,6 +7,7 @@ import { GNB } from "@hchat/ui/hmg";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -25,6 +26,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,7 +44,7 @@ export default function RootLayout({
   ];
 
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body className={inter.variable}>
         <ThemeProvider>
           <GNB brand="현대자동차그룹" menuItems={menuItems} rightSlot={<ThemeToggle />} />
