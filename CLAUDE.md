@@ -68,7 +68,9 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 ### Shared UI (`packages/ui/`)
 - `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard
 - `@hchat/ui/hmg` — GNB, HeroBanner, TabFilter, Footer, HmgStatCard, StepItem, DownloadItem, PillButton
-- `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings, AdminProviderStatus, AdminModelPricing, AdminFeatureUsage, AdminPromptLibrary, AdminAgentMonitoring
+- `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings, AdminProviderStatus, AdminModelPricing, AdminFeatureUsage, AdminPromptLibrary, AdminAgentMonitoring, DepartmentManagement, AuditLogViewer, SSOConfigPanel, LoginPage
+- `@hchat/ui/admin/auth` — AuthProvider, ProtectedRoute, useAuth hook, authService, mockAuthService
+- `@hchat/ui/admin/services` — AdminServiceProvider, enterpriseApi, apiService, hooks (useProviders, useModels, useFeatures, etc.), enterprise types
 - `@hchat/ui` (ROI) — ROISidebar, ROIOverview, ROIAdoption, ROIProductivity, ROIAnalysis, ROIOrganization, ROISentiment, ROIReports, ROISettings, ROIDataUpload, KPICard, ChartPlaceholder, InsightCard, SurveyBar, HeatmapCell, DateFilter, DepartmentFilter
 - `@hchat/ui` (ROI Charts) — MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart (pure SVG/CSS, no chart library)
 
@@ -76,13 +78,13 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 Markdown wiki with Sidebar + catch-all route. Content in `apps/wiki/content/`.
 
 ### HMG App (`apps/hmg/`)
-5 pages: Home (`/`), Publications (`/publications`), StepGuide (`/guide`), Dashboard (`/dashboard`). Publications supports tab filtering and download handlers.
+4 pages: Home (`/`), Publications (`/publications`), StepGuide (`/guide`), Dashboard (`/dashboard`). Publications supports tab filtering and download handlers.
 
 ### Admin App (`apps/admin/`)
-10 base pages: Dashboard (`/`), Usage (`/usage`), Statistics (`/statistics`), Users (`/users`), Settings (`/settings`), AI Providers (`/providers`), Model Pricing (`/models`), Feature Usage (`/features`), Prompt Library (`/prompts`), Agent Monitoring (`/agents`).
+14 base pages: Dashboard (`/`), Usage (`/usage`), Statistics (`/statistics`), Users (`/users`), Settings (`/settings`), AI Providers (`/providers`), Model Pricing (`/models`), Feature Usage (`/features`), Prompt Library (`/prompts`), Agent Monitoring (`/agents`), Login (`/login`), Departments (`/departments`), Audit Logs (`/audit-logs`), SSO (`/sso`).
 
 9 ROI pages under `/roi/` layout with sidebar navigation:
-- Data Upload (`/roi/upload`) — Excel file upload with browser-local parsing
+- Data Upload (`/roi/upload`) — Excel file upload with browser-local parsing (SheetJS)
 - Overview (`/roi/overview`) — KPI cards, time savings chart, model cost donut
 - Adoption (`/roi/adoption`) — Active user trends, feature adoption bars
 - Productivity (`/roi/productivity`) — Weekly AI hours bar chart, savings donut
@@ -91,6 +93,10 @@ Markdown wiki with Sidebar + catch-all route. Content in `apps/wiki/content/`.
 - Sentiment (`/roi/sentiment`) — NPS trend, radar chart, survey bars
 - Reports (`/roi/reports`) — Report list with preview panel
 - Settings (`/roi/settings`) — ROI parameters, data sources, cost, alerts, permissions
+
+Authentication: AuthProvider wraps admin app with mock auth service. ProtectedRoute guards admin pages. Login page at `/login` with demo credentials (admin@hchat.ai / Admin123!).
+
+Enterprise API: Services layer in `packages/ui/src/admin/services/` provides API abstraction with mock data fallback. Enterprise types define Provider, Model, Feature, Department, AuditLog, SSO schemas. API proxy pattern protects server-side API keys.
 
 ### Storybook (`apps/storybook/`)
 Stories for Wiki (13), Admin (12), HMG (12), and ROI (6) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.

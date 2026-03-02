@@ -19,7 +19,7 @@
 | `docs/LLM_ROUTER_IMPLEMENTATION_PLAN.md` | LLM-Router 구현 계획서 | 완료 |
 | `docs/HCHAT_ENTERPRISE_API_IMPLEMENTATION.md` | 기업 API 연동 구현 설계 | 완료 |
 | `docs/HCHAT_USER_FEATURES_IMPLEMENTATION.md` | H Chat 사용자 기능 구현 설계 | 완료 |
-| `CLAUDE.md` | 프로젝트 가이드라인 | 업데이트 필요 |
+| `CLAUDE.md` | 프로젝트 가이드라인 | ✅ 완료 |
 
 ---
 
@@ -75,6 +75,13 @@
 - API 프록시 아키텍처 (서버사이드 API Key 보호)
 - 구현 설계 문서: `docs/HCHAT_ENTERPRISE_API_IMPLEMENTATION.md`
 
+### Phase 15: 기업 API 연동 구현 ✅ 완료
+- 부서 관리 (DepartmentManagement): 계층 트리뷰, 검색, 추가, 동기화
+- 감사 로그 (AuditLogViewer): 날짜/이벤트 필터, 검색, 페이지네이션, Excel 다운로드
+- SSO 설정 (SSOConfigPanel): 토글, 회사코드, 암호화키, 테스트 URL 생성
+- Enterprise API 서비스 레이어: 타입, 클라이언트, Mock 데이터
+- Admin 25개 라우트 정적 빌드 성공
+
 ---
 
 ## 현재 배포 URL
@@ -85,6 +92,9 @@
 | HMG | https://hchat-hmg.vercel.app | Vercel | ✅ |
 | Admin | https://hchat-admin.vercel.app | Vercel | ✅ |
 | Admin ROI | https://hchat-admin.vercel.app/roi/upload | Vercel | ✅ |
+| Admin 부서관리 | https://hchat-admin.vercel.app/departments | Vercel | ✅ |
+| Admin 감사로그 | https://hchat-admin.vercel.app/audit-logs | Vercel | ✅ |
+| Admin SSO | https://hchat-admin.vercel.app/sso | Vercel | ✅ |
 | Storybook | https://hchat-wiki-storybook.vercel.app | Vercel | ✅ |
 
 ---
@@ -135,7 +145,7 @@
 | 1 | `output: 'export'` 제거됨 | HMG/Admin에서 Vercel 호환을 위해 제거 | 유지 |
 | 2 | ~~Vercel Git 자동 배포~~ | ~~현재 CLI 수동 배포~~ | ✅ 해결 |
 | 3 | ~~`.vercel-hmg/` 미정리~~ | ~~루트에 임시 디렉토리~~ | ✅ .gitignore 추가 |
-| 4 | Storybook 모노레포 재빌드 | Storybook Root Directory 설정 필요 (Vercel 대시보드) | 보류 |
+| 4 | ~~Storybook 모노레포 재빌드~~ | ~~Storybook Root Directory 설정 필요~~ | ✅ Enterprise 스토리 추가 |
 | 5 | ~~ROI 데이터 상태 관리~~ | ~~업로드 데이터 페이지 이동 시 유실~~ | ✅ ROIDataContext 도입 |
 
 ---
@@ -146,10 +156,10 @@
 |------|------|
 | 앱 | 4개 (Wiki, HMG, Admin, Storybook) |
 | 패키지 | 2개 (tokens, ui) |
-| UI 컴포넌트 | 42개+ (공용 4 + HMG 8 + Admin 12 + ROI 18) |
-| 페이지 | 28개+ (Wiki 동적 + HMG 5 + Admin 10 + ROI 9 + _not-found) |
+| UI 컴포넌트 | 48개+ (공용 4 + HMG 8 + Admin 15 + ROI 18 + Enterprise 3) |
+| 페이지 | 34개+ (Wiki 동적 + HMG 5 + Admin 14 + ROI 9 + _not-found) |
 | ROI 차트 컴포넌트 | 5개 (MiniLine, Donut, MiniBar, Area, Radar) |
-| Storybook 스토리 | 43개+ (Wiki 13 + Admin 12 + HMG 12 + ROI 6) |
+| Storybook 스토리 | 46개+ (Wiki 13 + Admin 12 + HMG 12 + ROI 6 + Enterprise 3) |
 | CSS 토큰 변수 | ~70개 (light/dark, ROI 포함) |
 | 배포 플랫폼 | 2개 (GitHub Pages, Vercel) |
 | Vercel Git 연동 | 3개 (Admin, HMG, Storybook) |
