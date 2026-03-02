@@ -1,0 +1,110 @@
+/* @hchat/tokens — Design Token CSS Variables */
+/* Wiki + HMG + Admin (Light / Dark) */
+
+:root {
+  /* === Wiki Tokens === */
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-light: #EFF6FF;
+
+  --accent-emerald: #10B981;
+  --accent-purple: #8B5CF6;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  --bg-page: #FFFFFF;
+  --bg-sidebar: #F8FAFC;
+  --bg-card: #F8FAFC;
+  --bg-hero: #EFF6FF;
+  --bg-hover: #F1F5F9;
+  --bg-code: #F1F5F9;
+
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+  --text-tertiary: #94A3B8;
+  --text-white: #FFFFFF;
+
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+
+  /* === HMG Tokens === */
+  --hmg-navy: #002C5F;
+  --hmg-teal: #00B4D8;
+  --hmg-teal-light: #E0F7FA;
+  --hmg-blue: #3A5BC5;
+  --hmg-accent: #E15C39;
+  --hmg-green: #118762;
+  --hmg-cover-bg: #D5CEBF;
+
+  --hmg-bg-card: #FFFFFF;
+  --hmg-bg-section: #F5F5F5;
+  --hmg-border: #EAEAEA;
+  --hmg-text-title: #000000;
+  --hmg-text-body: #111111;
+  --hmg-text-caption: #949494;
+  --hmg-footer-bg: #1F1F1F;
+  --hmg-input-bg: #F5F5F5;
+  --hmg-input-border: #E0E0E0;
+  --hmg-table-stripe: #FAFAFA;
+  --hmg-table-hover: #F0F7FF;
+
+  /* === Admin Tokens === */
+  --admin-teal: #00AAC1;
+  --admin-navy: #002C5F;
+  --admin-blue: #3A5BC5;
+  --admin-accent: #E15C39;
+  --admin-green: #118762;
+  --admin-status-success: #4CAF50;
+  --admin-status-error: #E53935;
+  --admin-status-pending: #FFA726;
+  --admin-table-stripe: #FAFAFA;
+  --admin-table-hover: #F0F7FF;
+  --admin-input-bg: #F5F5F5;
+  --admin-input-border: #E0E0E0;
+  --admin-bg-section: #FFFFFF;
+  --admin-bg-card: #FFFFFF;
+}
+
+.dark {
+  /* === Wiki Dark === */
+  --primary: #3B82F6;
+  --primary-hover: #2563EB;
+  --primary-light: #1E3A5F;
+
+  --bg-page: #111827;
+  --bg-sidebar: #1F2937;
+  --bg-card: #1F2937;
+  --bg-hero: #1E3A5F;
+  --bg-hover: #374151;
+  --bg-code: #1F2937;
+
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+
+  --border: #374151;
+  --border-light: #1F2937;
+
+  /* === HMG Dark === */
+  --hmg-teal-light: #004D5A;
+  --hmg-bg-card: #2A2A2A;
+  --hmg-bg-section: #1A1A1A;
+  --hmg-border: #333333;
+  --hmg-text-title: #F1F1F1;
+  --hmg-text-body: #E0E0E0;
+  --hmg-text-caption: #666666;
+  --hmg-footer-bg: #0A0A0A;
+  --hmg-input-bg: #2A2A2A;
+  --hmg-input-border: #444444;
+  --hmg-table-stripe: #222222;
+  --hmg-table-hover: #1A2A3A;
+
+  /* === Admin Dark === */
+  --admin-table-stripe: #222222;
+  --admin-table-hover: #1A2A3A;
+  --admin-input-bg: #2A2A2A;
+  --admin-input-border: #444444;
+  --admin-bg-section: #1A1A2E;
+  --admin-bg-card: #1E1E2E;
+}

@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import "../../../packages/tokens/styles/tokens.css";
+
+@theme inline {
+  /* Font */
+  --font-sans: var(--font-inter);
+
+  /* Wiki Tokens - Colors */
+  --color-primary: var(--wiki-primary);
+  --color-primary-hover: var(--wiki-primary-hover);
+  --color-accent: var(--wiki-accent);
+  --color-success: var(--wiki-success);
+  --color-warning: var(--wiki-warning);
+  --color-danger: var(--wiki-danger);
+
+  --color-bg-page: var(--wiki-bg-page);
+  --color-bg-sidebar: var(--wiki-bg-sidebar);
+  --color-bg-content: var(--wiki-bg-content);
+  --color-bg-hover: var(--wiki-bg-hover);
+  --color-bg-active: var(--wiki-bg-active);
+  --color-bg-code: var(--wiki-bg-code);
+
+  --color-text-primary: var(--wiki-text-primary);
+  --color-text-secondary: var(--wiki-text-secondary);
+  --color-text-tertiary: var(--wiki-text-tertiary);
+  --color-text-link: var(--wiki-text-link);
+  --color-text-link-hover: var(--wiki-text-link-hover);
+
+  --color-border-light: var(--wiki-border-light);
+  --color-border-medium: var(--wiki-border-medium);
+  --color-border-dark: var(--wiki-border-dark);
+
+  /* HMG Tokens - Colors */
+  --color-hmg-navy: var(--hmg-navy);
+  --color-hmg-teal: var(--hmg-teal);
+  --color-hmg-teal-light: var(--hmg-teal-light);
+  --color-hmg-blue: var(--hmg-blue);
+  --color-hmg-accent: var(--hmg-accent);
+  --color-hmg-green: var(--hmg-green);
+
+  --color-hmg-bg-card: var(--hmg-bg-card);
+  --color-hmg-bg-section: var(--hmg-bg-section);
+  --color-hmg-border: var(--hmg-border);
+
+  --color-hmg-text-title: var(--hmg-text-title);
+  --color-hmg-text-body: var(--hmg-text-body);
+  --color-hmg-text-caption: var(--hmg-text-caption);
+
+  --color-hmg-footer-bg: var(--hmg-footer-bg);
+  --color-hmg-input-bg: var(--hmg-input-bg);
+  --color-hmg-input-border: var(--hmg-input-border);
+  --color-hmg-table-stripe: var(--hmg-table-stripe);
+  --color-hmg-table-hover: var(--hmg-table-hover);
+
+  /* Admin Tokens - Colors */
+  --color-admin-primary: var(--admin-primary);
+  --color-admin-secondary: var(--admin-secondary);
+  --color-admin-bg-main: var(--admin-bg-main);
+  --color-admin-bg-card: var(--admin-bg-card);
+  --color-admin-bg-hover: var(--admin-bg-hover);
+  --color-admin-text-primary: var(--admin-text-primary);
+  --color-admin-text-secondary: var(--admin-text-secondary);
+  --color-admin-border: var(--admin-border);
+}
+
+body {
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--color-hmg-text-body);
+  background-color: var(--color-bg-page);
+  margin: 0;
+  padding: 0;
+}

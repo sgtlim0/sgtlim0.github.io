@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@import "../../../packages/tokens/styles/tokens.css";
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-purple: var(--accent-purple);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-bg-page: var(--bg-page);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-card: var(--bg-card);
+  --color-bg-hero: var(--bg-hero);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-code: var(--bg-code);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-white: var(--text-white);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-admin-teal: var(--admin-teal);
+  --color-admin-navy: var(--admin-navy);
+  --color-admin-blue: var(--admin-blue);
+  --color-admin-accent: var(--admin-accent);
+  --color-admin-green: var(--admin-green);
+  --color-admin-status-success: var(--admin-status-success);
+  --color-admin-status-error: var(--admin-status-error);
+  --color-admin-status-pending: var(--admin-status-pending);
+  --color-admin-table-stripe: var(--admin-table-stripe);
+  --color-admin-table-hover: var(--admin-table-hover);
+  --color-admin-input-bg: var(--admin-input-bg);
+  --color-admin-input-border: var(--admin-input-border);
+  --color-admin-bg-section: var(--admin-bg-section);
+  --color-admin-bg-card: var(--admin-bg-card);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Highlight.js theme adaptation */
+.dark .hljs {
+  background: var(--bg-code) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-literal,
+.dark .hljs-section,
+.dark .hljs-link {
+  color: #93C5FD;
+}
+
+.dark .hljs-string,
+.dark .hljs-title,
+.dark .hljs-name,
+.dark .hljs-type,
+.dark .hljs-attribute,
+.dark .hljs-symbol,
+.dark .hljs-bullet,
+.dark .hljs-addition,
+.dark .hljs-variable,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable {
+  color: #86EFAC;
+}
+
+.dark .hljs-comment,
+.dark .hljs-quote,
+.dark .hljs-deletion,
+.dark .hljs-meta {
+  color: #64748B;
+}
+
+.dark .hljs-number {
+  color: #FCA5A5;
+}

@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@import '../../../packages/tokens/styles/tokens.css';
+
+@theme inline {
+  /* Wiki tokens */
+  --color-wiki-navy: #003F88;
+  --color-wiki-border: #C7D1DC;
+  --color-wiki-sidebar-bg: #F7F9FC;
+  --color-wiki-sidebar-hover: #E5EBF3;
+  --color-wiki-content-bg: #FFFFFF;
+  --color-wiki-text-primary: #1A1A1A;
+  --color-wiki-text-secondary: #666666;
+  --color-wiki-text-muted: #999999;
+  --color-wiki-link: #003F88;
+  --color-wiki-link-hover: #002857;
+  --color-wiki-code-bg: #F5F5F5;
+  --color-wiki-code-border: #E0E0E0;
+
+  /* HMG tokens */
+  --color-hmg-navy: #002C5F;
+  --color-hmg-bg-card: #FFFFFF;
+  --color-hmg-bg-section: #F8F9FC;
+  --color-hmg-border: #E0E5ED;
+  --color-hmg-text-primary: #1A1A1A;
+  --color-hmg-text-secondary: #666666;
+  --color-hmg-text-tertiary: #999999;
+  --color-hmg-text-placeholder: #CCCCCC;
+  --color-hmg-link: #002C5F;
+
+  /* Admin tokens */
+  --color-admin-teal: #007A8C;
+  --color-admin-teal-hover: #005F6E;
+  --color-admin-bg-card: #FFFFFF;
+  --color-admin-bg-section: #F8F9FC;
+  --color-admin-border: #E0E5ED;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+  --color-text-placeholder: #CCCCCC;
+  --color-status-warning: #F59E0B;
+  --color-status-success: #10B981;
+  --color-status-error: #EF4444;
+  --color-status-info: #3B82F6;
+}
+
+body {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-admin-bg-section);
+  color: var(--color-text-primary);
+}

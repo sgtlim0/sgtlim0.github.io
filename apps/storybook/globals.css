@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import "../../packages/tokens/styles/tokens.css";
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-purple: var(--accent-purple);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-bg-page: var(--bg-page);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-card: var(--bg-card);
+  --color-bg-hero: var(--bg-hero);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-code: var(--bg-code);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-white: var(--text-white);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-hmg-navy: var(--hmg-navy);
+  --color-hmg-teal: var(--hmg-teal);
+  --color-hmg-teal-light: var(--hmg-teal-light);
+  --color-hmg-blue: var(--hmg-blue);
+  --color-hmg-accent: var(--hmg-accent);
+  --color-hmg-green: var(--hmg-green);
+  --color-hmg-bg-card: var(--hmg-bg-card);
+  --color-hmg-bg-section: var(--hmg-bg-section);
+  --color-hmg-border: var(--hmg-border);
+  --color-hmg-text-title: var(--hmg-text-title);
+  --color-hmg-text-body: var(--hmg-text-body);
+  --color-hmg-text-caption: var(--hmg-text-caption);
+  --color-hmg-footer-bg: var(--hmg-footer-bg);
+  --color-hmg-input-bg: var(--hmg-input-bg);
+  --color-hmg-input-border: var(--hmg-input-border);
+  --color-hmg-table-stripe: var(--hmg-table-stripe);
+  --color-hmg-table-hover: var(--hmg-table-hover);
+  --color-admin-teal: var(--admin-teal);
+  --color-admin-navy: var(--admin-navy);
+  --color-admin-blue: var(--admin-blue);
+  --color-admin-accent: var(--admin-accent);
+  --color-admin-green: var(--admin-green);
+  --color-admin-status-success: var(--admin-status-success);
+  --color-admin-status-error: var(--admin-status-error);
+  --color-admin-status-pending: var(--admin-status-pending);
+  --color-admin-table-stripe: var(--admin-table-stripe);
+  --color-admin-table-hover: var(--admin-table-hover);
+  --color-admin-input-bg: var(--admin-input-bg);
+  --color-admin-input-border: var(--admin-input-border);
+  --color-admin-bg-section: var(--admin-bg-section);
+  --color-admin-bg-card: var(--admin-bg-card);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+}

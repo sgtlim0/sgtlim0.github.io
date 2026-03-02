@@ -1,0 +1,19 @@
+import React from 'react';
+
+interface HmgStatCardProps {
+  label: string;
+  value: string | number;
+}
+
+export default function HmgStatCard({ label, value }: HmgStatCardProps) {
+  return (
+    <div className="w-[200px] h-[120px] flex-1 flex flex-col items-center justify-center bg-hmg-bg-section rounded-lg p-5 gap-2">
+      <span className="text-[13px] text-hmg-text-caption">
+        {label}
+      </span>
+      <span className="text-[32px] font-bold text-hmg-text-title">
+        {value}
+      </span>
+    </div>
+  );
+}
