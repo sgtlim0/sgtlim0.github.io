@@ -13,13 +13,13 @@ function formatCost(cost: number): string {
 export default function UsageTable({ usage }: UsageTableProps) {
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto rounded-xl border border-[#E2E8F0]">
+      <div className="overflow-x-auto rounded-xl border border-user-border">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-[#E2E8F0] bg-[#F8FAFC]">
-              <th className="px-5 py-3 font-medium text-[#64748B]">모델명</th>
-              <th className="px-5 py-3 font-medium text-[#64748B]">현재 사용량</th>
-              <th className="px-5 py-3 text-right font-medium text-[#64748B]">
+            <tr className="border-b border-user-border bg-user-bg-section">
+              <th className="px-5 py-3 font-medium text-user-text-secondary">모델명</th>
+              <th className="px-5 py-3 font-medium text-user-text-secondary">현재 사용량</th>
+              <th className="px-5 py-3 text-right font-medium text-user-text-secondary">
                 이용 요금 (원)
               </th>
             </tr>
@@ -29,17 +29,17 @@ export default function UsageTable({ usage }: UsageTableProps) {
               <tr
                 key={item.modelName}
                 className={[
-                  'border-b border-[#E2E8F0] last:border-b-0',
-                  index % 2 === 1 ? 'bg-[#F8FAFC]' : 'bg-white',
+                  'border-b border-user-border last:border-b-0',
+                  index % 2 === 1 ? 'bg-user-bg-section' : 'bg-user-bg',
                 ].join(' ')}
               >
-                <td className="px-5 py-3 font-medium text-[#1E293B]">
+                <td className="px-5 py-3 font-medium text-user-text-primary">
                   {item.modelName}
                 </td>
-                <td className="px-5 py-3 text-[#64748B]">
+                <td className="px-5 py-3 text-user-text-secondary">
                   {item.currentUsage}
                 </td>
-                <td className="px-5 py-3 text-right text-[#1E293B]">
+                <td className="px-5 py-3 text-right text-user-text-primary">
                   {formatCost(item.cost)}
                 </td>
               </tr>
@@ -48,7 +48,7 @@ export default function UsageTable({ usage }: UsageTableProps) {
         </table>
       </div>
 
-      <p className="text-xs text-[#94A3B8]">
+      <p className="text-xs text-user-text-muted">
         매 3시간 또는 매달 제공되는 사용분은 이월되지 않습니다.
       </p>
     </div>

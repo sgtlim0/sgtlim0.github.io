@@ -53,7 +53,7 @@ export default function AssistantGrid({
   return (
     <div className="space-y-5">
       {/* Tabs */}
-      <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-gray-800 rounded-xl p-1">
+      <div className="flex items-center gap-1 bg-user-bg-section rounded-xl p-1">
         <TabButton
           label="H Chat 공식 비서"
           isActive={activeTab === 'official'}
@@ -78,18 +78,18 @@ export default function AssistantGrid({
       {/* Grid or empty state */}
       {activeTab === 'custom' ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#F8FAFC] dark:bg-gray-800 flex items-center justify-center text-3xl mb-4">
+          <div className="w-16 h-16 rounded-2xl bg-user-bg-section flex items-center justify-center text-3xl mb-4">
             🤖
           </div>
-          <p className="text-sm font-medium text-[#1E293B] dark:text-white mb-1">
+          <p className="text-sm font-medium text-user-text-primary mb-1">
             아직 만든 비서가 없어요
           </p>
-          <p className="text-xs text-[#94A3B8]">
+          <p className="text-xs text-user-text-muted">
             나만의 AI 비서를 만들어보세요!
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredAssistants.map((assistant) => (
             <AssistantCard
               key={assistant.id}
@@ -98,7 +98,7 @@ export default function AssistantGrid({
             />
           ))}
           {filteredAssistants.length === 0 && (
-            <p className="col-span-full text-center text-sm text-[#94A3B8] py-12">
+            <p className="col-span-full text-center text-sm text-user-text-muted py-12">
               해당 카테고리에 비서가 없습니다.
             </p>
           )}
@@ -123,8 +123,8 @@ function TabButton({
       className={[
         'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors',
         isActive
-          ? 'bg-white dark:bg-gray-700 text-[#1E293B] dark:text-white shadow-sm'
-          : 'text-[#64748B] dark:text-gray-400 hover:text-[#1E293B] dark:hover:text-gray-200',
+          ? 'bg-user-bg text-user-text-primary shadow-sm'
+          : 'text-user-text-secondary hover:text-user-text-primary',
       ].join(' ')}
     >
       {label}

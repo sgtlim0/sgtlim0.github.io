@@ -4,16 +4,16 @@
 @source "../../../packages/ui/src";
 
 @theme inline {
-  /* User-specific tokens */
-  --color-user-primary: #4F6EF7;
-  --color-user-primary-light: #EBF0FF;
-  --color-user-accent: #10B981;
-  --color-user-bg: #FFFFFF;
-  --color-user-bg-section: #F8FAFC;
-  --color-user-border: #E2E8F0;
-  --color-user-text-primary: #1E293B;
-  --color-user-text-secondary: #64748B;
-  --color-user-text-muted: #94A3B8;
+  /* User-specific tokens (referencing CSS vars for dark mode) */
+  --color-user-primary: var(--user-primary);
+  --color-user-primary-light: var(--user-primary-light);
+  --color-user-accent: var(--user-accent);
+  --color-user-bg: var(--user-bg);
+  --color-user-bg-section: var(--user-bg-section);
+  --color-user-border: var(--user-border);
+  --color-user-text-primary: var(--user-text-primary);
+  --color-user-text-secondary: var(--user-text-secondary);
+  --color-user-text-muted: var(--user-text-muted);
 
   /* Shared tokens (referencing CSS vars for dark mode) */
   --color-text-primary: var(--text-primary);

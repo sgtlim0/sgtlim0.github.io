@@ -88,6 +88,17 @@
   --roi-heatmap-high: #10B981;
   --roi-heatmap-mid: #F59E0B;
   --roi-heatmap-low: #EF4444;
+
+  /* === User Tokens === */
+  --user-primary: #4F6EF7;
+  --user-primary-light: #EBF0FF;
+  --user-accent: #10B981;
+  --user-bg: #FFFFFF;
+  --user-bg-section: #F8FAFC;
+  --user-border: #E2E8F0;
+  --user-text-primary: #1E293B;
+  --user-text-secondary: #64748B;
+  --user-text-muted: #94A3B8;
 }
 
 .dark {
@@ -143,4 +154,15 @@
   --roi-text-muted: #64748B;
   --roi-divider: #334155;
   --roi-kpi-bg: #1E293B;
+
+  /* === User Dark === */
+  --user-primary: #6B8AFF;
+  --user-primary-light: #1E2A4A;
+  --user-accent: #34D399;
+  --user-bg: #0F172A;
+  --user-bg-section: #1E293B;
+  --user-border: #334155;
+  --user-text-primary: #F1F5F9;
+  --user-text-secondary: #94A3B8;
+  --user-text-muted: #64748B;
 }

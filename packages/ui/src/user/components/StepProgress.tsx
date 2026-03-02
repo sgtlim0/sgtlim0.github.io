@@ -29,10 +29,10 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
                   className={[
                     'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors shrink-0',
                     isCompleted
-                      ? 'bg-[#10B981] text-white'
+                      ? 'bg-user-accent text-white'
                       : isActive
-                        ? 'bg-[#4F6EF7] text-white'
-                        : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400',
+                        ? 'bg-user-primary text-white'
+                        : 'bg-user-bg-section text-user-text-muted',
                   ].join(' ')}
                 >
                   {isCompleted ? (
@@ -45,10 +45,10 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
                   className={[
                     'text-xs text-center whitespace-nowrap',
                     isActive
-                      ? 'text-[#4F6EF7] font-medium'
+                      ? 'text-user-primary font-medium'
                       : isCompleted
-                        ? 'text-[#10B981] font-medium'
-                        : 'text-gray-500 dark:text-gray-400',
+                        ? 'text-user-accent font-medium'
+                        : 'text-user-text-muted',
                   ].join(' ')}
                 >
                   {step.label}
@@ -61,8 +61,8 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
                   className={[
                     'flex-1 h-0.5 mx-2 -mt-6 transition-colors',
                     stepNumber < currentStep
-                      ? 'bg-[#10B981]'
-                      : 'bg-gray-200 dark:bg-gray-700',
+                      ? 'bg-user-accent'
+                      : 'bg-user-bg-section',
                   ].join(' ')}
                 />
               )}

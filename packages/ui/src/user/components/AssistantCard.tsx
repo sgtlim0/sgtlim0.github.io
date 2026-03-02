@@ -16,7 +16,7 @@ export default function AssistantCard({ assistant, onClick }: AssistantCardProps
   return (
     <button
       onClick={handleClick}
-      className="flex flex-col items-start gap-3 p-5 rounded-xl border border-[#E2E8F0] dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 hover:scale-[1.02] transition-all duration-200 text-left w-full"
+      className="flex flex-col items-start gap-3 p-5 rounded-xl border border-user-border bg-user-bg hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 hover:scale-[1.02] transition-all duration-200 text-left w-full"
     >
       {/* Icon + badge row */}
       <div className="flex items-start justify-between w-full">
@@ -27,19 +27,19 @@ export default function AssistantCard({ assistant, onClick }: AssistantCardProps
           {assistant.icon}
         </div>
         {assistant.model && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#F8FAFC] dark:bg-gray-700 text-[#64748B] dark:text-gray-400 border border-[#E2E8F0] dark:border-gray-600">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-user-bg-section text-user-text-secondary border border-user-border">
             {assistant.model}
           </span>
         )}
       </div>
 
       {/* Name */}
-      <h3 className="text-sm font-semibold text-[#1E293B] dark:text-white">
+      <h3 className="text-sm font-semibold text-user-text-primary">
         {assistant.name}
       </h3>
 
       {/* Description */}
-      <p className="text-xs text-[#64748B] dark:text-gray-400 leading-relaxed line-clamp-2">
+      <p className="text-xs text-user-text-secondary leading-relaxed line-clamp-2">
         {assistant.description}
       </p>
     </button>

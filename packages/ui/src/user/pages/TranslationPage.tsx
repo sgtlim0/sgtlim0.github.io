@@ -64,8 +64,8 @@ export default function TranslationPage() {
     <div className="mx-auto max-w-[960px] px-4 py-8">
       {/* Page header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#1E293B]">문서 번역 도구</h1>
-        <p className="mt-1 text-sm text-[#64748B]">
+        <h1 className="text-2xl font-bold text-user-text-primary">문서 번역 도구</h1>
+        <p className="mt-1 text-sm text-user-text-secondary">
           문서를 업로드하면 형식을 유지한 채 번역해 드립니다.
         </p>
       </div>
@@ -75,7 +75,7 @@ export default function TranslationPage() {
         {SUPPORTED_FORMATS.map((fmt) => (
           <span
             key={fmt}
-            className="rounded-full bg-[#F8FAFC] px-3 py-1 text-xs font-medium text-[#64748B] ring-1 ring-[#E2E8F0]"
+            className="rounded-full bg-user-bg-section px-3 py-1 text-xs font-medium text-user-text-secondary ring-1 ring-user-border"
           >
             {fmt}
           </span>
@@ -98,10 +98,12 @@ export default function TranslationPage() {
       {/* Step 1: Engine selection + file upload */}
       {currentStep === 1 && (
         <div className="space-y-6">
-          <EngineSelector
-            selectedEngine={selectedEngine}
-            onSelect={setSelectedEngine}
-          />
+          <div className="w-full">
+            <EngineSelector
+              selectedEngine={selectedEngine}
+              onSelect={setSelectedEngine}
+            />
+          </div>
 
           <FileUploadZone
             accept=".pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls"
@@ -117,8 +119,8 @@ export default function TranslationPage() {
             className={[
               'w-full rounded-xl py-3 text-sm font-semibold transition-colors',
               uploadedFiles.length > 0
-                ? 'bg-[#4F6EF7] text-white hover:bg-[#3B5BE5]'
-                : 'cursor-not-allowed bg-[#E2E8F0] text-[#94A3B8]',
+                ? 'bg-user-primary text-white hover:bg-user-primary/90'
+                : 'cursor-not-allowed bg-[#E2E8F0] text-user-text-muted',
             ].join(' ')}
           >
             번역 시작
@@ -129,12 +131,12 @@ export default function TranslationPage() {
       {/* Step 2: Translation results */}
       {currentStep === 2 && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-[#1E293B]">번역 결과</h2>
+          <h2 className="text-lg font-semibold text-user-text-primary">번역 결과</h2>
 
-          <div className="overflow-x-auto rounded-xl border border-[#E2E8F0]">
+          <div className="overflow-x-auto rounded-xl border border-user-border">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-[#E2E8F0] bg-[#F8FAFC]">
+                <tr className="border-b border-user-border bg-user-bg-section">
                   <th className="px-5 py-3 font-medium text-[#64748B]">파일명</th>
                   <th className="px-5 py-3 font-medium text-[#64748B]">상태</th>
                   <th className="px-5 py-3 text-right font-medium text-[#64748B]">다운로드</th>
@@ -144,9 +146,9 @@ export default function TranslationPage() {
                 {translationJobs.map((job) => (
                   <tr
                     key={job.id}
-                    className="border-b border-[#E2E8F0] last:border-b-0"
+                    className="border-b border-user-border last:border-b-0"
                   >
-                    <td className="px-5 py-3 font-medium text-[#1E293B]">
+                    <td className="px-5 py-3 font-medium text-user-text-primary">
                       {job.fileName}
                     </td>
                     <td className="px-5 py-3">
@@ -166,8 +168,8 @@ export default function TranslationPage() {
                         className={[
                           'inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors',
                           job.status === 'completed'
-                            ? 'bg-[#4F6EF7] text-white hover:bg-[#3B5BE5]'
-                            : 'cursor-not-allowed bg-[#E2E8F0] text-[#94A3B8]',
+                            ? 'bg-user-primary text-white hover:bg-user-primary/90'
+                            : 'cursor-not-allowed bg-[#E2E8F0] text-user-text-muted',
                         ].join(' ')}
                       >
                         <Download className="h-3.5 w-3.5" />
@@ -183,7 +185,7 @@ export default function TranslationPage() {
           <button
             type="button"
             onClick={handleReset}
-            className="rounded-lg border border-[#E2E8F0] px-4 py-2 text-sm font-medium text-[#64748B] transition-colors hover:bg-[#F8FAFC]"
+            className="rounded-lg border border-user-border px-4 py-2 text-sm font-medium text-[#64748B] transition-colors hover:bg-user-bg-section"
           >
             새 번역 시작
           </button>

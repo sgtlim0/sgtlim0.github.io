@@ -38,7 +38,7 @@ const engines: readonly EngineOption[] = [
 
 export default function EngineSelector({ selectedEngine, onSelect }: EngineSelectorProps) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="flex flex-col md:flex-row gap-4">
       {engines.map((engine) => {
         const isSelected = selectedEngine === engine.key;
 
@@ -48,10 +48,10 @@ export default function EngineSelector({ selectedEngine, onSelect }: EngineSelec
             type="button"
             onClick={() => onSelect(engine.key)}
             className={[
-              'flex items-start gap-3 rounded-xl border-2 p-5 text-left transition-colors',
+              'flex items-start gap-3 rounded-xl border-2 p-5 text-left transition-colors flex-1',
               isSelected
-                ? 'border-[#4F6EF7] bg-[#EBF0FF]/30'
-                : 'border-[#E2E8F0] bg-white hover:border-[#4F6EF7]/40',
+                ? 'border-user-primary bg-user-primary-light/30'
+                : 'border-user-border bg-user-bg hover:border-user-primary/40',
             ].join(' ')}
           >
             {/* Radio indicator */}
@@ -59,18 +59,18 @@ export default function EngineSelector({ selectedEngine, onSelect }: EngineSelec
               className={[
                 'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
                 isSelected
-                  ? 'border-[#4F6EF7]'
-                  : 'border-[#E2E8F0]',
+                  ? 'border-user-primary'
+                  : 'border-user-border',
               ].join(' ')}
             >
               {isSelected && (
-                <div className="h-2.5 w-2.5 rounded-full bg-[#4F6EF7]" />
+                <div className="h-2.5 w-2.5 rounded-full bg-user-primary" />
               )}
             </div>
 
             {/* Engine info */}
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-[#1E293B]">
+              <p className="text-sm font-semibold text-user-text-primary">
                 {engine.name}
               </p>
               <ul className="mt-2 space-y-1">
@@ -79,8 +79,8 @@ export default function EngineSelector({ selectedEngine, onSelect }: EngineSelec
                     key={spec.label}
                     className="flex items-center justify-between text-xs"
                   >
-                    <span className="text-[#64748B]">{spec.label}</span>
-                    <span className="font-medium text-[#1E293B]">{spec.value}</span>
+                    <span className="text-user-text-secondary">{spec.label}</span>
+                    <span className="font-medium text-user-text-primary">{spec.value}</span>
                   </li>
                 ))}
               </ul>

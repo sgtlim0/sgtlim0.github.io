@@ -33,8 +33,8 @@ export default function CategoryFilter({ categories, activeCategory, onSelect }:
             className={[
               'px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors shrink-0',
               isActive
-                ? 'bg-[#4F6EF7] text-white'
-                : 'bg-transparent text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:border-[#4F6EF7] hover:text-[#4F6EF7]',
+                ? 'bg-user-primary text-white'
+                : 'bg-transparent text-user-text-secondary border border-user-border hover:border-user-primary hover:text-user-primary',
             ].join(' ')}
           >
             {category}

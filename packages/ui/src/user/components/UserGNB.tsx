@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Menu, X, Globe } from 'lucide-react';
+import { ThemeToggle } from '@hchat/ui';
 
 type UserTab = 'chat' | 'translate' | 'docs' | 'ocr';
 
@@ -33,7 +34,7 @@ export default function UserGNB({ activeTab, userEmail, onTabChange }: UserGNBPr
 
   return (
     <>
-      <nav className="w-full h-14 bg-[#4F6EF7] flex items-center justify-between px-4 md:px-6 lg:px-10">
+      <nav className="w-full h-14 bg-user-primary flex items-center justify-between px-4 md:px-6 lg:px-10">
         {/* Left: Logo + Tabs */}
         <div className="flex items-center gap-8">
           <span className="text-white text-lg font-bold tracking-tight whitespace-nowrap">
@@ -71,10 +72,12 @@ export default function UserGNB({ activeTab, userEmail, onTabChange }: UserGNBPr
           )}
 
           <button
-            className="hidden sm:inline-flex items-center px-3 py-1.5 bg-[#10B981] hover:bg-[#059669] text-white text-xs font-medium rounded-md transition-colors whitespace-nowrap"
+            className="hidden sm:inline-flex items-center px-3 py-1.5 bg-user-accent hover:bg-user-accent/90 text-white text-xs font-medium rounded-md transition-colors whitespace-nowrap"
           >
             기업용 버전 가입
           </button>
+
+          <ThemeToggle />
 
           <button
             className="flex items-center gap-1 text-white/80 hover:text-white text-sm transition-colors"
@@ -101,7 +104,7 @@ export default function UserGNB({ activeTab, userEmail, onTabChange }: UserGNBPr
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#4F6EF7] border-t border-white/10">
+        <div className="md:hidden bg-user-primary border-t border-white/10">
           <div className="flex flex-col py-1">
             {tabs.map((tab) => (
               <button

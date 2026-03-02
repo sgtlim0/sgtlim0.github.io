@@ -26,8 +26,8 @@ function MessageBubble({ message }: { message: ChatMessage }) {
         className={[
           'max-w-[70%] rounded-2xl px-4 py-3 text-sm leading-relaxed',
           isUser
-            ? 'bg-[#4F6EF7] text-white rounded-br-md'
-            : 'bg-[#F8FAFC] dark:bg-gray-800 text-[#1E293B] dark:text-gray-200 rounded-bl-md',
+            ? 'bg-user-primary text-white rounded-br-md'
+            : 'bg-user-bg-section text-user-text-primary rounded-bl-md',
         ].join(' ')}
       >
         {message.content}
@@ -155,7 +155,7 @@ export default function ChatPage() {
   }, []);
 
   return (
-    <div className="flex h-screen bg-white dark:bg-gray-900">
+    <div className="flex h-screen bg-user-bg">
       {/* Sidebar */}
       <ChatSidebar
         conversations={conversations}
@@ -165,14 +165,14 @@ export default function ChatPage() {
       />
 
       {/* Main content */}
-      <main className="flex-1 flex flex-col min-w-0 h-full">
+      <main className="flex-1 flex flex-col min-w-0 h-full md:ml-0">
         {currentConversation ? (
           <>
             {/* Chat header */}
-            <div className="shrink-0 flex items-center gap-3 px-6 py-4 border-b border-[#E2E8F0] dark:border-gray-700 bg-white dark:bg-gray-900">
+            <div className="shrink-0 flex items-center gap-3 px-4 md:px-6 py-4 border-b border-user-border bg-user-bg">
               <button
                 onClick={handleBack}
-                className="p-1.5 rounded-lg text-[#64748B] hover:bg-[#F8FAFC] dark:hover:bg-gray-800 transition-colors"
+                className="p-1.5 rounded-lg text-user-text-secondary hover:bg-user-bg-section transition-colors"
                 aria-label="뒤로가기"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -186,11 +186,11 @@ export default function ChatPage() {
                     {currentAssistant.icon}
                   </span>
                   <div>
-                    <h2 className="text-sm font-semibold text-[#1E293B] dark:text-white">
+                    <h2 className="text-sm font-semibold text-user-text-primary">
                       {currentAssistant.name}
                     </h2>
                     {currentAssistant.model && (
-                      <span className="text-xs text-[#94A3B8]">
+                      <span className="text-xs text-user-text-muted">
                         {currentAssistant.model}
                       </span>
                     )}
@@ -200,9 +200,9 @@ export default function ChatPage() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
+            <div className="flex-1 overflow-y-auto px-4 md:px-6 py-6 space-y-4">
               {currentConversation.messages.length === 0 && (
-                <div className="flex items-center justify-center h-full text-sm text-[#94A3B8]">
+                <div className="flex items-center justify-center h-full text-sm text-user-text-muted">
                   메시지를 입력하여 대화를 시작하세요.
                 </div>
               )}
@@ -213,26 +213,26 @@ export default function ChatPage() {
             </div>
 
             {/* Bottom input */}
-            <div className="shrink-0 px-6 py-4 border-t border-[#E2E8F0] dark:border-gray-700 bg-white dark:bg-gray-900">
+            <div className="shrink-0 px-4 md:px-6 py-4 border-t border-user-border bg-user-bg">
               <ChatSearchBar onSubmit={handleSendMessage} onAttach={() => {}} />
             </div>
           </>
         ) : (
           <div className="flex-1 overflow-y-auto">
-            <div className="max-w-4xl mx-auto px-6 py-12 lg:pl-0">
+            <div className="max-w-4xl mx-auto px-4 md:px-6 py-8 md:py-12">
               {/* Hero */}
-              <div className="text-center mb-10">
-                <h1 className="text-2xl sm:text-3xl font-bold text-[#1E293B] dark:text-white leading-snug mb-3">
+              <div className="text-center mb-8 md:mb-10">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-user-text-primary leading-snug mb-3">
                   실시간 검색, 사진 이해,
-                  <br />
+                  <br className="hidden sm:block" />
                   그림/차트 생성까지
-                  <br />
-                  <span className="text-[#4F6EF7]">업무 비서</span>가 도와드려요
+                  <br className="hidden sm:block" />
+                  <span className="text-user-primary">업무 비서</span>가 도와드려요
                 </h1>
               </div>
 
               {/* Search bar */}
-              <div className="mb-12">
+              <div className="mb-8 md:mb-12">
                 <ChatSearchBar onSubmit={handleSendMessage} onAttach={() => {}} />
               </div>
 

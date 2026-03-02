@@ -52,8 +52,8 @@ export default function DocsPage() {
     <div className="mx-auto max-w-[960px] px-4 py-8">
       {/* Page header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#1E293B]">문서 작성 도구</h1>
-        <p className="mt-1 text-sm text-[#64748B]">
+        <h1 className="text-2xl font-bold text-user-text-primary">문서 작성 도구</h1>
+        <p className="mt-1 text-sm text-user-text-secondary">
           AI와 함께 전문적인 문서를 작성해보세요.
         </p>
       </div>
@@ -63,7 +63,7 @@ export default function DocsPage() {
         {SUPPORTED_FORMATS.map((fmt) => (
           <span
             key={fmt}
-            className="rounded-full bg-[#F8FAFC] px-3 py-1 text-xs font-medium text-[#64748B] ring-1 ring-[#E2E8F0]"
+            className="rounded-full bg-user-bg-section px-3 py-1 text-xs font-medium text-user-text-secondary ring-1 ring-[#E2E8F0]"
           >
             {fmt}
           </span>
@@ -71,7 +71,7 @@ export default function DocsPage() {
       </div>
 
       {/* Step progress */}
-      <div className="mb-8">
+      <div className="mb-8 overflow-x-auto">
         <StepProgress steps={STEPS} currentStep={currentStep} />
       </div>
 
@@ -80,7 +80,7 @@ export default function DocsPage() {
         <button
           type="button"
           onClick={handleNewProject}
-          className="inline-flex items-center gap-2 rounded-xl bg-[#4F6EF7] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B5BE5]"
+          className="inline-flex items-center gap-2 rounded-xl bg-user-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-user-primary/90"
         >
           <Plus className="h-4 w-4" />
           새 프로젝트 시작
