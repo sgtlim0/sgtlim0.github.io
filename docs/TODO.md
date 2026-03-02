@@ -18,6 +18,7 @@
 | `docs/LLM_ROUTER_UI_DESIGN.md` | LLM-Router 화면 설계안 | 완료 |
 | `docs/LLM_ROUTER_IMPLEMENTATION_PLAN.md` | LLM-Router 구현 계획서 | 완료 |
 | `docs/HCHAT_ENTERPRISE_API_IMPLEMENTATION.md` | 기업 API 연동 구현 설계 | 완료 |
+| `docs/HCHAT_USER_FEATURES_IMPLEMENTATION.md` | H Chat 사용자 기능 구현 설계 | 완료 |
 | `CLAUDE.md` | 프로젝트 가이드라인 | 업데이트 필요 |
 
 ---
