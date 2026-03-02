@@ -27,6 +27,8 @@ export const sidebarNavigation: NavEntry[] = [
       { title: '그룹 채팅', slug: 'chat/group-chat', icon: 'users' },
       { title: '크로스 모델 토론', slug: 'chat/debate', icon: 'messages-square' },
       { title: '멀티턴 에이전트', slug: 'chat/agent', icon: 'bot' },
+      { title: '대화 기록 관리', slug: 'chat/history', icon: 'clock' },
+      { title: '프롬프트 라이브러리', slug: 'chat/prompts', icon: 'library' },
     ],
   },
   {
@@ -54,6 +56,7 @@ export const sidebarNavigation: NavEntry[] = [
     items: [
       { title: 'AI 프로바이더', slug: 'settings/providers', icon: 'settings' },
       { title: '모델 가이드', slug: 'settings/models', icon: 'layers' },
+      { title: '사용량 추적', slug: 'settings/usage', icon: 'bar-chart-2' },
     ],
   },
   {
@@ -73,6 +76,8 @@ export const pageOrder: string[] = [
   'chat/group-chat',
   'chat/debate',
   'chat/agent',
+  'chat/history',
+  'chat/prompts',
   'tools/panel',
   'tools/youtube',
   'tools/pdf',
@@ -82,6 +87,7 @@ export const pageOrder: string[] = [
   'browser/bookmarks',
   'settings/providers',
   'settings/models',
+  'settings/usage',
   'faq',
   'changelog',
 ];
