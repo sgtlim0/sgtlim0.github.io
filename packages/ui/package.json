@@ -11,9 +11,12 @@
     "./admin": "./src/admin/index.ts",
     "./admin/*": "./src/admin/*.tsx"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "dependencies": {
-    "@hchat/tokens": "*"
+    "@hchat/tokens": "*",
+    "xlsx": "^0.18.5"
   },
   "peerDependencies": {
     "lucide-react": ">=0.400.0",

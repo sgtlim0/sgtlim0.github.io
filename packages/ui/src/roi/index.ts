@@ -19,3 +19,4 @@ export { default as ROIOrganization } from './ROIOrganization';
 export { default as ROISentiment } from './ROISentiment';
 export { default as ROIReports } from './ROIReports';
 export { default as ROISettings } from './ROISettings';
+export { default as ROIDataUpload } from './ROIDataUpload';

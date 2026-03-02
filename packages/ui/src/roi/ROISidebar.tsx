@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
+  { href: '/roi/upload', label: '데이터 업로드', icon: 'upload_file' },
   { href: '/roi/overview', label: '개요', icon: 'dashboard' },
   { href: '/roi/adoption', label: '도입 현황', icon: 'group' },
   { href: '/roi/productivity', label: '생산성 효과', icon: 'trending_up' },
@@ -20,7 +21,13 @@ export default function ROISidebar() {
   return (
     <aside className="w-60 shrink-0 min-h-[calc(100vh-80px)] bg-[var(--roi-sidebar-bg)] flex flex-col">
       <div className="px-5 py-6">
-        <h2 className="text-sm font-bold text-white tracking-wider">H Chat ROI</h2>
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-xs font-bold text-white">W</div>
+          <div>
+            <h2 className="text-sm font-bold text-white tracking-wider">웍스AI</h2>
+            <p className="text-[10px] text-[var(--roi-sidebar-text)]/70">생산성 대시보드</p>
+          </div>
+        </div>
       </div>
       <nav className="flex-1 px-2">
         <ul className="flex flex-col gap-0.5">
