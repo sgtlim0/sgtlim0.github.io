@@ -52,9 +52,9 @@ export default function ROISentiment() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h1 className="text-xl font-bold text-[var(--roi-text-primary)]">만족도 분석</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <DateFilter value={date} onChange={setDate} />
           <DepartmentFilter value={dept} onChange={setDept} />
         </div>
@@ -67,7 +67,7 @@ export default function ROISentiment() {
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => (
           <KPICard key={kpi.label} {...kpi} />
         ))}
@@ -83,7 +83,7 @@ export default function ROISentiment() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-3">NPS 추이 (6개월)</h3>
           <MiniLineChart data={npsData} height={160} color="var(--roi-chart-3)" />

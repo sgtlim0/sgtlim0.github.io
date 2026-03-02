@@ -79,9 +79,9 @@ export default function ROIAnalysis() {
       </div>
 
       {/* Cost Breakdown + Simulator */}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {/* Cost Table */}
-        <div className="col-span-3 p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
+        <div className="md:col-span-3 p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)] overflow-x-auto">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-4">모델별 비용 분석</h3>
           <table className="w-full">
             <thead>
@@ -108,7 +108,7 @@ export default function ROIAnalysis() {
         </div>
 
         {/* ROI Simulator */}
-        <div className="col-span-2 p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
+        <div className="md:col-span-2 p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-4">ROI 시뮬레이터</h3>
           <div className="flex flex-col gap-4">
             <div>
@@ -150,7 +150,7 @@ export default function ROIAnalysis() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-3">월별 ROI 추이</h3>
           <MiniLineChart data={lineData} height={200} color="var(--roi-chart-2)" />

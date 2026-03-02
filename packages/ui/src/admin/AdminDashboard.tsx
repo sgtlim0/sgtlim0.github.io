@@ -17,13 +17,13 @@ const MODEL_USAGE = [
 
 export default function AdminDashboard() {
   return (
-    <div className="flex flex-col gap-6 p-8">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-6 p-4 md:p-6 lg:p-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-text-primary">관리자 대시보드</h1>
           <p className="text-sm text-text-secondary mt-1">2026년 3월 2일 기준 사용 현황 요약</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <button className="px-4 py-2 text-sm font-medium text-white bg-admin-teal rounded-lg hover:opacity-90 transition-opacity">
             전체 내역 보기
           </button>
@@ -33,19 +33,19 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="flex gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard label="총 대화 수" value="1,247" />
         <StatCard label="총 토큰 사용량" value="2.4M" />
         <StatCard label="활성 사용자" value="38" />
         <StatCard label="이번 달 비용" value="₩127K" />
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col lg:flex-row gap-6">
         <div className="flex-1 flex flex-col gap-3">
           <h2 className="text-lg font-semibold text-text-primary">최근 사용내역</h2>
           <DataTable rows={RECENT_USAGE} />
         </div>
-        <div className="w-80 flex flex-col gap-3 p-5 rounded-xl border border-border bg-admin-bg-section">
+        <div className="lg:w-80 flex flex-col gap-3 p-5 rounded-xl border border-border bg-admin-bg-section">
           <h2 className="text-lg font-semibold text-text-primary">모델별 사용 비율</h2>
           {MODEL_USAGE.map((m) => (
             <BarChartRow key={m.label} label={m.label} value={m.value} maxValue={100} color={m.color} displayValue={`${m.value}%`} />

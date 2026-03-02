@@ -25,7 +25,7 @@ export default function ROIAdoption() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h1 className="text-xl font-bold text-[var(--roi-text-primary)]">도입 현황</h1>
         <DateFilter value={date} onChange={setDate} />
       </div>
@@ -37,7 +37,7 @@ export default function ROIAdoption() {
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => (
           <KPICard key={kpi.label} {...kpi} />
         ))}

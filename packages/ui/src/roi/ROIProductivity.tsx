@@ -33,14 +33,14 @@ export default function ROIProductivity() {
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => (
           <KPICard key={kpi.label} {...kpi} />
         ))}
       </div>
 
       {/* Task Time Savings Table */}
-      <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
+      <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)] overflow-x-auto">
         <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-4">작업별 시간 절감</h3>
         <table className="w-full">
           <thead>
@@ -73,7 +73,7 @@ export default function ROIProductivity() {
         </table>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-3">주간 AI 지원 시간 추이</h3>
           <MiniBarChart data={barData} height={200} />

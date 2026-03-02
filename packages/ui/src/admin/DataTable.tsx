@@ -29,12 +29,12 @@ export default function DataTable({ rows, onViewDetail }: DataTableProps) {
   }
 
   return (
-    <div className="rounded-lg border border-border overflow-hidden">
+    <div className="rounded-lg border border-border overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="bg-admin-bg-section border-b border-border">
             {columns.map((col) => (
-              <th key={col} className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th key={col} className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider whitespace-nowrap">
                 {col}
               </th>
             ))}
@@ -48,12 +48,12 @@ export default function DataTable({ rows, onViewDetail }: DataTableProps) {
                 i % 2 === 1 ? 'bg-admin-table-stripe' : ''
               }`}
             >
-              <td className="px-4 py-3 text-text-secondary">{row.date}</td>
-              <td className="px-4 py-3 text-text-primary font-medium">{row.user}</td>
-              <td className="px-4 py-3 text-text-secondary">{row.type}</td>
-              <td className="px-4 py-3 text-text-primary">{row.model}</td>
-              <td className="px-4 py-3 text-text-primary tabular-nums">{row.tokens}</td>
-              <td className="px-4 py-3 text-text-primary tabular-nums">{row.cost}</td>
+              <td className="px-4 py-3 text-text-secondary whitespace-nowrap">{row.date}</td>
+              <td className="px-4 py-3 text-text-primary font-medium whitespace-nowrap">{row.user}</td>
+              <td className="px-4 py-3 text-text-secondary whitespace-nowrap">{row.type}</td>
+              <td className="px-4 py-3 text-text-primary whitespace-nowrap">{row.model}</td>
+              <td className="px-4 py-3 text-text-primary tabular-nums whitespace-nowrap">{row.tokens}</td>
+              <td className="px-4 py-3 text-text-primary tabular-nums whitespace-nowrap">{row.cost}</td>
               <td className="px-4 py-3"><StatusBadge status={row.status} /></td>
               <td className="px-4 py-3">
                 <button

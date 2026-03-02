@@ -76,27 +76,27 @@
 
 ## 앞으로 할 일
 
-### 우선순위 높음
+### 우선순위 높음 — 모두 완료
 
-| # | 작업 | 설명 | 예상 난이도 |
-|---|------|------|------------|
-| 1 | CLAUDE.md 업데이트 | ROI 대시보드 + 모노레포 구조 반영 | 낮음 |
-| 2 | HMG/Admin 다크모드 토글 동작 확인 | 배포된 페이지에서 ThemeToggle이 정상 동작하는지 검증 | 낮음 |
-| 3 | Storybook HMG 스토리 추가 | HMG 8개 컴포넌트 + 4개 페이지 스토리 작성 후 배포 | 중간 |
-| 4 | Vercel Git 연동 설정 | push 시 자동 배포 (현재 수동 CLI 배포) | 중간 |
-| 5 | HMG/Admin 페이지 간 네비게이션 | GNB 메뉴 클릭 시 실제 라우팅 동작 | 낮음 |
-| 6 | 업로드 데이터 → 차트 연동 | 업로드된 Excel 데이터로 ROI 대시보드 차트 실시간 반영 | 높음 |
+| # | 작업 | 상태 |
+|---|------|------|
+| 1 | CLAUDE.md 업데이트 | ✅ 완료 |
+| 2 | HMG/Admin 다크모드 토글 동작 확인 | ✅ 완료 |
+| 3 | Storybook HMG 스토리 추가 | ✅ 완료 (4개 페이지 스토리) |
+| 4 | Vercel Git 연동 설정 | ✅ 완료 (Admin, HMG, Storybook 3개 프로젝트) |
+| 5 | HMG/Admin 페이지 간 네비게이션 | ✅ 완료 |
+| 6 | 업로드 데이터 → 차트 연동 | ✅ 완료 (ROIDataContext + aggregateData.ts) |
 
 ### 우선순위 중간
 
-| # | 작업 | 설명 | 예상 난이도 |
-|---|------|------|------------|
-| 7 | 반응형 레이아웃 | HMG/Admin 모바일/태블릿 대응 (현재 데스크톱만) | 높음 |
-| 8 | Admin 확장 화면 추가 | ProviderStatus, ModelPricing 화면 (wiki.pen 디자인 → React) | 높음 |
-| 9 | E2E 테스트 | Playwright로 주요 사용자 흐름 테스트 | 중간 |
-| 10 | SEO 메타태그 | 각 앱의 metadata.ts 상세 설정 (OG image, description) | 낮음 |
-| 11 | 성능 최적화 | Lighthouse 점수 측정 및 개선 (LCP, CLS, FID) | 중간 |
-| 12 | ROI Storybook 스토리 | ROI 차트/컴포넌트 스토리 작성 | 중간 |
+| # | 작업 | 설명 | 상태 |
+|---|------|------|------|
+| 7 | 반응형 레이아웃 | HMG/Admin 모바일/태블릿 대응 | 진행중 |
+| 8 | Admin 확장 화면 추가 | ProviderStatus, ModelPricing 화면 | 미착수 |
+| 9 | E2E 테스트 | Playwright 주요 사용자 흐름 | 미착수 |
+| 10 | SEO 메타태그 | OpenGraph, robots 설정 | ✅ 완료 |
+| 11 | 성능 최적화 | Lighthouse 점수 측정 및 개선 | 미착수 |
+| 12 | ROI Storybook 스토리 | ROI 차트/컴포넌트 6개 스토리 | ✅ 완료 |
 
 ### 우선순위 낮음
 
@@ -115,13 +115,13 @@
 
 ## 기술 부채
 
-| # | 항목 | 설명 |
-|---|------|------|
-| 1 | `output: 'export'` 제거됨 | HMG/Admin에서 Vercel 호환을 위해 제거. 로컬 정적 빌드 필요 시 별도 스크립트 추가 필요 |
-| 2 | Vercel Git 자동 배포 미설정 | 현재 CLI 수동 배포. Git Integration 연동 시 push 자동 배포 가능 |
-| 3 | `.vercel-hmg/` 미정리 | 루트에 임시 디렉토리 남아있음 (.gitignore 추가 또는 삭제) |
-| 4 | Storybook 모노레포 재빌드 | 모노레포 전환 후 Storybook 재배포 필요 (import 경로 변경 반영) |
-| 5 | ROI 데이터 상태 관리 | 업로드 데이터가 페이지 이동 시 유실됨 (Context 또는 zustand 도입 필요) |
+| # | 항목 | 설명 | 상태 |
+|---|------|------|------|
+| 1 | `output: 'export'` 제거됨 | HMG/Admin에서 Vercel 호환을 위해 제거 | 유지 |
+| 2 | ~~Vercel Git 자동 배포~~ | ~~현재 CLI 수동 배포~~ | ✅ 해결 |
+| 3 | ~~`.vercel-hmg/` 미정리~~ | ~~루트에 임시 디렉토리~~ | ✅ .gitignore 추가 |
+| 4 | Storybook 모노레포 재빌드 | Storybook Root Directory 설정 필요 (Vercel 대시보드) | 보류 |
+| 5 | ~~ROI 데이터 상태 관리~~ | ~~업로드 데이터 페이지 이동 시 유실~~ | ✅ ROIDataContext 도입 |
 
 ---
 
@@ -131,12 +131,13 @@
 |------|------|
 | 앱 | 4개 (Wiki, HMG, Admin, Storybook) |
 | 패키지 | 2개 (tokens, ui) |
-| UI 컴포넌트 | 40개+ (공용 4 + HMG 8 + Admin 12 + ROI 16) |
+| UI 컴포넌트 | 42개+ (공용 4 + HMG 8 + Admin 12 + ROI 18) |
 | 페이지 | 23개+ (Wiki 동적 + HMG 4 + Admin 5 + ROI 9 + _not-found) |
 | ROI 차트 컴포넌트 | 5개 (MiniLine, Donut, MiniBar, Area, Radar) |
-| Storybook 스토리 | 33개 |
+| Storybook 스토리 | 43개+ (Wiki 13 + Admin 12 + HMG 12 + ROI 6) |
 | CSS 토큰 변수 | ~70개 (light/dark, ROI 포함) |
 | 배포 플랫폼 | 2개 (GitHub Pages, Vercel) |
+| Vercel Git 연동 | 3개 (Admin, HMG, Storybook) |
 
 ---
 

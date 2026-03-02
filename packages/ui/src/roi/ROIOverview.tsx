@@ -32,14 +32,14 @@ export default function ROIOverview() {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[var(--roi-text-primary)]">ROI 대시보드</h1>
           <p className="text-sm text-[var(--roi-text-secondary)] mt-0.5">
             {hasData ? '업로드된 데이터 기반 분석' : 'AI 도입 효과를 한눈에 확인하세요'}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <DateFilter value={date} onChange={setDate} />
           <DepartmentFilter value={dept} onChange={setDept} />
         </div>
@@ -54,14 +54,14 @@ export default function ROIOverview() {
       )}
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => (
           <KPICard key={kpi.label} {...kpi} />
         ))}
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-3">시간 절감 추이 (6개월)</h3>
           <MiniLineChart data={lineData} height={200} />
@@ -73,7 +73,7 @@ export default function ROIOverview() {
       </div>
 
       {/* Bottom Row */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Department ROI Ranking */}
         <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-4">부서별 ROI 순위</h3>

@@ -29,15 +29,15 @@ export default function AdminStatistics() {
   const maxTrend = Math.max(...MONTHLY_TREND.map((t) => t.tokens));
 
   return (
-    <div className="flex flex-col gap-6 p-8">
+    <div className="flex flex-col gap-6 p-4 md:p-6 lg:p-8">
       <h1 className="text-2xl font-bold text-text-primary">사용 통계</h1>
 
-      <div className="flex gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <StatCard label="이번 달 총 토큰" value="892K" trend="12% 증가" trendUp />
         <StatCard label="이번 달 총 비용" value="₩47K" trend="8% 증가" trendUp />
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col lg:flex-row gap-6">
         <div className="flex-1 flex flex-col gap-4 p-5 rounded-xl border border-border bg-admin-bg-section">
           <h2 className="text-lg font-semibold text-text-primary">월별 토큰/비용 추이</h2>
           {MONTHLY_TREND.map((t) => (
@@ -45,7 +45,7 @@ export default function AdminStatistics() {
           ))}
         </div>
 
-        <div className="w-80 flex flex-col gap-6">
+        <div className="lg:w-80 flex flex-col gap-6">
           <div className="flex flex-col gap-4 p-5 rounded-xl border border-border bg-admin-bg-section">
             <h2 className="text-lg font-semibold text-text-primary">모델별 사용 분석</h2>
             {MODEL_BREAKDOWN.map((m) => (
