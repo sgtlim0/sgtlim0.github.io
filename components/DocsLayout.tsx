@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import type { PageData } from '@/lib/markdown';
 import { getHeadings } from '@/lib/headings';
 import { getBreadcrumbs, getPrevNext } from '@/lib/navigation';
+import Badge from './Badge';
 import Breadcrumb from './Breadcrumb';
 import TableOfContents from './TableOfContents';
 import PageNavigation from './PageNavigation';
@@ -29,12 +30,7 @@ export default function DocsLayout({ page }: DocsLayoutProps) {
             {page.badges && page.badges.length > 0 && (
               <div className="flex gap-2 mb-3">
                 {page.badges.map((badge) => (
-                  <span
-                    key={badge}
-                    className="inline-flex items-center px-2.5 py-1 rounded-full bg-primary-light text-primary text-xs font-semibold"
-                  >
-                    {badge}
-                  </span>
+                  <Badge key={badge} label={badge} />
                 ))}
               </div>
             )}

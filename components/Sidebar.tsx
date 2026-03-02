@@ -6,9 +6,12 @@ import { useState } from 'react';
 import {
   Home, Rocket, MessageSquare, Users, MessagesSquare, Bot, Wrench,
   CirclePlay, FileText, Search as SearchIcon, PanelTop, Pencil, Bookmark,
-  Settings, Layers, HelpCircle, GitBranch, ChevronDown,
+  Settings, Layers, HelpCircle, GitBranch,
 } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import NavItem from './NavItem';
+import NavGroupHeader from './NavGroupHeader';
+import SearchBar from './SearchBar';
 import { sidebarNavigation, isNavGroup, type NavItemConfig } from '@/lib/navigation';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -61,18 +64,13 @@ export default function Sidebar() {
     const Icon = iconMap[item.icon];
 
     return (
-      <Link
+      <NavItem
         key={item.slug}
+        title={item.title}
         href={slugToHref(item.slug)}
-        className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
-          active
-            ? 'bg-primary-light text-primary font-medium'
-            : 'text-text-secondary hover:bg-bg-hover hover:text-text-primary'
-        }`}
-      >
-        {Icon && <Icon className="w-4 h-4 shrink-0" />}
-        <span>{item.title}</span>
-      </Link>
+        icon={Icon}
+        active={active}
+      />
     );
   };
 
@@ -88,11 +86,7 @@ export default function Sidebar() {
         </div>
 
         {/* Search placeholder */}
-        <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[10px] bg-bg-card border border-border text-text-tertiary mb-1">
-          <SearchIcon className="w-4 h-4 shrink-0" />
-          <span className="text-sm flex-1">문서 검색...</span>
-          <kbd className="text-xs font-medium">&#8984;K</kbd>
-        </div>
+        <SearchBar />
 
         <hr className="border-border" />
 
@@ -107,17 +101,11 @@ export default function Sidebar() {
 
             return (
               <div key={i} className="mt-2">
-                <button
-                  onClick={() => toggleGroup(entry.title)}
-                  className="flex items-center gap-2 px-3 py-2 w-full text-left text-[13px] font-semibold text-text-primary tracking-wide"
-                >
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 text-text-tertiary transition-transform ${
-                      isOpen ? '' : '-rotate-90'
-                    }`}
-                  />
-                  <span>{entry.title}</span>
-                </button>
+                <NavGroupHeader
+                  title={entry.title}
+                  isOpen={isOpen}
+                  onToggle={() => toggleGroup(entry.title)}
+                />
                 {isOpen && (
                   <div className="flex flex-col gap-0.5 ml-1">
                     {entry.items.map((item) => renderNavItem(item))}
