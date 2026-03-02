@@ -56,8 +56,8 @@ export default function UserCard({
         <span>이번 달: <strong className="text-text-primary">{monthlyTokens}</strong></span>
       </div>
       <div className="flex gap-2 pt-1">
-        <button onClick={onViewDetail} className="text-xs text-admin-teal hover:underline">상세 보기</button>
-        <button onClick={onManagePermission} className="text-xs text-text-secondary hover:underline">권한 설정</button>
+        <button onClick={onViewDetail} aria-label={`${name} 상세 보기`} className="text-xs text-admin-teal hover:underline">상세 보기</button>
+        <button onClick={onManagePermission} aria-label={`${name} 권한 설정`} className="text-xs text-text-secondary hover:underline">권한 설정</button>
       </div>
     </div>
   );

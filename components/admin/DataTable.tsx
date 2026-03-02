@@ -58,6 +58,7 @@ export default function DataTable({ rows, onViewDetail }: DataTableProps) {
               <td className="px-4 py-3">
                 <button
                   onClick={() => onViewDetail?.(i)}
+                  aria-label={`${row.user} ${row.date} 상세 보기`}
                   className="text-xs text-admin-teal hover:underline"
                 >
                   상세
