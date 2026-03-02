@@ -99,3 +99,35 @@ export {
   useAgentLogs,
   useDailyTrend,
 } from './hooks';
+
+// Enterprise API types
+export type {
+  Department,
+  DepartmentTreeNode,
+  DepartmentBulkItem,
+  DepartmentBulkResult,
+  DepartmentBulkResultItem,
+  EnterpriseUser,
+  EnterpriseUserRole,
+  UserBulkItem,
+  UserBulkResult,
+  UserBulkResultItem,
+  UserActionLog,
+  AuditEventType,
+  AuditLogQuery,
+  SSOConfig,
+  BulkSummary,
+  EnterpriseApiResponse,
+  EnterpriseErrorResponse,
+} from './types/enterprise';
+
+// Enterprise API client
+export { enterpriseApi } from './enterpriseApi';
+
+// Enterprise mock data
+export {
+  mockDepartments,
+  mockEnterpriseUsers,
+  mockAuditLogs,
+  mockSSOConfig,
+} from './enterpriseMockData';

@@ -17,6 +17,9 @@ export { default as AdminModelPricing } from './AdminModelPricing';
 export { default as AdminPromptLibrary } from './AdminPromptLibrary';
 export { default as AdminAgentMonitoring } from './AdminAgentMonitoring';
 export { default as AdminFeatureUsage } from './AdminFeatureUsage';
+export { default as DepartmentManagement } from './DepartmentManagement';
+export { default as AuditLogViewer } from './AuditLogViewer';
+export { default as SSOConfigPanel } from './SSOConfigPanel';
 
 // Auth
 export * from './auth';
