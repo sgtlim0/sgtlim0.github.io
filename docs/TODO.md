@@ -1,6 +1,6 @@
 # H Chat Wiki 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-03
+> 마지막 업데이트: 2026-03-04
 
 ---
 
@@ -82,6 +82,19 @@
 - Enterprise API 서비스 레이어: 타입, 클라이언트, Mock 데이터
 - Admin 25개 라우트 정적 빌드 성공
 
+### Phase 16: H Chat 사용자 기능 구현 ✅ 완료
+- 별도 `apps/user` 앱 생성 (Next.js 16, port 3003)
+- 사용자 UI 컴포넌트 12개: UserGNB, ChatSidebar, AssistantCard, AssistantGrid, CategoryFilter, ChatSearchBar, FileUploadZone, StepProgress, EngineSelector, ProjectTable, SubscriptionCard, UsageTable
+- 페이지 5개: ChatPage (업무 비서 채팅), TranslationPage (문서 번역), DocsPage (문서 작성), OCRPage (텍스트 추출), MyPage (마이페이지)
+- AI 비서 8종 카드 + 카테고리 필터 (8개) + 공식/커스텀 탭
+- 대화 인터페이스 (메시지 버블, 시뮬레이션 응답)
+- 번역 엔진 선택 (자체 vs DeepL) + 파일 업로드 드래그앤드롭
+- 문서 작성 5단계 워크플로우 + 프로젝트 테이블
+- OCR 모드 전환 (추출 최대 5장 / 번역 최대 20장) + 결과 테이블
+- 마이페이지 요금제 카드 + 9개 모델 사용량 테이블
+- wiki.pen에 User 5개 화면 디자인 추가 (y=16300)
+- Mock 데이터: 비서 8종, 모델 사용량 9종, 구독, 대화 3개, 프로젝트 2개, OCR 작업 3개
+
 ---
 
 ## 현재 배포 URL
@@ -96,6 +109,7 @@
 | Admin 감사로그 | https://hchat-admin.vercel.app/audit-logs | Vercel | ✅ |
 | Admin SSO | https://hchat-admin.vercel.app/sso | Vercel | ✅ |
 | Storybook | https://hchat-wiki-storybook.vercel.app | Vercel | ✅ |
+| User | (미배포) localhost:3003 | Vercel (예정) | ⬜ |
 
 ---
 
@@ -123,10 +137,10 @@
 | 11 | 성능 최적화 | Lighthouse 점수 측정 및 개선 | ✅ 완료 (font swap, viewport) |
 | 12 | ROI Storybook 스토리 | ROI 차트/컴포넌트 6개 스토리 | ✅ 완료 |
 
-### 우선순위 낮음
+### 우선순위 낮음 — 모두 완료
 
-| # | 작업 | 설명 | 예상 난이도 |
-|---|------|------|------------|
+| # | 작업 | 설명 | 상태 |
+|---|------|------|------|
 | 13 | Admin 실데이터 연동 | 현재 mock 데이터 → API 연결 (hchat-v2-extension 백엔드) | ✅ 완료 (API 서비스 레이어) |
 | 14 | Admin 인증/인가 | 관리자 로그인 + 권한 관리 | ✅ 완료 (AuthContext + LoginPage) |
 | 15 | HMG PDF 다운로드 기능 | Publications 페이지 다운로드 핸들러 + 탭 필터링 | ✅ 완료 |
@@ -135,6 +149,19 @@
 | 18 | Admin 확장 화면: PromptLibrary | 조직 공용 프롬프트 템플릿 관리 | ✅ 완료 |
 | 19 | Admin 확장 화면: AgentMonitoring | 에이전트 실행 모니터링 | ✅ 완료 |
 | 20 | CI/CD 파이프라인 강화 | lint + type-check + build 자동화 (GitHub Actions + turbo) | ✅ 완료 |
+
+### 신규 — Phase 16 이후 작업
+
+| # | 작업 | 설명 | 상태 |
+|---|------|------|------|
+| 21 | User 앱 Vercel 배포 | `apps/user` Vercel 프로젝트 생성 + Git 연동 | ⬜ |
+| 22 | User Storybook 스토리 | User 컴포넌트 12개 스토리 추가 | ⬜ |
+| 23 | User 다크모드 지원 | 사용자 앱 다크모드 CSS 토큰 + ThemeToggle | ⬜ |
+| 24 | User 반응형 레이아웃 | 모바일/태블릿 대응 (GNB 햄버거, 사이드바 슬라이드) | ⬜ |
+| 25 | 채팅 실시간 스트리밍 | SSE/WebSocket 기반 AI 응답 스트리밍 UI | ⬜ |
+| 26 | 비서 커스텀 생성 UI | "내가 만든 비서" 생성/편집 폼 | ⬜ |
+| 27 | LLM-Router 코드 구현 | wiki.pen 10개 화면 → React 컴포넌트 구현 | ⬜ |
+| 28 | 전체 앱 통합 테스트 | E2E 테스트 확장 (User + Admin + HMG) | ⬜ |
 
 ---
 
@@ -154,13 +181,13 @@
 
 | 항목 | 수량 |
 |------|------|
-| 앱 | 4개 (Wiki, HMG, Admin, Storybook) |
+| 앱 | 5개 (Wiki, HMG, Admin, User, Storybook) |
 | 패키지 | 2개 (tokens, ui) |
-| UI 컴포넌트 | 48개+ (공용 4 + HMG 8 + Admin 15 + ROI 18 + Enterprise 3) |
-| 페이지 | 34개+ (Wiki 동적 + HMG 5 + Admin 14 + ROI 9 + _not-found) |
+| UI 컴포넌트 | 60개+ (공용 4 + HMG 8 + Admin 15 + ROI 18 + Enterprise 3 + User 12) |
+| 페이지 | 40개+ (Wiki 동적 + HMG 5 + Admin 14 + ROI 9 + User 6 + _not-found) |
 | ROI 차트 컴포넌트 | 5개 (MiniLine, Donut, MiniBar, Area, Radar) |
 | Storybook 스토리 | 46개+ (Wiki 13 + Admin 12 + HMG 12 + ROI 6 + Enterprise 3) |
-| CSS 토큰 변수 | ~70개 (light/dark, ROI 포함) |
+| CSS 토큰 변수 | ~80개 (light/dark, ROI, User 포함) |
 | 배포 플랫폼 | 2개 (GitHub Pages, Vercel) |
 | Vercel Git 연동 | 3개 (Admin, HMG, Storybook) |
 
@@ -186,6 +213,11 @@
 | LR-Billing | `wlLLR` | (4920, 14100) |
 | LR-Login | `a7p1z` | (0, 15200) |
 | LR-Signup | `9rSHt` | (1640, 15200) |
+| User-ChatPage | `wXaTq` | (0, 16300) |
+| User-TranslationPage | `AReFe` | (1540, 16300) |
+| User-DocsPage | `FiDov` | (3080, 16300) |
+| User-OCRPage | `h8gJ3` | (4620, 16300) |
+| User-MyPage | `QT0Nr` | (6160, 16300) |
 
 ---
 

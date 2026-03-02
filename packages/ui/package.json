@@ -9,7 +9,9 @@
     "./hmg": "./src/hmg/index.ts",
     "./hmg/*": "./src/hmg/*.tsx",
     "./admin": "./src/admin/index.ts",
-    "./admin/*": "./src/admin/*.tsx"
+    "./admin/*": "./src/admin/*.tsx",
+    "./user": "./src/user/index.ts",
+    "./user/*": "./src/user/*.tsx"
   },
   "files": [
     "src"
