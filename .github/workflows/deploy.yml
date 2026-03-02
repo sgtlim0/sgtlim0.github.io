@@ -31,13 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build with Next.js
-        run: npm run build
+      - name: Build Wiki
+        run: npm run build:wiki
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./apps/wiki/out
 
   deploy:
     environment:
