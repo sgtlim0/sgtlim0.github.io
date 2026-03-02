@@ -3,18 +3,38 @@
 import KPICard from './KPICard';
 import { MiniBarChart } from './charts';
 import { DonutChart } from './charts';
-import { productivityKPIs, taskTimeSavings, weeklyAIHours, featureSavingsRatio } from './mockData';
+import { useROIData } from './ROIDataContext';
+import {
+  productivityKPIs as mockProductivityKPIs,
+  taskTimeSavings as mockTaskSavings,
+  weeklyAIHours as mockWeeklyHours,
+  featureSavingsRatio as mockFeatureRatio,
+} from './mockData';
 
 export default function ROIProductivity() {
-  const barData = weeklyAIHours.map((d) => ({ label: d.week, value: d.hours }));
-  const donutSegments = featureSavingsRatio.map((d) => ({ label: d.name, value: d.percent, color: d.color }));
+  const { hasData, aggregated } = useROIData();
+
+  const kpis = hasData && aggregated ? aggregated.productivityKPIs : mockProductivityKPIs;
+  const taskSavings = hasData && aggregated ? aggregated.taskTimeSavings : mockTaskSavings;
+  const weeklyHours = hasData && aggregated ? aggregated.weeklyAIHours : mockWeeklyHours;
+  const featureRatio = hasData && aggregated ? aggregated.featureSavingsRatio : mockFeatureRatio;
+
+  const barData = weeklyHours.map((d) => ({ label: d.week, value: d.hours }));
+  const donutSegments = featureRatio.map((d) => ({ label: d.name, value: d.percent, color: d.color }));
 
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-bold text-[var(--roi-text-primary)]">생산성 효과</h1>
 
+      {hasData && (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--roi-positive)]/10 border border-[var(--roi-positive)]/20 w-fit">
+          <span className="w-2 h-2 rounded-full bg-[var(--roi-positive)]" />
+          <span className="text-xs font-medium text-[var(--roi-positive)]">업로드 데이터 반영 중</span>
+        </div>
+      )}
+
       <div className="grid grid-cols-4 gap-4">
-        {productivityKPIs.map((kpi) => (
+        {kpis.map((kpi) => (
           <KPICard key={kpi.label} {...kpi} />
         ))}
       </div>
@@ -33,7 +53,7 @@ export default function ROIProductivity() {
             </tr>
           </thead>
           <tbody>
-            {taskTimeSavings.map((row) => (
+            {taskSavings.map((row) => (
               <tr key={row.task} className="border-b border-[var(--roi-divider)]/50">
                 <td className="py-3 px-3 text-sm text-[var(--roi-text-primary)]">{row.task}</td>
                 <td className="py-3 px-3 text-sm text-[var(--roi-text-secondary)] text-right tabular-nums">{row.manualMin}분</td>

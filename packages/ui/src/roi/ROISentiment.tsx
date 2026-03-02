@@ -7,7 +7,15 @@ import DateFilter from './DateFilter';
 import DepartmentFilter from './DepartmentFilter';
 import { MiniLineChart } from './charts';
 import { RadarChart } from './charts';
-import { sentimentKPIs, surveyItems, improvementRequests, npsHistory, deptSatisfaction, satisfactionAxes } from './mockData';
+import { useROIData } from './ROIDataContext';
+import {
+  sentimentKPIs as mockSentimentKPIs,
+  surveyItems,
+  improvementRequests,
+  npsHistory as mockNpsHistory,
+  deptSatisfaction as mockDeptSatisfaction,
+  satisfactionAxes,
+} from './mockData';
 
 const rankColors = [
   'bg-[var(--roi-chart-1)]',
@@ -28,12 +36,18 @@ const deptColors = [
 export default function ROISentiment() {
   const [date, setDate] = useState('2026.02');
   const [dept, setDept] = useState('전체 부서');
+  const { hasData, aggregated } = useROIData();
 
-  const npsData = npsHistory.map((d) => ({ label: d.month, value: d.score }));
-  const radarDatasets = deptSatisfaction.map((d, i) => ({
+  const kpis = hasData && aggregated ? aggregated.sentimentKPIs : mockSentimentKPIs;
+  const npsData = hasData && aggregated
+    ? aggregated.npsHistory.map((d) => ({ label: d.month, value: d.score }))
+    : mockNpsHistory.map((d) => ({ label: d.month, value: d.score }));
+  const deptSat = hasData && aggregated ? aggregated.deptSatisfaction : mockDeptSatisfaction;
+
+  const radarDatasets = deptSat.map((d, i) => ({
     label: d.dept,
     values: d.values,
-    color: deptColors[i],
+    color: deptColors[i % deptColors.length],
   }));
 
   return (
@@ -46,8 +60,15 @@ export default function ROISentiment() {
         </div>
       </div>
 
+      {hasData && (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--roi-positive)]/10 border border-[var(--roi-positive)]/20 w-fit">
+          <span className="w-2 h-2 rounded-full bg-[var(--roi-positive)]" />
+          <span className="text-xs font-medium text-[var(--roi-positive)]">업로드 데이터 반영 중</span>
+        </div>
+      )}
+
       <div className="grid grid-cols-4 gap-4">
-        {sentimentKPIs.map((kpi) => (
+        {kpis.map((kpi) => (
           <KPICard key={kpi.label} {...kpi} />
         ))}
       </div>

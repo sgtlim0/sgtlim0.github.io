@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { MiniLineChart } from './charts';
 import { AreaChart } from './charts';
-import { roiFlowData, costBreakdown, monthlyROI, cumulativeSavings } from './mockData';
+import { useROIData } from './ROIDataContext';
+import {
+  roiFlowData as mockFlowData,
+  costBreakdown as mockCostBreakdown,
+  monthlyROI as mockMonthlyROI,
+  cumulativeSavings as mockCumulativeSavings,
+} from './mockData';
 
 const AVG_SAVED_HOURS_PER_USER = 8.75;
 
@@ -11,13 +17,18 @@ export default function ROIAnalysis() {
   const [users, setUsers] = useState(280);
   const [hourlyCost, setHourlyCost] = useState(45000);
   const [monthlyCost, setMonthlyCost] = useState(37000000);
+  const { hasData, aggregated } = useROIData();
+
+  const costBreakdown = hasData && aggregated ? aggregated.costBreakdown : mockCostBreakdown;
+  const roiData = hasData && aggregated ? aggregated.monthlyROI : mockMonthlyROI;
+  const savingsData = hasData && aggregated ? aggregated.cumulativeSavings : mockCumulativeSavings;
 
   const savedValue = users * hourlyCost * AVG_SAVED_HOURS_PER_USER;
   const netBenefit = savedValue - monthlyCost;
   const simulatedROI = monthlyCost > 0 ? Math.round((netBenefit / monthlyCost) * 100) : 0;
 
-  const lineData = monthlyROI.map((d) => ({ label: d.month, value: d.roi }));
-  const areaData = cumulativeSavings.map((d) => ({ label: d.month, value: d.amount }));
+  const lineData = roiData.map((d) => ({ label: d.month, value: d.roi }));
+  const areaData = savingsData.map((d) => ({ label: d.month, value: d.amount }));
 
   const formatKRW = (n: number) => {
     if (n >= 1_000_000_000) return `₩${(n / 1_000_000_000).toFixed(1)}B`;
@@ -25,22 +36,39 @@ export default function ROIAnalysis() {
     return `₩${n.toLocaleString()}`;
   };
 
+  // Derive flow data from aggregated or mock
+  const flowData = hasData && aggregated
+    ? {
+        aiCost: formatKRW(aggregated.costBreakdown.reduce((s, r) => s + parseFloat(r.cost.replace(/[₩MBK,]/g, '')) * (r.cost.includes('M') ? 1_000_000 : r.cost.includes('B') ? 1_000_000_000 : r.cost.includes('K') ? 1000 : 1), 0)),
+        savedValue: formatKRW(aggregated.costBreakdown.reduce((s, r) => s + parseFloat(r.savings.replace(/[₩MBK,]/g, '')) * (r.savings.includes('M') ? 1_000_000 : r.savings.includes('B') ? 1_000_000_000 : r.savings.includes('K') ? 1000 : 1), 0)),
+        netBenefit: aggregated.overviewKPIs[1]?.value ?? '-',
+        roiPercent: aggregated.overviewKPIs[2]?.value ?? '-',
+      }
+    : mockFlowData;
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-bold text-[var(--roi-text-primary)]">ROI 분석</h1>
+
+      {hasData && (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--roi-positive)]/10 border border-[var(--roi-positive)]/20 w-fit">
+          <span className="w-2 h-2 rounded-full bg-[var(--roi-positive)]" />
+          <span className="text-xs font-medium text-[var(--roi-positive)]">업로드 데이터 반영 중</span>
+        </div>
+      )}
 
       {/* ROI Flow Banner */}
       <div className="p-6 rounded-xl bg-[var(--roi-chart-1)] text-white">
         <h3 className="text-sm font-medium mb-4 opacity-80">ROI 계산 흐름</h3>
         <div className="flex items-center justify-between gap-4">
           {[
-            { label: 'AI 비용', value: roiFlowData.aiCost },
-            { label: '절감 가치', value: roiFlowData.savedValue },
-            { label: '순이익', value: roiFlowData.netBenefit },
-            { label: 'ROI', value: roiFlowData.roiPercent },
+            { label: 'AI 비용', value: flowData.aiCost },
+            { label: '절감 가치', value: flowData.savedValue },
+            { label: '순이익', value: flowData.netBenefit },
+            { label: 'ROI', value: flowData.roiPercent },
           ].map((item, i) => (
             <div key={item.label} className="flex items-center gap-4">
-              {i > 0 && <span className="text-2xl opacity-50">→</span>}
+              {i > 0 && <span className="text-2xl opacity-50">&rarr;</span>}
               <div className="text-center">
                 <p className="text-xs opacity-70">{item.label}</p>
                 <p className="text-2xl font-bold mt-1">{item.value}</p>

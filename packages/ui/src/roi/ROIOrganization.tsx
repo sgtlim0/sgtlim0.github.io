@@ -1,7 +1,12 @@
 'use client';
 
 import { DonutChart } from './charts';
-import { heatmapData, gradeUsage, modelUsageRatio } from './mockData';
+import { useROIData } from './ROIDataContext';
+import {
+  heatmapData as mockHeatmapData,
+  gradeUsage as mockGradeUsage,
+  modelUsageRatio as mockModelRatio,
+} from './mockData';
 
 const levelColors = {
   high: 'bg-[var(--roi-heatmap-high)]/15 text-[var(--roi-heatmap-high)]',
@@ -10,11 +15,24 @@ const levelColors = {
 };
 
 export default function ROIOrganization() {
-  const donutSegments = modelUsageRatio.map((d) => ({ label: d.name, value: d.percent, color: d.color }));
+  const { hasData, aggregated } = useROIData();
+
+  const heatmap = hasData && aggregated ? aggregated.heatmapData : mockHeatmapData;
+  const grades = hasData && aggregated ? aggregated.gradeUsage : mockGradeUsage;
+  const modelRatio = hasData && aggregated ? aggregated.modelUsageRatio : mockModelRatio;
+
+  const donutSegments = modelRatio.map((d) => ({ label: d.name, value: d.percent, color: d.color }));
 
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-bold text-[var(--roi-text-primary)]">조직 분석</h1>
+
+      {hasData && (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--roi-positive)]/10 border border-[var(--roi-positive)]/20 w-fit">
+          <span className="w-2 h-2 rounded-full bg-[var(--roi-positive)]" />
+          <span className="text-xs font-medium text-[var(--roi-positive)]">업로드 데이터 반영 중</span>
+        </div>
+      )}
 
       {/* Heatmap Table */}
       <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
@@ -30,7 +48,7 @@ export default function ROIOrganization() {
             </tr>
           </thead>
           <tbody>
-            {heatmapData.map((row) => (
+            {heatmap.map((row) => (
               <tr key={row.dept} className="border-b border-[var(--roi-divider)]/50">
                 <td className="py-3 px-4 text-sm font-medium text-[var(--roi-text-primary)]">{row.dept}</td>
                 {[row.usage, row.time, row.roi, row.satisfaction].map((val, i) => (
@@ -52,7 +70,7 @@ export default function ROIOrganization() {
         <div className="p-5 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
           <h3 className="text-sm font-semibold text-[var(--roi-text-primary)] mb-4">직급별 활용도</h3>
           <div className="flex flex-col gap-3">
-            {gradeUsage.map((g) => (
+            {grades.map((g) => (
               <div key={g.label} className="flex items-center gap-4">
                 <span className="text-sm text-[var(--roi-text-primary)] w-16 shrink-0">{g.label}</span>
                 <div className="flex-1 h-5 bg-[var(--roi-body-bg)] rounded-full overflow-hidden">

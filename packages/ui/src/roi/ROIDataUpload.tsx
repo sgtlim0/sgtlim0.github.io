@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { read, utils, type WorkBook } from 'xlsx';
+import { useROIData } from './ROIDataContext';
 
 interface UploadState {
   status: 'idle' | 'dragging' | 'parsing' | 'done' | 'error';
@@ -61,6 +62,7 @@ export default function ROIDataUpload() {
   const [state, setState] = useState<UploadState>({ status: 'idle' });
   const [records, setRecords] = useState<ParsedRecord[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { setRecords: setGlobalRecords, clearRecords: clearGlobalRecords } = useROIData();
 
   const processFile = useCallback(async (file: File) => {
     setState({ status: 'parsing', fileName: file.name });
@@ -73,6 +75,7 @@ export default function ROIDataUpload() {
         return;
       }
       setRecords(data);
+      setGlobalRecords(data);
       setState({ status: 'done', fileName: file.name, recordCount: data.length });
     } catch {
       setState({ status: 'error', fileName: file.name, errorMessage: '파일 파싱에 실패했습니다. Excel 형식을 확인해주세요.' });
@@ -107,6 +110,7 @@ export default function ROIDataUpload() {
     setTimeout(() => {
       const data = generateSampleData();
       setRecords(data);
+      setGlobalRecords(data);
       setState({ status: 'done', fileName: '샘플_이용통계_2025Q3-2026Q1.xlsx', recordCount: data.length });
     }, 600);
   }, []);
@@ -114,8 +118,9 @@ export default function ROIDataUpload() {
   const handleReset = useCallback(() => {
     setState({ status: 'idle' });
     setRecords([]);
+    clearGlobalRecords();
     if (fileInputRef.current) fileInputRef.current.value = '';
-  }, []);
+  }, [clearGlobalRecords]);
 
   const columns = records.length > 0 ? Object.keys(records[0]) : [];
   const previewRows = records.slice(0, 10);
