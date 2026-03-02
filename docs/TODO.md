@@ -119,17 +119,18 @@ hchat-v2-extension 분석 결과 추가 가능한 Admin 화면:
 
 | # | 작업 | 상태 | 비고 |
 |---|------|------|------|
-| 7.1 | Atoms: StatusBadge 스토리 | ❌ 미시작 | Success/Error/Pending 3가지 |
-| 7.2 | Atoms: MonthPicker 스토리 | ❌ 미시작 | Default/Selected |
-| 7.3 | Molecules: DataTable 스토리 | ❌ 미시작 | UsageHistory/EmptyState |
-| 7.4 | Molecules: BarChartRow 스토리 | ❌ 미시작 | ModelUsage/UserRanking |
-| 7.5 | Molecules: UserCard 스토리 | ❌ 미시작 | Active/Inactive |
-| 7.6 | Molecules: SettingsRow 스토리 | ❌ 미시작 | Toggle/Input |
-| 7.7 | Organisms: AdminDashboard 스토리 | ❌ 미시작 | Default/DarkMode |
-| 7.8 | Organisms: AdminUsageHistory 스토리 | ❌ 미시작 | Default/Filtered/DarkMode |
-| 7.9 | Organisms: AdminStatistics 스토리 | ❌ 미시작 | Default/DarkMode |
-| 7.10 | Organisms: AdminUserManagement 스토리 | ❌ 미시작 | Default/DarkMode |
-| 7.11 | Organisms: AdminSettings 스토리 | ❌ 미시작 | Default/DarkMode |
+| 7.1 | Atoms: StatusBadge 스토리 | ✅ 완료 | Success/Error/Pending/CustomLabel |
+| 7.2 | Atoms: MonthPicker 스토리 | ✅ 완료 | Default/January/December |
+| 7.3 | Atoms: StatCard 스토리 | ✅ 완료 | TotalConversations/Tokens/TrendUp/TrendDown |
+| 7.4 | Molecules: DataTable 스토리 | ✅ 완료 | UsageHistory/EmptyState/SingleRow |
+| 7.5 | Molecules: BarChartRow 스토리 | ✅ 완료 | ModelUsage/UserRanking/MultipleRows |
+| 7.6 | Molecules: UserCard 스토리 | ✅ 완료 | Active/Inactive/Suspended |
+| 7.7 | Molecules: SettingsRow 스토리 | ✅ 완료 | ToggleEnabled/ToggleDisabled/MultipleRows |
+| 7.8 | Organisms: AdminDashboard 스토리 | ✅ 완료 | Default/DarkMode |
+| 7.9 | Organisms: AdminUsageHistory 스토리 | ✅ 완료 | Default/DarkMode |
+| 7.10 | Organisms: AdminStatistics 스토리 | ✅ 완료 | Default/DarkMode |
+| 7.11 | Organisms: AdminUserManagement 스토리 | ✅ 완료 | Default/DarkMode |
+| 7.12 | Organisms: AdminSettings 스토리 | ✅ 완료 | Default/DarkMode |
 
 ---
 
@@ -137,11 +138,11 @@ hchat-v2-extension 분석 결과 추가 가능한 Admin 화면:
 
 | # | 작업 | 상태 | 비고 |
 |---|------|------|------|
-| 8.1 | Admin React 컴포넌트 구현 | ❌ 미시작 | StatusBadge, DataTable, BarChart, UserCard, SettingsRow, MonthPicker |
-| 8.2 | Admin 페이지 구현 | ❌ 미시작 | AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings |
-| 8.3 | 라우팅 + 네비게이션 연결 | ❌ 미시작 | /admin/* 경로 |
-| 8.4 | 빌드 검증 | ❌ 미시작 | `npm run build` + `npm run build-storybook` |
-| 8.5 | Vercel 배포 | ❌ 미시작 | 메인 사이트 + Storybook |
+| 8.1 | Admin React 컴포넌트 구현 | ✅ 완료 | StatusBadge, DataTable, BarChartRow, UserCard, SettingsRow, MonthPicker, StatCard |
+| 8.2 | Admin 페이지 구현 | ✅ 완료 | AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings |
+| 8.3 | 라우팅 + 네비게이션 연결 | ❌ 미시작 | /admin/* 경로 (Static Export 제약으로 보류) |
+| 8.4 | 빌드 검증 | ✅ 완료 | `npm run build` + `npm run build-storybook` 모두 성공 |
+| 8.5 | Vercel 배포 | ❌ 미시작 | Storybook 재배포 필요 |
 
 ---
 
@@ -166,20 +167,19 @@ hchat-v2-extension 분석 결과 추가 가능한 Admin 화면:
 | 4. Storybook 세팅 & 배포 | 7 | 7 | 100% |
 | 5. Admin 디자인 (wiki.pen) | 9 | 9 | 100% |
 | 6. Extension 분석 & 확장 | 6 | 7 | 86% |
-| 7. Admin Storybook 스토리 | 0 | 11 | 0% |
-| 8. React 코드 구현 | 0 | 5 | 0% |
+| 7. Admin Storybook 스토리 | 12 | 12 | 100% |
+| 8. React 코드 구현 | 3 | 5 | 60% |
 | 9. 품질 보증 | 0 | 4 | 0% |
-| **총합** | **40** | **61** | **66%** |
+| **총합** | **55** | **62** | **89%** |
 
 ---
 
 ## 다음 우선순위 작업
 
-1. **확장 기능 화면 추가** — ProviderStatus, ModelPricing 등 (hchat-v2-extension 분석 기반)
-2. **Admin Storybook 스토리 작성** — Atoms → Molecules → Organisms 순서
-3. **Admin React 컴포넌트 구현** — 디자인 → 코드 변환
-4. **빌드 검증 + Vercel 배포** — `npm run build` + `npm run build-storybook`
-5. **품질 보증** — 코드 리뷰, 접근성, 다크모드, 반응형 검증
+1. **Storybook Vercel 재배포** — Admin 스토리 포함
+2. **품질 보증** — 코드 리뷰, 접근성, 다크모드, 반응형 검증
+3. **확장 기능 화면 추가 (선택)** — ProviderStatus, ModelPricing 등
+4. **Admin 라우팅 연결 (선택)** — /admin/* 경로 (Static Export 제약 고려)
 
 ---
 
