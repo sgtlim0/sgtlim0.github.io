@@ -70,7 +70,7 @@
 - 설계 문서: `docs/LLM_ROUTER_UI_DESIGN.md`, `docs/LLM_ROUTER_IMPLEMENTATION_PLAN.md`
 
 ### Phase 14: 기업 API 연동 설계 ✅ 완료
-- 웍스AI 기업 사용자용 API 가이드 심층 분석
+- H Chat 기업 사용자용 API 가이드 심층 분석
 - 부서 관리, 사용자 관리, 감사 로그, SSO 연동 설계
 - API 프록시 아키텍처 (서버사이드 API Key 보호)
 - 구현 설계 문서: `docs/HCHAT_ENTERPRISE_API_IMPLEMENTATION.md`

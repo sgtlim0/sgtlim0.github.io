@@ -1,6 +1,6 @@
 /**
  * Enterprise API type definitions
- * Based on 웍스AI 기업 사용자용 API 이용가이드 v260226
+ * Based on H Chat 기업 사용자용 API 이용가이드 v260226
  */
 
 // --- Common ---

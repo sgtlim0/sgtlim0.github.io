@@ -1,6 +1,6 @@
 # H Chat 기업 사용자용 API 연동 — 심층분석 및 구현 설계 방안
 
-> 원본: 웍스AI 기업 사용자용 API 이용가이드 v260226
+> 원본: H Chat 기업 사용자용 API 이용가이드 v260226
 > 작성일: 2026-03-03
 > 대상: Admin 앱 (`apps/admin`) + 공통 서비스 레이어 (`packages/ui/src/admin/services`)
 
