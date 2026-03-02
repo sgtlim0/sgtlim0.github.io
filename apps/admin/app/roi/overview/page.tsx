@@ -1,5 +1,10 @@
 import { ROIOverview } from '@hchat/ui';
+import { ProtectedRoute } from '@hchat/ui/admin';
 
 export default function OverviewPage() {
-  return <ROIOverview />;
+  return (
+    <ProtectedRoute>
+      <ROIOverview />
+    </ProtectedRoute>
+  );
 }

@@ -1,4 +1,4 @@
-import { AdminProviderStatus } from '@hchat/ui/admin';
+import { AdminProviderStatus, ProtectedRoute } from '@hchat/ui/admin';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function ProvidersPage() {
-  return <AdminProviderStatus />;
+  return (
+    <ProtectedRoute>
+      <AdminProviderStatus />
+    </ProtectedRoute>
+  );
 }

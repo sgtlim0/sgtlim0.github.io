@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@hchat/ui'
+import { AuthProvider } from '@hchat/ui/admin'
 import AdminNav from '@/components/AdminNav'
 import './globals.css'
 
@@ -50,8 +51,10 @@ export default function RootLayout({
       </head>
       <body className={inter.variable}>
         <ThemeProvider>
-          <AdminNav />
-          <main className="min-h-[calc(100vh-80px)]">{children}</main>
+          <AuthProvider>
+            <AdminNav />
+            <main className="min-h-[calc(100vh-80px)]">{children}</main>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

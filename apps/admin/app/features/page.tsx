@@ -1,4 +1,4 @@
-import { AdminFeatureUsage } from '@hchat/ui/admin';
+import { AdminFeatureUsage, ProtectedRoute } from '@hchat/ui/admin';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -7,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function FeaturesPage() {
-  return <AdminFeatureUsage />;
+  return (
+    <ProtectedRoute>
+      <AdminFeatureUsage />
+    </ProtectedRoute>
+  );
 }

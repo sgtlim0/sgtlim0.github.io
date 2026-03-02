@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ThemeToggle } from '@hchat/ui';
+import { useAuth } from '@hchat/ui/admin';
 
 const navItems = [
   { href: '/', label: '대시보드' },
@@ -21,7 +22,18 @@ const navItems = [
 
 export default function AdminNav() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push('/login');
+  };
+
+  if (pathname === '/login') {
+    return null;
+  }
 
   return (
     <nav className="h-20 bg-hmg-bg-card border-b border-hmg-border">
@@ -56,7 +68,22 @@ export default function AdminNav() {
             })}
           </ul>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          {isAuthenticated && user && (
+            <div className="hidden md:flex items-center gap-3 px-3 py-2 rounded-md bg-hmg-bg-section">
+              <div className="flex flex-col items-end">
+                <span className="text-sm font-medium text-text-primary">{user.name}</span>
+                <span className="text-xs text-text-tertiary">{user.role}</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="px-3 py-1.5 text-sm text-text-secondary hover:text-danger transition-colors"
+                title="로그아웃"
+              >
+                로그아웃
+              </button>
+            </div>
+          )}
           <ThemeToggle />
           {/* Mobile hamburger */}
           <button
@@ -98,6 +125,23 @@ export default function AdminNav() {
                 </li>
               );
             })}
+            {isAuthenticated && user && (
+              <li className="border-t border-hmg-border mt-2 pt-2">
+                <div className="px-4 py-2 text-sm">
+                  <div className="text-text-primary font-medium">{user.name}</div>
+                  <div className="text-text-tertiary text-xs">{user.role}</div>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full text-left px-4 py-3 text-base text-danger hover:bg-hmg-bg-surface transition-colors"
+                >
+                  로그아웃
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       )}

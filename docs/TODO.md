@@ -15,6 +15,9 @@
 | `docs/HMG_DESIGN_IMPLEMENTATION.md` | wiki.pen HMG 화면 구현 방안 | 완료 |
 | `docs/HCHAT_ADMIN_DESIGN.md` | Admin 관리자 페이지 디자인 설계 | 완료 |
 | `docs/HCHAT_ROI_DASHBOARD_DESIGN.md` | ROI 대시보드 디자인 설계 | 완료 |
+| `docs/LLM_ROUTER_UI_DESIGN.md` | LLM-Router 화면 설계안 | 완료 |
+| `docs/LLM_ROUTER_IMPLEMENTATION_PLAN.md` | LLM-Router 구현 계획서 | 완료 |
+| `docs/HCHAT_ENTERPRISE_API_IMPLEMENTATION.md` | 기업 API 연동 구현 설계 | 완료 |
 | `CLAUDE.md` | 프로젝트 가이드라인 | 업데이트 필요 |
 
 ---
@@ -60,6 +63,17 @@
 - 데이터 미리보기 테이블 + 요약 통계
 - Vercel 배포 완료
 
+### Phase 13: LLM-Router 화면 설계 ✅ 완료
+- wiki.pen에 LLM-Router 10개 화면 디자인 (Landing, Models, Docs, Playground, UsageStats, APIKeys, OrgSettings, Billing, Login, Signup)
+- 실제 서비스 스크린샷 20장 분석 → 화면 설계 반영
+- 설계 문서: `docs/LLM_ROUTER_UI_DESIGN.md`, `docs/LLM_ROUTER_IMPLEMENTATION_PLAN.md`
+
+### Phase 14: 기업 API 연동 설계 ✅ 완료
+- 웍스AI 기업 사용자용 API 가이드 심층 분석
+- 부서 관리, 사용자 관리, 감사 로그, SSO 연동 설계
+- API 프록시 아키텍처 (서버사이드 API Key 보호)
+- 구현 설계 문서: `docs/HCHAT_ENTERPRISE_API_IMPLEMENTATION.md`
+
 ---
 
 ## 현재 배포 URL
@@ -102,8 +116,8 @@
 
 | # | 작업 | 설명 | 예상 난이도 |
 |---|------|------|------------|
-| 13 | Admin 실데이터 연동 | 현재 mock 데이터 → API 연결 (hchat-v2-extension 백엔드) | 높음 |
-| 14 | Admin 인증/인가 | 관리자 로그인 + 권한 관리 | 높음 |
+| 13 | Admin 실데이터 연동 | 현재 mock 데이터 → API 연결 (hchat-v2-extension 백엔드) | ✅ 완료 (API 서비스 레이어) |
+| 14 | Admin 인증/인가 | 관리자 로그인 + 권한 관리 | ✅ 완료 (AuthContext + LoginPage) |
 | 15 | HMG PDF 다운로드 기능 | Publications 페이지 다운로드 핸들러 + 탭 필터링 | ✅ 완료 |
 | 16 | i18n 다국어 지원 | 한국어/영어 전환 (I18nProvider + LanguageToggle) | ✅ 완료 |
 | 17 | Admin 확장 화면: FeatureUsage | 기능별 사용량 대시보드 | ✅ 완료 |
@@ -151,6 +165,16 @@
 | Admin-UserManagement | `xfASO` | (4620, 5000) |
 | Admin-Settings | `T1HB0` | (6160, 5000) |
 | Admin Dark 5개 | `44O0p`, `Kq2zH`, `ANP2B`, `CRTVS`, `bCQBV` | y=6100 |
+| LR-Landing | `yaGNg` | (0, 13000) |
+| LR-Models | `xn0B4` | (1640, 13000) |
+| LR-Docs | `q3LCL` | (3280, 13000) |
+| LR-Playground | `2xbMg` | (4920, 13000) |
+| LR-UsageStats | `WW4ED` | (0, 14100) |
+| LR-APIKeys | `yWcUT` | (1640, 14100) |
+| LR-OrgSettings | `seSOm` | (3280, 14100) |
+| LR-Billing | `wlLLR` | (4920, 14100) |
+| LR-Login | `a7p1z` | (0, 15200) |
+| LR-Signup | `9rSHt` | (1640, 15200) |
 
 ---
 

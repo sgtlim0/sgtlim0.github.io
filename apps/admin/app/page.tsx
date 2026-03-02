@@ -1,5 +1,9 @@
-import { AdminDashboard } from '@hchat/ui/admin'
+import { AdminDashboard, ProtectedRoute } from '@hchat/ui/admin'
 
 export default function DashboardPage() {
-  return <AdminDashboard />
+  return (
+    <ProtectedRoute>
+      <AdminDashboard />
+    </ProtectedRoute>
+  )
 }

@@ -1,5 +1,9 @@
-import { AdminUsageHistory } from '@hchat/ui/admin'
+import { AdminUsageHistory, ProtectedRoute } from '@hchat/ui/admin'
 
 export default function UsagePage() {
-  return <AdminUsageHistory />
+  return (
+    <ProtectedRoute>
+      <AdminUsageHistory />
+    </ProtectedRoute>
+  )
 }

@@ -1,5 +1,10 @@
 import { ROIAnalysis } from '@hchat/ui';
+import { ProtectedRoute } from '@hchat/ui/admin';
 
 export default function AnalysisPage() {
-  return <ROIAnalysis />;
+  return (
+    <ProtectedRoute>
+      <ROIAnalysis />
+    </ProtectedRoute>
+  );
 }

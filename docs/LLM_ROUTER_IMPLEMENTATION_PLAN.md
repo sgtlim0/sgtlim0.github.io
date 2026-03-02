@@ -1,15 +1,15 @@
-# BizRouter 클론 구현 계획서
+# LLM-Router 클론 구현 계획서
 
 > 작성일: 2026-03-03
-> 참조: https://bizrouter.ai/docs, https://bizrouter.ai/models
+> 참조: https://llm-router.ai/docs, https://llm-router.ai/models
 
 ---
 
-## 1. BizRouter 서비스 분석
+## 1. LLM-Router 서비스 분석
 
 ### 1.1 서비스 개요
 
-BizRouter는 **한국 시장 특화 기업용 LLM 게이트웨이**로, 여러 AI 제공업체의 모델을 통합 API로 제공한다.
+LLM-Router는 **한국 시장 특화 기업용 LLM 게이트웨이**로, 여러 AI 제공업체의 모델을 통합 API로 제공한다.
 
 | 항목 | 내용 |
 |------|------|
@@ -52,7 +52,7 @@ BizRouter는 **한국 시장 특화 기업용 LLM 게이트웨이**로, 여러 A
 ### 1.4 API 엔드포인트 구조
 
 ```
-Base URL: https://api.bizrouter.ai/
+Base URL: https://api.llm-router.ai/
 
 POST /v1/chat/completions    ← 핵심 (OpenAI 호환)
 POST /v1/responses           ← OpenAI Responses API
@@ -168,7 +168,7 @@ POST /v1/video/generation    ← 비디오 생성
 
 ### Phase 1: 프론트엔드 — 마케팅 사이트 (1주)
 
-기존 hchat-wiki 모노레포에 `apps/bizrouter` 앱 추가.
+기존 hchat-wiki 모노레포에 `apps/llm-router` 앱 추가.
 
 #### 1-1. 랜딩 페이지 (`/`)
 - 히어로 섹션: "기업용 LLM 라우터" + 빠른 시작 코드 블록
@@ -509,7 +509,7 @@ const PII_PATTERNS = [
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 통합 모델 가격표                                      │
-│ BizRouter는 표기된 모델 가격 외에 수수료를 부과하지 않습니다│
+│ LLM-Router는 표기된 모델 가격 외에 수수료를 부과하지 않습니다│
 │ 총 86개 모델 (2026년 3월 3일 현재. 환율: 1 USD = ₩1,445)│
 ├─────────────────────────────────────────────────────┤
 │ [전체] [Anthropic] [OpenAI] [Google] [xAI] [기타]    │
@@ -596,7 +596,7 @@ const PII_PATTERNS = [
 | **v1.2** | Responses API + Claude Code 전용 경로 |
 | **v1.3** | 이미지 생성 (Gemini Image) |
 | **v1.4** | Playground (모델 테스트) |
-| **v1.5** | Vercel AI SDK Provider 패키지 (`@bizrouter/ai-sdk-provider`) |
+| **v1.5** | Vercel AI SDK Provider 패키지 (`@llm-router/ai-sdk-provider`) |
 | **v2.0** | 멀티 조직, SSO, 감사 로그 |
 
 ---
@@ -616,7 +616,7 @@ hchat-wiki/
 │   ├── hmg/
 │   ├── admin/
 │   ├── storybook/
-│   └── bizrouter/         ← 신규: BizRouter 프론트엔드
+│   └── llm-router/         ← 신규: LLM-Router 프론트엔드
 ```
 
 장점:
@@ -627,12 +627,12 @@ hchat-wiki/
 ### 옵션 B: 별도 레포지토리
 
 ```
-bizrouter/
+llm-router/
 ├── apps/
 │   ├── web/               ← Next.js 프론트엔드
 │   └── gateway/           ← Hono API 서버
 ├── packages/
-│   ├── sdk-provider/      ← @bizrouter/ai-sdk-provider
+│   ├── sdk-provider/      ← @llm-router/ai-sdk-provider
 │   └── shared/            ← 공통 타입/유틸
 ```
 
@@ -666,7 +666,7 @@ bizrouter/
 
 ---
 
-## 8. 참고: BizRouter 에러 코드 전체 목록
+## 8. 참고: LLM-Router 에러 코드 전체 목록
 
 | HTTP | 코드 | 설명 | 재시도 |
 |------|------|------|--------|
@@ -688,7 +688,7 @@ bizrouter/
 
 ## 9. 결론
 
-BizRouter는 **LLM 프록시 + 기업 관리 기능 + 마케팅 사이트**의 3중 구조이다.
+LLM-Router는 **LLM 프록시 + 기업 관리 기능 + 마케팅 사이트**의 3중 구조이다.
 
 **핵심 경쟁력:**
 1. 수수료 0% — 모델 원가 그대로

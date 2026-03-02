@@ -1,5 +1,10 @@
 import { ROIReports } from '@hchat/ui';
+import { ProtectedRoute } from '@hchat/ui/admin';
 
 export default function ReportsPage() {
-  return <ROIReports />;
+  return (
+    <ProtectedRoute>
+      <ROIReports />
+    </ProtectedRoute>
+  );
 }

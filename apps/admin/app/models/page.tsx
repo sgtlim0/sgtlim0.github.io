@@ -1,4 +1,4 @@
-import { AdminModelPricing } from '@hchat/ui/admin';
+import { AdminModelPricing, ProtectedRoute } from '@hchat/ui/admin';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function ModelsPage() {
-  return <AdminModelPricing />;
+  return (
+    <ProtectedRoute>
+      <AdminModelPricing />
+    </ProtectedRoute>
+  );
 }

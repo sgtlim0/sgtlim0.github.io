@@ -1,5 +1,9 @@
-import { AdminStatistics } from '@hchat/ui/admin'
+import { AdminStatistics, ProtectedRoute } from '@hchat/ui/admin'
 
 export default function StatisticsPage() {
-  return <AdminStatistics />
+  return (
+    <ProtectedRoute>
+      <AdminStatistics />
+    </ProtectedRoute>
+  )
 }

@@ -1,5 +1,9 @@
-import { AdminUserManagement } from '@hchat/ui/admin'
+import { AdminUserManagement, ProtectedRoute } from '@hchat/ui/admin'
 
 export default function UsersPage() {
-  return <AdminUserManagement />
+  return (
+    <ProtectedRoute minRole="admin">
+      <AdminUserManagement />
+    </ProtectedRoute>
+  )
 }

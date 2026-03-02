@@ -1,4 +1,4 @@
-import { AdminPromptLibrary } from '@hchat/ui/admin';
+import { AdminPromptLibrary, ProtectedRoute } from '@hchat/ui/admin';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function PromptsPage() {
-  return <AdminPromptLibrary />;
+  return (
+    <ProtectedRoute>
+      <AdminPromptLibrary />
+    </ProtectedRoute>
+  );
 }
