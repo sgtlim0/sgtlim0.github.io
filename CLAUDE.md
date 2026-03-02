@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel, and shared Storybook.
+npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI dashboard), and shared Storybook.
 
 ## Monorepo Structure
 
@@ -15,11 +15,12 @@ hchat-wiki/
 │   └── ui/              # @hchat/ui — Shared UI components
 │       └── src/
 │           ├── hmg/     # HMG components (GNB, HeroBanner, Footer, etc.)
-│           └── admin/   # Admin components (StatCard, DataTable, etc.)
+│           ├── admin/   # Admin components (StatCard, DataTable, etc.)
+│           └── roi/     # ROI dashboard components (charts, filters, pages)
 ├── apps/
 │   ├── wiki/            # @hchat/wiki — Next.js 16 markdown wiki (GitHub Pages)
 │   ├── hmg/             # @hchat/hmg — Next.js 16 HMG site (Vercel)
-│   ├── admin/           # @hchat/admin — Next.js 16 admin panel (Vercel)
+│   ├── admin/           # @hchat/admin — Next.js 16 admin panel + ROI (Vercel)
 │   └── storybook/       # @hchat/storybook — Storybook 9 (Vercel)
 ├── design/              # wiki.pen, design1.pen
 └── docs/
@@ -55,16 +56,21 @@ npm run dev:storybook    # Storybook dev at localhost:6006
 - Turborepo for build orchestration
 - Storybook 9 with nextjs-vite framework
 - Design tokens: CSS variables in `packages/tokens/styles/tokens.css`
+- SheetJS (xlsx) for browser-local Excel file parsing in ROI dashboard
 
 ## Architecture
 
 ### Design Tokens (`packages/tokens/`)
-CSS variables for Wiki, HMG, and Admin themes (light + dark). Each app imports via `@import "../../../packages/tokens/styles/tokens.css"` in its globals.css and maps to Tailwind via `@theme inline`.
+CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app imports via `@import "../../../packages/tokens/styles/tokens.css"` in its globals.css and maps to Tailwind via `@theme inline`.
+
+**Important**: Tailwind CSS 4 requires `@source "../../../packages/ui/src";` in app globals.css to scan cross-package utility classes. Glob patterns do not work — use directory paths only.
 
 ### Shared UI (`packages/ui/`)
 - `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard
 - `@hchat/ui/hmg` — GNB, HeroBanner, TabFilter, Footer, HmgStatCard, StepItem, DownloadItem, PillButton
 - `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings
+- `@hchat/ui` (ROI) — ROISidebar, ROIOverview, ROIAdoption, ROIProductivity, ROIAnalysis, ROIOrganization, ROISentiment, ROIReports, ROISettings, ROIDataUpload, KPICard, ChartPlaceholder, InsightCard, SurveyBar, HeatmapCell, DateFilter, DepartmentFilter
+- `@hchat/ui` (ROI Charts) — MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart (pure SVG/CSS, no chart library)
 
 ### Wiki App (`apps/wiki/`)
 Markdown wiki with Sidebar + catch-all route. Content in `apps/wiki/content/`.
@@ -73,14 +79,29 @@ Markdown wiki with Sidebar + catch-all route. Content in `apps/wiki/content/`.
 4 pages: Home (`/`), Publications (`/publications`), StepGuide (`/guide`), Dashboard (`/dashboard`).
 
 ### Admin App (`apps/admin/`)
-5 pages: Dashboard (`/`), Usage (`/usage`), Statistics (`/statistics`), Users (`/users`), Settings (`/settings`).
+5 base pages: Dashboard (`/`), Usage (`/usage`), Statistics (`/statistics`), Users (`/users`), Settings (`/settings`).
+
+9 ROI pages under `/roi/` layout with sidebar navigation:
+- Data Upload (`/roi/upload`) — Excel file upload with browser-local parsing
+- Overview (`/roi/overview`) — KPI cards, time savings chart, model cost donut
+- Adoption (`/roi/adoption`) — Active user trends, feature adoption bars
+- Productivity (`/roi/productivity`) — Weekly AI hours bar chart, savings donut
+- Analysis (`/roi/analysis`) — ROI trend, cumulative savings area, interactive ROI simulator
+- Organization (`/roi/organization`) — Department heatmap, model usage donut
+- Sentiment (`/roi/sentiment`) — NPS trend, radar chart, survey bars
+- Reports (`/roi/reports`) — Report list with preview panel
+- Settings (`/roi/settings`) — ROI parameters, data sources, cost, alerts, permissions
 
 ### Storybook (`apps/storybook/`)
 Stories for Wiki (13), Admin (12), and HMG (8) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
-All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`.
+All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
 
 ### Deployment
-- Wiki: GitHub Actions → GitHub Pages
-- HMG/Admin/Storybook: Vercel (separate projects)
+- Wiki: GitHub Actions → GitHub Pages (https://sgtlim0.github.io)
+- HMG: Vercel (https://hchat-hmg.vercel.app)
+- Admin: Vercel (https://hchat-admin.vercel.app)
+- Storybook: Vercel (https://hchat-wiki-storybook.vercel.app)
+
+Vercel deployment uses CLI: `VERCEL_ORG_ID=... VERCEL_PROJECT_ID=... npx vercel --prod --yes`

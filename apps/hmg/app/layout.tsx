@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@hchat/ui";
+import { ThemeProvider, ThemeToggle } from "@hchat/ui";
 import { GNB } from "@hchat/ui/hmg";
 
 const inter = Inter({
@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.variable}>
         <ThemeProvider>
-          <GNB brand="현대자동차그룹" menuItems={menuItems} />
+          <GNB brand="현대자동차그룹" menuItems={menuItems} rightSlot={<ThemeToggle />} />
           <main>{children}</main>
         </ThemeProvider>
       </body>

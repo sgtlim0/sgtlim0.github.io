@@ -4,40 +4,40 @@
 @source "../../../packages/ui/src";
 
 @theme inline {
-  /* Wiki tokens */
-  --color-wiki-navy: #003F88;
-  --color-wiki-border: #C7D1DC;
-  --color-wiki-sidebar-bg: #F7F9FC;
-  --color-wiki-sidebar-hover: #E5EBF3;
-  --color-wiki-content-bg: #FFFFFF;
-  --color-wiki-text-primary: #1A1A1A;
-  --color-wiki-text-secondary: #666666;
-  --color-wiki-text-muted: #999999;
-  --color-wiki-link: #003F88;
-  --color-wiki-link-hover: #002857;
-  --color-wiki-code-bg: #F5F5F5;
-  --color-wiki-code-border: #E0E0E0;
+  /* Wiki tokens (referencing CSS vars for dark mode) */
+  --color-wiki-navy: var(--primary);
+  --color-wiki-border: var(--border);
+  --color-wiki-sidebar-bg: var(--bg-sidebar);
+  --color-wiki-sidebar-hover: var(--bg-hover);
+  --color-wiki-content-bg: var(--bg-page);
+  --color-wiki-text-primary: var(--text-primary);
+  --color-wiki-text-secondary: var(--text-secondary);
+  --color-wiki-text-muted: var(--text-tertiary);
+  --color-wiki-link: var(--primary);
+  --color-wiki-link-hover: var(--primary-hover);
+  --color-wiki-code-bg: var(--bg-code);
+  --color-wiki-code-border: var(--border);
 
-  /* HMG tokens */
-  --color-hmg-navy: #002C5F;
-  --color-hmg-bg-card: #FFFFFF;
-  --color-hmg-bg-section: #F8F9FC;
-  --color-hmg-border: #E0E5ED;
-  --color-hmg-text-primary: #1A1A1A;
-  --color-hmg-text-secondary: #666666;
-  --color-hmg-text-tertiary: #999999;
+  /* HMG tokens (referencing CSS vars for dark mode) */
+  --color-hmg-navy: var(--hmg-navy);
+  --color-hmg-bg-card: var(--hmg-bg-card);
+  --color-hmg-bg-section: var(--hmg-bg-section);
+  --color-hmg-border: var(--hmg-border);
+  --color-hmg-text-primary: var(--hmg-text-body);
+  --color-hmg-text-secondary: var(--hmg-text-caption);
+  --color-hmg-text-tertiary: var(--hmg-text-caption);
   --color-hmg-text-placeholder: #CCCCCC;
-  --color-hmg-link: #002C5F;
+  --color-hmg-link: var(--hmg-navy);
 
-  /* Admin tokens */
-  --color-admin-teal: #007A8C;
+  /* Admin tokens (referencing CSS vars for dark mode) */
+  --color-admin-teal: var(--admin-teal);
   --color-admin-teal-hover: #005F6E;
-  --color-admin-bg-card: #FFFFFF;
-  --color-admin-bg-section: #F8F9FC;
-  --color-admin-border: #E0E5ED;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #666666;
-  --color-text-tertiary: #999999;
+  --color-admin-bg-card: var(--admin-bg-card);
+  --color-admin-bg-section: var(--admin-bg-section);
+  --color-admin-border: var(--admin-input-border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
   --color-text-placeholder: #CCCCCC;
   --color-status-warning: #F59E0B;
   --color-status-success: #10B981;
