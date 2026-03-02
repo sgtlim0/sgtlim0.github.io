@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import '../../../packages/tokens/styles/tokens.css';
 
+@source "../../../packages/ui/src";
+
 @theme inline {
   /* Wiki tokens */
   --color-wiki-navy: #003F88;
@@ -41,6 +43,30 @@
   --color-status-success: #10B981;
   --color-status-error: #EF4444;
   --color-status-info: #3B82F6;
+
+  /* ROI tokens */
+  --color-roi-sidebar-bg: var(--roi-sidebar-bg);
+  --color-roi-sidebar-text: var(--roi-sidebar-text);
+  --color-roi-sidebar-active: var(--roi-sidebar-active);
+  --color-roi-sidebar-hover: var(--roi-sidebar-hover);
+  --color-roi-body-bg: var(--roi-body-bg);
+  --color-roi-card-bg: var(--roi-card-bg);
+  --color-roi-card-border: var(--roi-card-border);
+  --color-roi-text-primary: var(--roi-text-primary);
+  --color-roi-text-secondary: var(--roi-text-secondary);
+  --color-roi-text-muted: var(--roi-text-muted);
+  --color-roi-divider: var(--roi-divider);
+  --color-roi-positive: var(--roi-positive);
+  --color-roi-negative: var(--roi-negative);
+  --color-roi-chart-1: var(--roi-chart-1);
+  --color-roi-chart-2: var(--roi-chart-2);
+  --color-roi-chart-3: var(--roi-chart-3);
+  --color-roi-chart-4: var(--roi-chart-4);
+  --color-roi-chart-5: var(--roi-chart-5);
+  --color-roi-kpi-bg: var(--roi-kpi-bg);
+  --color-roi-heatmap-high: var(--roi-heatmap-high);
+  --color-roi-heatmap-mid: var(--roi-heatmap-mid);
+  --color-roi-heatmap-low: var(--roi-heatmap-low);
 }
 
 body {

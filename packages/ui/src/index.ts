@@ -10,3 +10,6 @@ export { default as ThemeToggle } from './ThemeToggle';
 
 export { default as FeatureCard } from './FeatureCard';
 export type { FeatureCardProps } from './FeatureCard';
+
+// ROI components
+export * from './roi';

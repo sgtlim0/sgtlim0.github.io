@@ -9,6 +9,7 @@ const navItems = [
   { href: '/statistics', label: '통계' },
   { href: '/users', label: '사용자 관리' },
   { href: '/settings', label: '설정' },
+  { href: '/roi/overview', label: 'ROI 대시보드' },
 ];
 
 export default function AdminNav() {

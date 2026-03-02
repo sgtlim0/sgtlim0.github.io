@@ -64,6 +64,30 @@
   --admin-input-border: #E0E0E0;
   --admin-bg-section: #FFFFFF;
   --admin-bg-card: #FFFFFF;
+
+  /* === ROI Dashboard Tokens === */
+  --roi-sidebar-bg: #0F172A;
+  --roi-sidebar-text: rgba(255,255,255,0.7);
+  --roi-sidebar-active: #FFFFFF;
+  --roi-sidebar-hover: rgba(255,255,255,0.1);
+  --roi-body-bg: #F1F5F9;
+  --roi-card-bg: #FFFFFF;
+  --roi-card-border: #E2E8F0;
+  --roi-text-primary: #0F172A;
+  --roi-text-secondary: #64748B;
+  --roi-text-muted: #94A3B8;
+  --roi-divider: #E2E8F0;
+  --roi-positive: #10B981;
+  --roi-negative: #EF4444;
+  --roi-chart-1: #3763F4;
+  --roi-chart-2: #00AAD2;
+  --roi-chart-3: #10B981;
+  --roi-chart-4: #F59E0B;
+  --roi-chart-5: #EC4899;
+  --roi-kpi-bg: #FFFFFF;
+  --roi-heatmap-high: #10B981;
+  --roi-heatmap-mid: #F59E0B;
+  --roi-heatmap-low: #EF4444;
 }
 
 .dark {
@@ -107,4 +131,16 @@
   --admin-input-border: #444444;
   --admin-bg-section: #1A1A2E;
   --admin-bg-card: #1E1E2E;
+
+  /* === ROI Dashboard Dark === */
+  --roi-sidebar-bg: #020617;
+  --roi-sidebar-hover: rgba(255,255,255,0.08);
+  --roi-body-bg: #0F172A;
+  --roi-card-bg: #1E293B;
+  --roi-card-border: #334155;
+  --roi-text-primary: #F1F5F9;
+  --roi-text-secondary: #94A3B8;
+  --roi-text-muted: #64748B;
+  --roi-divider: #334155;
+  --roi-kpi-bg: #1E293B;
 }
