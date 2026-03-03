@@ -1,349 +1,175 @@
-# H Chat Wiki 프로젝트 Phase 17-22 실행 계획
+# H Chat 다음 단계 계획 (Phase 21~25)
 
 > 작성일: 2026-03-03
-> 완료된 Phase: 1-16 (Wiki, HMG, Admin, ROI, Enterprise API, User 앱 기본)
-> 목표: User 앱 완성 및 LLM-Router 구현
+> 현재 상태: Phase 20 완료, 모노레포 7개 앱 + 별도 레포 2개
+> 완료 현황: 7개 앱 배포, 100+ 컴포넌트, 60+ 페이지, 53+ 스토리, 12 E2E 테스트
 
 ---
 
-## Phase 17: User 앱 완성도 강화
+## Phase 21: Storybook 완성 + 디자인 시스템 정리
 
-### 주요 작업
+**목표**: 전체 컴포넌트 카탈로그 완성 및 디자인 시스템 문서화
 
-1. **User Storybook 스토리 12개 추가**
-   - ChatSidebar, AssistantCard, AssistantGrid
-   - CategoryFilter, ChatSearchBar, FileUploadZone
-   - EngineSelector, StepProgress, ProjectTable
-   - SubscriptionCard, UsageTable, UserGNB
+### 21-1. 누락된 Storybook 스토리 추가
+- [ ] LLM Router 컴포넌트 스토리 6개 (LRNavbar, ModelTable, CodeBlock, ProviderBadge, PriceCell, DocsSidebar)
+- [ ] ROI 차트 컴포넌트 스토리 보강 5개 (MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart 인터랙션)
+- [ ] Enterprise 컴포넌트 스토리 3개 (DepartmentManagement, AuditLogViewer, SSOConfigPanel)
+- [ ] 목표: 70개+ 스토리
 
-2. **다크모드 지원**
-   - User 앱용 CSS 토큰 추가 (`packages/tokens/styles/tokens.css`)
-   - ThemeToggle 컴포넌트 적용
-   - 다크모드 색상 변수 정의
+### 21-2. 디자인 토큰 문서화
+- [ ] `packages/tokens/` 토큰 README — 색상, 타이포그래피, 스페이싱 문서
+- [ ] 토큰 미리보기 Storybook 페이지 (색상 팔레트, 스케일)
+- [ ] 앱별 커스텀 토큰 정리 (--roi-*, --lr-*, --user-*)
 
-3. **반응형 레이아웃**
-   - 모바일: 햄버거 메뉴, 사이드바 오버레이
-   - 태블릿: 2컬럼 레이아웃
-   - 브레이크포인트: 640px, 768px, 1024px
+### 21-3. Storybook 배포 검증
+- [ ] Vercel 재배포 확인 (일일 한도 리셋 후)
+- [ ] 모든 스토리 렌더링 정상 확인
+- [ ] Accessibility addon 동작 확인
 
-4. **Vercel Git 연동 자동 배포 설정**
-
-### 수정/생성 파일
-
-```
-apps/storybook/stories/user/         # 신규: 12개 스토리
-packages/tokens/styles/tokens.css    # User 다크모드 변수 추가
-packages/ui/src/user/components/*.tsx # 반응형 클래스 추가
-```
-
-### 의존성
-- Phase 16 완료 (User 앱 기본 구현)
-
-### 예상 결과물
-- Storybook 12개 User 컴포넌트 스토리
-- 다크/라이트 모드 전환 가능
-- 모바일/태블릿/데스크톱 반응형
+**산출물**: 70개+ 스토리, 디자인 토큰 문서, Storybook 배포 검증
 
 ---
 
-## Phase 18: 채팅 인터랙션 고도화
+## Phase 22: API 서비스 레이어 + UX 폴리싱
 
-### 주요 작업
+**목표**: Mock 데이터를 API 서비스 레이어로 추상화, 로딩/에러 상태 UI 완성
 
-1. **실시간 AI 응답 스트리밍 UI**
-   - SSE Mock 서버 구현 (`packages/ui/src/user/services/sseService.ts`)
-   - 타이핑 애니메이션 효과
-   - 스트리밍 중 인디케이터
-   - 중단 버튼 (Stop generating)
+### 22-1. API 서비스 레이어 통합
+- [ ] Admin: Enterprise API 서비스를 통합 DataService로 리팩토링
+- [ ] User: chatService, assistantService를 API-ready 인터페이스로 전환
+- [ ] LLM Router: 모델 목록, 사용량 통계를 API 호출 형태로 추상화
 
-2. **비서 커스텀 생성/편집 폼**
-   - 커스텀 비서 생성 모달
-   - 필드: 이름, 아이콘, 모델 선택, 프롬프트, 카테고리
-   - 비서 편집/삭제 기능
-   - LocalStorage 저장
+### 22-2. 로딩/에러 상태 UI
+- [ ] 스켈레톤 로더 컴포넌트 (테이블, 카드, 차트용)
+- [ ] 에러 바운더리 + 재시도 UI
+- [ ] 빈 상태 (Empty State) 일러스트레이션
+- [ ] 토스트 알림 시스템
 
-3. **대화 히스토리 검색**
-   - 대화 내용 전문 검색
-   - 날짜/비서별 필터
-   - 검색 결과 하이라이트
+### 22-3. 폼 유효성 검증
+- [ ] Admin 설정 폼: SSO, 모델 가격 등 입력값 검증
+- [ ] LLM Router: 로그인/회원가입 폼 유효성
+- [ ] User: 비서 생성 폼 유효성
 
-4. **마크다운 렌더링 강화**
-   - 코드 블록 syntax highlighting
-   - 테이블 렌더링
-   - 이미지 인라인 표시
-
-### 수정/생성 파일
-
-```
-packages/ui/src/user/components/
-├── ChatInterface.tsx                 # 신규: 채팅 UI
-├── MessageBubble.tsx                 # 신규: 메시지 버블
-├── StreamingIndicator.tsx            # 신규: 스트리밍 표시
-├── CustomAssistantModal.tsx          # 신규: 비서 생성 모달
-├── ChatSearchPanel.tsx               # 신규: 검색 패널
-└── MarkdownRenderer.tsx              # 신규: 마크다운 렌더러
-
-packages/ui/src/user/services/
-├── sseService.ts                     # 신규: SSE Mock
-├── chatService.ts                    # 신규: 채팅 서비스
-└── assistantService.ts               # 신규: 비서 관리
-```
-
-### 의존성
-- Phase 17 완료 (User 앱 인프라)
-- react-markdown, remark-gfm, rehype-highlight
-
-### 예상 결과물
-- 실시간 스트리밍 채팅 데모
-- 커스텀 비서 생성 가능
-- 대화 검색 기능
-- 풍부한 마크다운 렌더링
+**산출물**: DataService 추상화, 스켈레톤/에러/토스트 컴포넌트, 폼 검증
 
 ---
 
-## Phase 19: LLM-Router 코드 구현
+## Phase 23: 성능 최적화 + 번들 분석
 
-### 주요 작업
+**목표**: Core Web Vitals 개선 및 빌드 크기 최적화
 
-1. **LLM-Router 앱 생성**
-   - `apps/llm-router` Next.js 앱 생성
-   - 포트 3004 설정
-   - 기본 레이아웃 및 라우팅
+### 23-1. 번들 분석
+- [ ] 각 앱별 `@next/bundle-analyzer` 설정
+- [ ] 불필요한 의존성 식별 및 제거
+- [ ] Dynamic import 적용 (차트, 코드 블록, 모달)
 
-2. **wiki.pen 10개 화면 구현**
-   - Landing Page (`/`) — 히어로, 기능 카드
-   - Models Page (`/models`) — 86개 모델 테이블
-   - Docs (`/docs/*`) — MDX 문서 시스템
-   - Playground (`/playground`) — 모델 테스트
-   - Usage Stats (`/dashboard/usage`) — 사용량 차트
-   - API Keys (`/dashboard/keys`) — 키 관리
-   - Org Settings (`/dashboard/settings`) — 조직 설정
-   - Billing (`/dashboard/billing`) — 결제 관리
-   - Login (`/login`) — 로그인 폼
-   - Signup (`/signup`) — 회원가입 폼
+### 23-2. 이미지 최적화
+- [ ] Next.js Image 컴포넌트 적용
+- [ ] OG Image 자동 생성 (각 앱별)
+- [ ] Favicon/PWA 아이콘 정리
 
-3. **컴포넌트 라이브러리**
-   - ModelTable (정렬/필터/검색)
-   - ProviderBadge (제공자 아이콘)
-   - PriceCell (할인가 표시)
-   - CodeBlock (언어별 탭)
-   - DocsSidebar (문서 네비게이션)
+### 23-3. Lighthouse 점수 개선
+- [ ] baseline 측정 (현재 Lighthouse CI 실행)
+- [ ] Performance: LCP < 2.5s, FID < 100ms, CLS < 0.1
+- [ ] Accessibility: 90+ / SEO: 90+
 
-4. **Mock 데이터**
-   - 86개 모델 정보
-   - 가격 데이터 (KRW 환산)
-   - 사용량 통계, API 키 목록
+### 23-4. 코드 분할
+- [ ] Route-based code splitting 확인
+- [ ] 공용 청크 최적화 (Turborepo build 캐시)
 
-### 수정/생성 파일
-
-```
-apps/llm-router/                      # 신규 앱
-├── app/
-│   ├── layout.tsx
-│   ├── page.tsx                      # Landing
-│   ├── models/page.tsx               # 모델 가격표
-│   ├── docs/[...slug]/page.tsx       # MDX 문서
-│   ├── playground/page.tsx           # 테스트
-│   ├── dashboard/
-│   │   ├── usage/page.tsx
-│   │   ├── keys/page.tsx
-│   │   ├── settings/page.tsx
-│   │   └── billing/page.tsx
-│   ├── login/page.tsx
-│   └── signup/page.tsx
-├── package.json
-└── vercel.json
-
-packages/ui/src/llm-router/           # 신규: 공용 컴포넌트
-└── index.ts
-```
-
-### 의존성
-- Phase 17 완료 (모노레포 인프라)
-- @next/mdx, gray-matter, rehype-highlight
-
-### 예상 결과물
-- LLM-Router 앱 10개 페이지
-- 86개 모델 가격표 (필터/정렬)
-- MDX 문서 시스템
-- 모델 테스트 Playground
-- 대시보드 4개 페이지
+**산출물**: 번들 리포트, Lighthouse 개선 결과, 이미지 최적화
 
 ---
 
-## Phase 20: 통합 테스트 + 품질
+## Phase 24: CI/CD 파이프라인 강화
 
-### 주요 작업
+**목표**: 자동화된 품질 게이트 및 배포 파이프라인
 
-1. **E2E 테스트 확장**
-   - User 앱 테스트 시나리오 5개
-   - LLM-Router 테스트 시나리오 3개
-   - 크로스 앱 네비게이션 테스트
+### 24-1. GitHub Actions 워크플로우 확장
+- [ ] PR 시 자동: lint + type-check + build (Turborepo)
+- [ ] E2E 테스트 자동 실행 (배포 URL 대상)
+- [ ] Lighthouse CI PR 코멘트 (점수 변화 표시)
+- [ ] 번들 크기 비교 PR 코멘트
 
-2. **Lighthouse 성능 검증**
-   - 전체 앱 성능 측정
-   - Core Web Vitals 최적화
-   - 번들 사이즈 분석
+### 24-2. 배포 자동화
+- [ ] Vercel Preview Deploy 설정 (PR별 미리보기)
+- [ ] 환경별 변수 관리 (dev/staging/prod)
+- [ ] 배포 후 헬스체크 자동 검증
 
-3. **접근성(a11y) 강화**
-   - WCAG 2.1 AA 준수
-   - 키보드 네비게이션
-   - 스크린 리더 테스트
-   - 색상 대비 검증
+### 24-3. 코드 품질
+- [ ] ESLint 규칙 통일 (모든 앱 동일 설정)
+- [ ] Prettier 자동 적용
+- [ ] Husky pre-commit hook (lint-staged)
 
-### 수정/생성 파일
-
-```
-tests/e2e/
-├── user/
-│   ├── chat.spec.ts
-│   ├── translation.spec.ts
-│   ├── docs.spec.ts
-│   ├── ocr.spec.ts
-│   └── mypage.spec.ts
-├── llm-router/
-│   ├── models.spec.ts
-│   ├── playground.spec.ts
-│   └── dashboard.spec.ts
-└── integration/
-    └── cross-app.spec.ts
-```
-
-### 의존성
-- Phase 18, 19 완료
-- Playwright, Lighthouse CI
-
-### 예상 결과물
-- E2E 테스트 커버리지 80%+
-- Lighthouse 점수 90+ (모든 앱)
-- a11y 이슈 0개
+**산출물**: CI/CD 워크플로우, Preview Deploy, 코드 품질 자동화
 
 ---
 
-## Phase 21: 데이터 연동 레이어
+## Phase 25: 통합 테스트 + 문서 최종화
 
-### 주요 작업
+**목표**: 전체 플랫폼 품질 검증 및 프로젝트 문서 마무리
 
-1. **User 앱 API 서비스 레이어**
-   - API 클라이언트 (`userApiService.ts`)
-   - 타입 정의 강화
-   - 에러 핸들링 통합
-   - 재시도 로직
+### 25-1. E2E 테스트 확장
+- [ ] 크로스 앱 네비게이션 테스트 (랜딩 → 각 앱)
+- [ ] 다크모드 일관성 테스트 (모든 앱)
+- [ ] 반응형 레이아웃 테스트 (모바일/태블릿/데스크톱)
+- [ ] 접근성 자동 테스트 (axe-core 기반)
 
-2. **WebSocket/SSE 통신 모듈**
-   - WebSocket 연결 관리
-   - 자동 재연결, 하트비트 체크
-   - 이벤트 핸들러 추상화
+### 25-2. 단위 테스트 추가
+- [ ] packages/ui 컴포넌트 단위 테스트 (Vitest + Testing Library)
+- [ ] 목표: 80%+ 커버리지
+- [ ] 유틸리티 함수 테스트 (aggregateData, mockData 등)
 
-3. **상태 관리 고도화**
-   - React Query 도입
-   - 캐싱 전략, Optimistic Updates
-   - 백그라운드 동기화
+### 25-3. 프로젝트 문서 최종화
+- [ ] 전체 아키텍처 다이어그램 (Mermaid)
+- [ ] 기여 가이드 (CONTRIBUTING.md)
+- [ ] 배포 가이드 (각 앱별 Vercel 설정)
+- [ ] API 스펙 문서 (Enterprise API)
 
-4. **에러 핸들링 + 로딩 상태**
-   - 글로벌 에러 바운더리
-   - 토스트 알림 시스템
-   - 스켈레톤 로더, 진행률 표시
+### 25-4. 데모 시나리오
+- [ ] 포트폴리오 발표용 데모 스크립트 작성
+- [ ] 각 앱별 주요 기능 시연 순서 정리
+- [ ] 스크린샷/GIF 캡처
 
-### 수정/생성 파일
-
-```
-packages/ui/src/user/services/
-├── api/
-│   ├── client.ts
-│   ├── chatApi.ts
-│   ├── translationApi.ts
-│   ├── docsApi.ts
-│   └── ocrApi.ts
-├── websocket/
-│   ├── WebSocketManager.ts
-│   ├── SSEClient.ts
-│   └── ReconnectStrategy.ts
-└── hooks/
-    ├── useChat.ts
-    ├── useTranslation.ts
-    └── useWebSocket.ts
-
-packages/ui/src/user/components/
-├── ErrorBoundary.tsx
-├── Toast.tsx
-├── Skeleton.tsx
-└── ProgressBar.tsx
-```
-
-### 의존성
-- Phase 19 완료
-- @tanstack/react-query
-
-### 예상 결과물
-- 완전한 API 서비스 레이어
-- 실시간 통신 인프라
-- 강력한 에러 처리
+**산출물**: E2E/단위 테스트, 아키텍처 문서, 데모 시나리오
 
 ---
 
-## Phase 22: 문서화 + 최종 정리
-
-### 주요 작업
-
-1. **전체 Storybook 통합**
-   - User 스토리 12개 완성
-   - LLM-Router 스토리 8개 추가
-   - Storybook Docs 페이지
-
-2. **API 문서 자동 생성**
-   - TypeDoc 설정
-   - API 레퍼런스 생성
-   - 서비스 레이어 문서화
-
-3. **프로젝트 발표 자료**
-   - 아키텍처 다이어그램
-   - 기술 스택 설명
-   - 데모 시나리오
-   - 성과 지표 정리
-
-### 수정/생성 파일
+## 우선순위 및 의존성
 
 ```
-apps/storybook/stories/
-├── user/                            # 12개 완성
-└── llm-router/                      # 신규: 8개
-
-docs/
-├── API_REFERENCE.md
-├── ARCHITECTURE.md
-├── DEMO_SCENARIOS.md
-└── PRESENTATION.md
+Phase 21 (Storybook 완성)    ──┐
+Phase 22 (API 추상화)         ──┼── 병렬 실행 가능
+Phase 24 (CI/CD)              ──┘
+                                ↓
+Phase 23 (성능 최적화)         ── Phase 22 이후 권장
+                                ↓
+Phase 25 (통합 테스트 + 문서)  ── 최종 마무리
 ```
-
-### 의존성
-- Phase 17-21 완료
-
-### 예상 결과물
-- 완전한 컴포넌트 문서화
-- API 레퍼런스 사이트
-- 프로젝트 발표 자료
 
 ---
 
-## 위험 요소 및 대응 방안
+## 장기 로드맵 (Phase 26+)
 
-| 위험 | 영향도 | 대응 방안 |
-|------|--------|-----------|
-| SSE/WebSocket 구현 복잡도 | 높음 | Mock 서버로 시작, 단계적 구현 |
-| LLM-Router 86개 모델 데이터 관리 | 중간 | JSON 파일 관리, 타입 자동 생성 |
-| 번들 사이즈 증가 | 중간 | 코드 스플리팅, 동적 임포트 |
-| E2E 테스트 실행 시간 | 낮음 | 병렬 실행, 중요 시나리오 우선 |
+| 작업 | 설명 |
+|------|------|
+| Desktop 모노레포 통합 | hchat-desktop을 모노레포로 이전 또는 서브모듈 연결 |
+| Extension 연동 | hchat-v2-extension과 Admin 사용량 데이터 실시간 연동 |
+| 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링 |
+| 다국어 확장 | 일본어, 중국어 추가 (현재 한/영) |
+| AI 모델 실연동 | LLM Router에서 실제 AI 모델 API 호출 |
+| 모바일 앱 | React Native 또는 PWA 기반 모바일 클라이언트 |
 
 ---
 
 ## 성공 지표
 
-- 6개 앱 모두 Vercel 배포 완료
-- Storybook 스토리 70개+
-- E2E 테스트 커버리지 80%+
-- Lighthouse 점수 90+
-- 전체 페이지 50개+
-- 컴포넌트 100개+
-- 다크모드 100% 지원
-- 모바일 반응형 100%
+| 지표 | 현재 | 목표 |
+|------|------|------|
+| 앱 배포 | 7개 | 7개 ✅ |
+| Storybook 스토리 | 53개+ | 70개+ |
+| E2E 테스트 | 12개 | 25개+ |
+| Lighthouse a11y | 미측정 | 90+ |
+| 단위 테스트 커버리지 | 0% | 80%+ |
+| 컴포넌트 | 100개+ | 120개+ |
+| 페이지 | 60개+ | 65개+ |
