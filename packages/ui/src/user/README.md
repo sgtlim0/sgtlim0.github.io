@@ -1,10 +1,11 @@
 # H Chat 사용자 기능 컴포넌트
 
-H Chat 사용자 인터페이스를 구성하는 컴포넌트 및 페이지 패키지입니다.
+H Chat 사용자 인터페이스를 구성하는 컴포넌트, 페이지, 서비스 패키지입니다.
 
 ## 사용 앱
 
-- H Chat 웹 서비스 (향후 구현)
+- **apps/admin** — H Chat 관리자 패널
+- https://hchat-user.vercel.app (포트 3003)
 
 ## 설치
 
@@ -15,7 +16,8 @@ npm install @hchat/ui
 ## 사용 예시
 
 ```tsx
-import { ChatPage, ChatSidebar, AssistantGrid } from '@hchat/ui/user';
+import { ChatPage, ChatSidebar, StreamingIndicator } from '@hchat/ui/user';
+import { getCustomAssistants, streamResponse } from '@hchat/ui/user';
 
 export default function App() {
   return (
@@ -29,13 +31,14 @@ export default function App() {
 
 ## 컴포넌트 분류
 
-### UI 컴포넌트 (12개)
+### UI 컴포넌트 (18개)
 
 | 컴포넌트 | 설명 |
 |---------|------|
 | **UserGNB** | 사용자 상단 네비게이션 바 |
 | **ChatSidebar** | 채팅 목록 사이드바 |
 | **ChatSearchBar** | 채팅/어시스턴트 검색 바 |
+| **ChatSearchPanel** | 대화 검색 패널 |
 | **AssistantCard** | 어시스턴트 정보 카드 |
 | **AssistantGrid** | 어시스턴트 그리드 목록 |
 | **CategoryFilter** | 카테고리 필터 |
@@ -45,25 +48,46 @@ export default function App() {
 | **ProjectTable** | 프로젝트 테이블 |
 | **SubscriptionCard** | 구독 정보 카드 |
 | **UsageTable** | 사용량 통계 테이블 |
+| **StreamingIndicator** | 실시간 스트리밍 표시기 |
+| **MessageBubble** | 채팅 메시지 버블 |
+| **CustomAssistantModal** | 커스텀 어시스턴트 생성 모달 |
+| **MarkdownRenderer** | Markdown 렌더링 컴포넌트 |
 
 ### 페이지 (5개)
 
 | 페이지 | 설명 |
 |-------|------|
-| **ChatPage** | 업무 비서 채팅 페이지 |
+| **ChatPage** | 업무 비서 채팅 (스트리밍, 커스텀 어시스턴트) |
 | **TranslationPage** | 문서 번역 서비스 |
 | **DocsPage** | 문서 작성 도구 |
 | **OCRPage** | 이미지/PDF 텍스트 추출 |
 | **MyPage** | 마이페이지 (설정, 구독, 사용량) |
 
-### 서비스 레이어
+### 서비스 레이어 (5개)
 
-- **types.ts** — TypeScript 타입 정의
-- **mockData.ts** — Mock 데이터 샘플
+| 서비스 | 설명 |
+|--------|------|
+| **sseService** | SSE 스트리밍 응답 시뮬레이션 (`streamResponse`) |
+| **chatService** | 채팅 대화 CRUD (localStorage 기반: `getConversations`, `saveConversations`, `createConversation`, `addMessage`) |
+| **assistantService** | 커스텀 어시스턴트 관리 (`getCustomAssistants`, `saveCustomAssistant`) |
+| **types.ts** | TypeScript 타입 정의 (Assistant, Conversation, ChatMessage 등) |
+| **mockData.ts** | Mock 데이터 샘플 (기본 어시스턴트, 대화 예제) |
+
+## 주요 기능
+
+### ChatPage 기능
+
+- **실시간 스트리밍 채팅** — SSE 기반 응답 스트리밍
+- **커스텀 어시스턴트 생성** — 사용자 정의 어시스턴트 추가/저장
+- **대화 저장 및 검색** — localStorage 기반 대화 이력 관리
+- **다중 탭 지원** — 공식 어시스턴트/커스텀 어시스턴트 탭
+- **카테고리 필터** — 어시스턴트별 카테고리 필터링
 
 ## 특징
 
-- 모듈식 설계
+- 완전한 채팅 시스템 (스트리밍 응답 포함)
+- 모듈식 서비스 레이어 설계
+- localStorage 기반 영속성
 - Mock 데이터 포함
 - 다크모드 지원
 - TypeScript 완전 지원
