@@ -21,3 +21,6 @@ export type { DocsSidebarProps, DocsSidebarItem } from './DocsSidebar';
 export * from './types';
 export * from './mockData';
 export { mockModels } from './mockModels';
+
+// Service layer exports
+export * from './services';
