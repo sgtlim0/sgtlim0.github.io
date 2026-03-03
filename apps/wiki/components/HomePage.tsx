@@ -162,6 +162,7 @@ export default function HomePage() {
                 href={isDisabled ? undefined : p.url}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noopener noreferrer' : undefined}
+                aria-label={`${p.title} 프로젝트로 이동`}
                 className={[
                   'group flex flex-col gap-4 p-6 rounded-xl border border-border bg-bg-page transition-all',
                   isDisabled

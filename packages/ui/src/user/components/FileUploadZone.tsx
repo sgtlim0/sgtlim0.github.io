@@ -73,6 +73,8 @@ export default function FileUploadZone({
     <div className="w-full space-y-3">
       {/* Drop zone */}
       <div
+        role="button"
+        aria-label="파일 업로드 영역"
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}

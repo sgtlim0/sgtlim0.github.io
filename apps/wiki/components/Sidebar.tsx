@@ -75,7 +75,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-[280px] h-screen fixed left-0 top-0 bg-bg-sidebar border-r border-border overflow-y-auto flex flex-col">
+    <aside role="navigation" aria-label="메인 네비게이션" className="w-[280px] h-screen fixed left-0 top-0 bg-bg-sidebar border-r border-border overflow-y-auto flex flex-col">
       <div className="flex-1 flex flex-col gap-2 p-4 pt-5">
         {/* Logo */}
         <div className="flex items-center gap-2.5 pb-4">

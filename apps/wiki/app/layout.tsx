@@ -23,8 +23,9 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased font-sans`}>
         <ThemeProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded">본문 바로가기</a>
           <Sidebar />
-          <main className="ml-[280px] h-screen overflow-hidden">
+          <main id="main-content" className="ml-[280px] h-screen overflow-hidden">
             {children}
           </main>
         </ThemeProvider>

@@ -40,7 +40,7 @@ function SidebarContent({
   );
 
   return (
-    <div className="flex flex-col h-full w-[280px] md:w-16 lg:w-[280px] bg-user-bg border-r border-user-border transition-all duration-300">
+    <nav aria-label="대화 목록 네비게이션" className="flex flex-col h-full w-[280px] md:w-16 lg:w-[280px] bg-user-bg border-r border-user-border transition-all duration-300">
       {/* Header */}
       <div className="p-4 shrink-0">
         <div className="flex items-center justify-between mb-4">
@@ -82,6 +82,7 @@ function SidebarContent({
                   : 'hover:bg-user-bg-section',
               ].join(' ')}
               title={conv.title}
+              aria-label={`대화 선택: ${conv.title}`}
             >
               <MessageSquare
                 className={[
@@ -116,7 +117,7 @@ function SidebarContent({
         <SidebarLink icon={LogOut} label="로그아웃" />
         <p className="text-xs text-user-text-muted text-center pt-2 md:hidden lg:block">v 2.0</p>
       </div>
-    </div>
+    </nav>
   );
 }
 
@@ -155,7 +156,7 @@ export default function ChatSidebar(props: ChatSidebarProps) {
       </button>
 
       {/* Tablet/Desktop sidebar - always visible */}
-      <aside className="hidden md:block shrink-0 h-full">
+      <aside className="hidden md:block shrink-0 h-full" role="complementary" aria-label="사이드바">
         <SidebarContent {...props} />
       </aside>
 
@@ -167,7 +168,7 @@ export default function ChatSidebar(props: ChatSidebarProps) {
             onClick={handleClose}
             aria-hidden="true"
           />
-          <aside className="absolute left-0 top-0 bottom-0 z-50 h-full transition-transform duration-300 ease-out">
+          <aside className="absolute left-0 top-0 bottom-0 z-50 h-full transition-transform duration-300 ease-out" role="complementary" aria-label="사이드바">
             <SidebarContent {...props} onClose={handleClose} />
           </aside>
         </div>

@@ -40,8 +40,9 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={inter.variable}>
         <ThemeProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-user-primary focus:text-white focus:rounded">본문 바로가기</a>
           <UserNavWrapper />
-          <main className="min-h-[calc(100vh-80px)]">{children}</main>
+          <main id="main-content" className="min-h-[calc(100vh-80px)]">{children}</main>
         </ThemeProvider>
       </body>
     </html>

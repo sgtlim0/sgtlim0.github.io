@@ -34,7 +34,7 @@ export default function UserGNB({ activeTab, userEmail, onTabChange }: UserGNBPr
 
   return (
     <>
-      <nav className="w-full h-14 bg-user-primary flex items-center justify-between px-4 md:px-6 lg:px-10">
+      <nav role="navigation" aria-label="메인 네비게이션" className="w-full h-14 bg-user-primary flex items-center justify-between px-4 md:px-6 lg:px-10">
         {/* Left: Logo + Tabs */}
         <div className="flex items-center gap-8">
           <span className="text-white text-lg font-bold tracking-tight whitespace-nowrap">

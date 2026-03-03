@@ -53,7 +53,7 @@ export default function AssistantGrid({
   return (
     <div className="space-y-5">
       {/* Tabs */}
-      <div className="flex items-center gap-1 bg-user-bg-section rounded-xl p-1">
+      <div role="tablist" aria-label="비서 유형 선택" className="flex items-center gap-1 bg-user-bg-section rounded-xl p-1">
         <TabButton
           label="H Chat 공식 비서"
           isActive={activeTab === 'official'}
@@ -119,6 +119,8 @@ function TabButton({
 }) {
   return (
     <button
+      role="tab"
+      aria-selected={isActive}
       onClick={onClick}
       className={[
         'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors',

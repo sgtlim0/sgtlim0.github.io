@@ -47,6 +47,7 @@ export default function ChatSearchBar({ onSubmit, onAttach }: ChatSearchBarProps
           onKeyDown={handleKeyDown}
           placeholder="무엇이든 물어보세요..."
           rows={1}
+          aria-label="검색 입력"
           className="flex-1 py-4 text-sm text-user-text-primary bg-transparent placeholder-user-text-muted resize-none outline-none leading-snug"
         />
 

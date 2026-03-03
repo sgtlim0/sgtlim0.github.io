@@ -23,10 +23,12 @@ export default function CodeBlock({ examples }: CodeBlockProps) {
   return (
     <div className="rounded-lg border border-lr-border bg-lr-bg-section overflow-hidden">
       <div className="flex items-center justify-between border-b border-lr-border bg-lr-bg-code">
-        <div className="flex">
+        <div role="tablist" aria-label="코드 언어 선택" className="flex">
           {examples.map((example, index) => (
             <button
               key={index}
+              role="tab"
+              aria-selected={activeTab === index}
               onClick={() => setActiveTab(index)}
               className={`px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === index

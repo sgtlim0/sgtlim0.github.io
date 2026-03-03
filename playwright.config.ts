@@ -6,6 +6,7 @@ export default defineConfig({
   use: {
     headless: true,
     screenshot: 'only-on-failure',
+    viewport: { width: 1280, height: 720 },
   },
   projects: [
     {
@@ -22,6 +23,21 @@ export default defineConfig({
       name: 'dark-mode',
       use: { baseURL: 'https://hchat-admin.vercel.app' },
       testMatch: /dark-mode.*\.spec\.ts/,
+    },
+    {
+      name: 'user',
+      use: { baseURL: 'https://hchat-user.vercel.app' },
+      testMatch: /user.*\.spec\.ts/,
+    },
+    {
+      name: 'llm-router',
+      use: { baseURL: 'http://localhost:3004' },
+      testMatch: /llm-router.*\.spec\.ts/,
+    },
+    {
+      name: 'wiki',
+      use: { baseURL: 'https://sgtlim0.github.io' },
+      testMatch: /wiki.*\.spec\.ts/,
     },
   ],
 });

@@ -96,7 +96,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       <LRNavbar isAuthenticated={false} />
-
+      <main id="main-content">
       {/* Hero Section */}
       <section className="py-20 px-4 bg-lr-bg-section">
         <div className="max-w-6xl mx-auto text-center">
@@ -261,6 +261,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      </main>
     </div>
   )
 }

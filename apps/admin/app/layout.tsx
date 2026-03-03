@@ -52,8 +52,9 @@ export default function RootLayout({
       <body className={inter.variable}>
         <ThemeProvider>
           <AuthProvider>
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-admin-primary focus:text-white focus:rounded">본문 바로가기</a>
             <AdminNav />
-            <main className="min-h-[calc(100vh-80px)]">{children}</main>
+            <main id="main-content" className="min-h-[calc(100vh-80px)]">{children}</main>
           </AuthProvider>
         </ThemeProvider>
       </body>

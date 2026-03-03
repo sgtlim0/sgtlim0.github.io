@@ -105,6 +105,7 @@ export default function ModelTable({
             type="text"
             placeholder="모델 또는 제공사 검색..."
             value={searchTerm}
+            aria-label="모델 검색"
             onChange={(e) => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
@@ -144,36 +145,42 @@ export default function ModelTable({
             <tr>
               <th
                 onClick={() => handleSort('name')}
+                aria-sort={sortKey === 'name' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
                 className="px-4 py-3 text-left text-sm font-medium text-lr-text-primary cursor-pointer hover:bg-lr-bg-hover transition-colors"
               >
                 모델명 <SortIcon columnKey="name" />
               </th>
               <th
                 onClick={() => handleSort('provider')}
+                aria-sort={sortKey === 'provider' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
                 className="px-4 py-3 text-left text-sm font-medium text-lr-text-primary cursor-pointer hover:bg-lr-bg-hover transition-colors"
               >
                 제공사 <SortIcon columnKey="provider" />
               </th>
               <th
                 onClick={() => handleSort('inputPrice')}
+                aria-sort={sortKey === 'inputPrice' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
                 className="px-4 py-3 text-right text-sm font-medium text-lr-text-primary cursor-pointer hover:bg-lr-bg-hover transition-colors"
               >
                 입력가격 <SortIcon columnKey="inputPrice" />
               </th>
               <th
                 onClick={() => handleSort('outputPrice')}
+                aria-sort={sortKey === 'outputPrice' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
                 className="px-4 py-3 text-right text-sm font-medium text-lr-text-primary cursor-pointer hover:bg-lr-bg-hover transition-colors"
               >
                 출력가격 <SortIcon columnKey="outputPrice" />
               </th>
               <th
                 onClick={() => handleSort('contextWindow')}
+                aria-sort={sortKey === 'contextWindow' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
                 className="px-4 py-3 text-right text-sm font-medium text-lr-text-primary cursor-pointer hover:bg-lr-bg-hover transition-colors"
               >
                 컨텍스트 <SortIcon columnKey="contextWindow" />
               </th>
               <th
                 onClick={() => handleSort('latency')}
+                aria-sort={sortKey === 'latency' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
                 className="px-4 py-3 text-right text-sm font-medium text-lr-text-primary cursor-pointer hover:bg-lr-bg-hover transition-colors"
               >
                 레이턴시 <SortIcon columnKey="latency" />

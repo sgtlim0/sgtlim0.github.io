@@ -14,7 +14,7 @@ export default function LRNavbar({ isAuthenticated = false }: LRNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-lr-nav-bg border-b border-lr-border">
+    <nav role="navigation" aria-label="메인 네비게이션" className="bg-lr-nav-bg border-b border-lr-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
@@ -25,24 +25,28 @@ export default function LRNavbar({ isAuthenticated = false }: LRNavbarProps) {
             <div className="hidden md:flex items-center gap-6">
               <Link
                 href="/models"
+                aria-label="모델 페이지"
                 className="text-lr-nav-text hover:text-white transition-colors"
               >
                 모델
               </Link>
               <Link
                 href="/docs"
+                aria-label="문서 페이지"
                 className="text-lr-nav-text hover:text-white transition-colors"
               >
                 문서
               </Link>
               <Link
                 href="/playground"
+                aria-label="Playground 페이지"
                 className="text-lr-nav-text hover:text-white transition-colors"
               >
                 Playground
               </Link>
               <Link
                 href="/pricing"
+                aria-label="가격 페이지"
                 className="text-lr-nav-text hover:text-white transition-colors"
               >
                 가격
