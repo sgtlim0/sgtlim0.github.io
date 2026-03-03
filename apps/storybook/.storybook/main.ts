@@ -27,6 +27,8 @@ const config: StorybookConfig = {
       '@hchat/ui/hmg': path.resolve(__dirname, '../../../packages/ui/src/hmg'),
       '@hchat/ui/admin': path.resolve(__dirname, '../../../packages/ui/src/admin'),
       '@hchat/ui/user': path.resolve(__dirname, '../../../packages/ui/src/user'),
+      '@hchat/ui/llm-router': path.resolve(__dirname, '../../../packages/ui/src/llm-router'),
+      '@hchat/ui/roi': path.resolve(__dirname, '../../../packages/ui/src/roi'),
       '@hchat/tokens': path.resolve(__dirname, '../../../packages/tokens/src'),
     };
     return config;
