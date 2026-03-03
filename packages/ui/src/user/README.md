@@ -63,15 +63,54 @@ export default function App() {
 | **OCRPage** | 이미지/PDF 텍스트 추출 |
 | **MyPage** | 마이페이지 (설정, 구독, 사용량) |
 
-### 서비스 레이어 (5개)
+### 기존 서비스 (localStorage 기반)
 
 | 서비스 | 설명 |
 |--------|------|
 | **sseService** | SSE 스트리밍 응답 시뮬레이션 (`streamResponse`) |
-| **chatService** | 채팅 대화 CRUD (localStorage 기반: `getConversations`, `saveConversations`, `createConversation`, `addMessage`) |
-| **assistantService** | 커스텀 어시스턴트 관리 (`getCustomAssistants`, `saveCustomAssistant`) |
+| **chatService** | 채팅 대화 CRUD (localStorage 기반) |
+| **assistantService** | 커스텀 어시스턴트 관리 |
 | **types.ts** | TypeScript 타입 정의 (Assistant, Conversation, ChatMessage 등) |
 | **mockData.ts** | Mock 데이터 샘플 (기본 어시스턴트, 대화 예제) |
+
+### API-Ready 서비스 레이어
+
+Provider Pattern 기반 서비스 추상화로, 실제 API 전환이 용이합니다.
+
+```
+services/
+├── userService.ts              # UserService 인터페이스 (13개 메서드)
+├── mockUserService.ts          # Mock 구현 (localStorage 래핑)
+├── UserServiceProvider.tsx     # React Context 프로바이더
+├── hooks.ts                    # 커스텀 React 훅 (7개)
+└── index.ts                    # Barrel exports
+```
+
+**사용 가능한 훅:**
+
+| 훅 | 설명 |
+|----|------|
+| `useConversations()` | 대화 목록 (생성/삭제 포함) |
+| `useAssistants()` | 공식 + 커스텀 어시스턴트 |
+| `useUsageStats()` | 사용량 통계 |
+| `useSubscription()` | 구독 정보 |
+| `useTranslationJobs()` | 번역 작업 목록 |
+| `useDocProjects()` | 문서 프로젝트 |
+| `useOCRJobs()` | OCR 작업 목록 |
+
+**사용법:**
+
+```tsx
+import { UserServiceProvider } from '@hchat/ui/user/services';
+
+export default function RootLayout({ children }) {
+  return (
+    <UserServiceProvider>
+      {children}
+    </UserServiceProvider>
+  );
+}
+```
 
 ## 주요 기능
 
@@ -86,9 +125,8 @@ export default function App() {
 ## 특징
 
 - 완전한 채팅 시스템 (스트리밍 응답 포함)
-- 모듈식 서비스 레이어 설계
-- localStorage 기반 영속성
-- Mock 데이터 포함
+- 2단계 서비스 레이어 (localStorage + API-Ready Provider Pattern)
+- Mock 데이터 포함 (100-300ms 네트워크 시뮬레이션)
 - 다크모드 지원
 - TypeScript 완전 지원
 - 반응형 레이아웃

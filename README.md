@@ -61,7 +61,7 @@ hchat-wiki/
 | Admin | 관리자 패널 (대시보드, ROI, 부서 관리, 감사 로그, SSO) | https://hchat-admin.vercel.app | 3002 |
 | User | 사용자 앱 (채팅, 번역, 문서 작성, OCR, 마이페이지) | https://hchat-user.vercel.app | 3003 |
 | LLM Router | AI 모델 관리 및 테스트 플레이그라운드 (86개 모델) | https://hchat-llm-router.vercel.app | 3004 |
-| Storybook | UI 컴포넌트 문서 (53개+ 스토리) | https://hchat-storybook.vercel.app | 6006 |
+| Storybook | UI 컴포넌트 문서 (73개+ 스토리) | https://hchat-storybook.vercel.app | 6006 |
 | Desktop | PWA 데스크톱 AI 챗 (React 19, Zustand, 15페이지) | https://hchat-desktop.vercel.app | 5173 |
 
 ## 시작하기
@@ -142,12 +142,13 @@ npm run build:storybook
 
 - **@hchat/tokens**: 모든 앱에서 CSS 변수로 import (80+ 디자인 토큰)
 - **@hchat/ui**: 공유 컴포넌트를 경로별로 export (100+ 컴포넌트)
-  - `@hchat/ui`: 기본 컴포넌트 (Badge, ThemeProvider, FeatureCard)
+  - `@hchat/ui`: 기본 컴포넌트 (Badge, ThemeProvider, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState)
   - `@hchat/ui/hmg`: HMG 컴포넌트
-  - `@hchat/ui/admin`: Admin 컴포넌트
+  - `@hchat/ui/admin`: Admin 컴포넌트 + 서비스 레이어
   - `@hchat/ui/roi`: ROI 대시보드 컴포넌트 (5가지 차트 타입)
-  - `@hchat/ui/user`: User 앱 컴포넌트
-  - `@hchat/ui/llm-router`: LLM Router 컴포넌트
+  - `@hchat/ui/user`: User 앱 컴포넌트 + 서비스 레이어
+  - `@hchat/ui/llm-router`: LLM Router 컴포넌트 + 서비스 레이어
+  - `@hchat/ui/i18n`: 다국어 지원 (한영)
 
 ## 주요 기능
 
@@ -197,8 +198,15 @@ npm run build:storybook
 - 667개 테스트, 83% 커버리지
 - 별도 레포: https://github.com/sgtlim0/hchat-desktop
 
+### 공유 UX 컴포넌트 (@hchat/ui)
+- **Skeleton**: 로딩 상태용 스켈레톤 컴포넌트 (Pulse, Text, Card, Table, Chart)
+- **Toast**: 전역 토스트 알림 시스템 (success, error, warning, info)
+- **ErrorBoundary**: React 에러 바운더리 + 폴백 UI
+- **EmptyState**: 빈 상태 안내 컴포넌트
+- **Form Validation**: validate(), useFormValidation(), patterns 유틸리티
+
 ### Storybook
-- 모든 UI 컴포넌트의 인터랙티브 카탈로그 (53개+ 스토리)
+- 모든 UI 컴포넌트의 인터랙티브 카탈로그 (73개+ 스토리)
 - 다크 모드 테마 toggle
 - 접근성 검사 (WCAG 2.1 AA)
 - 컴포넌트별 Props 문서
@@ -327,8 +335,9 @@ WCAG 2.1 AA 표준을 준수:
 | 앱 | 7개 |
 | UI 패키지 | 2개 |
 | UI 컴포넌트 | 100개+ |
+| 서비스 레이어 | 3개 (Admin, User, LLM Router) |
 | 페이지 | 60개+ |
-| Storybook 스토리 | 53개+ |
+| Storybook 스토리 | 73개+ |
 | CSS 디자인 토큰 | 80개+ |
 | E2E 테스트 파일 | 12개 |
 | AI 모델 (LLM Router) | 86개 |
@@ -413,7 +422,7 @@ hchat-wiki/
 │   │
 │   └── storybook/
 │       ├── .storybook/       # Storybook 설정
-│       └── stories/          # 스토리 정의 (53개+)
+│       └── stories/          # 스토리 정의 (73개+)
 │
 ├── packages/
 │   ├── tokens/
@@ -422,12 +431,13 @@ hchat-wiki/
 │   │
 │   └── ui/
 │       └── src/
-│           ├── index.ts      # 기본 export
+│           ├── index.ts      # 기본 export (Skeleton, Toast, ErrorBoundary 등)
+│           ├── validation.ts # 폼 검증 유틸리티
 │           ├── hmg/          # HMG 컴포넌트
-│           ├── admin/        # Admin 컴포넌트
+│           ├── admin/        # Admin 컴포넌트 + services/
 │           ├── roi/          # ROI 대시보드 컴포넌트 (5가지 차트)
-│           ├── user/         # User 앱 컴포넌트
-│           ├── llm-router/   # LLM Router 컴포넌트
+│           ├── user/         # User 앱 컴포넌트 + services/
+│           ├── llm-router/   # LLM Router 컴포넌트 + services/
 │           └── i18n/         # 다국어 지원 (한영)
 │
 ├── docs/                     # 설계 및 구현 문서

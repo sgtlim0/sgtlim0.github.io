@@ -288,6 +288,59 @@ AI 제공사를 시각적으로 표현하는 배지입니다.
 />
 ```
 
+## 서비스 레이어
+
+API 데이터 페칭 및 상태 관리는 `@hchat/ui/llm-router/services`에서 제공됩니다.
+
+### 아키텍처
+
+```
+services/
+├── types.ts                       # 서비스 전용 타입 정의
+├── llmRouterService.ts            # LlmRouterService 인터페이스
+├── mockLlmRouterService.ts        # Mock 구현 (기본값)
+├── LlmRouterServiceProvider.tsx   # React Context 프로바이더
+├── hooks.ts                       # 커스텀 React 훅
+└── index.ts                       # Barrel exports
+```
+
+### 사용법
+
+```tsx
+import { LlmRouterServiceProvider } from '@hchat/ui/llm-router/services';
+
+export default function RootLayout({ children }) {
+  return (
+    <LlmRouterServiceProvider>
+      {children}
+    </LlmRouterServiceProvider>
+  );
+}
+```
+
+### 사용 가능한 훅
+
+| 훅 | 설명 |
+|----|------|
+| `useModels(filters?)` | 모델 목록 (필터링/페이지네이션) |
+| `useModelById(id)` | 단일 모델 조회 |
+| `useDashboardStats()` | 대시보드 통계 |
+| `useUsageStats()` | 일별 사용량 통계 |
+| `useMonthlyUsage()` | 월별 집계 데이터 |
+| `useModelUsageBreakdown()` | 모델별 사용량 |
+| `useAPIKeys()` | API 키 관리 (생성/폐기) |
+
+### 실제 API 전환
+
+```tsx
+import { LlmRouterServiceProvider } from '@hchat/ui/llm-router/services';
+import { realLlmRouterService } from './services/realLlmRouterService';
+
+<LlmRouterServiceProvider service={realLlmRouterService}>
+  {children}
+</LlmRouterServiceProvider>
+```
+
 ## 특징
 
 - **확장성**: 86개 모델 관리 가능한 효율적인 테이블 구조
