@@ -1,12 +1,12 @@
 ---
 title: 빠른 시작 가이드
-description: H Chat v3 설치 및 초기 설정
+description: H Chat v4 설치 및 초기 설정
 badges: ["초보자 가이드"]
 ---
 
 # 빠른 시작 가이드
 
-H Chat v3는 Chrome Extension (Manifest V3) 기반의 멀티 AI 프로바이더 어시스턴트입니다.
+H Chat v4는 Chrome Extension (Manifest V3) 기반의 멀티 AI 프로바이더 어시스턴트입니다.
 
 ## 지원 AI 프로바이더
 
@@ -92,6 +92,38 @@ npm run build
 - 모든 대화 기록 및 설정은 **chrome.storage.local**에 로컬 저장됩니다
 - 외부 서버로 데이터가 전송되지 않습니다
 - 텔레메트리 및 분석 기능이 없어 완전히 프라이빗합니다
+
+## Desktop 앱 시작하기
+
+H Chat Desktop은 PWA 기반 데스크톱 AI 챗 애플리케이션입니다.
+
+### 웹에서 바로 사용
+
+https://hchat-desktop.vercel.app 접속
+
+### 로컬 개발
+
+```bash
+git clone https://github.com/sgtlim0/hchat-desktop.git
+cd hchat-desktop
+npm install
+npm run dev    # localhost:5173
+```
+
+### PWA 설치
+
+1. https://hchat-desktop.vercel.app 접속
+2. 브라우저 주소창의 설치 아이콘 클릭
+3. "설치" 선택하면 데스크톱 앱으로 실행 가능
+
+### 프로젝트 규모
+
+- **테스트**: 667개 테스트, 83% 커버리지
+- **기술 스택**: React 19 + TypeScript 5.9 + Vite 7 + Tailwind CSS 3
+- **상태 관리**: Zustand 5 (16개 스토어)
+- **데이터베이스**: Dexie (IndexedDB)
+- **백엔드**: Modal Serverless (FastAPI)
+- **아키텍처**: Feature-Sliced Design (FSD)
 
 ## 다음 단계
 

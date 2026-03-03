@@ -1,5 +1,5 @@
 ---
-title: H Chat v3 사용 가이드
+title: H Chat v4 사용 가이드
 description: 멀티 AI 프로바이더 기반 올인원 브라우저 어시스턴트
 ---
 
