@@ -11,7 +11,9 @@
     "./admin": "./src/admin/index.ts",
     "./admin/*": "./src/admin/*.tsx",
     "./user": "./src/user/index.ts",
-    "./user/*": "./src/user/*.tsx"
+    "./user/*": "./src/user/*.tsx",
+    "./llm-router": "./src/llm-router/index.ts",
+    "./llm-router/*": "./src/llm-router/*.tsx"
   },
   "files": [
     "src"

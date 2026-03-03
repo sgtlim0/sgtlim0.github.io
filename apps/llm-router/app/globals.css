@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+@import '../../../packages/tokens/styles/tokens.css';
+
+@source "../../../packages/ui/src";
+
+:root {
+  --lr-primary: #6366F1;
+  --lr-primary-hover: #4F46E5;
+  --lr-accent: #10B981;
+  --lr-bg: #FFFFFF;
+  --lr-bg-section: #F8FAFC;
+  --lr-bg-code: #1E293B;
+  --lr-border: #E2E8F0;
+  --lr-text-primary: #0F172A;
+  --lr-text-secondary: #475569;
+  --lr-text-muted: #94A3B8;
+  --lr-nav-bg: #0F172A;
+  --lr-nav-text: #CBD5E1;
+}
+
+.dark {
+  --lr-primary: #818CF8;
+  --lr-primary-hover: #6366F1;
+  --lr-accent: #34D399;
+  --lr-bg: #0F172A;
+  --lr-bg-section: #1E293B;
+  --lr-bg-code: #0F172A;
+  --lr-border: #334155;
+  --lr-text-primary: #F1F5F9;
+  --lr-text-secondary: #94A3B8;
+  --lr-text-muted: #64748B;
+  --lr-nav-bg: #020617;
+  --lr-nav-text: #94A3B8;
+}
+
+@theme inline {
+  --color-lr-primary: var(--lr-primary);
+  --color-lr-primary-hover: var(--lr-primary-hover);
+  --color-lr-accent: var(--lr-accent);
+  --color-lr-bg: var(--lr-bg);
+  --color-lr-bg-section: var(--lr-bg-section);
+  --color-lr-bg-code: var(--lr-bg-code);
+  --color-lr-border: var(--lr-border);
+  --color-lr-text-primary: var(--lr-text-primary);
+  --color-lr-text-secondary: var(--lr-text-secondary);
+  --color-lr-text-muted: var(--lr-text-muted);
+  --color-lr-nav-bg: var(--lr-nav-bg);
+  --color-lr-nav-text: var(--lr-nav-text);
+}
+
+body {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--lr-bg);
+  color: var(--lr-text-primary);
+}

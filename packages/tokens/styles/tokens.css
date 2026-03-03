@@ -99,6 +99,20 @@
   --user-text-primary: #1E293B;
   --user-text-secondary: #64748B;
   --user-text-muted: #94A3B8;
+
+  /* === LLM Router Tokens === */
+  --lr-nav-bg: #0F172A;
+  --lr-nav-text: rgba(255,255,255,0.7);
+  --lr-primary: #3B82F6;
+  --lr-primary-hover: #2563EB;
+  --lr-bg: #FFFFFF;
+  --lr-bg-section: #F8FAFC;
+  --lr-bg-code: #1F2937;
+  --lr-bg-table: #FFFFFF;
+  --lr-border: #E2E8F0;
+  --lr-text-primary: #0F172A;
+  --lr-text-secondary: #64748B;
+  --lr-text-muted: #94A3B8;
 }
 
 .dark {
@@ -165,4 +179,15 @@
   --user-text-primary: #F1F5F9;
   --user-text-secondary: #94A3B8;
   --user-text-muted: #64748B;
+
+  /* === LLM Router Dark === */
+  --lr-nav-bg: #020617;
+  --lr-bg: #0F172A;
+  --lr-bg-section: #1E293B;
+  --lr-bg-code: #111827;
+  --lr-bg-table: #1E293B;
+  --lr-border: #334155;
+  --lr-text-primary: #F1F5F9;
+  --lr-text-secondary: #94A3B8;
+  --lr-text-muted: #64748B;
 }

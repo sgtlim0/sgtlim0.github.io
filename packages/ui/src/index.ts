@@ -16,3 +16,6 @@ export * from './i18n';
 
 // ROI components
 export * from './roi';
+
+// LLM Router components
+export * from './llm-router';
