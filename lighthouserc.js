@@ -6,6 +6,8 @@ module.exports = {
         'https://hchat-admin.vercel.app/',
         'https://hchat-hmg.vercel.app/',
         'https://hchat-user.vercel.app/',
+        'https://hchat-llm-router.vercel.app/',
+        'https://hchat-desktop.vercel.app/',
       ],
       numberOfRuns: 1,
       settings: {

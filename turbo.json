@@ -3,7 +3,9 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["out/**", ".next/**", "dist/**", "storybook-static/**"]
+      "inputs": ["src/**", "app/**", "components/**", "lib/**", "styles/**", "*.ts", "*.tsx", "*.json", "*.css"],
+      "outputs": ["out/**", ".next/**", "dist/**", "storybook-static/**"],
+      "env": ["ANALYZE"]
     },
     "dev": {
       "cache": false,

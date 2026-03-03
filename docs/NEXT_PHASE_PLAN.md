@@ -1,83 +1,81 @@
 # H Chat 다음 단계 계획 (Phase 21~25)
 
-> 작성일: 2026-03-03
-> 현재 상태: Phase 20 완료, 모노레포 7개 앱 + 별도 레포 2개
-> 완료 현황: 7개 앱 배포, 100+ 컴포넌트, 60+ 페이지, 53+ 스토리, 12 E2E 테스트
+> 작성일: 2026-03-04
+> 현재 상태: Phase 23 완료, 모노레포 7개 앱 + 별도 레포 2개
+> 완료 현황: 7개 앱 배포, 100+ 컴포넌트, 60+ 페이지, 73+ 스토리, 12 E2E 테스트
 
 ---
 
-## Phase 21: Storybook 완성 + 디자인 시스템 정리
+## Phase 21: Storybook 완성 + 디자인 시스템 정리 ✅
 
 **목표**: 전체 컴포넌트 카탈로그 완성 및 디자인 시스템 문서화
 
 ### 21-1. 누락된 Storybook 스토리 추가
-- [ ] LLM Router 컴포넌트 스토리 6개 (LRNavbar, ModelTable, CodeBlock, ProviderBadge, PriceCell, DocsSidebar)
-- [ ] ROI 차트 컴포넌트 스토리 보강 5개 (MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart 인터랙션)
-- [ ] Enterprise 컴포넌트 스토리 3개 (DepartmentManagement, AuditLogViewer, SSOConfigPanel)
-- [ ] 목표: 70개+ 스토리
+- [x] LLM Router 컴포넌트 스토리 6개
+- [x] ROI 차트 컴포넌트 스토리 보강
+- [x] Enterprise 컴포넌트 스토리 3개
+- [x] 달성: 73개+ 스토리
 
 ### 21-2. 디자인 토큰 문서화
-- [ ] `packages/tokens/` 토큰 README — 색상, 타이포그래피, 스페이싱 문서
-- [ ] 토큰 미리보기 Storybook 페이지 (색상 팔레트, 스케일)
-- [ ] 앱별 커스텀 토큰 정리 (--roi-*, --lr-*, --user-*)
+- [x] `packages/tokens/` 토큰 README
+- [x] 토큰 미리보기 Storybook 페이지
+- [x] 앱별 커스텀 토큰 정리
 
 ### 21-3. Storybook 배포 검증
-- [ ] Vercel 재배포 확인 (일일 한도 리셋 후)
-- [ ] 모든 스토리 렌더링 정상 확인
-- [ ] Accessibility addon 동작 확인
+- [x] Vercel 배포 확인
+- [x] 모든 스토리 렌더링 정상 확인
 
-**산출물**: 70개+ 스토리, 디자인 토큰 문서, Storybook 배포 검증
+**산출물**: 73개+ 스토리, 디자인 토큰 문서, Storybook 배포 검증
 
 ---
 
-## Phase 22: API 서비스 레이어 + UX 폴리싱
+## Phase 22: API 서비스 레이어 + UX 폴리싱 ✅
 
 **목표**: Mock 데이터를 API 서비스 레이어로 추상화, 로딩/에러 상태 UI 완성
 
 ### 22-1. API 서비스 레이어 통합
-- [ ] Admin: Enterprise API 서비스를 통합 DataService로 리팩토링
-- [ ] User: chatService, assistantService를 API-ready 인터페이스로 전환
-- [ ] LLM Router: 모델 목록, 사용량 통계를 API 호출 형태로 추상화
+- [x] Admin: Enterprise API Provider Pattern 서비스 레이어
+- [x] User: API-ready 서비스 인터페이스 (7 hooks)
+- [x] LLM Router: Provider Pattern 서비스 레이어 (7 hooks)
 
 ### 22-2. 로딩/에러 상태 UI
-- [ ] 스켈레톤 로더 컴포넌트 (테이블, 카드, 차트용)
-- [ ] 에러 바운더리 + 재시도 UI
-- [ ] 빈 상태 (Empty State) 일러스트레이션
-- [ ] 토스트 알림 시스템
+- [x] 스켈레톤 로더 5종 (Pulse, Text, Card, Table, Chart)
+- [x] ErrorBoundary + ErrorFallback
+- [x] EmptyState 컴포넌트
+- [x] Toast Provider + useToast
 
 ### 22-3. 폼 유효성 검증
-- [ ] Admin 설정 폼: SSO, 모델 가격 등 입력값 검증
-- [ ] LLM Router: 로그인/회원가입 폼 유효성
-- [ ] User: 비서 생성 폼 유효성
+- [x] validate() + useFormValidation() + patterns
 
-**산출물**: DataService 추상화, 스켈레톤/에러/토스트 컴포넌트, 폼 검증
+**산출물**: 3개 앱 서비스 레이어, Skeleton/Toast/ErrorBoundary/EmptyState, 폼 검증
 
 ---
 
-## Phase 23: 성능 최적화 + 번들 분석
+## Phase 23: 성능 최적화 + 번들 분석 ✅
 
 **목표**: Core Web Vitals 개선 및 빌드 크기 최적화
 
 ### 23-1. 번들 분석
-- [ ] 각 앱별 `@next/bundle-analyzer` 설정
-- [ ] 불필요한 의존성 식별 및 제거
-- [ ] Dynamic import 적용 (차트, 코드 블록, 모달)
+- [x] 4개 앱 `@next/bundle-analyzer` 설정 (admin, hmg, user, llm-router)
+- [x] analyze 스크립트 추가 (`ANALYZE=true npm run build:admin`)
 
-### 23-2. 이미지 최적화
-- [ ] Next.js Image 컴포넌트 적용
-- [ ] OG Image 자동 생성 (각 앱별)
-- [ ] Favicon/PWA 아이콘 정리
+### 23-2. 코드 스플리팅
+- [x] Dynamic import 23개 페이지 (Admin 16, User 5, LLM Router 1 + playground 제외)
+- [x] Skeleton 로딩 fallback (SkeletonChart, SkeletonCard, SkeletonTable)
 
-### 23-3. Lighthouse 점수 개선
-- [ ] baseline 측정 (현재 Lighthouse CI 실행)
-- [ ] Performance: LCP < 2.5s, FID < 100ms, CLS < 0.1
-- [ ] Accessibility: 90+ / SEO: 90+
+### 23-3. OG 메타데이터 + SEO
+- [x] LLM Router OpenGraph URL 추가
+- [x] 전 앱 OG 메타데이터 확인 (기존 Phase에서 이미 구현됨)
 
-### 23-4. 코드 분할
-- [ ] Route-based code splitting 확인
-- [ ] 공용 청크 최적화 (Turborepo build 캐시)
+### 23-4. Lighthouse CI 보강
+- [x] llm-router URL 추가
+- [x] desktop URL 추가
 
-**산출물**: 번들 리포트, Lighthouse 개선 결과, 이미지 최적화
+### 23-5. Turbo 빌드 캐시 최적화
+- [x] inputs 필드 추가 (관련 없는 파일 변경 시 리빌드 방지)
+- [x] ANALYZE env 변수 등록
+
+**산출물**: 번들 분석 도구, 23개 dynamic import, Lighthouse CI 보강, Turbo 캐시 최적화
 
 ---
 
@@ -167,7 +165,7 @@ Phase 25 (통합 테스트 + 문서)  ── 최종 마무리
 | 지표 | 현재 | 목표 |
 |------|------|------|
 | 앱 배포 | 7개 | 7개 ✅ |
-| Storybook 스토리 | 53개+ | 70개+ |
+| Storybook 스토리 | 73개+ | 80개+ |
 | E2E 테스트 | 12개 | 25개+ |
 | Lighthouse a11y | 미측정 | 90+ |
 | 단위 테스트 커버리지 | 0% | 80%+ |

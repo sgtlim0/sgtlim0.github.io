@@ -1,6 +1,13 @@
 'use client'
 
-import { LRNavbar, ModelTable, mockModels } from '@hchat/ui/llm-router'
+import dynamic from 'next/dynamic'
+import { SkeletonTable } from '@hchat/ui'
+import { LRNavbar, mockModels } from '@hchat/ui/llm-router'
+
+const ModelTable = dynamic(
+  () => import('@hchat/ui/llm-router').then(m => ({ default: m.ModelTable })),
+  { loading: () => <SkeletonTable /> }
+)
 
 export default function ModelsPage() {
   return (

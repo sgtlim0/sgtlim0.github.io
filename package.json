@@ -30,10 +30,15 @@
     "test:e2e:llm-router": "playwright test --project=llm-router",
     "test:e2e:wiki": "playwright test --project=wiki",
     "test:e2e:cross": "playwright test tests/e2e/cross-app.spec.ts",
+    "analyze:admin": "ANALYZE=true npm run build:admin",
+    "analyze:hmg": "ANALYZE=true npm run build:hmg",
+    "analyze:user": "ANALYZE=true npm run build:user",
+    "analyze:llm-router": "ANALYZE=true npm run build:llm-router",
     "lighthouse": "lhci autorun"
   },
   "devDependencies": {
     "@lhci/cli": "^0.14.0",
+    "@next/bundle-analyzer": "^16.1.6",
     "@playwright/test": "^1.58.2",
     "turbo": "^2"
   }

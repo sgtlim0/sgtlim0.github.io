@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     description: '86개 AI 모델을 하나의 API로. 최적 비용, 실시간 모니터링.',
     type: 'website',
     locale: 'ko_KR',
+    url: 'https://hchat-llm-router.vercel.app',
   },
 }
 
