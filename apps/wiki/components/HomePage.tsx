@@ -88,7 +88,7 @@ const projects: ProjectCard[] = [
   {
     title: 'LLM Router',
     description: '86개 AI 모델 통합 API 라우터. 모델 가격표, Playground, 대시보드, API 키 관리, 문서.',
-    url: '#',
+    url: 'https://hchat-llm-router.vercel.app',
     icon: Cpu,
     iconColor: 'text-[#6366F1]',
     iconBg: 'bg-[#EEF2FF] dark:bg-[#312E81]',
