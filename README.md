@@ -239,6 +239,31 @@ export default function App() {
 }
 ```
 
+## 성능 최적화
+
+### 번들 분석 (Bundle Analyzer)
+
+`@next/bundle-analyzer`를 통한 번들 크기 분석:
+
+```bash
+# Admin 앱 번들 분석 (브라우저에서 HTML 리포트 자동 오픈)
+npm run analyze:admin
+```
+
+### 코드 스플리팅 (Dynamic Import)
+
+22개 페이지에 `next/dynamic`을 적용하여 초기 번들 크기를 최적화합니다:
+
+- **Admin**: ROI 8개 페이지 + 비ROI 8개 페이지 (departments, audit-logs, sso, providers, models, prompts, agents, features)
+- **User**: 5개 페이지 (chat, translate, docs, ocr, my-page)
+- **LLM Router**: 1개 페이지 (models)
+
+로딩 중에는 `@hchat/ui`의 Skeleton 컴포넌트가 fallback으로 표시됩니다.
+
+### Turbo 빌드 캐시
+
+`turbo.json`에 `inputs` 필드를 설정하여 관련 없는 파일(docs, e2e 등) 변경 시 불필요한 리빌드를 방지합니다.
+
 ## E2E 테스트
 
 Playwright를 이용한 포괄적인 E2E 테스트 커버리지:
@@ -337,9 +362,11 @@ WCAG 2.1 AA 표준을 준수:
 | UI 컴포넌트 | 100개+ |
 | 서비스 레이어 | 3개 (Admin, User, LLM Router) |
 | 페이지 | 60개+ |
+| Dynamic Import 페이지 | 22개 |
 | Storybook 스토리 | 73개+ |
 | CSS 디자인 토큰 | 80개+ |
 | E2E 테스트 파일 | 12개 |
+| Lighthouse CI 대상 | 6개 URL |
 | AI 모델 (LLM Router) | 86개 |
 
 ## 스크립트
@@ -363,6 +390,14 @@ npm run build:admin       # Admin만 빌드
 npm run build:user        # User만 빌드
 npm run build:llm-router  # LLM Router만 빌드
 npm run build:storybook   # Storybook만 빌드
+```
+
+### 번들 분석
+```bash
+npm run analyze:admin     # Admin 번들 분석 (HTML 리포트)
+npm run analyze:hmg       # HMG 번들 분석
+npm run analyze:user      # User 번들 분석
+npm run analyze:llm-router # LLM Router 번들 분석
 ```
 
 ### 품질 관리
@@ -514,5 +549,5 @@ MIT
 
 ---
 
-**Last Updated**: 2026-03-03
+**Last Updated**: 2026-03-04
 **Monorepo Version**: 0.1.0
