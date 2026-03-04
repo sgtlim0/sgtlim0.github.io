@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "cd ../.. && rm -rf /vercel/.npm/_cacache && npm install",
+  "installCommand": "cd ../.. && rm -rf /vercel/.npm && npm install --prefer-offline=false",
   "buildCommand": "npm run build",
   "outputDirectory": "storybook-static"
 }
