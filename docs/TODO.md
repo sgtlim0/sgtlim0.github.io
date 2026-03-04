@@ -27,7 +27,7 @@
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
 | UI 컴포넌트 | 100개+ |
 | 페이지 | 60개+ |
-| Storybook 스토리 | 73개+ |
+| Storybook 스토리 | 103개 (97% 커버리지) |
 | 프로젝트 문서 | 7개 (CLAUDE, TODO, PLAN, CONTRIBUTING, ARCHITECTURE, DEPLOYMENT, API_SPEC, DEMO) |
 | CSS 디자인 토큰 | 80개+ |
 | E2E 테스트 파일 | 18개 |
@@ -101,19 +101,29 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 - 프로젝트 문서: CONTRIBUTING.md, ARCHITECTURE.md (Mermaid), DEPLOYMENT.md, API_SPEC.md, DEMO.md
 - Playwright config: llm-router 배포 URL로 전환
 
+### Phase 26: Storybook 103개 완성 ✅
+- 30개 신규 스토리 추가 (Shared 5, ROI 원자 6, ROI 페이지 9, Admin/User 페이지 6, User 컴포넌트 4)
+- Shared 카테고리 신규 (Skeleton, Toast, EmptyState, ErrorBoundary, LanguageToggle)
+- main.ts에 @hchat/ui/i18n alias 추가
+- 97% UI 컴포넌트 커버리지 달성
+
 ---
 
-## 다음 계획 (Phase 26+)
+## 다음 계획 (Phase 27+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 26 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지, packages/ui 컴포넌트 |
-| 27 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링, SSE → WS 전환 |
-| 28 | 다국어 확장 | 일본어, 중국어 추가 (현재 한/영) |
-| 29 | AI 모델 실연동 | LLM Router 실제 API 호출, API 키 관리 보안 |
-| 30 | Desktop 모노레포 통합 | hchat-desktop을 모노레포 서브패키지로 이전 |
+| 27 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지 |
+| 28 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링 |
+| 29 | 다국어 확장 | 일본어, 중국어 추가 |
+| 30 | AI 모델 실연동 | LLM Router API 호출, API 키 보안 |
+| 31 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전 |
+| 32 | 알림 시스템 | 실시간 푸시 알림 + 이메일 알림, Admin/User 통합 |
+| 33 | 대시보드 커스터마이징 | 위젯 기반 드래그앤드롭 대시보드 레이아웃 |
+| 34 | AI 워크플로우 빌더 | 비주얼 노드 기반 AI 파이프라인 편집기 |
+| 35 | 모바일 앱 | React Native 또는 PWA 네이티브 래퍼 |
 
 ---
 
@@ -121,6 +131,6 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 | # | 항목 | 상태 |
 |---|------|------|
-| 1 | 단위 테스트 | 현재 0%, Phase 26에서 Vitest + Testing Library 도입 예정 |
-| 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 30에서 통합 예정 |
-| 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 29에서 실연동 예정 |
+| 1 | 단위 테스트 | 현재 0%, Phase 27에서 Vitest + Testing Library 도입 예정 |
+| 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 31에서 통합 예정 |
+| 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 30에서 실연동 예정 |

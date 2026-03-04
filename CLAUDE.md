@@ -99,7 +99,7 @@ Authentication: AuthProvider wraps admin app with mock auth service. ProtectedRo
 Enterprise API: Services layer in `packages/ui/src/admin/services/` provides API abstraction with mock data fallback. Enterprise types define Provider, Model, Feature, Department, AuditLog, SSO schemas. API proxy pattern protects server-side API keys.
 
 ### Storybook (`apps/storybook/`)
-Stories for Wiki (13), Admin (12), HMG (12), and ROI (6) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+Stories for Wiki (13), Admin (13), HMG (12), ROI (15), User (16), LLM Router (6), and Shared (5) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.

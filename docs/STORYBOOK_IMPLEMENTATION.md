@@ -640,3 +640,35 @@ export const mockChangelogPage: PageData = {
 - [ ] GitHub Actions CI에서 Storybook 빌드 통과
 - [ ] Storybook 퍼블릭 URL 배포 완료
 - [ ] Foundations MDX에서 디자인 토큰 문서 확인
+
+---
+
+## Phase 26: 103개 스토리 완성 (2026-03-05)
+
+### 신규 스토리 30개
+
+| 카테고리 | 스토리 | 수량 |
+|----------|--------|------|
+| Shared | Skeleton, Toast, EmptyState, ErrorBoundary, LanguageToggle | 5 |
+| ROI 원자 | SurveyBar, HeatmapCell, ChartPlaceholder, MiniBarChart, MiniLineChart, ROISidebar | 6 |
+| ROI 페이지 | Overview, Adoption, Productivity, Analysis, Organization, Sentiment, Reports, Settings, DataUpload | 9 |
+| Admin 페이지 | LoginPage | 1 |
+| User 페이지 | ChatPage, TranslationPage, DocsPage, OCRPage, MyPage | 5 |
+| User 컴포넌트 | MessageBubble, StreamingIndicator, CustomAssistantModal, ChatSearchPanel | 4 |
+
+### 결과
+
+| 지표 | Before | After |
+|------|--------|-------|
+| 스토리 수 | 73개 | 103개 |
+| 커버리지 | 77% | 97% |
+| 카테고리 | 6개 | 7개 (+Shared) |
+
+### 설정 변경
+
+- `apps/storybook/.storybook/main.ts`: `@hchat/ui/i18n` alias 추가
+- `apps/storybook/vercel.json`: npm cache clean 추가 (idealTree 충돌 해결)
+
+### 스킵된 컴포넌트 (비시각적 Provider/Context — 8개)
+
+AuthProvider, ProtectedRoute, AdminServiceProvider, UserServiceProvider, LlmRouterServiceProvider, I18nProvider, ThemeProvider, ROIDataContext
