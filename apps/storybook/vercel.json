@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "cd ../.. && rm -rf node_modules/.package-lock.json && npm ci --ignore-scripts && npm rebuild",
+  "installCommand": "cd ../.. && rm -rf /vercel/.npm/_cacache && npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "storybook-static"
 }
