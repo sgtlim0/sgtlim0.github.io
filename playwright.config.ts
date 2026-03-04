@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -31,7 +31,7 @@ export default defineConfig({
     },
     {
       name: 'llm-router',
-      use: { baseURL: 'http://localhost:3004' },
+      use: { baseURL: 'https://hchat-llm-router.vercel.app' },
       testMatch: /llm-router.*\.spec\.ts/,
     },
     {
@@ -40,4 +40,4 @@ export default defineConfig({
       testMatch: /wiki.*\.spec\.ts/,
     },
   ],
-});
+})

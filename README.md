@@ -286,14 +286,15 @@ npm run test:e2e:llm-router
 npm run test:e2e:cross
 ```
 
-테스트 파일: `apps/*/e2e/*.spec.ts` (12개 E2E 테스트 파일)
+테스트 파일: `tests/e2e/*.spec.ts` (18개 E2E 테스트 파일)
 
 주요 테스트 시나리오:
 - 페이지 렌더링 및 네비게이션
 - 사용자 상호작용 (클릭, 입력, 폼 제출)
-- 다크 모드 토글
-- 반응형 디자인 확인
-- 접근성 검사
+- 다크 모드 토글 (전 앱 일관성)
+- 반응형 디자인 확인 (모바일/태블릿/데스크톱)
+- 접근성 검사 (axe-core WCAG 2.1 AA)
+- 크로스 앱 네비게이션
 
 ## Lighthouse CI
 
@@ -365,7 +366,7 @@ WCAG 2.1 AA 표준을 준수:
 | Dynamic Import 페이지 | 22개 |
 | Storybook 스토리 | 73개+ |
 | CSS 디자인 토큰 | 80개+ |
-| E2E 테스트 파일 | 12개 |
+| E2E 테스트 파일 | 18개 |
 | Lighthouse CI 대상 | 6개 URL |
 | AI 모델 (LLM Router) | 86개 |
 
@@ -412,6 +413,7 @@ npm run test:e2e:llm-router # LLM Router 전용 E2E 테스트
 npm run test:e2e:wiki     # Wiki 전용 E2E 테스트
 npm run test:e2e:cross    # 크로스 앱 E2E 테스트
 npm run lighthouse        # Lighthouse CI 실행
+npm run format            # Prettier 전체 포맷
 ```
 
 ## 파일 구조

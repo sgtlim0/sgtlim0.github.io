@@ -28,8 +28,9 @@
 | UI 컴포넌트 | 100개+ |
 | 페이지 | 60개+ |
 | Storybook 스토리 | 73개+ |
+| 프로젝트 문서 | 7개 (CLAUDE, TODO, PLAN, CONTRIBUTING, ARCHITECTURE, DEPLOYMENT, API_SPEC, DEMO) |
 | CSS 디자인 토큰 | 80개+ |
-| E2E 테스트 파일 | 12개 |
+| E2E 테스트 파일 | 18개 |
 | Wiki 콘텐츠 | 31 페이지 (5개 섹션: chat, tools, browser, settings, desktop) |
 | AI 모델 (LLM Router) | 86개 |
 
@@ -91,11 +92,28 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 - Lighthouse CI URL 추가 (llm-router, desktop)
 - OpenGraph 메타데이터 보강
 
+### Phase 24: CI/CD 파이프라인 강화 ✅
+- CI: Lighthouse CI job 추가, E2E workflow 확장 (user 프로젝트, concurrency, artifact retention)
+- 코드 품질: Prettier + Husky + lint-staged (pre-commit hook)
+
+### Phase 25: 통합 테스트 + 문서 최종화 ✅
+- E2E 테스트 확장: responsive (4앱), dark-mode-all (4앱), a11y-all (axe-core 4앱) → 18개 파일
+- 프로젝트 문서: CONTRIBUTING.md, ARCHITECTURE.md (Mermaid), DEPLOYMENT.md, API_SPEC.md, DEMO.md
+- Playwright config: llm-router 배포 URL로 전환
+
 ---
 
-## 다음 계획 (Phase 24~25)
+## 다음 계획 (Phase 26+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
+
+| Phase | 작업 | 설명 |
+|-------|------|------|
+| 26 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지, packages/ui 컴포넌트 |
+| 27 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링, SSE → WS 전환 |
+| 28 | 다국어 확장 | 일본어, 중국어 추가 (현재 한/영) |
+| 29 | AI 모델 실연동 | LLM Router 실제 API 호출, API 키 관리 보안 |
+| 30 | Desktop 모노레포 통합 | hchat-desktop을 모노레포 서브패키지로 이전 |
 
 ---
 

@@ -34,12 +34,27 @@
     "analyze:hmg": "ANALYZE=true npm run build:hmg",
     "analyze:user": "ANALYZE=true npm run build:user",
     "analyze:llm-router": "ANALYZE=true npm run build:llm-router",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "lhci autorun",
+    "format": "prettier --write \"apps/*/app/**/*.{ts,tsx}\" \"packages/*/src/**/*.{ts,tsx}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,json}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@lhci/cli": "^0.14.0",
     "@next/bundle-analyzer": "^16.1.6",
     "@playwright/test": "^1.58.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
+    "prettier": "^3.8.1",
     "turbo": "^2"
   }
 }
