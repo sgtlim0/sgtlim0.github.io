@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "rm -rf /vercel/.npm/_locks && cd ../.. && npm install",
+  "installCommand": "npm config set cache /tmp/.npm-cache --global && cd ../.. && npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "storybook-static"
 }
