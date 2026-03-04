@@ -1,15 +1,9 @@
-import type { StorybookConfig } from '@storybook/nextjs-vite';
-import path from 'path';
+import type { StorybookConfig } from '@storybook/nextjs-vite'
+import path from 'path'
 
 const config: StorybookConfig = {
-  stories: [
-    '../stories/**/*.mdx',
-    '../stories/**/*.stories.@(ts|tsx)',
-  ],
-  addons: [
-    '@storybook/addon-themes',
-    '@storybook/addon-a11y',
-  ],
+  stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(ts|tsx)'],
+  addons: ['@storybook/addon-themes', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/nextjs-vite',
     options: {},
@@ -19,7 +13,7 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   viteFinal: async (config) => {
-    config.resolve = config.resolve || {};
+    config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, '../../wiki'),
@@ -29,10 +23,11 @@ const config: StorybookConfig = {
       '@hchat/ui/user': path.resolve(__dirname, '../../../packages/ui/src/user'),
       '@hchat/ui/llm-router': path.resolve(__dirname, '../../../packages/ui/src/llm-router'),
       '@hchat/ui/roi': path.resolve(__dirname, '../../../packages/ui/src/roi'),
+      '@hchat/ui/i18n': path.resolve(__dirname, '../../../packages/ui/src/i18n'),
       '@hchat/tokens': path.resolve(__dirname, '../../../packages/tokens/src'),
-    };
-    return config;
+    }
+    return config
   },
-};
+}
 
-export default config;
+export default config
