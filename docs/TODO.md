@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-04
+> 마지막 업데이트: 2026-03-05
 
 ---
 
@@ -12,8 +12,8 @@
 | HMG 공식사이트 | https://hchat-hmg.vercel.app | Vercel | ✅ |
 | Admin 관리자 패널 | https://hchat-admin.vercel.app | Vercel | ✅ |
 | User 사용자 앱 | https://hchat-user.vercel.app | Vercel | ✅ |
-| LLM Router | https://hchat-llm-router.vercel.app | Vercel | ✅ (일일 한도 리셋 후 자동 배포) |
-| Storybook | https://hchat-storybook.vercel.app | Vercel | ✅ (재배포 대기) |
+| LLM Router | https://hchat-llm-router.vercel.app | Vercel | ✅ |
+| Storybook | https://hchat-storybook.vercel.app | Vercel | ✅ |
 | Desktop (별도 레포) | https://hchat-desktop.vercel.app | Vercel | ✅ |
 
 ---
@@ -87,7 +87,7 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 ### Phase 23: 성능 최적화 + 번들 분석 ✅
 - @next/bundle-analyzer 설정 (admin, hmg, user, llm-router)
-- Dynamic import 코드 스플리팅 23개 페이지 (Admin 16, User 5, LLM Router 1 + playground 제외)
+- Dynamic import 코드 스플리팅 23개 페이지 (Admin 16, User 5, LLM Router 2)
 - Turbo 빌드 캐시 최적화 (inputs/env 필드)
 - Lighthouse CI URL 추가 (llm-router, desktop)
 - OpenGraph 메타데이터 보강
@@ -121,7 +121,6 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 | # | 항목 | 상태 |
 |---|------|------|
-| 1 | Vercel 일일 배포 한도 도달 | 리셋 후 자동 배포 (LLM Router, Storybook) |
-| 2 | Storybook URL 변경 | hchat-wiki-storybook → hchat-storybook (프로젝트 재연결 완료) |
-| 3 | E2E 테스트 CI 실행 | GitHub Actions 워크플로우 생성됨, 실행 검증 필요 |
-| 4 | Desktop 모노레포 통합 | 현재 별도 레포, 모노레포 연동은 placeholder |
+| 1 | 단위 테스트 | 현재 0%, Phase 26에서 Vitest + Testing Library 도입 예정 |
+| 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 30에서 통합 예정 |
+| 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 29에서 실연동 예정 |

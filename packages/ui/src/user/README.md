@@ -131,6 +131,27 @@ export default function RootLayout({ children }) {
 - TypeScript 완전 지원
 - 반응형 레이아웃
 
+## 최근 업데이트
+
+### Phase 22: API 서비스 레이어 + 공통 UX 컴포넌트
+- **Provider Pattern**: UserServiceProvider + 7개 커스텀 훅으로 API 추상화
+- **공통 UX**: Skeleton, Toast, ErrorBoundary, EmptyState 통합
+- **Form Validation**: validate(), useFormValidation() 추가
+
+### Phase 23: 성능 최적화
+- **Dynamic Import**: 5개 페이지 코드 스플리팅 (Skeleton fallback)
+- **Bundle Analyzer**: `npm run analyze:user`으로 번들 크기 분석
+- **Turbo Cache**: 불필요한 리빌드 방지
+
+### Phase 24: CI/CD 파이프라인
+- **Lighthouse CI**: 성능(≥80), 접근성(≥85) 자동 검증
+- **E2E 확장**: 반응형, 다크모드, 접근성(axe-core) 테스트
+- **코드 품질**: Prettier + Husky + lint-staged
+
+### Phase 25: 통합 테스트 + 문서
+- **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
+- **프로젝트 문서**: CONTRIBUTING.md, ARCHITECTURE.md, API_SPEC.md 등
+
 ## 관련 패키지
 
 - **@hchat/tokens** — 디자인 토큰

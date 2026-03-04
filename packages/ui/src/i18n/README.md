@@ -86,3 +86,16 @@ export default function Header() {
 ## 구현 세부사항
 
 번역은 `ko.ts`에서 관리되며 모든 언어 팩이 번들에 포함됩니다.
+
+## 최근 업데이트
+
+### Phase 23: 성능 최적화
+- **Bundle Analysis**: 언어 팩 최적화로 번들 크기 최소화
+- **Turbo Cache**: i18n 변경 시 필요한 앱만 리빌드
+
+### Phase 24: CI/CD 파이프라인
+- **Type Checking**: 번역 키 타입 안정성 CI 검증
+- **코드 품질**: Prettier로 번역 파일 일관된 포맷팅
+
+### Phase 25: 통합 테스트
+- **E2E 테스트**: 다국어 전환 시나리오 검증

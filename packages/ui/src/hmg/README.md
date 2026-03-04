@@ -202,6 +202,20 @@ HMG 공식 브랜드 색상을 사용합니다:
 
 @hchat/tokens의 CSS 변수로 정의되어 있습니다.
 
+## 최근 업데이트
+
+### Phase 23: 성능 최적화
+- **Bundle Analyzer**: `npm run analyze:hmg`으로 컴포넌트 번들 크기 분석
+- **Turbo Cache**: 컴포넌트 변경 시 필요한 앱만 리빌드
+
+### Phase 24: CI/CD 파이프라인
+- **Lighthouse CI**: HMG 앱 성능(≥80), 접근성(≥85) 자동 검증
+- **E2E 확장**: 반응형, 다크모드, 접근성(axe-core) 테스트
+
+### Phase 25: 통합 테스트 + 문서
+- **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
+- **Storybook 스토리**: 12개 HMG 컴포넌트 스토리
+
 ## 관련 패키지
 
 - **@hchat/tokens** — 디자인 토큰 (색상, 타이포그래피, 스페이싱)

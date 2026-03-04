@@ -1,8 +1,8 @@
-# H Chat 다음 단계 계획 (Phase 21~25)
+# H Chat 다음 단계 계획 (Phase 26~30)
 
-> 작성일: 2026-03-04
-> 현재 상태: Phase 23 완료, 모노레포 7개 앱 + 별도 레포 2개
-> 완료 현황: 7개 앱 배포, 100+ 컴포넌트, 60+ 페이지, 73+ 스토리, 12 E2E 테스트
+> 작성일: 2026-03-05
+> 현재 상태: Phase 25 완료, 모노레포 7개 앱 + 별도 레포 2개
+> 완료 현황: 7개 앱 배포, 100+ 컴포넌트, 60+ 페이지, 73+ 스토리, 18 E2E 테스트
 
 ---
 
@@ -60,7 +60,7 @@
 - [x] analyze 스크립트 추가 (`ANALYZE=true npm run build:admin`)
 
 ### 23-2. 코드 스플리팅
-- [x] Dynamic import 23개 페이지 (Admin 16, User 5, LLM Router 1 + playground 제외)
+- [x] Dynamic import 23개 페이지 (Admin 16, User 5, LLM Router 2)
 - [x] Skeleton 로딩 fallback (SkeletonChart, SkeletonCard, SkeletonTable)
 
 ### 23-3. OG 메타데이터 + SEO
@@ -142,27 +142,159 @@ Phase 25 (통합 테스트 + 문서)  ── 최종 마무리
 
 ---
 
-## 장기 로드맵 (Phase 26+)
+## Phase 26: 단위 테스트 [ ]
 
-| 작업 | 설명 |
-|------|------|
-| Desktop 모노레포 통합 | hchat-desktop을 모노레포로 이전 또는 서브모듈 연결 |
-| Extension 연동 | hchat-v2-extension과 Admin 사용량 데이터 실시간 연동 |
-| 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링 |
-| 다국어 확장 | 일본어, 중국어 추가 (현재 한/영) |
-| AI 모델 실연동 | LLM Router에서 실제 AI 모델 API 호출 |
-| 모바일 앱 | React Native 또는 PWA 기반 모바일 클라이언트 |
+**목표**: Vitest + Testing Library 기반 80%+ 커버리지
+
+### 26-1. 테스트 환경 설정
+- [ ] Vitest 설정 (vitest.config.ts, packages/ui + apps)
+- [ ] @testing-library/react + jsdom 설정
+- [ ] 커버리지 리포트 설정 (v8)
+
+### 26-2. 컴포넌트 단위 테스트
+- [ ] @hchat/ui 공통 컴포넌트 (Badge, ThemeToggle, FeatureCard 등)
+- [ ] @hchat/ui/hmg 컴포넌트 (GNB, Footer, TabFilter 등)
+- [ ] @hchat/ui/admin 컴포넌트 (StatCard, DataTable, MonthPicker 등)
+- [ ] @hchat/ui ROI 컴포넌트 (KPICard, DateFilter, DepartmentFilter 등)
+
+### 26-3. 유틸리티 및 서비스 테스트
+- [ ] Admin 서비스 레이어 (enterpriseApi, apiService)
+- [ ] User 서비스 레이어 (hooks, chatService)
+- [ ] LLM Router 서비스 레이어 (modelService, playgroundService)
+- [ ] 폼 검증 로직 (validate, patterns)
+
+### 26-4. CI 통합
+- [ ] GitHub Actions test job 추가
+- [ ] 커버리지 리포트 업로드
+- [ ] PR 코멘트 커버리지 요약
+
+**산출물**: 80%+ 테스트 커버리지, Vitest CI 통합
+
+---
+
+## Phase 27: 실시간 대시보드 [ ]
+
+**목표**: WebSocket 기반 Admin 실시간 모니터링
+
+### 27-1. WebSocket 백엔드
+- [ ] Socket.io 서버 설정 (별도 서비스 또는 Next.js API)
+- [ ] 이벤트 타입 정의 (usage, status, alert)
+- [ ] Admin 인증 연동
+
+### 27-2. 실시간 업데이트 UI
+- [ ] Dashboard 실시간 KPI 업데이트
+- [ ] Usage History 실시간 로그
+- [ ] Provider Status 실시간 헬스체크
+- [ ] Agent Monitoring 실시간 상태
+
+### 27-3. SSE → WS 마이그레이션
+- [ ] User 채팅 SSE → WebSocket 전환
+- [ ] 양방향 통신 지원 (중단/재시도)
+
+**산출물**: WebSocket 서버, 실시간 Admin 대시보드, User 채팅 WS 전환
+
+---
+
+## Phase 28: 다국어 확장 [ ]
+
+**목표**: 일본어, 중국어 지원 (현재 한/영)
+
+### 28-1. i18n 설정
+- [ ] next-intl 또는 i18next 설정
+- [ ] 로케일 라우팅 (/ko, /en, /ja, /zh)
+- [ ] 언어 선택 UI (GNB, Footer)
+
+### 28-2. 번역 파일 생성
+- [ ] Admin 앱 번역 (일본어, 중국어)
+- [ ] User 앱 번역
+- [ ] HMG 앱 번역
+- [ ] LLM Router 앱 번역
+- [ ] Wiki 콘텐츠 번역 (주요 페이지)
+
+### 28-3. RTL 레이아웃 대응
+- [ ] 아랍어 등 RTL 언어 대비 (향후 확장)
+
+**산출물**: 4개 언어 지원, 언어 선택 UI, 번역 파일
+
+---
+
+## Phase 29: AI 모델 실연동 [ ]
+
+**목표**: LLM Router 실제 API 호출, API 키 관리 보안
+
+### 29-1. API 키 관리
+- [ ] 환경 변수 또는 Vault 통합
+- [ ] Admin에서 API 키 등록/조회 UI
+- [ ] API 키 암호화 저장
+
+### 29-2. LLM 프로바이더 통합
+- [ ] OpenAI API 연동
+- [ ] Anthropic API 연동
+- [ ] Google Gemini API 연동
+- [ ] Azure OpenAI 연동
+
+### 29-3. Playground 실시간 호출
+- [ ] 스트리밍 응답 처리 (SSE → WS)
+- [ ] 토큰 사용량 실시간 추적
+- [ ] 오류 처리 (rate limit, quota 초과)
+
+### 29-4. User 채팅 AI 연동
+- [ ] AI 비서별 프롬프트 템플릿
+- [ ] 대화 히스토리 컨텍스트 관리
+- [ ] 실시간 스트리밍 응답
+
+**산출물**: 4개 LLM 프로바이더 연동, API 키 관리, Playground + User 실시간 AI 호출
+
+---
+
+## Phase 30: Desktop 모노레포 통합 [ ]
+
+**목표**: hchat-desktop을 모노레포 서브패키지로 이전
+
+### 30-1. 레포 통합 전략
+- [ ] hchat-desktop을 `apps/desktop-pwa/`로 이전
+- [ ] Git 히스토리 보존 (git subtree 또는 git filter-repo)
+- [ ] 별도 레포 아카이브
+
+### 30-2. 의존성 정리
+- [ ] @hchat/ui 패키지 참조로 전환
+- [ ] @hchat/tokens 디자인 토큰 공유
+- [ ] Turborepo 빌드 통합
+
+### 30-3. 배포 파이프라인
+- [ ] GitHub Actions 워크플로우 통합
+- [ ] Vercel 배포 설정 (apps/desktop-pwa)
+
+### 30-4. Storybook 통합
+- [ ] Desktop 컴포넌트 스토리 추가
+
+**산출물**: 모노레포 8개 앱, Desktop 통합, Turborepo 빌드 통합
+
+---
+
+## 우선순위 및 의존성
+
+```
+Phase 26 (단위 테스트)        ──┐
+Phase 28 (다국어 확장)         ──┼── 병렬 실행 가능
+Phase 30 (Desktop 통합)        ──┘
+                                ↓
+Phase 27 (실시간 대시보드)     ── Phase 26 이후 권장
+                                ↓
+Phase 29 (AI 모델 실연동)      ── Phase 27 이후 권장
+```
 
 ---
 
 ## 성공 지표
 
-| 지표 | 현재 | 목표 |
-|------|------|------|
-| 앱 배포 | 7개 | 7개 ✅ |
-| Storybook 스토리 | 73개+ | 80개+ |
+| 지표 | 현재 | Phase 26-30 목표 |
+|------|------|------------------|
+| 앱 배포 | 7개 | 8개 (Desktop 통합) ✅ |
+| Storybook 스토리 | 73개+ | 90개+ |
 | E2E 테스트 | 18개 | 25개+ |
-| Lighthouse a11y | 미측정 | 90+ |
 | 단위 테스트 커버리지 | 0% | 80%+ |
+| 지원 언어 | 2개 (한/영) | 4개 (한/영/일/중) |
+| AI 프로바이더 연동 | 0개 (Mock) | 4개 (OpenAI, Anthropic, Google, Azure) |
 | 컴포넌트 | 100개+ | 120개+ |
-| 페이지 | 60개+ | 65개+ |
+| 페이지 | 60개+ | 70개+ |

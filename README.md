@@ -252,11 +252,11 @@ npm run analyze:admin
 
 ### 코드 스플리팅 (Dynamic Import)
 
-22개 페이지에 `next/dynamic`을 적용하여 초기 번들 크기를 최적화합니다:
+23개 페이지에 `next/dynamic`을 적용하여 초기 번들 크기를 최적화합니다:
 
 - **Admin**: ROI 8개 페이지 + 비ROI 8개 페이지 (departments, audit-logs, sso, providers, models, prompts, agents, features)
 - **User**: 5개 페이지 (chat, translate, docs, ocr, my-page)
-- **LLM Router**: 1개 페이지 (models)
+- **LLM Router**: 2개 페이지 (models, playground)
 
 로딩 중에는 `@hchat/ui`의 Skeleton 컴포넌트가 fallback으로 표시됩니다.
 
@@ -363,7 +363,7 @@ WCAG 2.1 AA 표준을 준수:
 | UI 컴포넌트 | 100개+ |
 | 서비스 레이어 | 3개 (Admin, User, LLM Router) |
 | 페이지 | 60개+ |
-| Dynamic Import 페이지 | 22개 |
+| Dynamic Import 페이지 | 23개 |
 | Storybook 스토리 | 73개+ |
 | CSS 디자인 토큰 | 80개+ |
 | E2E 테스트 파일 | 18개 |
@@ -551,5 +551,5 @@ MIT
 
 ---
 
-**Last Updated**: 2026-03-04
+**Last Updated**: 2026-03-05
 **Monorepo Version**: 0.1.0

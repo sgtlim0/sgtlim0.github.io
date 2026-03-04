@@ -137,6 +137,24 @@ export function aggregateAll(records: ParsedRecord[]): AggregatedData
 - TypeScript 완전 지원
 - 반응형 레이아웃
 
+## 최근 업데이트
+
+### Phase 22: 공통 UX 컴포넌트
+- **공통 UX**: Skeleton, Toast, ErrorBoundary, EmptyState 통합
+- **Chart Placeholders**: 로딩 상태 시각화
+
+### Phase 23: 성능 최적화
+- **Bundle Analyzer**: ROI 차트 컴포넌트 번들 크기 분석
+- **Turbo Cache**: ROI 컴포넌트 변경 시 필요한 앱만 리빌드
+
+### Phase 24: CI/CD 파이프라인
+- **Lighthouse CI**: ROI 페이지 성능(≥80), 접근성(≥85) 자동 검증
+- **E2E 확장**: 반응형, 다크모드, 접근성(axe-core) 테스트
+
+### Phase 25: 통합 테스트 + 문서
+- **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
+- **Storybook 스토리**: 6개 ROI 컴포넌트 스토리
+
 ## 관련 패키지
 
 - **@hchat/tokens** — 디자인 토큰

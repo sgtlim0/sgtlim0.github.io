@@ -351,6 +351,27 @@ import { realLlmRouterService } from './services/realLlmRouterService';
 - **TypeScript**: 완전한 타입 안정성
 - **Mock 데이터**: 개발/테스트 시간 단축
 
+## 최근 업데이트
+
+### Phase 22: API 서비스 레이어
+- **Provider Pattern**: LlmRouterServiceProvider + 7개 커스텀 훅으로 API 추상화
+- **공통 UX**: Skeleton, Toast, ErrorBoundary, EmptyState 통합
+- **Form Validation**: validate(), useFormValidation() 추가
+
+### Phase 23: 성능 최적화
+- **Dynamic Import**: 2개 페이지 코드 스플리팅 (Skeleton fallback)
+- **Bundle Analyzer**: `npm run analyze:llm-router`으로 번들 크기 분석
+- **Turbo Cache**: 불필요한 리빌드 방지
+
+### Phase 24: CI/CD 파이프라인
+- **Lighthouse CI**: 성능(≥80), 접근성(≥85) 자동 검증
+- **E2E 확장**: 반응형, 다크모드, 접근성(axe-core) 테스트
+- **코드 품질**: Prettier + Husky + lint-staged
+
+### Phase 25: 통합 테스트 + 문서
+- **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
+- **프로젝트 문서**: CONTRIBUTING.md, ARCHITECTURE.md, API_SPEC.md 등
+
 ## 테마 CSS 변수
 
 LLM Router는 다음 CSS 변수를 사용합니다:
