@@ -13,7 +13,7 @@
 | Admin 관리자 패널 | https://hchat-admin.vercel.app | Vercel | ✅ |
 | User 사용자 앱 | https://hchat-user.vercel.app | Vercel | ✅ |
 | LLM Router | https://hchat-llm-router.vercel.app | Vercel | ✅ |
-| Storybook | https://hchat-storybook.vercel.app | Vercel | ✅ |
+| Storybook | https://hchat-wiki-storybook.vercel.app | Vercel | ✅ |
 | Desktop (별도 레포) | https://hchat-desktop.vercel.app | Vercel | ✅ |
 
 ---

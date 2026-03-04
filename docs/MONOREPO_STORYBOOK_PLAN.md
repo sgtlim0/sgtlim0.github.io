@@ -951,7 +951,7 @@ jobs:
 |------|----------|-----|
 | 위키 | GitHub Pages | `sgtlim0.github.io/hchat-wiki` |
 | 위키 | Vercel (현재) | `hchat-wiki.vercel.app` |
-| Storybook | Vercel 별도 프로젝트 | `hchat-storybook.vercel.app` |
+| Storybook | Vercel 별도 프로젝트 | `hchat-wiki-storybook.vercel.app` |
 
 ---
 

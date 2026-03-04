@@ -9,7 +9,7 @@
 | HMG | Vercel | https://hchat-hmg.vercel.app | apps/hmg/out/ |
 | User | Vercel | https://hchat-user.vercel.app | apps/user/out/ |
 | LLM Router | Vercel | https://hchat-llm-router.vercel.app | apps/llm-router/out/ |
-| Storybook | Vercel | https://hchat-storybook.vercel.app | apps/storybook/storybook-static/ |
+| Storybook | Vercel | https://hchat-wiki-storybook.vercel.app | apps/storybook/storybook-static/ |
 | Desktop | Vercel | https://hchat-desktop.vercel.app | 별도 레포 |
 
 ## GitHub Pages (Wiki)

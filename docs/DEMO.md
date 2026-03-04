@@ -132,7 +132,7 @@
 ## 7. 기술 인프라 (2분)
 
 ### Storybook
-**URL**: https://hchat-storybook.vercel.app
+**URL**: https://hchat-wiki-storybook.vercel.app
 - 73개+ 스토리
 - 다크 모드 테마 전환
 - 접근성 검사 addon

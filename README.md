@@ -61,7 +61,7 @@ hchat-wiki/
 | Admin | 관리자 패널 (대시보드, ROI, 부서 관리, 감사 로그, SSO) | https://hchat-admin.vercel.app | 3002 |
 | User | 사용자 앱 (채팅, 번역, 문서 작성, OCR, 마이페이지) | https://hchat-user.vercel.app | 3003 |
 | LLM Router | AI 모델 관리 및 테스트 플레이그라운드 (86개 모델) | https://hchat-llm-router.vercel.app | 3004 |
-| Storybook | UI 컴포넌트 문서 (73개+ 스토리) | https://hchat-storybook.vercel.app | 6006 |
+| Storybook | UI 컴포넌트 문서 (73개+ 스토리) | https://hchat-wiki-storybook.vercel.app | 6006 |
 | Desktop | PWA 데스크톱 AI 챗 (React 19, Zustand, 15페이지) | https://hchat-desktop.vercel.app | 5173 |
 
 ## 시작하기
@@ -352,7 +352,7 @@ WCAG 2.1 AA 표준을 준수:
   - User: https://hchat-user.vercel.app
   - LLM Router: https://hchat-llm-router.vercel.app
   - Desktop: https://hchat-desktop.vercel.app
-  - Storybook: https://hchat-storybook.vercel.app
+  - Storybook: https://hchat-wiki-storybook.vercel.app
 
 ## 프로젝트 규모
 
