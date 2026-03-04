@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "cd ../.. && npm cache clean --force && npm install",
+  "installCommand": "cd ../.. && rm -rf node_modules/.package-lock.json && npm ci --ignore-scripts && npm rebuild",
   "buildCommand": "npm run build",
   "outputDirectory": "storybook-static"
 }
