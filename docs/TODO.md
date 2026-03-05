@@ -128,16 +128,15 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 |-------|------|------|
 | 28 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지, CI 통합 |
 | 29 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링, 라이브 차트 |
-| 30 | 다국어 확장 | 일본어, 중국어 추가, 동적 번역 로딩 |
-| 31 | AI 모델 실연동 | LLM Router API 호출, 스트리밍, API 키 보안 |
-| 32 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전, 공유 UI 통합 |
-| 33 | 알림 시스템 | WebSocket 푸시 알림 + 이메일, Admin/User 통합 |
-| 34 | 대시보드 커스터마이징 | react-grid-layout 드래그앤드롭, 위젯 시스템 |
-| 35 | AI 워크플로우 빌더 | ReactFlow 기반 비주얼 노드 파이프라인 편집기 |
-| 36 | 모바일 앱 | React Native 또는 Capacitor PWA 네이티브 래퍼 |
-| 37 | 멀티테넌트 | 조직별 격리, 커스텀 브랜딩, 데이터 파티셔닝 |
-| 38 | AI 에이전트 마켓플레이스 | 커뮤니티 에이전트 공유, 설치, 평가 시스템 |
-| 39 | 분석 엔진 고도화 | ML 기반 이상 탐지, 예측 분석, 자동 인사이트 |
+| 30 | AI 모델 실연동 | LLM Router API 호출, 스트리밍, API 키 보안 |
+| 31 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전, 공유 UI 통합 |
+| 32 | 알림 시스템 | WebSocket 푸시 알림 + 이메일, Admin/User 통합 |
+| 33 | 대시보드 커스터마이징 | react-grid-layout 드래그앤드롭, 위젯 시스템 |
+| 34 | AI 워크플로우 빌더 | ReactFlow 기반 비주얼 노드 파이프라인 편집기 |
+| 35 | 모바일 앱 | React Native 또는 Capacitor PWA 네이티브 래퍼 |
+| 36 | 멀티테넌트 | 조직별 격리, 커스텀 브랜딩, 데이터 파티셔닝 |
+| 37 | AI 에이전트 마켓플레이스 | 커뮤니티 에이전트 공유, 설치, 평가 시스템 |
+| 38 | 분석 엔진 고도화 | ML 기반 이상 탐지, 예측 분석, 자동 인사이트 |
 
 ---
 
