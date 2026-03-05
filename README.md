@@ -140,7 +140,7 @@ npm run build:storybook
     └── @hchat/storybook
 ```
 
-- **@hchat/tokens**: 모든 앱에서 CSS 변수로 import (80+ 디자인 토큰)
+- **@hchat/tokens**: 모든 앱에서 CSS 변수로 import (116개 디자인 토큰, 58 light + 58 dark)
 - **@hchat/ui**: 공유 컴포넌트를 경로별로 export (100+ 컴포넌트)
   - `@hchat/ui`: 기본 컴포넌트 (Badge, ThemeProvider, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState)
   - `@hchat/ui/hmg`: HMG 컴포넌트
@@ -365,7 +365,10 @@ WCAG 2.1 AA 표준을 준수:
 | 페이지 | 60개+ |
 | Dynamic Import 페이지 | 23개 |
 | Storybook 스토리 | 103개 |
-| CSS 디자인 토큰 | 80개+ |
+| CSS 디자인 토큰 | 116개 |
+| 서비스 커스텀 훅 | 45개+ (Admin 19, User 7, LLM Router 7, etc.) |
+| TypeScript 타입/인터페이스 | 100개+ |
+| 소스 파일 (packages/ui) | 138개 (.tsx 94, .ts 44) |
 | E2E 테스트 파일 | 18개 |
 | Lighthouse CI 대상 | 6개 URL |
 | AI 모델 (LLM Router) | 86개 |
@@ -464,7 +467,7 @@ hchat-wiki/
 ├── packages/
 │   ├── tokens/
 │   │   └── styles/
-│   │       └── tokens.css    # 디자인 토큰 CSS 변수 (80개+)
+│   │       └── tokens.css    # 디자인 토큰 CSS 변수 (116개, 58 light + 58 dark)
 │   │
 │   └── ui/
 │       └── src/
@@ -540,6 +543,15 @@ hchat-wiki/
 
 - **Extension**: 107개 소스파일, 21,500+ LOC, 649 테스트
 - **Desktop**: 667 테스트, 83% 커버리지, Feature-Sliced Design
+
+## 프로젝트 분석
+
+프로젝트 전체 심층 분석 문서:
+
+- **[PROJECT_ANALYSIS.md](docs/PROJECT_ANALYSIS.md)** — 아키텍처, 패턴, 통계, 기술 부채 분석
+- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** — 시스템 아키텍처 (Mermaid 다이어그램)
+- **[API_SPEC.md](docs/API_SPEC.md)** — Mock API 계약 문서
+- **[DEMO.md](docs/DEMO.md)** — 15-20분 포트폴리오 시연 스크립트
 
 ## 라이선스
 

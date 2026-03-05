@@ -163,3 +163,7 @@ export function aggregateAll(records: ParsedRecord[]): AggregatedData
 
 - **@hchat/tokens** — 디자인 토큰
 - **@hchat/ui** — 기본 컴포넌트
+
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)

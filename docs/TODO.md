@@ -22,18 +22,21 @@
 
 | 항목 | 수량 |
 |------|------|
-| 앱 (모노레포) | 7개 (Wiki, HMG, Admin, User, LLM Router, Storybook, Desktop) |
+| 앱 (모노레포) | 6개 (Wiki, HMG, Admin, User, LLM Router, Storybook) |
 | 별도 레포 | 2개 (hchat-v2-extension, hchat-desktop) |
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
 | UI 컴포넌트 | 100개+ |
 | 페이지 | 60개+ |
 | Storybook 스토리 | 103개 (97% 커버리지) |
 | Storybook 카테고리 | 10개 (Admin, User, ROI, HMG, Wiki, LLM Router, Shared, Design System, Atoms, Molecules, Organisms) |
-| 프로젝트 문서 | 7개 (CLAUDE, TODO, PLAN, CONTRIBUTING, ARCHITECTURE, DEPLOYMENT, API_SPEC, DEMO) |
-| CSS 디자인 토큰 | 80개+ |
+| 프로젝트 문서 | 23개 (PROJECT_ANALYSIS, CLAUDE, TODO, CONTRIBUTING, ARCHITECTURE, DEPLOYMENT, API_SPEC, DEMO + 15개 구현 문서) |
+| CSS 디자인 토큰 | 116개 (58 light + 58 dark) |
 | E2E 테스트 파일 | 18개 |
 | Wiki 콘텐츠 | 31 페이지 (5개 섹션: chat, tools, browser, settings, desktop) |
 | AI 모델 (LLM Router) | 86개 |
+| 서비스 커스텀 훅 | 45개+ (Admin 19, User 7, LLM Router 7) |
+| TypeScript 타입 | 100개+ 인터페이스/타입 |
+| 소스 파일 (UI) | 138개 (94 .tsx + 44 .ts) |
 
 ---
 
@@ -108,23 +111,33 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 - main.ts에 @hchat/ui/i18n alias 추가
 - 97% UI 컴포넌트 커버리지 달성
 
+### Phase 27: 프로젝트 심층 분석 + 문서 정비 ✅
+- PROJECT_ANALYSIS.md 신규 작성 (아키텍처, 패턴, 통계, 기술 부채 심층 분석)
+- README.md 통계 업데이트 (116 토큰, 138 소스 파일)
+- 기능별 README 7개 교차 참조 추가
+- MEMORY.md 전면 업데이트 (6개 앱 + 규모 데이터)
+- TODO.md 신규 기능 기획 추가
+
 ---
 
-## 다음 계획 (Phase 27+)
+## 다음 계획 (Phase 28+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 27 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지 |
-| 28 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링 |
-| 29 | 다국어 확장 | 일본어, 중국어 추가 |
-| 30 | AI 모델 실연동 | LLM Router API 호출, API 키 보안 |
-| 31 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전 |
-| 32 | 알림 시스템 | 실시간 푸시 알림 + 이메일 알림, Admin/User 통합 |
-| 33 | 대시보드 커스터마이징 | 위젯 기반 드래그앤드롭 대시보드 레이아웃 |
-| 34 | AI 워크플로우 빌더 | 비주얼 노드 기반 AI 파이프라인 편집기 |
-| 35 | 모바일 앱 | React Native 또는 PWA 네이티브 래퍼 |
+| 28 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지, CI 통합 |
+| 29 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링, 라이브 차트 |
+| 30 | 다국어 확장 | 일본어, 중국어 추가, 동적 번역 로딩 |
+| 31 | AI 모델 실연동 | LLM Router API 호출, 스트리밍, API 키 보안 |
+| 32 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전, 공유 UI 통합 |
+| 33 | 알림 시스템 | WebSocket 푸시 알림 + 이메일, Admin/User 통합 |
+| 34 | 대시보드 커스터마이징 | react-grid-layout 드래그앤드롭, 위젯 시스템 |
+| 35 | AI 워크플로우 빌더 | ReactFlow 기반 비주얼 노드 파이프라인 편집기 |
+| 36 | 모바일 앱 | React Native 또는 Capacitor PWA 네이티브 래퍼 |
+| 37 | 멀티테넌트 | 조직별 격리, 커스텀 브랜딩, 데이터 파티셔닝 |
+| 38 | AI 에이전트 마켓플레이스 | 커뮤니티 에이전트 공유, 설치, 평가 시스템 |
+| 39 | 분석 엔진 고도화 | ML 기반 이상 탐지, 예측 분석, 자동 인사이트 |
 
 ---
 
@@ -132,9 +145,12 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 | # | 항목 | 상태 |
 |---|------|------|
-| 1 | 단위 테스트 | 현재 0%, Phase 27에서 Vitest + Testing Library 도입 예정 |
-| 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 31에서 통합 예정 |
-| 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 30에서 실연동 예정 |
+| 1 | 단위 테스트 | 현재 0%, Phase 28에서 Vitest + Testing Library 도입 예정 |
+| 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 32에서 통합 예정 |
+| 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 31에서 실연동 예정 |
 | 4 | Storybook interaction tests | 현재 visual only, 인터랙션 테스트 추가 필요 |
 | 5 | 서비스 레이어 실제 API 전환 | Admin/User/LLM Router Mock → Real API 전환 |
 | 6 | 모바일 반응형 테스트 자동화 | 현재 수동 테스트, E2E 모바일 viewport 자동화 필요 |
+| 7 | PROJECT_ANALYSIS 자동 생성 | 수동 작성 중, CI에서 자동 생성 스크립트 도입 검토 |
+| 8 | i18n 키 커버리지 | HMG 49키만 지원, Admin/User/LLM Router 확장 필요 |
+| 9 | Storybook 인터랙션 테스트 | play() 함수 기반 사용자 시나리오 자동 검증 필요 |

@@ -224,3 +224,7 @@ HMG 공식 브랜드 색상을 사용합니다:
 
 - **@hchat/tokens** — 디자인 토큰 (색상, 타이포그래피, 스페이싱)
 - **@hchat/ui** — 기본 컴포넌트 (Badge, ThemeProvider, ThemeToggle)
+
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)

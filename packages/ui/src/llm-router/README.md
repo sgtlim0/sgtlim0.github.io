@@ -411,6 +411,10 @@ LLM Router는 다음 CSS 변수를 사용합니다:
 - **@hchat/tokens** — 디자인 토큰 (테마 CSS 변수)
 - **@hchat/ui** — 기본 공통 컴포넌트
 
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)
+
 ## 개발 가이드
 
 ### 새 모델 추가

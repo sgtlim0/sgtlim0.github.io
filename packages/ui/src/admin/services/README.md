@@ -200,3 +200,7 @@ The `MockApiService` contains all hardcoded mock data extracted from existing co
 - Add request cancellation
 - Add retry logic
 - Add pagination support
+
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)

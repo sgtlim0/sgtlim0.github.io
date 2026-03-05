@@ -104,3 +104,7 @@ export default function Header() {
 - **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
 - **Shared 카테고리**: LanguageToggle 스토리 포함
 - **Storybook URL**: https://hchat-wiki-storybook.vercel.app
+
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)

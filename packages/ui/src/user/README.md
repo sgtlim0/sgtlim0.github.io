@@ -4,7 +4,7 @@ H Chat 사용자 인터페이스를 구성하는 컴포넌트, 페이지, 서비
 
 ## 사용 앱
 
-- **apps/admin** — H Chat 관리자 패널
+- **apps/user** — H Chat 사용자 앱
 - https://hchat-user.vercel.app (포트 3003)
 
 ## 설치
@@ -31,7 +31,7 @@ export default function App() {
 
 ## 컴포넌트 분류
 
-### UI 컴포넌트 (18개)
+### UI 컴포넌트 (13개)
 
 | 컴포넌트 | 설명 |
 |---------|------|
@@ -44,10 +44,6 @@ export default function App() {
 | **CategoryFilter** | 카테고리 필터 |
 | **FileUploadZone** | 파일 업로드 영역 |
 | **StepProgress** | 단계 진행률 표시 |
-| **EngineSelector** | AI 엔진 선택기 |
-| **ProjectTable** | 프로젝트 테이블 |
-| **SubscriptionCard** | 구독 정보 카드 |
-| **UsageTable** | 사용량 통계 테이블 |
 | **StreamingIndicator** | 실시간 스트리밍 표시기 |
 | **MessageBubble** | 채팅 메시지 버블 |
 | **CustomAssistantModal** | 커스텀 어시스턴트 생성 모달 |
@@ -161,3 +157,7 @@ export default function RootLayout({ children }) {
 
 - **@hchat/tokens** — 디자인 토큰
 - **@hchat/ui** — 기본 컴포넌트
+
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)

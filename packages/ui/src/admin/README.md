@@ -1,6 +1,6 @@
 # Admin 관리자 패널 컴포넌트
 
-H Chat 관리자 대시보드에 사용되는 엔터프라이즈급 UI 컴포넌트 및 관리 기능 패키지입니다. 대시보드, ROI 분석, 사용자 관리, SSO 설정, 감사 로그 등 17개 페이지를 지원합니다.
+H Chat 관리자 대시보드에 사용되는 엔터프라이즈급 UI 컴포넌트 및 관리 기능 패키지입니다. 대시보드, ROI 분석, 사용자 관리, SSO 설정, 감사 로그 등 24개 페이지를 지원합니다.
 
 ## 사용 앱
 
@@ -86,7 +86,7 @@ export default function DashboardPage() {
 
 ### ROI 대시보드 컴포넌트
 
-ROI 분석 섹션의 8개 페이지:
+ROI 분석 섹션의 9개 페이지:
 
 | 페이지 | 경로 | 설명 |
 |--------|------|------|
@@ -97,6 +97,7 @@ ROI 분석 섹션의 8개 페이지:
 | Organization | `/roi/organization` | 조직별 분석 |
 | Sentiment | `/roi/sentiment` | 사용자 만족도 분석 |
 | Reports | `/roi/reports` | 생성된 리포트 목록 |
+| Settings | `/roi/settings` | ROI 설정 |
 | Upload | `/roi/upload` | 데이터 업로드 |
 
 ### 엔터프라이즈 관리 컴포넌트
@@ -197,3 +198,7 @@ Vercel 배포 설정: `apps/admin/vercel.json`
 
 - **@hchat/tokens** — 디자인 토큰 (색상, 타이포그래피, 스페이싱)
 - **@hchat/ui** — 기본 컴포넌트 (Badge, ThemeProvider, ThemeToggle)
+
+## 프로젝트 분석
+
+전체 프로젝트 심층 분석: [PROJECT_ANALYSIS.md](/docs/PROJECT_ANALYSIS.md)
