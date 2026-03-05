@@ -3,7 +3,17 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**", "app/**", "components/**", "lib/**", "styles/**", "*.ts", "*.tsx", "*.json", "*.css"],
+      "inputs": [
+        "src/**",
+        "app/**",
+        "components/**",
+        "lib/**",
+        "styles/**",
+        "*.ts",
+        "*.tsx",
+        "*.json",
+        "*.css"
+      ],
       "outputs": ["out/**", ".next/**", "dist/**", "storybook-static/**"],
       "env": ["ANALYZE"]
     },
@@ -16,6 +26,11 @@
     },
     "type-check": {
       "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "__tests__/**", "vitest.config.*"],
+      "outputs": ["coverage/**"]
     }
   }
 }

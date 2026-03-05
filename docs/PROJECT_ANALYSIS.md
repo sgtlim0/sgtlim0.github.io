@@ -1,6 +1,6 @@
 # H Chat Wiki — 프로젝트 심층 분석
 
-> 최종 업데이트: 2026-03-05 | Phase 26 완료 기준
+> 최종 업데이트: 2026-03-05 | Phase 27 완료 기준 (실측 데이터 반영)
 
 ---
 
@@ -12,14 +12,18 @@
 |------|------|
 | 앱 | 6개 (Wiki, HMG, Admin, User, LLM Router, Storybook) |
 | 배포 | 7개 URL (GitHub Pages 1, Vercel 6) |
-| UI 컴포넌트 | 100+ |
-| 페이지 | 60+ |
+| 전체 소스 파일 | 510개 (409 TS/TSX + 83 MD + 18 CSS) |
+| 총 코드 라인 | **27,983줄** (TS/TSX) |
+| UI 컴포넌트 | 87개 |
+| 페이지 | 44개 (page.tsx 기준) |
+| Wiki 콘텐츠 | 28개 마크다운 (5 카테고리) |
 | Storybook 스토리 | 103개 (97% 커버리지) |
-| E2E 테스트 | 18개 |
-| CSS 디자인 토큰 | 116개 (58 light + 58 dark) |
+| E2E 테스트 | 18개 파일 (728줄, 6 프로젝트) |
+| CSS 디자인 토큰 | 155개 변수 (light + dark, 193줄) |
+| 커스텀 훅 | 42개 |
 | AI 모델 카탈로그 | 86개 |
-| 문서 | 22개 |
-| 완료 Phase | 26개 |
+| 문서 | 23개 (12,940줄) |
+| 완료 Phase | 27개 |
 
 ---
 
@@ -33,13 +37,14 @@
 | **스타일** | Tailwind CSS | 4 |
 | **빌드** | Turborepo | 2 |
 | **컴포넌트 문서** | Storybook (nextjs-vite) | 9.1.19 |
-| **아이콘** | Lucide React | 0.400+ |
+| **아이콘** | Lucide React | 0.575+ |
 | **Excel 파싱** | SheetJS (xlsx) | 0.18.5 |
 | **마크다운** | react-markdown, gray-matter, rehype-highlight, remark-gfm | - |
 | **E2E** | Playwright | 1.58.2 |
 | **성능** | Lighthouse CI | 0.14.0 |
 | **접근성** | axe-core (Playwright), Storybook addon-a11y | 4.11.1 |
 | **코드 품질** | Prettier + Husky + lint-staged | 3.8.1 / 9.1.7 / 16.3.2 |
+| **린팅** | ESLint | 9 |
 
 ---
 
@@ -49,8 +54,8 @@
 hchat-wiki/
 ├── packages/
 │   ├── tokens/              # @hchat/tokens — CSS 변수 (light/dark)
-│   │   └── styles/tokens.css  # 116개 디자인 토큰
-│   └── ui/                  # @hchat/ui — 공유 UI 컴포넌트
+│   │   └── styles/tokens.css  # 155개 디자인 토큰
+│   └── ui/                  # @hchat/ui — 공유 UI 컴포넌트 (15,017줄)
 │       └── src/
 │           ├── index.ts       # 200+ 메인 배럴 export
 │           ├── Skeleton.tsx    # 5종 스켈레톤
@@ -59,20 +64,20 @@ hchat-wiki/
 │           ├── ErrorBoundary.tsx # 에러 경계
 │           ├── validation.ts   # 폼 유효성 검증
 │           ├── hmg/           # HMG 컴포넌트 (8)
-│           ├── admin/         # Admin 컴포넌트 (23) + auth + services
-│           ├── user/          # User 컴포넌트 (22) + services
-│           ├── roi/           # ROI 대시보드 (23) + charts
-│           ├── llm-router/    # LLM Router (7) + services
+│           ├── admin/         # Admin 컴포넌트 (21) + auth (5) + services
+│           ├── user/          # User 컴포넌트 (17) + services
+│           ├── roi/           # ROI 대시보드 (18) + charts (5)
+│           ├── llm-router/    # LLM Router (6) + services
 │           └── i18n/          # 국제화 (ko/en)
 ├── apps/
-│   ├── wiki/                # 마크다운 위키 — 31+ 페이지
+│   ├── wiki/                # 마크다운 위키 — 28 콘텐츠 페이지
 │   ├── hmg/                 # HMG 마케팅 — 4 페이지
 │   ├── admin/               # 관리자 패널 — 24 페이지 (ROI 10 포함)
 │   ├── user/                # 사용자 앱 — 5 페이지
 │   ├── llm-router/          # LLM 라우터 — 10 페이지
 │   └── storybook/           # Storybook — 103 스토리
-├── tests/e2e/               # Playwright E2E — 18 파일
-├── docs/                    # 프로젝트 문서 — 22 파일
+├── tests/e2e/               # Playwright E2E — 18 파일 (728줄)
+├── docs/                    # 프로젝트 문서 — 23 파일 (12,940줄)
 ├── design/                  # .pen 디자인 파일
 └── .github/workflows/       # CI/CD — 3 워크플로우
 ```
@@ -80,18 +85,36 @@ hchat-wiki/
 ### 의존성 그래프
 
 ```
-@hchat/tokens (CSS 변수 116개)
+@hchat/tokens (252줄, CSS 변수 155개)
        ↓
-@hchat/ui (컴포넌트 100+, 훅 45+, 타입 100+)
+@hchat/ui (15,017줄, 컴포넌트 87개, 훅 42개)  ← 전체 코드의 53.7%
        ↓
   ┌────┼────┬────┬────┬────┐
   ↓    ↓    ↓    ↓    ↓    ↓
 Wiki  HMG Admin User  LLM  Storybook
-(31p) (4p) (24p) (5p) (10p) (103s)
+1.5K  643  694  292  2.4K  4.3K (줄)
   ↓    ↓    ↓    ↓    ↓    ↓
  GH  Vercel ×5
 Pages
 ```
+
+### LOC 분포
+
+```
+@hchat/ui       15,017줄  ████████████████████████████  53.7%
+storybook        4,267줄  ████████                      15.2%
+llm-router       2,367줄  ████                           8.5%
+wiki             1,518줄  ███                            5.4%
+admin              694줄  █                              2.5%
+hmg                643줄  █                              2.3%
+user               292줄  ▌                              1.0%
+tokens             252줄  ▌                              0.9%
+e2e tests          728줄  █                              2.6%
+─────────────────────────────────────────────
+총계            27,983줄
+```
+
+**인사이트**: `@hchat/ui`가 전체 코드의 **53.7%**를 차지하며, 앱들은 얇은 Shell 역할. 비즈니스 로직과 UI가 공유 패키지에 집중된 올바른 모노레포 패턴.
 
 ---
 
@@ -103,9 +126,10 @@ Pages
 |------|------|
 | **URL** | https://sgtlim0.github.io |
 | **배포** | GitHub Pages (GitHub Actions) |
+| **LOC** | 1,518줄 |
 | **라우팅** | `[[...slug]]` catch-all route |
-| **콘텐츠** | `content/` 디렉토리 (31+ 마크다운) |
-| **섹션** | chat(5), tools(7), browser(3), settings(3), desktop(3) |
+| **콘텐츠** | `content/` 디렉토리 (28 마크다운) |
+| **섹션** | chat(7), tools(7), browser(3), settings(3), desktop(3) |
 
 **아키텍처**: Sidebar 네비게이션 + 마크다운 렌더링. `gray-matter`로 frontmatter 파싱, `react-markdown` + `rehype-highlight`로 렌더링.
 
@@ -115,8 +139,9 @@ Pages
 |------|------|
 | **URL** | https://hchat-hmg.vercel.app |
 | **배포** | Vercel |
+| **LOC** | 643줄 |
 | **페이지** | Home, Publications, Guide, Dashboard |
-| **특징** | i18n (한/영), 탭 필터링, 다운로드 핸들러 |
+| **특징** | i18n (한/영 49키), 탭 필터링, 다운로드 핸들러 |
 
 **아키텍처**: GNB + I18nProvider. Publications에 탭 기반 카테고리 필터링 (가이드, 릴리즈 노트, 기술 문서). 6개 FeatureCard, 4개 HmgStatCard.
 
@@ -126,9 +151,11 @@ Pages
 |------|------|
 | **URL** | https://hchat-admin.vercel.app |
 | **배포** | Vercel |
+| **LOC** | 694줄 (앱) + UI 컴포넌트 다수 |
 | **페이지** | 24개 (기본 14 + ROI 10) |
 | **인증** | AuthProvider + ProtectedRoute |
 | **서비스** | 19 커스텀 훅, 14 API 메서드 |
+| **Dynamic Import** | 16페이지 |
 
 **페이지 목록**:
 - **기본**: Dashboard, Usage, Statistics, Users, Settings, Providers, Models, Features, Prompts, Agents, Departments, Audit Logs, SSO, Login
@@ -164,8 +191,10 @@ useAdmin* 훅 19개
 |------|------|
 | **URL** | https://hchat-user.vercel.app |
 | **배포** | Vercel |
+| **LOC** | 292줄 (앱) + UI 컴포넌트 다수 |
 | **페이지** | Chat, Docs, OCR, Translation, My Page |
 | **서비스** | 7 커스텀 훅, 10 API 메서드 |
+| **Dynamic Import** | 5페이지 |
 
 **핵심 기능**:
 - **실시간 채팅**: SSE 스트리밍 (카테고리별 응답: chat, work, translation, summary)
@@ -180,8 +209,10 @@ useAdmin* 훅 19개
 |------|------|
 | **URL** | https://hchat-llm-router.vercel.app |
 | **배포** | Vercel |
+| **LOC** | 2,367줄 |
 | **페이지** | 10개 (Landing, Models, Docs, Playground, Dashboard×4, Login, Signup) |
 | **모델** | 86개 AI 모델, 20+ 프로바이더 |
+| **Dynamic Import** | 2페이지 |
 
 **AI 모델 카탈로그**:
 | 프로바이더 | 모델 수 |
@@ -203,6 +234,7 @@ useAdmin* 훅 19개
 |------|------|
 | **URL** | https://hchat-wiki-storybook.vercel.app |
 | **배포** | Vercel |
+| **LOC** | 4,267줄 |
 | **스토리** | 103개 |
 | **커버리지** | 97% |
 
@@ -247,7 +279,7 @@ Component (UI 렌더링)
 ### 5.2 Design Token System
 
 ```
-packages/tokens/styles/tokens.css (116 CSS 변수)
+packages/tokens/styles/tokens.css (155 CSS 변수, 193줄)
     ↓  @import
 apps/*/app/globals.css
     ↓  @theme inline
@@ -266,7 +298,9 @@ React 컴포넌트
 | Status | - | - | 3 | - | - | - |
 | Chart | - | - | - | 5 | - | - |
 | Table | - | 2 | 2 | - | - | - |
-| **소계** | 16 | 16 | 14 | 14 | 9 | 11 |
+| Sidebar | - | - | - | 4 | - | 2 |
+| Misc | - | - | - | 2 | - | 2 |
+| **소계** | 16 | 16 | 14 | 20 | 9 | 15 |
 
 ### 5.3 Dynamic Import (코드 스플리팅)
 
@@ -326,14 +360,14 @@ aggregateAll() → AggregatedData
 | 도구 | 역할 | 설정 |
 |------|------|------|
 | Prettier | 코드 포매팅 | semi: false, singleQuote, tabWidth: 2, printWidth: 100 |
-| ESLint | 정적 분석 | Next.js 기본 규칙 |
-| TypeScript | 타입 검사 | strict mode |
+| ESLint | 정적 분석 | v9, Next.js 기본 규칙 |
+| TypeScript | 타입 검사 | strict mode, v5 |
 | Husky | Git 훅 | pre-commit |
 | lint-staged | 스테이징 검사 | *.{ts,tsx}: prettier + eslint |
 
 ### 6.2 E2E 테스트 (Playwright)
 
-**18개 테스트 파일, 6개 프로젝트**:
+**18개 테스트 파일, 728줄, 6개 프로젝트**:
 
 | 프로젝트 | 테스트 URL | 테스트 파일 수 |
 |----------|-----------|--------------|
@@ -350,14 +384,14 @@ aggregateAll() → AggregatedData
 - `responsive.spec.ts` — 반응형 레이아웃
 - `cross-app.spec.ts` — 앱 간 네비게이션
 
-**테스트 설정**: timeout 30s, viewport 1280×720, screenshot only-on-failure
+**테스트 설정**: timeout 30s, viewport 1280x720, screenshot only-on-failure
 
 ### 6.3 CI/CD 파이프라인
 
 ```
 git push → GitHub Actions
   ├── ci.yml ─── type-check → lint → build (Turbo)
-  │              └── Lighthouse CI (perf≥80, a11y≥85)
+  │              └── Lighthouse CI (perf>=80, a11y>=85)
   ├── deploy.yml ── Wiki 빌드 → GitHub Pages
   └── e2e.yml ──── Playwright (admin, hmg, wiki, user)
                     └── Artifact: playwright-report (7일 보존)
@@ -371,31 +405,45 @@ git push → Vercel (자동)
 
 ## 7. 파일 통계
 
-### 패키지별 파일 수
+### 전체 소스 파일
 
-| 경로 | .tsx | .ts | 합계 |
-|------|------|-----|------|
-| `packages/ui/src/` (root) | 9 | 2 | 11 |
-| `packages/ui/src/admin/` | 23 | 14 | 37 |
-| `packages/ui/src/user/` | 22 | 11 | 33 |
-| `packages/ui/src/roi/` | 23 | 4 | 27 |
-| `packages/ui/src/hmg/` | 8 | 1 | 9 |
-| `packages/ui/src/llm-router/` | 7 | 9 | 16 |
-| `packages/ui/src/i18n/` | 2 | 3 | 5 |
-| **소계** | **94** | **44** | **138** |
+| 파일 유형 | 수 |
+|----------|-----|
+| TypeScript/TSX | 409 |
+| Markdown | 83 |
+| CSS | 18 |
+| **합계** | **510** |
 
-### Export 통계
+### 패키지별 TypeScript 파일 수
 
-| 패키지 | 컴포넌트 | 훅 | 타입/인터페이스 | 서비스/유틸 |
-|--------|---------|-----|---------------|------------|
-| @hchat/ui (root) | 12 | 3 | 5 | 3 |
-| @hchat/ui/admin | 20 | 19 | 30+ | 5 |
-| @hchat/ui/user | 16 | 7 | 10 | 5 |
-| @hchat/ui/roi | 14 | 1 | 5 | 1 |
-| @hchat/ui/llm-router | 6 | 7 | 8 | 3 |
-| @hchat/ui/hmg | 8 | 0 | 0 | 0 |
-| @hchat/ui/i18n | 2 | 1 | 2 | 0 |
-| **합계** | **78** | **38** | **60+** | **17** |
+| 패키지/앱 | 파일 수 | LOC | 비율 |
+|-----------|--------|-----|------|
+| @hchat/ui | 139 | 15,017 | 53.7% |
+| @hchat/storybook | 107 | 4,267 | 15.2% |
+| @hchat/admin | 29 | 694 | 2.5% |
+| @hchat/wiki | 21 | 1,518 | 5.4% |
+| @hchat/llm-router | 14 | 2,367 | 8.5% |
+| @hchat/user | 9 | 292 | 1.0% |
+| @hchat/hmg | 7 | 643 | 2.3% |
+| @hchat/tokens | 1 | 252 | 0.9% |
+| **합계** | **327** | **25,050** | 89.5% |
+| tests/e2e | 18 | 728 | 2.6% |
+| 기타 (설정 등) | 64 | 2,205 | 7.9% |
+| **총계** | **409** | **27,983** | 100% |
+
+### 컴포넌트 분류
+
+| 카테고리 | 컴포넌트 수 | 주요 항목 |
+|---------|-----------|---------|
+| 공유 | 8 | Badge, ThemeProvider, ThemeToggle, Toast, ErrorBoundary, EmptyState, Skeleton, LanguageToggle |
+| Admin | 21 | StatCard, DataTable, StatusBadge, LoginPage, Dashboard 등 |
+| Admin Auth | 5 | AuthProvider, ProtectedRoute, useAuth, authService, mockAuthService |
+| ROI | 18 | ROISidebar, KPICard, InsightCard, SurveyBar, HeatmapCell 등 |
+| ROI Charts | 5 | MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart |
+| User | 17 | UserGNB, ChatSidebar, MessageBubble, StreamingIndicator 등 |
+| HMG | 8 | GNB, HeroBanner, TabFilter, Footer, PillButton 등 |
+| LLM Router | 6 | LRNavbar, ModelTable, CodeBlock, ProviderBadge 등 |
+| **합계** | **87** | |
 
 ---
 
@@ -426,30 +474,27 @@ git push → Vercel (자동)
 - **지원 언어**: 한국어 (ko), 영어 (en)
 - **번역 키**: 49개 (HMG 앱)
 - **구현**: I18nProvider + useI18n + LanguageToggle
-- **향후**: 일본어, 중국어 (Phase 29)
 
 ---
 
 ## 10. 기술 부채 & 개선 영역
 
-| 영역 | 현재 상태 | 목표 | Phase |
-|------|----------|------|-------|
-| **단위 테스트** | 0% | 80%+ (Vitest + Testing Library) | 27 |
-| **API 연동** | 전체 Mock | 실제 AI API 연결 | 30 |
-| **실시간 대시보드** | 정적 Mock | WebSocket 실시간 | 28 |
-| **데스크톱 통합** | 별도 레포 | 모노레포 머지 | 31 |
-| **알림 시스템** | 없음 | Push/Email 알림 | 32 |
-| **대시보드 커스텀** | 고정 레이아웃 | 드래그앤드롭 | 33 |
-| **AI 워크플로우** | 없음 | 비주얼 빌더 | 34 |
-| **모바일 앱** | 없음 | React Native/PWA | 35 |
+| 우선순위 | 영역 | 현재 상태 | 목표 |
+|---------|------|----------|------|
+| **HIGH** | 단위 테스트 | 0% | 80%+ (Vitest + Testing Library) |
+| **HIGH** | API 연동 | 전체 Mock | MSW → 실제 API 연결 |
+| **MEDIUM** | @hchat/ui 분리 | 15K줄 단일 패키지 | 서브 패키지 분리 (admin, user, llm-router) |
+| **MEDIUM** | 실시간 대시보드 | 정적 Mock | WebSocket 실시간 |
+| **LOW** | Storybook Tests | 없음 | Interaction Tests 도입 |
+| **LOW** | 데스크톱 통합 | 별도 레포 | 모노레포 머지 |
 
 ---
 
-## 11. 완료된 Phase 히스토리 (1-26)
+## 11. 완료된 Phase 히스토리 (1-27)
 
 | Phase | 주요 작업 | 결과물 |
 |-------|----------|--------|
-| 1-10 | Wiki 초기 구축 | 마크다운 위키 31+ 페이지 |
+| 1-10 | Wiki 초기 구축 | 마크다운 위키 28 페이지 |
 | 11-15 | HMG 사이트 | 4 페이지, GNB, i18n |
 | 16-18 | Admin 패널 | 14 기본 페이지, 인증 시스템 |
 | 19-20 | ROI 대시보드 | 9 페이지, 5 SVG 차트, Excel 업로드 |
@@ -459,6 +504,7 @@ git push → Vercel (자동)
 | 24 | Lighthouse CI | 성능/접근성 모니터링 |
 | 25 | E2E 확장 | 18 테스트 (반응형, 다크모드, a11y) |
 | 26 | Storybook 103개 | +Shared 카테고리, 97% 커버리지 |
+| 27 | 프로젝트 심층 분석 | 전체 문서 정비, 실측 데이터 |
 
 ---
 
@@ -471,7 +517,7 @@ git push → Vercel (자동)
 
 ---
 
-## 13. 스크립트 레퍼런스 (40개)
+## 13. 스크립트 레퍼런스
 
 ```bash
 # 개발

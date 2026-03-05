@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-05
+> 마지막 업데이트: 2026-03-06
 
 ---
 
@@ -25,18 +25,18 @@
 | 앱 (모노레포) | 6개 (Wiki, HMG, Admin, User, LLM Router, Storybook) |
 | 별도 레포 | 2개 (hchat-v2-extension, hchat-desktop) |
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
-| UI 컴포넌트 | 100개+ |
-| 페이지 | 60개+ |
-| Storybook 스토리 | 103개 (97% 커버리지) |
-| Storybook 카테고리 | 10개 (Admin, User, ROI, HMG, Wiki, LLM Router, Shared, Design System, Atoms, Molecules, Organisms) |
-| 프로젝트 문서 | 23개 (PROJECT_ANALYSIS, CLAUDE, TODO, CONTRIBUTING, ARCHITECTURE, DEPLOYMENT, API_SPEC, DEMO + 15개 구현 문서) |
-| CSS 디자인 토큰 | 116개 (58 light + 58 dark) |
-| E2E 테스트 파일 | 18개 |
-| Wiki 콘텐츠 | 31 페이지 (5개 섹션: chat, tools, browser, settings, desktop) |
+| 전체 소스 파일 | 510개 (409 TS/TSX + 83 MD + 18 CSS) |
+| 총 코드 라인 | 27,983줄 (TS/TSX) |
+| UI 컴포넌트 | 92개 |
+| 페이지 | 45개 (page.tsx 기준) |
+| Storybook 스토리 | 104개 (97% 커버리지) |
+| 프로젝트 문서 | 23개 (12,940줄) |
+| CSS 디자인 토큰 | 155개 (light + dark) |
+| E2E 테스트 | 18개 파일 (728줄) |
+| 단위 테스트 | 11개 파일 (Vitest) |
+| Wiki 콘텐츠 | 28 페이지 (5개 섹션) |
 | AI 모델 (LLM Router) | 86개 |
-| 서비스 커스텀 훅 | 45개+ (Admin 19, User 7, LLM Router 7) |
-| TypeScript 타입 | 100개+ 인터페이스/타입 |
-| 소스 파일 (UI) | 138개 (94 .tsx + 44 .ts) |
+| 커스텀 훅 | 46개 (Admin 23, User 7, LLM Router 7+) |
 
 ---
 
@@ -120,14 +120,30 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 ---
 
-## 다음 계획 (Phase 28+)
+### Phase 28: 단위 테스트 기반 구축 ✅
+- Vitest 4 + @testing-library/react 16 + jsdom 28 설정
+- 9개 테스트 파일, 123개 테스트 케이스 (전체 통과)
+- 테스트 대상: 공통 컴포넌트 (Badge, EmptyState, Skeleton, FeatureCard), 유틸리티 (validation), 서비스 레이어 (Admin MockApi, User chatService, LLM Router MockService, ROI aggregateData)
+- @vitest/coverage-v8 커버리지 리포트 (v8, lcov, html)
+- CI 통합: GitHub Actions ci.yml에 `npm test` 단계 추가
+- Turbo test task 등록
+
+### Phase 29: 실시간 대시보드 ✅
+- Mock 기반 실시간 데이터 스트리밍 서비스 (setInterval 시뮬레이션)
+- 4종 실시간 컴포넌트: LiveMetricCard, LiveLineChart, LiveActivityFeed, LiveModelDistribution
+- AdminRealtimeDashboard 페이지 (실시간 모니터링 대시보드)
+- 4개 커스텀 훅: useRealtimeMetrics, useRealtimeTimeSeries, useRealtimeActivities, useRealtimeStats
+- Storybook 스토리 + 단위 테스트 (realtimeService, realtimeHooks)
+- Dynamic import (ssr: false) + ProtectedRoute
+
+---
+
+## 다음 계획 (Phase 30+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 28 | 단위 테스트 | Vitest + Testing Library, 80%+ 커버리지, CI 통합 |
-| 29 | 실시간 대시보드 | WebSocket 기반 Admin 실시간 모니터링, 라이브 차트 |
 | 30 | AI 모델 실연동 | LLM Router API 호출, 스트리밍, API 키 보안 |
 | 31 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전, 공유 UI 통합 |
 | 32 | 알림 시스템 | WebSocket 푸시 알림 + 이메일, Admin/User 통합 |
@@ -137,6 +153,16 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 | 36 | 멀티테넌트 | 조직별 격리, 커스텀 브랜딩, 데이터 파티셔닝 |
 | 37 | AI 에이전트 마켓플레이스 | 커뮤니티 에이전트 공유, 설치, 평가 시스템 |
 | 38 | 분석 엔진 고도화 | ML 기반 이상 탐지, 예측 분석, 자동 인사이트 |
+| 39 | 단위 테스트 커버리지 80% | Vitest 컴포넌트 테스트 확장, MSW 모킹, CI 임계값 강화 |
+| 40 | Storybook Interaction Tests | play() 함수 기반 사용자 시나리오 자동 검증, 폼 제출/모달 테스트 |
+| 41 | RAG 문서 검색 | 벡터 DB 기반 사내 문서 검색, 임베딩 파이프라인, 청킹 전략 |
+| 42 | 프롬프트 버전 관리 | 프롬프트 히스토리, A/B 테스트, 성과 비교 대시보드 |
+| 43 | SSO/SAML 실연동 | Okta/Azure AD SAML 2.0, JWT 토큰 관리, 세션 갱신 |
+| 44 | 채팅 히스토리 분석 | 대화 패턴 시각화, 주제 클러스터링, 사용자 행동 인사이트 대시보드 |
+| 45 | Admin 권한 관리 고도화 | RBAC (역할 기반 접근 제어), 세분화된 권한 매트릭스, 감사 추적 |
+| 46 | AI 모델 벤치마크 | 모델별 응답 품질/속도/비용 자동 벤치마크, 비교 리포트 생성 |
+| 47 | 피드백 루프 시스템 | 사용자 만족도 수집, 모델 응답 평가, A/B 테스트 자동화 |
+| 48 | 모니터링 알림 규칙 엔진 | 커스텀 알림 조건 빌더, Slack/Teams 웹훅, 에스컬레이션 정책 |
 
 ---
 
@@ -144,7 +170,7 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 | # | 항목 | 상태 |
 |---|------|------|
-| 1 | 단위 테스트 | 현재 0%, Phase 28에서 Vitest + Testing Library 도입 예정 |
+| 1 | 단위 테스트 | ✅ Phase 28 완료 (9파일, 123 테스트, 커버리지 17% → 80% 목표 진행 중) |
 | 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 32에서 통합 예정 |
 | 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 31에서 실연동 예정 |
 | 4 | Storybook interaction tests | 현재 visual only, 인터랙션 테스트 추가 필요 |
