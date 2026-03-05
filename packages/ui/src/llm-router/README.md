@@ -372,6 +372,11 @@ import { realLlmRouterService } from './services/realLlmRouterService';
 - **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
 - **프로젝트 문서**: CONTRIBUTING.md, ARCHITECTURE.md, API_SPEC.md 등
 
+### Phase 26: Storybook 완성
+- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **LLM Router 카테고리**: 6개 스토리 (컴포넌트 6개)
+- **Storybook URL**: https://hchat-wiki-storybook.vercel.app
+
 ## 테마 CSS 변수
 
 LLM Router는 다음 CSS 변수를 사용합니다:

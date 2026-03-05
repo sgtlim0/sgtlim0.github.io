@@ -663,6 +663,7 @@ export const mockChangelogPage: PageData = {
 | 스토리 수 | 73개 | 103개 |
 | 커버리지 | 77% | 97% |
 | 카테고리 | 6개 | 7개 (+Shared) |
+| Storybook URL | - | https://hchat-wiki-storybook.vercel.app |
 
 ### 설정 변경
 

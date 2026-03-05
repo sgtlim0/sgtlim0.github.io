@@ -152,6 +152,11 @@ export default function RootLayout({ children }) {
 - **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
 - **프로젝트 문서**: CONTRIBUTING.md, ARCHITECTURE.md, API_SPEC.md 등
 
+### Phase 26: Storybook 완성
+- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **User 카테고리**: 9개 스토리 (페이지 5개 + 컴포넌트 4개)
+- **Storybook URL**: https://hchat-wiki-storybook.vercel.app
+
 ## 관련 패키지
 
 - **@hchat/tokens** — 디자인 토큰

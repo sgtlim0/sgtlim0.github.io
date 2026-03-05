@@ -99,3 +99,8 @@ export default function Header() {
 
 ### Phase 25: 통합 테스트
 - **E2E 테스트**: 다국어 전환 시나리오 검증
+
+### Phase 26: Storybook 완성
+- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **Shared 카테고리**: LanguageToggle 스토리 포함
+- **Storybook URL**: https://hchat-wiki-storybook.vercel.app

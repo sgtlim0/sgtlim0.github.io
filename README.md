@@ -459,7 +459,7 @@ hchat-wiki/
 │   │
 │   └── storybook/
 │       ├── .storybook/       # Storybook 설정
-│       └── stories/          # 스토리 정의 (103개, 7개 카테고리)
+│       └── stories/          # 스토리 정의 (103개 스토리, 10개 카테고리: Wiki, Admin, User, ROI, HMG, LLM Router, Shared, Atoms, Molecules, Organisms, Design Tokens)
 │
 ├── packages/
 │   ├── tokens/

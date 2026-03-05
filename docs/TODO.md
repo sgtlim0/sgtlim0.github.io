@@ -28,6 +28,7 @@
 | UI 컴포넌트 | 100개+ |
 | 페이지 | 60개+ |
 | Storybook 스토리 | 103개 (97% 커버리지) |
+| Storybook 카테고리 | 10개 (Admin, User, ROI, HMG, Wiki, LLM Router, Shared, Design System, Atoms, Molecules, Organisms) |
 | 프로젝트 문서 | 7개 (CLAUDE, TODO, PLAN, CONTRIBUTING, ARCHITECTURE, DEPLOYMENT, API_SPEC, DEMO) |
 | CSS 디자인 토큰 | 80개+ |
 | E2E 테스트 파일 | 18개 |
@@ -134,3 +135,6 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 | 1 | 단위 테스트 | 현재 0%, Phase 27에서 Vitest + Testing Library 도입 예정 |
 | 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 31에서 통합 예정 |
 | 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 30에서 실연동 예정 |
+| 4 | Storybook interaction tests | 현재 visual only, 인터랙션 테스트 추가 필요 |
+| 5 | 서비스 레이어 실제 API 전환 | Admin/User/LLM Router Mock → Real API 전환 |
+| 6 | 모바일 반응형 테스트 자동화 | 현재 수동 테스트, E2E 모바일 viewport 자동화 필요 |
