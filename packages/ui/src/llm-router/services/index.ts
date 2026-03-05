@@ -5,16 +5,24 @@
  */
 
 // Type exports
-export * from './types';
+export * from './types'
 
 // Service interface
-export type { LlmRouterService } from './llmRouterService';
+export type { LlmRouterService } from './llmRouterService'
 
 // Mock service implementation
-export { MockLlmRouterService, mockLlmRouterService } from './mockLlmRouterService';
+export { MockLlmRouterService, mockLlmRouterService } from './mockLlmRouterService'
 
 // Context provider and hook
-export { LlmRouterServiceProvider, useLlmRouterService } from './LlmRouterServiceProvider';
+export { LlmRouterServiceProvider, useLlmRouterService } from './LlmRouterServiceProvider'
 
 // Custom hooks
-export * from './hooks';
+export * from './hooks'
+
+// Streaming
+export * from './streamingTypes'
+export * from './streamingService'
+export * from './streamingHooks'
+
+// API key utilities
+export * from './apiKeyUtils'

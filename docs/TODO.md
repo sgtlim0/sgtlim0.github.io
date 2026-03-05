@@ -27,16 +27,16 @@
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
 | 전체 소스 파일 | 510개 (409 TS/TSX + 83 MD + 18 CSS) |
 | 총 코드 라인 | 27,983줄 (TS/TSX) |
-| UI 컴포넌트 | 92개 |
-| 페이지 | 45개 (page.tsx 기준) |
-| Storybook 스토리 | 104개 (97% 커버리지) |
+| UI 컴포넌트 | 94개 |
+| 페이지 | 46개 (page.tsx 기준) |
+| Storybook 스토리 | 106개 (97% 커버리지) |
 | 프로젝트 문서 | 23개 (12,940줄) |
 | CSS 디자인 토큰 | 155개 (light + dark) |
 | E2E 테스트 | 18개 파일 (728줄) |
-| 단위 테스트 | 11개 파일 (Vitest) |
+| 단위 테스트 | 13개 파일, 182 테스트 (Vitest) |
 | Wiki 콘텐츠 | 28 페이지 (5개 섹션) |
 | AI 모델 (LLM Router) | 86개 |
-| 커스텀 훅 | 46개 (Admin 23, User 7, LLM Router 7+) |
+| 커스텀 훅 | 47개 (Admin 23, User 7, LLM Router 8+) |
 
 ---
 
@@ -138,13 +138,24 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 ---
 
-## 다음 계획 (Phase 30+)
+### Phase 30: AI 모델 실연동 (SSE 스트리밍) ✅
+- SSE 스트리밍 시뮬레이션 (토큰 단위 30-80ms, 프로바이더별 지연 프로파일 7종)
+- StreamingPlayground 컴포넌트 (모델 선택, Temperature/MaxTokens/TopP, 채팅 히스토리)
+- ModelComparison 컴포넌트 (2-3개 모델 나란히 비교, 가격/컨텍스트 시각화)
+- API 키 유틸리티 (maskAPIKey, validateAPIKey, generateAPIKey, estimateTokens, calculateCost)
+- useStreamingChat 훅 (onComplete 콜백, abort 지원, mountedRef 안전 업데이트)
+- 단위 테스트: streamingService (6개), apiKeyUtils (22개)
+- Storybook: ModelComparison 2개 스토리
+- apps/llm-router/app/compare/page.tsx 신규 페이지
+
+---
+
+## 다음 계획 (Phase 31+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 30 | AI 모델 실연동 | LLM Router API 호출, 스트리밍, API 키 보안 |
 | 31 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전, 공유 UI 통합 |
 | 32 | 알림 시스템 | WebSocket 푸시 알림 + 이메일, Admin/User 통합 |
 | 33 | 대시보드 커스터마이징 | react-grid-layout 드래그앤드롭, 위젯 시스템 |

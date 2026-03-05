@@ -1,6 +1,6 @@
 # @hchat/ui
 
-H Chat 모노레포의 공유 UI 컴포넌트 패키지. 92개 컴포넌트를 도메인별로 구성합니다.
+H Chat 모노레포의 공유 UI 컴포넌트 패키지. 94개 컴포넌트를 도메인별로 구성합니다.
 
 ## 구조
 
@@ -25,10 +25,10 @@ packages/ui/
 │   ├── roi/               # ROI 대시보드 (5종 SVG 차트, 10페이지)
 │   ├── user/              # User 앱 + 서비스 레이어 (7개 훅)
 │   │   └── services/      # chatService (localStorage CRUD)
-│   ├── llm-router/        # LLM Router + 서비스 레이어 (7개 훅)
-│   │   └── services/      # 86개 AI 모델 카탈로그
+│   ├── llm-router/        # LLM Router + 서비스 레이어 (8개 훅)
+│   │   └── services/      # 86개 AI 모델 카탈로그 + SSE 스트리밍 + API 키 유틸
 │   └── i18n/              # 다국어 지원 (ko/en, 49키)
-├── __tests__/             # 단위 테스트 (9파일, 123 테스트)
+├── __tests__/             # 단위 테스트 (13파일, 182 테스트)
 └── package.json
 ```
 
@@ -61,10 +61,10 @@ import { ROIOverview, DonutChart, RadarChart } from '@hchat/ui'
 
 | 항목 | 수치 |
 |------|------|
-| 컴포넌트 | 92개 |
-| 커스텀 훅 | 46개 (Admin 23, User 7, LLM Router 7+) |
-| Storybook 스토리 | 104개 (97% 커버리지) |
-| 단위 테스트 | 11파일 |
+| 컴포넌트 | 94개 |
+| 커스텀 훅 | 47개 (Admin 23, User 7, LLM Router 8+) |
+| Storybook 스토리 | 106개 (97% 커버리지) |
+| 단위 테스트 | 13파일, 182 테스트 |
 
 ## 테스트
 
@@ -79,6 +79,7 @@ npm run test:coverage     # 커버리지 리포트
 - 유틸리티: validation (26개 테스트)
 - 서비스 레이어: Admin MockApi, User chatService, LLM Router MockService, ROI aggregateData
 - 실시간 서비스: realtimeService (구독/해제), realtimeHooks (메트릭/시계열/활동)
+- LLM Router: streamingService (SSE 스트리밍), apiKeyUtils (마스킹/검증/생성/비용)
 
 ## 아키텍처 패턴
 
@@ -121,3 +122,20 @@ const timeSeries = useRealtimeTimeSeries(3000, 20)
 ```
 
 컴포넌트: LiveMetricCard, LiveLineChart, LiveActivityFeed, LiveModelDistribution
+
+### SSE 스트리밍 플레이그라운드 (Phase 30)
+
+토큰 단위 SSE 스트리밍 시뮬레이션 (프로바이더별 지연 프로파일):
+
+```typescript
+import { useStreamingChat } from '@hchat/ui/llm-router/services/streamingHooks'
+
+const { isStreaming, streamingContent, startStream, stopStream } = useStreamingChat({
+  onComplete: (result) => console.log(`Cost: ${result.estimatedCostKRW} KRW`),
+})
+
+startStream({ model: 'gpt-4o', messages: [{ role: 'user', content: 'Hello!' }] })
+```
+
+컴포넌트: StreamingPlayground, ModelComparison
+유틸리티: maskAPIKey, validateAPIKey, generateAPIKey, estimateTokens, calculateCost
