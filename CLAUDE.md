@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI dashboard), and shared Storybook.
+npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI dashboard), User app, LLM Router app, and shared Storybook.
 
 ## Monorepo Structure
 
@@ -16,11 +16,15 @@ hchat-wiki/
 │       └── src/
 │           ├── hmg/     # HMG components (GNB, HeroBanner, Footer, etc.)
 │           ├── admin/   # Admin components (StatCard, DataTable, etc.)
+│           ├── user/    # User components (Chat, SSE streaming, etc.)
+│           ├── llm-router/  # LLM Router components (86 AI models)
 │           └── roi/     # ROI dashboard components (charts, filters, pages)
 ├── apps/
 │   ├── wiki/            # @hchat/wiki — Next.js 16 markdown wiki (GitHub Pages)
 │   ├── hmg/             # @hchat/hmg — Next.js 16 HMG site (Vercel)
 │   ├── admin/           # @hchat/admin — Next.js 16 admin panel + ROI (Vercel)
+│   ├── user/            # @hchat/user — Next.js 16 user app with chat (Vercel)
+│   ├── llm-router/      # @hchat/llm-router — Next.js 16 LLM router (Vercel)
 │   └── storybook/       # @hchat/storybook — Storybook 9 (Vercel)
 ├── design/              # wiki.pen, design1.pen
 └── docs/
@@ -34,10 +38,14 @@ npm run build            # Turbo: build all apps
 npm run build:wiki       # Wiki only → apps/wiki/out/
 npm run build:hmg        # HMG only → apps/hmg/out/
 npm run build:admin      # Admin only → apps/admin/out/
+npm run build:user       # User only → apps/user/out/
+npm run build:llm-router # LLM Router only → apps/llm-router/out/
 npm run build:storybook  # Storybook only → apps/storybook/storybook-static/
 npm run dev:wiki         # Wiki dev at localhost:3000
 npm run dev:hmg          # HMG dev at localhost:3001
 npm run dev:admin        # Admin dev at localhost:3002
+npm run dev:user         # User dev at localhost:3003
+npm run dev:llm-router   # LLM Router dev at localhost:3004
 npm run dev:storybook    # Storybook dev at localhost:6006
 ```
 
@@ -47,6 +55,8 @@ npm run dev:storybook    # Storybook dev at localhost:6006
 @hchat/tokens  ←  @hchat/ui  ←  @hchat/wiki
                        ↑        ←  @hchat/hmg
                        ↑        ←  @hchat/admin
+                       ↑        ←  @hchat/user
+                       ↑        ←  @hchat/llm-router
                @hchat/storybook
 ```
 
@@ -66,11 +76,15 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 **Important**: Tailwind CSS 4 requires `@source "../../../packages/ui/src";` in app globals.css to scan cross-package utility classes. Glob patterns do not work — use directory paths only.
 
 ### Shared UI (`packages/ui/`)
-- `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard
+- `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState, LanguageToggle
 - `@hchat/ui/hmg` — GNB, HeroBanner, TabFilter, Footer, HmgStatCard, StepItem, DownloadItem, PillButton
 - `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings, AdminProviderStatus, AdminModelPricing, AdminFeatureUsage, AdminPromptLibrary, AdminAgentMonitoring, DepartmentManagement, AuditLogViewer, SSOConfigPanel, LoginPage
 - `@hchat/ui/admin/auth` — AuthProvider, ProtectedRoute, useAuth hook, authService, mockAuthService
 - `@hchat/ui/admin/services` — AdminServiceProvider, enterpriseApi, apiService, hooks (useProviders, useModels, useFeatures, etc.), enterprise types
+- `@hchat/ui/user` — UserGNB, ChatSidebar, AssistantCard, AssistantGrid, CategoryFilter, ChatSearchBar, ChatSearchPanel, FileUploadZone, StepProgress, EngineSelector, ProjectTable, SubscriptionCard, UsageTable, MessageBubble, StreamingIndicator, CustomAssistantModal, ChatPage, DocsPage, MyPage, OCRPage, TranslationPage
+- `@hchat/ui/user/services` — UserServiceProvider, chatService, mockChatService
+- `@hchat/ui/llm-router` — LRNavbar, ModelTable, CodeBlock, ProviderBadge, PriceCell, DocsSidebar
+- `@hchat/ui/llm-router/services` — LlmRouterServiceProvider, model catalog with 86 AI models
 - `@hchat/ui` (ROI) — ROISidebar, ROIOverview, ROIAdoption, ROIProductivity, ROIAnalysis, ROIOrganization, ROISentiment, ROIReports, ROISettings, ROIDataUpload, KPICard, ChartPlaceholder, InsightCard, SurveyBar, HeatmapCell, DateFilter, DepartmentFilter
 - `@hchat/ui` (ROI Charts) — MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart (pure SVG/CSS, no chart library)
 
@@ -98,8 +112,14 @@ Authentication: AuthProvider wraps admin app with mock auth service. ProtectedRo
 
 Enterprise API: Services layer in `packages/ui/src/admin/services/` provides API abstraction with mock data fallback. Enterprise types define Provider, Model, Feature, Department, AuditLog, SSO schemas. API proxy pattern protects server-side API keys.
 
+### User App (`apps/user/`)
+5 pages: Chat (`/`), Docs (`/docs`), My Page (`/my`), OCR (`/ocr`), Translation (`/translation`). Features real-time chat with SSE streaming, localStorage persistence, custom assistant creation, and file upload. Service layer with mock data and Provider Pattern (UserServiceProvider).
+
+### LLM Router App (`apps/llm-router/`)
+10 pages including Home, Models (86 AI models from OpenAI, Anthropic, Cohere, etc.), Docs, About. Features comprehensive model comparison table with pricing, context windows, and capabilities. Service layer provides model catalog with filtering and search.
+
 ### Storybook (`apps/storybook/`)
-Stories for Wiki (13), Admin (13), HMG (12), ROI (15), User (16), LLM Router (6), and Shared (5) components. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+103 stories across categories: Wiki (13), Admin (21), HMG (12), ROI (24), User (21), LLM Router (6), Shared (5), Design System (1). Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
@@ -108,11 +128,15 @@ All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>
 - Wiki: GitHub Actions → GitHub Pages (https://sgtlim0.github.io)
 - HMG: Vercel (https://hchat-hmg.vercel.app)
 - Admin: Vercel (https://hchat-admin.vercel.app)
-- Storybook: Vercel (https://hchat-wiki-storybook.vercel.app)
+- User: Vercel (https://hchat-user.vercel.app)
+- LLM Router: Vercel (https://hchat-llm-router.vercel.app)
+- Storybook: Vercel (https://hchat-storybook.vercel.app)
 
 Vercel projects connected via Git (auto-deploy on push to main).
 
 ### CI/CD
 - GitHub Actions CI: type-check + lint + build on push/PR (`.github/workflows/ci.yml`)
 - GitHub Actions Deploy: Wiki → GitHub Pages (`.github/workflows/deploy.yml`)
-- Playwright E2E tests: `npm run test:e2e` (admin, hmg, dark-mode projects)
+- Playwright E2E tests: `npm run test:e2e` (admin, hmg, user, llm-router, wiki projects)
+- Lighthouse CI for performance monitoring
+- Prettier + Husky + lint-staged for code quality
