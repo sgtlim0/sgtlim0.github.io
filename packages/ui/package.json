@@ -15,7 +15,9 @@
     "./llm-router": "./src/llm-router/index.ts",
     "./llm-router/*": "./src/llm-router/*.tsx",
     "./desktop": "./src/desktop/index.ts",
-    "./desktop/*": "./src/desktop/*.tsx"
+    "./desktop/*": "./src/desktop/*.tsx",
+    "./mobile": "./src/mobile/index.ts",
+    "./mobile/*": "./src/mobile/*/index.ts"
   },
   "files": [
     "src"

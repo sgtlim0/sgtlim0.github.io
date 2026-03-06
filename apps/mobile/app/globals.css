@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+@import '../../../../packages/tokens/styles/tokens.css';
+
+@source "../../../../packages/ui/src";
+
+@theme inline {
+  /* Mobile tokens (referencing CSS vars for dark mode) */
+  --color-mb-primary: var(--primary);
+  --color-mb-bg: var(--bg-primary);
+  --color-mb-card: var(--bg-card, var(--bg-secondary));
+  --color-mb-text: var(--text-primary);
+  --color-mb-text-secondary: var(--text-secondary);
+  --color-mb-border: var(--border);
+  --color-mb-danger: var(--danger, #ef4444);
+}
+
+body {
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-mb-bg);
+  color: var(--color-mb-text);
+  /* Prevent overscroll bounce on mobile */
+  overscroll-behavior: none;
+}
+
+/* Mobile-specific safe area */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Accessibility - Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
