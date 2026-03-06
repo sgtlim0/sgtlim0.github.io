@@ -26,6 +26,15 @@ export { default as DepartmentManagement } from './DepartmentManagement'
 export { default as AuditLogViewer } from './AuditLogViewer'
 export { default as SSOConfigPanel } from './SSOConfigPanel'
 
+// Notifications
+export { default as NotificationBell } from './NotificationBell'
+export type { NotificationBellProps } from './NotificationBell'
+export { default as NotificationPanel } from './NotificationPanel'
+export type { NotificationPanelProps } from './NotificationPanel'
+export { default as NotificationPreferences } from './NotificationPreferences'
+export type { NotificationPreferencesProps } from './NotificationPreferences'
+export { default as NotificationCenter } from './NotificationCenter'
+
 // Auth
 export * from './auth'
 export { default as LoginPage } from './LoginPage'

@@ -66,16 +66,16 @@ export type {
   AgentExecution,
   AgentLog,
   DailyTrend,
-} from './types';
+} from './types'
 
 // Service interface
-export type { AdminApiService } from './apiService';
+export type { AdminApiService } from './apiService'
 
 // Mock implementation
-export { MockApiService, mockApiService } from './mockApiService';
+export { MockApiService, mockApiService } from './mockApiService'
 
 // Context provider
-export { AdminServiceProvider, useAdminService } from './AdminServiceProvider';
+export { AdminServiceProvider, useAdminService } from './AdminServiceProvider'
 
 // Hooks
 export {
@@ -98,7 +98,7 @@ export {
   useAgentStatus,
   useAgentLogs,
   useDailyTrend,
-} from './hooks';
+} from './hooks'
 
 // Enterprise API types
 export type {
@@ -119,10 +119,10 @@ export type {
   BulkSummary,
   EnterpriseApiResponse,
   EnterpriseErrorResponse,
-} from './types/enterprise';
+} from './types/enterprise'
 
 // Enterprise API client
-export { enterpriseApi } from './enterpriseApi';
+export { enterpriseApi } from './enterpriseApi'
 
 // Enterprise mock data
 export {
@@ -130,4 +130,30 @@ export {
   mockEnterpriseUsers,
   mockAuditLogs,
   mockSSOConfig,
-} from './enterpriseMockData';
+} from './enterpriseMockData'
+
+// Notification types
+export type {
+  NotificationType,
+  NotificationChannel,
+  NotificationPriority,
+  Notification,
+  NotificationPreference,
+  NotificationFilter,
+  NotificationStats,
+  NotificationSubscription,
+} from './notificationTypes'
+
+// Notification service
+export {
+  subscribeNotifications,
+  getNotifications,
+  markAsRead,
+  markAllAsRead,
+  getNotificationStats,
+  getPreferences,
+  updatePreference,
+} from './notificationService'
+
+// Notification hooks
+export { useNotifications, useNotificationBadge } from './notificationHooks'
