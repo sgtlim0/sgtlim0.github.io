@@ -26,6 +26,12 @@ export { default as DepartmentManagement } from './DepartmentManagement'
 export { default as AuditLogViewer } from './AuditLogViewer'
 export { default as SSOConfigPanel } from './SSOConfigPanel'
 
+// Widget Customization
+export { default as WidgetCard } from './WidgetCard'
+export { default as WidgetCatalogPanel } from './WidgetCatalogPanel'
+export { default as WidgetRenderer } from './WidgetRenderer'
+export { default as CustomDashboard } from './CustomDashboard'
+
 // Notifications
 export { default as NotificationBell } from './NotificationBell'
 export type { NotificationBellProps } from './NotificationBell'

@@ -157,3 +157,36 @@ export {
 
 // Notification hooks
 export { useNotifications, useNotificationBadge } from './notificationHooks'
+
+// Widget types
+export type {
+  WidgetType,
+  WidgetSize,
+  WidgetConfig,
+  DashboardLayout,
+  WidgetCatalogItem,
+} from './widgetTypes'
+
+export { WIDGET_SIZE_MAP } from './widgetTypes'
+
+// Widget service
+export {
+  WIDGET_CATALOG,
+  getWidgetCatalog,
+  getLayouts,
+  getActiveLayout,
+  saveLayout,
+  createLayout,
+  deleteLayout,
+  setActiveLayout,
+  addWidget,
+  removeWidget,
+  updateWidgetPosition,
+  updateWidgetSize,
+  updateWidgetSettings,
+  toggleWidgetVisibility,
+  resetToDefault,
+} from './widgetService'
+
+// Widget hooks
+export { useDashboardLayout, useWidgetCatalog } from './widgetHooks'
