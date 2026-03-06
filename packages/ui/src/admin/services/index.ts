@@ -190,3 +190,51 @@ export {
 
 // Widget hooks
 export { useDashboardLayout, useWidgetCatalog } from './widgetHooks'
+
+// Workflow types
+export type {
+  NodeType,
+  NodeStatus,
+  WorkflowNode,
+  WorkflowEdge,
+  NodeConfigField,
+  NodeCatalogItem,
+  WorkflowTemplate,
+  WorkflowExecutionResult,
+  Workflow,
+  WorkflowExecution,
+} from './workflowTypes'
+
+export {
+  NODE_TYPE_COLORS,
+  NODE_TYPE_BG_COLORS,
+  NODE_STATUS_COLORS,
+  NODE_WIDTH,
+  NODE_HEIGHT,
+} from './workflowTypes'
+
+// Workflow service
+export {
+  NODE_CATALOG,
+  WORKFLOW_TEMPLATES,
+  getNodeCatalog,
+  getWorkflowTemplates,
+  getWorkflows,
+  getWorkflow,
+  createWorkflow,
+  createFromTemplate,
+  createWorkflowFromTemplate,
+  createNode,
+  saveWorkflow,
+  deleteWorkflow,
+  addNode,
+  removeNode,
+  updateNodePosition,
+  updateNodeConfig,
+  addEdge,
+  removeEdge,
+  executeWorkflow,
+} from './workflowService'
+
+// Workflow hooks
+export { useWorkflowEditor, useWorkflowExecution } from './workflowHooks'

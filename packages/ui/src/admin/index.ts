@@ -41,6 +41,15 @@ export { default as NotificationPreferences } from './NotificationPreferences'
 export type { NotificationPreferencesProps } from './NotificationPreferences'
 export { default as NotificationCenter } from './NotificationCenter'
 
+// Workflow Builder
+export { default as WorkflowNodeCard } from './WorkflowNodeCard'
+export type { WorkflowNodeCardProps } from './WorkflowNodeCard'
+export { default as WorkflowCanvas } from './WorkflowCanvas'
+export type { WorkflowCanvasProps } from './WorkflowCanvas'
+export { default as WorkflowNodeCatalog } from './WorkflowNodeCatalog'
+export { default as WorkflowTemplateGallery } from './WorkflowTemplateGallery'
+export { default as WorkflowBuilder } from './WorkflowBuilder'
+
 // Auth
 export * from './auth'
 export { default as LoginPage } from './LoginPage'
