@@ -27,16 +27,16 @@
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
 | 전체 소스 파일 | 510개 (409 TS/TSX + 83 MD + 18 CSS) |
 | 총 코드 라인 | 27,983줄 (TS/TSX) |
-| UI 컴포넌트 | 94개 |
-| 페이지 | 46개 (page.tsx 기준) |
-| Storybook 스토리 | 106개 (97% 커버리지) |
+| UI 컴포넌트 | 105개 |
+| 페이지 | 52개 (page.tsx 기준) |
+| Storybook 스토리 | 119개 |
 | 프로젝트 문서 | 23개 (12,940줄) |
 | CSS 디자인 토큰 | 155개 (light + dark) |
 | E2E 테스트 | 18개 파일 (728줄) |
-| 단위 테스트 | 13개 파일, 182 테스트 (Vitest) |
+| 단위 테스트 | 16개 파일, 219 테스트 (Vitest) |
 | Wiki 콘텐츠 | 28 페이지 (5개 섹션) |
 | AI 모델 (LLM Router) | 86개 |
-| 커스텀 훅 | 47개 (Admin 23, User 7, LLM Router 8+) |
+| 커스텀 훅 | 49개 (Admin 25, User 7, LLM Router 8+) |
 
 ---
 
@@ -150,14 +150,26 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 ---
 
-## 다음 계획 (Phase 31+)
+### Phase 31: Desktop 모노레포 통합 ✅
+- apps/desktop/ Next.js 16 앱 스캐폴딩 (5페이지: Chat, Agents, Swarm, Debate, Tools)
+- packages/ui/src/desktop/ 공유 컴포넌트 7개 (DesktopSidebar, DesktopChatBubble, AgentCard, SwarmPanel, DebateArena, ToolGrid)
+- Desktop 디자인 토큰 24개 (--dt-* 변수, light+dark)
+- Storybook 스토리 6개, 단위 테스트 18개
+
+### Phase 32: 알림 시스템 ✅
+- Mock WebSocket 알림 서비스 (18개 한국어 템플릿, setInterval 스트리밍)
+- UI 컴포넌트 4개: NotificationBell, NotificationPanel, NotificationPreferences, NotificationCenter
+- 커스텀 훅: useNotifications, useNotificationBadge
+- Admin 알림 페이지 + Storybook 7개 스토리 + 단위 테스트 19개
+
+---
+
+## 다음 계획 (Phase 33+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 31 | Desktop 모노레포 통합 | hchat-desktop 서브패키지 이전, 공유 UI 통합 |
-| 32 | 알림 시스템 | WebSocket 푸시 알림 + 이메일, Admin/User 통합 |
 | 33 | 대시보드 커스터마이징 | react-grid-layout 드래그앤드롭, 위젯 시스템 |
 | 34 | AI 워크플로우 빌더 | ReactFlow 기반 비주얼 노드 파이프라인 편집기 |
 | 35 | 모바일 앱 | React Native 또는 Capacitor PWA 네이티브 래퍼 |
