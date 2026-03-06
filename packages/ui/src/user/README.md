@@ -149,9 +149,13 @@ export default function RootLayout({ children }) {
 - **프로젝트 문서**: CONTRIBUTING.md, ARCHITECTURE.md, API_SPEC.md 등
 
 ### Phase 26: Storybook 완성
-- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **151개 스토리**: 전체 UI 컴포넌트 97% 커버리지
 - **User 카테고리**: 9개 스토리 (페이지 5개 + 컴포넌트 4개)
 - **Storybook URL**: https://hchat-wiki-storybook.vercel.app
+
+### Phase 28: 단위 테스트
+- **Vitest 4**: 단위 테스트 기반 구축
+- **User 서비스 테스트**: chatService, mockUserService 테스트 커버리지
 
 ## 관련 패키지
 

@@ -217,7 +217,7 @@ HMG 공식 브랜드 색상을 사용합니다:
 - **Storybook 스토리**: 12개 HMG 컴포넌트 스토리
 
 ### Phase 26: Storybook 완성
-- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **151개 스토리**: 전체 UI 컴포넌트 97% 커버리지
 - **Storybook URL**: https://hchat-wiki-storybook.vercel.app
 
 ## 관련 패키지

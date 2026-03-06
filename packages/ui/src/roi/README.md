@@ -153,10 +153,11 @@ export function aggregateAll(records: ParsedRecord[]): AggregatedData
 
 ### Phase 25: 통합 테스트 + 문서
 - **18개 E2E 테스트**: responsive, dark-mode-all, a11y-all (WCAG 2.1 AA)
-- **Storybook 스토리**: 6개 ROI 컴포넌트 스토리
+- **Storybook 스토리**: 24개 ROI 컴포넌트 스토리
 
 ### Phase 26: Storybook 완성
-- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **151개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **ROI 카테고리**: 24개 스토리 (페이지 9개 + 차트 5개 + 유틸리티 10개)
 - **Storybook URL**: https://hchat-wiki-storybook.vercel.app
 
 ## 관련 패키지

@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-06
+> 마지막 업데이트: 2026-03-07
 
 ---
 
@@ -14,7 +14,8 @@
 | User 사용자 앱 | https://hchat-user.vercel.app | Vercel | ✅ |
 | LLM Router | https://hchat-llm-router.vercel.app | Vercel | ✅ |
 | Storybook | https://hchat-wiki-storybook.vercel.app | Vercel | ✅ |
-| Desktop (별도 레포) | https://hchat-desktop.vercel.app | Vercel | ✅ |
+| Desktop | https://hchat-desktop.vercel.app | Vercel | ✅ |
+| Mobile | (PWA, 모노레포 내) | - | ✅ |
 
 ---
 
@@ -22,21 +23,20 @@
 
 | 항목 | 수량 |
 |------|------|
-| 앱 (모노레포) | 6개 (Wiki, HMG, Admin, User, LLM Router, Storybook) |
+| 앱 (모노레포) | 8개 (Wiki, HMG, Admin, User, LLM Router, Desktop, Mobile, Storybook) |
 | 별도 레포 | 2개 (hchat-v2-extension, hchat-desktop) |
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
-| 전체 소스 파일 | 510개 (409 TS/TSX + 83 MD + 18 CSS) |
-| 총 코드 라인 | 27,983줄 (TS/TSX) |
-| UI 컴포넌트 | 124개 |
-| 페이지 | 54개 (page.tsx 기준) |
-| Storybook 스토리 | 131개 |
-| 프로젝트 문서 | 23개 (12,940줄) |
-| CSS 디자인 토큰 | 155개 (light + dark) |
-| E2E 테스트 | 18개 파일 (728줄) |
-| 단위 테스트 | 18개 파일, 241 테스트 (Vitest) |
+| 전체 소스 파일 | 565개 (457 TS/TSX + 84 MD + 24 CSS) |
+| 총 코드 라인 | 41,916줄 (TS/TSX) |
+| UI 컴포넌트 | 128개 |
+| 페이지 | 55개 (page.tsx 기준) |
+| Storybook 스토리 | 151개 |
+| CSS 디자인 토큰 | 194개 (light + dark) |
+| E2E 테스트 | 18개 파일 |
+| 단위 테스트 | 20개 파일, 259 테스트 (Vitest) |
 | Wiki 콘텐츠 | 28 페이지 (5개 섹션) |
 | AI 모델 (LLM Router) | 86개 |
-| 커스텀 훅 | 53개 (Admin 29, User 7, LLM Router 8+) |
+| 커스텀 훅 | 58개 |
 
 ---
 
@@ -177,15 +177,21 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 - UI 5개: WorkflowNodeCard, WorkflowCanvas, WorkflowNodeCatalog, WorkflowTemplateGallery, WorkflowBuilder
 - Storybook 7개 + 단위 테스트 12개
 
+### Phase 35: 모바일 앱 ✅
+- PWA 모바일 앱 (480px 컨테이너, viewport meta)
+- 7개 모바일 컴포넌트: MobileTabBar, MobileChatList, MobileAssistantList, MobileChatView, MobileSettingsPage, MobileHeader, MobileApp
+- 서비스 레이어: mobileService (8개 CRUD), mobileHooks (5개 훅 incl. useSwipeGesture)
+- apps/mobile/ Next.js 16 앱 스캐폴딩 (port 3005)
+- Storybook 6개 스토리 + 단위 테스트 18개
+
 ---
 
-## 다음 계획 (Phase 35+)
+## 다음 계획 (Phase 36+)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 35 | 모바일 앱 | React Native 또는 Capacitor PWA 네이티브 래퍼 |
 | 36 | 멀티테넌트 | 조직별 격리, 커스텀 브랜딩, 데이터 파티셔닝 |
 | 37 | AI 에이전트 마켓플레이스 | 커뮤니티 에이전트 공유, 설치, 평가 시스템 |
 | 38 | 분석 엔진 고도화 | ML 기반 이상 탐지, 예측 분석, 자동 인사이트 |
@@ -199,6 +205,12 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 | 46 | AI 모델 벤치마크 | 모델별 응답 품질/속도/비용 자동 벤치마크, 비교 리포트 생성 |
 | 47 | 피드백 루프 시스템 | 사용자 만족도 수집, 모델 응답 평가, A/B 테스트 자동화 |
 | 48 | 모니터링 알림 규칙 엔진 | 커스텀 알림 조건 빌더, Slack/Teams 웹훅, 에스컬레이션 정책 |
+| 49 | 팀 협업 채팅 | 실시간 멀티유저 채팅방, 멘션, 스레드, 파일 공유, WebSocket |
+| 50 | AI 모델 파인튜닝 | 사내 데이터 기반 모델 커스터마이징, 학습 진행 대시보드, 평가 메트릭 |
+| 51 | 데이터 시각화 고도화 | D3.js 기반 인터랙티브 차트, 드릴다운, 커스텀 대시보드 위젯 |
+| 52 | API Gateway | Rate limiting, 캐싱, 로드밸런싱, API 버전 관리, 헬스체크 |
+| 53 | 지식 그래프 | 사내 문서/대화 기반 지식 네트워크, 관계 시각화, 자동 태깅 |
+| 54 | 음성 인터페이스 | STT/TTS 통합, 음성 명령, 실시간 회의 요약 |
 
 ---
 
@@ -206,12 +218,12 @@ Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/Error
 
 | # | 항목 | 상태 |
 |---|------|------|
-| 1 | 단위 테스트 | ✅ Phase 28 완료 (9파일, 123 테스트, 커버리지 17% → 80% 목표 진행 중) |
-| 2 | Desktop 모노레포 통합 | 현재 별도 레포, Phase 32에서 통합 예정 |
+| 1 | 단위 테스트 | ✅ Phase 28 완료 (20파일, 259 테스트, 커버리지 80% 목표 진행 중) |
+| 2 | Desktop 모노레포 통합 | ✅ Phase 31 완료 |
 | 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 31에서 실연동 예정 |
 | 4 | Storybook interaction tests | 현재 visual only, 인터랙션 테스트 추가 필요 |
 | 5 | 서비스 레이어 실제 API 전환 | Admin/User/LLM Router Mock → Real API 전환 |
-| 6 | 모바일 반응형 테스트 자동화 | 현재 수동 테스트, E2E 모바일 viewport 자동화 필요 |
+| 6 | 모바일 반응형 | Phase 35 모바일 앱으로 부분 해결, E2E 모바일 viewport 자동화 필요 |
 | 7 | PROJECT_ANALYSIS 자동 생성 | 수동 작성 중, CI에서 자동 생성 스크립트 도입 검토 |
 | 8 | i18n 키 커버리지 | HMG 49키만 지원, Admin/User/LLM Router 확장 필요 |
 | 9 | Storybook 인터랙션 테스트 | play() 함수 기반 사용자 시나리오 자동 검증 필요 |

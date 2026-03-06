@@ -149,7 +149,7 @@ import { mockModels, models } from '@hchat/ui/llm-router';
 
 ## LLM Router 앱 페이지 구조
 
-LLM Router 서비스는 다음 10개 페이지로 구성됩니다:
+LLM Router 서비스는 다음 11개 페이지로 구성됩니다:
 
 ### 공개 페이지
 
@@ -175,6 +175,7 @@ LLM Router 서비스는 다음 10개 페이지로 구성됩니다:
 | **Keys** | `/dashboard/keys` | API 키 관리 |
 | **Settings** | `/dashboard/settings` | 계정 설정 |
 | **Billing** | `/dashboard/billing` | 결제 및 청구 정보 |
+| **Compare** | `/compare` | 모델 비교 (SSE 스트리밍) |
 
 ## 컴포넌트별 세부 기능
 
@@ -329,6 +330,7 @@ export default function RootLayout({ children }) {
 | `useMonthlyUsage()` | 월별 집계 데이터 |
 | `useModelUsageBreakdown()` | 모델별 사용량 |
 | `useAPIKeys()` | API 키 관리 (생성/폐기) |
+| `useStreamingChat()` | SSE 스트리밍 채팅 (토큰 단위) |
 
 ### 실제 API 전환
 
@@ -373,9 +375,15 @@ import { realLlmRouterService } from './services/realLlmRouterService';
 - **프로젝트 문서**: CONTRIBUTING.md, ARCHITECTURE.md, API_SPEC.md 등
 
 ### Phase 26: Storybook 완성
-- **103개 스토리**: 전체 UI 컴포넌트 97% 커버리지
+- **151개 스토리**: 전체 UI 컴포넌트 97% 커버리지
 - **LLM Router 카테고리**: 6개 스토리 (컴포넌트 6개)
 - **Storybook URL**: https://hchat-wiki-storybook.vercel.app
+
+### Phase 30: SSE 스트리밍 + 모델 비교
+- **SSE 스트리밍**: 토큰 단위 스트리밍 시뮬레이션 (30-80ms, 7 provider 지연 프로파일)
+- **스트리밍 컴포넌트**: StreamingPlayground, ModelComparison
+- **API 키 유틸리티**: maskAPIKey, validateAPIKey, generateAPIKey, estimateTokens, calculateCost
+- **useStreamingChat 훅**: SSE 기반 실시간 채팅 (시작/중지, 비용 추정)
 
 ## 테마 CSS 변수
 

@@ -1,6 +1,6 @@
 # @hchat/ui
 
-H Chat 모노레포의 공유 UI 컴포넌트 패키지. 94개 컴포넌트를 도메인별로 구성합니다.
+H Chat 모노레포의 공유 UI 컴포넌트 패키지. 128개 컴포넌트를 도메인별로 구성합니다.
 
 ## 구조
 
@@ -18,17 +18,21 @@ packages/ui/
 │   ├── EmptyState.tsx      # 빈 상태 안내
 │   ├── validation.ts       # 폼 검증 유틸리티 (validate, useFormValidation, patterns)
 │   ├── hmg/               # HMG 공식사이트 (GNB, Hero, Footer 등)
-│   ├── admin/             # Admin 패널 + 실시간 대시보드 + 서비스 레이어 (23개 훅)
-│   │   ├── services/      # MockApiService, AuthProvider, enterpriseApi
+│   ├── admin/             # Admin 패널 + 실시간 대시보드 + 알림 + 위젯 + 워크플로우 + 서비스 레이어
+│   │   ├── services/      # MockApiService, AuthProvider, enterpriseApi, realtimeService
 │   │   ├── Live*.tsx      # 실시간 컴포넌트 (MetricCard, LineChart, ActivityFeed, ModelDistribution)
-│   │   └── services/realtime*.ts  # 실시간 서비스 (Types, Service, Hooks)
+│   │   ├── Notification*.tsx  # 알림 시스템 (Bell, Panel, Preferences, Center)
+│   │   ├── Widget*.tsx    # 대시보드 커스터마이징 (Card, CatalogPanel, Renderer, CustomDashboard)
+│   │   └── Workflow*.tsx  # AI 워크플로우 빌더 (NodeCard, Canvas, NodeCatalog, TemplateGallery, Builder)
 │   ├── roi/               # ROI 대시보드 (5종 SVG 차트, 10페이지)
 │   ├── user/              # User 앱 + 서비스 레이어 (7개 훅)
 │   │   └── services/      # chatService (localStorage CRUD)
 │   ├── llm-router/        # LLM Router + 서비스 레이어 (8개 훅)
 │   │   └── services/      # 86개 AI 모델 카탈로그 + SSE 스트리밍 + API 키 유틸
+│   ├── desktop/           # Desktop 앱 (Sidebar, ChatBubble, AgentCard, ToolGrid)
+│   ├── mobile/            # Mobile 앱 컴포넌트
 │   └── i18n/              # 다국어 지원 (ko/en, 49키)
-├── __tests__/             # 단위 테스트 (13파일, 182 테스트)
+├── __tests__/             # 단위 테스트 (20파일, 259 테스트)
 └── package.json
 ```
 
@@ -61,10 +65,11 @@ import { ROIOverview, DonutChart, RadarChart } from '@hchat/ui'
 
 | 항목 | 수치 |
 |------|------|
-| 컴포넌트 | 94개 |
-| 커스텀 훅 | 47개 (Admin 23, User 7, LLM Router 8+) |
-| Storybook 스토리 | 106개 (97% 커버리지) |
-| 단위 테스트 | 13파일, 182 테스트 |
+| 컴포넌트 | 128개 |
+| 커스텀 훅 | 58개 (Admin 29+, User 7, LLM Router 8+) |
+| Storybook 스토리 | 151개 (97% 커버리지) |
+| 단위 테스트 | 20파일, 259 테스트 |
+| src LOC | 23,385줄 |
 
 ## 테스트
 
@@ -139,3 +144,38 @@ startStream({ model: 'gpt-4o', messages: [{ role: 'user', content: 'Hello!' }] }
 
 컴포넌트: StreamingPlayground, ModelComparison
 유틸리티: maskAPIKey, validateAPIKey, generateAPIKey, estimateTokens, calculateCost
+
+### Desktop 앱 (Phase 31)
+
+Desktop 인터페이스용 에이전트 관리 및 도구 통합 컴포넌트:
+
+컴포넌트: DesktopSidebar, DesktopChatBubble, AgentCard, ToolGrid
+
+### 알림 시스템 (Phase 32)
+
+Mock WebSocket 기반 실시간 알림:
+
+```typescript
+import { NotificationCenter } from '@hchat/ui/admin'
+
+// 알림 벨 + 패널 + 환경설정 통합 컴포넌트
+<NotificationCenter />
+```
+
+컴포넌트: NotificationBell, NotificationPanel, NotificationPreferences, NotificationCenter
+
+### 대시보드 커스터마이징 (Phase 33)
+
+CSS Grid 기반 위젯 시스템 (10종 위젯, localStorage 레이아웃 저장):
+
+컴포넌트: WidgetCard, WidgetCatalogPanel, WidgetRenderer, CustomDashboard
+
+### AI 워크플로우 빌더 (Phase 34)
+
+SVG 노드 에디터 기반 워크플로우 설계 (8종 노드, 4개 템플릿):
+
+컴포넌트: WorkflowNodeCard, WorkflowCanvas, WorkflowNodeCatalog, WorkflowTemplateGallery, WorkflowBuilder
+
+### 모바일 컴포넌트 (Phase 35)
+
+모바일 전용 UI 컴포넌트 및 반응형 레이아웃
