@@ -3,191 +3,234 @@
 
 :root {
   /* === Wiki Tokens === */
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
-  --primary-light: #EFF6FF;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
 
-  --accent-emerald: #10B981;
-  --accent-purple: #8B5CF6;
-  --success: #22C55E;
-  --warning: #F59E0B;
-  --danger: #EF4444;
+  --accent-emerald: #10b981;
+  --accent-purple: #8b5cf6;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
 
-  --bg-page: #FFFFFF;
-  --bg-sidebar: #F8FAFC;
-  --bg-card: #F8FAFC;
-  --bg-hero: #EFF6FF;
-  --bg-hover: #F1F5F9;
-  --bg-code: #F1F5F9;
+  --bg-page: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --bg-card: #f8fafc;
+  --bg-hero: #eff6ff;
+  --bg-hover: #f1f5f9;
+  --bg-code: #f1f5f9;
 
-  --text-primary: #0F172A;
-  --text-secondary: #64748B;
-  --text-tertiary: #94A3B8;
-  --text-white: #FFFFFF;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --text-white: #ffffff;
 
-  --border: #E2E8F0;
-  --border-light: #F1F5F9;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
 
   /* === HMG Tokens === */
-  --hmg-navy: #002C5F;
-  --hmg-teal: #00B4D8;
-  --hmg-teal-light: #E0F7FA;
-  --hmg-blue: #3A5BC5;
-  --hmg-accent: #E15C39;
+  --hmg-navy: #002c5f;
+  --hmg-teal: #00b4d8;
+  --hmg-teal-light: #e0f7fa;
+  --hmg-blue: #3a5bc5;
+  --hmg-accent: #e15c39;
   --hmg-green: #118762;
-  --hmg-cover-bg: #D5CEBF;
+  --hmg-cover-bg: #d5cebf;
 
-  --hmg-bg-card: #FFFFFF;
-  --hmg-bg-section: #F5F5F5;
-  --hmg-border: #EAEAEA;
+  --hmg-bg-card: #ffffff;
+  --hmg-bg-section: #f5f5f5;
+  --hmg-border: #eaeaea;
   --hmg-text-title: #000000;
   --hmg-text-body: #111111;
   --hmg-text-caption: #949494;
-  --hmg-footer-bg: #1F1F1F;
-  --hmg-input-bg: #F5F5F5;
-  --hmg-input-border: #E0E0E0;
-  --hmg-table-stripe: #FAFAFA;
-  --hmg-table-hover: #F0F7FF;
+  --hmg-footer-bg: #1f1f1f;
+  --hmg-input-bg: #f5f5f5;
+  --hmg-input-border: #e0e0e0;
+  --hmg-table-stripe: #fafafa;
+  --hmg-table-hover: #f0f7ff;
 
   /* === Admin Tokens === */
-  --admin-teal: #00AAC1;
-  --admin-navy: #002C5F;
-  --admin-blue: #3A5BC5;
-  --admin-accent: #E15C39;
+  --admin-teal: #00aac1;
+  --admin-navy: #002c5f;
+  --admin-blue: #3a5bc5;
+  --admin-accent: #e15c39;
   --admin-green: #118762;
-  --admin-status-success: #4CAF50;
-  --admin-status-error: #E53935;
-  --admin-status-pending: #FFA726;
-  --admin-table-stripe: #FAFAFA;
-  --admin-table-hover: #F0F7FF;
-  --admin-input-bg: #F5F5F5;
-  --admin-input-border: #E0E0E0;
-  --admin-bg-section: #FFFFFF;
-  --admin-bg-card: #FFFFFF;
+  --admin-status-success: #4caf50;
+  --admin-status-error: #e53935;
+  --admin-status-pending: #ffa726;
+  --admin-table-stripe: #fafafa;
+  --admin-table-hover: #f0f7ff;
+  --admin-input-bg: #f5f5f5;
+  --admin-input-border: #e0e0e0;
+  --admin-bg-section: #ffffff;
+  --admin-bg-card: #ffffff;
 
   /* === ROI Dashboard Tokens === */
-  --roi-sidebar-bg: #0F172A;
-  --roi-sidebar-text: rgba(255,255,255,0.7);
-  --roi-sidebar-active: #FFFFFF;
-  --roi-sidebar-hover: rgba(255,255,255,0.1);
-  --roi-body-bg: #F1F5F9;
-  --roi-card-bg: #FFFFFF;
-  --roi-card-border: #E2E8F0;
-  --roi-text-primary: #0F172A;
-  --roi-text-secondary: #64748B;
-  --roi-text-muted: #94A3B8;
-  --roi-divider: #E2E8F0;
-  --roi-positive: #10B981;
-  --roi-negative: #EF4444;
-  --roi-chart-1: #3763F4;
-  --roi-chart-2: #00AAD2;
-  --roi-chart-3: #10B981;
-  --roi-chart-4: #F59E0B;
-  --roi-chart-5: #EC4899;
-  --roi-kpi-bg: #FFFFFF;
-  --roi-heatmap-high: #10B981;
-  --roi-heatmap-mid: #F59E0B;
-  --roi-heatmap-low: #EF4444;
+  --roi-sidebar-bg: #0f172a;
+  --roi-sidebar-text: rgba(255, 255, 255, 0.7);
+  --roi-sidebar-active: #ffffff;
+  --roi-sidebar-hover: rgba(255, 255, 255, 0.1);
+  --roi-body-bg: #f1f5f9;
+  --roi-card-bg: #ffffff;
+  --roi-card-border: #e2e8f0;
+  --roi-text-primary: #0f172a;
+  --roi-text-secondary: #64748b;
+  --roi-text-muted: #94a3b8;
+  --roi-divider: #e2e8f0;
+  --roi-positive: #10b981;
+  --roi-negative: #ef4444;
+  --roi-chart-1: #3763f4;
+  --roi-chart-2: #00aad2;
+  --roi-chart-3: #10b981;
+  --roi-chart-4: #f59e0b;
+  --roi-chart-5: #ec4899;
+  --roi-kpi-bg: #ffffff;
+  --roi-heatmap-high: #10b981;
+  --roi-heatmap-mid: #f59e0b;
+  --roi-heatmap-low: #ef4444;
 
   /* === User Tokens === */
-  --user-primary: #4F6EF7;
-  --user-primary-light: #EBF0FF;
-  --user-accent: #10B981;
-  --user-bg: #FFFFFF;
-  --user-bg-section: #F8FAFC;
-  --user-border: #E2E8F0;
-  --user-text-primary: #1E293B;
-  --user-text-secondary: #64748B;
-  --user-text-muted: #94A3B8;
+  --user-primary: #4f6ef7;
+  --user-primary-light: #ebf0ff;
+  --user-accent: #10b981;
+  --user-bg: #ffffff;
+  --user-bg-section: #f8fafc;
+  --user-border: #e2e8f0;
+  --user-text-primary: #1e293b;
+  --user-text-secondary: #64748b;
+  --user-text-muted: #94a3b8;
 
   /* === LLM Router Tokens === */
-  --lr-nav-bg: #0F172A;
-  --lr-nav-text: rgba(255,255,255,0.7);
-  --lr-primary: #3B82F6;
-  --lr-primary-hover: #2563EB;
-  --lr-bg: #FFFFFF;
-  --lr-bg-section: #F8FAFC;
-  --lr-bg-code: #1F2937;
-  --lr-bg-table: #FFFFFF;
-  --lr-border: #E2E8F0;
-  --lr-text-primary: #0F172A;
-  --lr-text-secondary: #64748B;
-  --lr-text-muted: #94A3B8;
+  --lr-nav-bg: #0f172a;
+  --lr-nav-text: rgba(255, 255, 255, 0.7);
+  --lr-primary: #3b82f6;
+  --lr-primary-hover: #2563eb;
+  --lr-bg: #ffffff;
+  --lr-bg-section: #f8fafc;
+  --lr-bg-code: #1f2937;
+  --lr-bg-table: #ffffff;
+  --lr-border: #e2e8f0;
+  --lr-text-primary: #0f172a;
+  --lr-text-secondary: #64748b;
+  --lr-text-muted: #94a3b8;
+
+  /* === Desktop Tokens === */
+  --dt-primary: #6366f1;
+  --dt-primary-hover: #4f46e5;
+  --dt-primary-light: #eef2ff;
+  --dt-accent: #10b981;
+  --dt-accent-light: #ecfdf5;
+  --dt-bg: #ffffff;
+  --dt-bg-sidebar: #0f172a;
+  --dt-bg-section: #f8fafc;
+  --dt-bg-card: #ffffff;
+  --dt-border: #e2e8f0;
+  --dt-text-primary: #0f172a;
+  --dt-text-secondary: #64748b;
+  --dt-text-muted: #94a3b8;
+  --dt-text-sidebar: rgba(255, 255, 255, 0.7);
+  --dt-text-sidebar-active: #ffffff;
+  --dt-sidebar-hover: rgba(255, 255, 255, 0.1);
+  --dt-status-idle: #94a3b8;
+  --dt-status-thinking: #f59e0b;
+  --dt-status-responding: #3b82f6;
+  --dt-status-done: #10b981;
+  --dt-for: #10b981;
+  --dt-against: #ef4444;
+  --dt-moderator: #6366f1;
 }
 
 .dark {
   /* === Wiki Dark === */
-  --primary: #3B82F6;
-  --primary-hover: #2563EB;
-  --primary-light: #1E3A5F;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #1e3a5f;
 
   --bg-page: #111827;
-  --bg-sidebar: #1F2937;
-  --bg-card: #1F2937;
-  --bg-hero: #1E3A5F;
+  --bg-sidebar: #1f2937;
+  --bg-card: #1f2937;
+  --bg-hero: #1e3a5f;
   --bg-hover: #374151;
-  --bg-code: #1F2937;
+  --bg-code: #1f2937;
 
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --text-tertiary: #64748B;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
 
   --border: #374151;
-  --border-light: #1F2937;
+  --border-light: #1f2937;
 
   /* === HMG Dark === */
-  --hmg-teal-light: #004D5A;
-  --hmg-bg-card: #2A2A2A;
-  --hmg-bg-section: #1A1A1A;
+  --hmg-teal-light: #004d5a;
+  --hmg-bg-card: #2a2a2a;
+  --hmg-bg-section: #1a1a1a;
   --hmg-border: #333333;
-  --hmg-text-title: #F1F1F1;
-  --hmg-text-body: #E0E0E0;
+  --hmg-text-title: #f1f1f1;
+  --hmg-text-body: #e0e0e0;
   --hmg-text-caption: #666666;
-  --hmg-footer-bg: #0A0A0A;
-  --hmg-input-bg: #2A2A2A;
+  --hmg-footer-bg: #0a0a0a;
+  --hmg-input-bg: #2a2a2a;
   --hmg-input-border: #444444;
   --hmg-table-stripe: #222222;
-  --hmg-table-hover: #1A2A3A;
+  --hmg-table-hover: #1a2a3a;
 
   /* === Admin Dark === */
   --admin-table-stripe: #222222;
-  --admin-table-hover: #1A2A3A;
-  --admin-input-bg: #2A2A2A;
+  --admin-table-hover: #1a2a3a;
+  --admin-input-bg: #2a2a2a;
   --admin-input-border: #444444;
-  --admin-bg-section: #1A1A2E;
-  --admin-bg-card: #1E1E2E;
+  --admin-bg-section: #1a1a2e;
+  --admin-bg-card: #1e1e2e;
 
   /* === ROI Dashboard Dark === */
   --roi-sidebar-bg: #020617;
-  --roi-sidebar-hover: rgba(255,255,255,0.08);
-  --roi-body-bg: #0F172A;
-  --roi-card-bg: #1E293B;
+  --roi-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --roi-body-bg: #0f172a;
+  --roi-card-bg: #1e293b;
   --roi-card-border: #334155;
-  --roi-text-primary: #F1F5F9;
-  --roi-text-secondary: #94A3B8;
-  --roi-text-muted: #64748B;
+  --roi-text-primary: #f1f5f9;
+  --roi-text-secondary: #94a3b8;
+  --roi-text-muted: #64748b;
   --roi-divider: #334155;
-  --roi-kpi-bg: #1E293B;
+  --roi-kpi-bg: #1e293b;
 
   /* === User Dark === */
-  --user-primary: #6B8AFF;
-  --user-primary-light: #1E2A4A;
-  --user-accent: #34D399;
-  --user-bg: #0F172A;
-  --user-bg-section: #1E293B;
+  --user-primary: #6b8aff;
+  --user-primary-light: #1e2a4a;
+  --user-accent: #34d399;
+  --user-bg: #0f172a;
+  --user-bg-section: #1e293b;
   --user-border: #334155;
-  --user-text-primary: #F1F5F9;
-  --user-text-secondary: #94A3B8;
-  --user-text-muted: #64748B;
+  --user-text-primary: #f1f5f9;
+  --user-text-secondary: #94a3b8;
+  --user-text-muted: #64748b;
 
   /* === LLM Router Dark === */
   --lr-nav-bg: #020617;
-  --lr-bg: #0F172A;
-  --lr-bg-section: #1E293B;
+  --lr-bg: #0f172a;
+  --lr-bg-section: #1e293b;
   --lr-bg-code: #111827;
-  --lr-bg-table: #1E293B;
+  --lr-bg-table: #1e293b;
   --lr-border: #334155;
-  --lr-text-primary: #F1F5F9;
-  --lr-text-secondary: #94A3B8;
-  --lr-text-muted: #64748B;
+  --lr-text-primary: #f1f5f9;
+  --lr-text-secondary: #94a3b8;
+  --lr-text-muted: #64748b;
+
+  /* === Desktop Dark === */
+  --dt-primary: #818cf8;
+  --dt-primary-hover: #6366f1;
+  --dt-primary-light: #1e1b4b;
+  --dt-accent: #34d399;
+  --dt-accent-light: #064e3b;
+  --dt-bg: #0f172a;
+  --dt-bg-sidebar: #020617;
+  --dt-bg-section: #1e293b;
+  --dt-bg-card: #1e293b;
+  --dt-border: #334155;
+  --dt-text-primary: #f1f5f9;
+  --dt-text-secondary: #94a3b8;
+  --dt-text-muted: #64748b;
+  --dt-text-sidebar: rgba(255, 255, 255, 0.5);
+  --dt-text-sidebar-active: #ffffff;
+  --dt-sidebar-hover: rgba(255, 255, 255, 0.08);
 }

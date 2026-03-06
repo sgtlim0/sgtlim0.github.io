@@ -13,7 +13,9 @@
     "./user": "./src/user/index.ts",
     "./user/*": "./src/user/*.tsx",
     "./llm-router": "./src/llm-router/index.ts",
-    "./llm-router/*": "./src/llm-router/*.tsx"
+    "./llm-router/*": "./src/llm-router/*.tsx",
+    "./desktop": "./src/desktop/index.ts",
+    "./desktop/*": "./src/desktop/*.tsx"
   },
   "files": [
     "src"

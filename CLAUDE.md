@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI dashboard), User app, LLM Router app, and shared Storybook.
+npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI dashboard), User app, LLM Router app, Desktop app, and shared Storybook.
 
 ## Monorepo Structure
 
@@ -18,6 +18,7 @@ hchat-wiki/
 │           ├── admin/   # Admin components (StatCard, DataTable, etc.)
 │           ├── user/    # User components (Chat, SSE streaming, etc.)
 │           ├── llm-router/  # LLM Router components (86 AI models)
+│           ├── desktop/ # Desktop components (Sidebar, ChatBubble, AgentCard, ToolGrid)
 │           └── roi/     # ROI dashboard components (charts, filters, pages)
 ├── apps/
 │   ├── wiki/            # @hchat/wiki — Next.js 16 markdown wiki (GitHub Pages)
@@ -25,6 +26,7 @@ hchat-wiki/
 │   ├── admin/           # @hchat/admin — Next.js 16 admin panel + ROI (Vercel)
 │   ├── user/            # @hchat/user — Next.js 16 user app with chat (Vercel)
 │   ├── llm-router/      # @hchat/llm-router — Next.js 16 LLM router (Vercel)
+│   ├── desktop/         # @hchat/desktop — Next.js 16 desktop app (Vercel)
 │   └── storybook/       # @hchat/storybook — Storybook 9 (Vercel)
 ├── design/              # wiki.pen, design1.pen
 └── docs/
@@ -40,12 +42,14 @@ npm run build:hmg        # HMG only → apps/hmg/out/
 npm run build:admin      # Admin only → apps/admin/out/
 npm run build:user       # User only → apps/user/out/
 npm run build:llm-router # LLM Router only → apps/llm-router/out/
+npm run build:desktop    # Desktop only → apps/desktop/out/
 npm run build:storybook  # Storybook only → apps/storybook/storybook-static/
 npm run dev:wiki         # Wiki dev at localhost:3000
 npm run dev:hmg          # HMG dev at localhost:3001
 npm run dev:admin        # Admin dev at localhost:3002
 npm run dev:user         # User dev at localhost:3003
 npm run dev:llm-router   # LLM Router dev at localhost:3004
+npm run dev:desktop      # Desktop dev at localhost:5173
 npm run dev:storybook    # Storybook dev at localhost:6006
 ```
 
@@ -57,6 +61,7 @@ npm run dev:storybook    # Storybook dev at localhost:6006
                        ↑        ←  @hchat/admin
                        ↑        ←  @hchat/user
                        ↑        ←  @hchat/llm-router
+                       ↑        ←  @hchat/desktop
                @hchat/storybook
 ```
 
@@ -85,6 +90,7 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 - `@hchat/ui/user/services` — UserServiceProvider, chatService, mockChatService
 - `@hchat/ui/llm-router` — LRNavbar, ModelTable, CodeBlock, ProviderBadge, PriceCell, DocsSidebar
 - `@hchat/ui/llm-router/services` — LlmRouterServiceProvider, model catalog with 86 AI models
+- `@hchat/ui/desktop` — DesktopSidebar, DesktopChatBubble, AgentCard, ToolGrid
 - `@hchat/ui` (ROI) — ROISidebar, ROIOverview, ROIAdoption, ROIProductivity, ROIAnalysis, ROIOrganization, ROISentiment, ROIReports, ROISettings, ROIDataUpload, KPICard, ChartPlaceholder, InsightCard, SurveyBar, HeatmapCell, DateFilter, DepartmentFilter
 - `@hchat/ui` (ROI Charts) — MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart (pure SVG/CSS, no chart library)
 
@@ -118,6 +124,9 @@ Enterprise API: Services layer in `packages/ui/src/admin/services/` provides API
 ### LLM Router App (`apps/llm-router/`)
 10 pages including Home, Models (86 AI models from OpenAI, Anthropic, Cohere, etc.), Docs, About. Features comprehensive model comparison table with pricing, context windows, and capabilities. Service layer provides model catalog with filtering and search.
 
+### Desktop App (`apps/desktop/`)
+Desktop interface for H Chat with agent management and tool integration. Components: DesktopSidebar (collapsible navigation), DesktopChatBubble (user/assistant messages with token count), AgentCard (agent status and controls), ToolGrid (tool grid with active/inactive states). Design tokens use `--dt-*` prefix. Dev server at localhost:5173.
+
 ### Storybook (`apps/storybook/`)
 103 stories across categories: Wiki (13), Admin (21), HMG (12), ROI (24), User (21), LLM Router (6), Shared (5), Design System (1). Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
@@ -130,6 +139,7 @@ All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>
 - Admin: Vercel (https://hchat-admin.vercel.app)
 - User: Vercel (https://hchat-user.vercel.app)
 - LLM Router: Vercel (https://hchat-llm-router.vercel.app)
+- Desktop: Vercel (https://hchat-desktop.vercel.app)
 - Storybook: Vercel (https://hchat-storybook.vercel.app)
 
 Vercel projects connected via Git (auto-deploy on push to main).

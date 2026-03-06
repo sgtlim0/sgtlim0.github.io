@@ -22,6 +22,7 @@ const config: StorybookConfig = {
       '@hchat/ui/admin': path.resolve(__dirname, '../../../packages/ui/src/admin'),
       '@hchat/ui/user': path.resolve(__dirname, '../../../packages/ui/src/user'),
       '@hchat/ui/llm-router': path.resolve(__dirname, '../../../packages/ui/src/llm-router'),
+      '@hchat/ui/desktop': path.resolve(__dirname, '../../../packages/ui/src/desktop'),
       '@hchat/ui/roi': path.resolve(__dirname, '../../../packages/ui/src/roi'),
       '@hchat/ui/i18n': path.resolve(__dirname, '../../../packages/ui/src/i18n'),
       '@hchat/tokens': path.resolve(__dirname, '../../../packages/tokens/src'),
