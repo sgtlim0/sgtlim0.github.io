@@ -72,6 +72,8 @@ npm run dev:storybook    # Storybook dev at localhost:6006
 - Storybook 9 with nextjs-vite framework
 - Design tokens: CSS variables in `packages/tokens/styles/tokens.css`
 - SheetJS (xlsx) for browser-local Excel file parsing in ROI dashboard
+- MSW (Mock Service Worker) for API mocking in tests and development
+- Docker Compose (PostgreSQL 16 + Redis 7) for local infrastructure
 
 ## Architecture
 
@@ -150,3 +152,16 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Playwright E2E tests: `npm run test:e2e` (admin, hmg, user, llm-router, wiki projects)
 - Lighthouse CI for performance monitoring
 - Prettier + Husky + lint-staged for code quality
+
+### Testing (Phase 58)
+- Vitest: 62 test files, 874 unit tests (coverage threshold 40%)
+- MSW: 39 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
+- Playwright E2E: 18 test files
+- Storybook Interaction: 6 files, 28 tests
+
+### Infrastructure (Phase 60)
+- Docker Compose: `docker-compose.yml` (PostgreSQL 16 + Redis 7)
+- DB Schema: `docker/init.sql` (users, conversations, messages, api_keys, audit_logs)
+- API Client: `packages/ui/src/client/` (ServiceFactory with Mock/Real switching via `NEXT_PUBLIC_API_MODE`)
+- Monitoring: `packages/ui/src/utils/errorMonitoring.ts` (Sentry-ready), `healthCheck.ts`, `webVitals.ts`
+- Environment: `.env.example` with all required variables
