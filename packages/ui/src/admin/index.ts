@@ -50,9 +50,18 @@ export { default as WorkflowNodeCatalog } from './WorkflowNodeCatalog'
 export { default as WorkflowTemplateGallery } from './WorkflowTemplateGallery'
 export { default as WorkflowBuilder } from './WorkflowBuilder'
 
+// Tenant
+export { default as TenantSelector } from './TenantSelector'
+export type { TenantSelectorProps } from './TenantSelector'
+export { default as TenantManagement } from './TenantManagement'
+export type { TenantManagementProps } from './TenantManagement'
+
 // Auth
 export * from './auth'
 export { default as LoginPage } from './LoginPage'
 
 // Services
 export * from './services'
+
+// Marketplace
+export * from './marketplace'
