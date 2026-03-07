@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-07
+> 마지막 업데이트: 2026-03-07 | Phase 35 완료 기준
 
 ---
 
@@ -13,217 +13,290 @@
 | Admin 관리자 패널 | https://hchat-admin.vercel.app | Vercel | ✅ |
 | User 사용자 앱 | https://hchat-user.vercel.app | Vercel | ✅ |
 | LLM Router | https://hchat-llm-router.vercel.app | Vercel | ✅ |
-| Storybook | https://hchat-wiki-storybook.vercel.app | Vercel | ✅ |
 | Desktop | https://hchat-desktop.vercel.app | Vercel | ✅ |
-| Mobile | (PWA, 모노레포 내) | - | ✅ |
+| Mobile | https://hchat-mobile.vercel.app | Vercel | ✅ |
+| Storybook | https://hchat-storybook.vercel.app | Vercel | ✅ |
 
 ---
 
-## 프로젝트 수치 현황
+## 프로젝트 수치 현황 (실측 2026-03-07)
 
 | 항목 | 수량 |
 |------|------|
 | 앱 (모노레포) | 8개 (Wiki, HMG, Admin, User, LLM Router, Desktop, Mobile, Storybook) |
 | 별도 레포 | 2개 (hchat-v2-extension, hchat-desktop) |
 | UI 패키지 | 2개 (@hchat/tokens, @hchat/ui) |
-| 전체 소스 파일 | 565개 (457 TS/TSX + 84 MD + 24 CSS) |
-| 총 코드 라인 | 41,916줄 (TS/TSX) |
+| TS/TSX 파일 | 463개 |
+| 총 코드 라인 | 40,060줄 (TS/TSX) |
+| CSS 파일/LOC | 41개, 22,664줄 |
 | UI 컴포넌트 | 128개 |
-| 페이지 | 55개 (page.tsx 기준) |
-| Storybook 스토리 | 151개 |
+| 페이지 | 55개 (page.tsx) |
+| 레이아웃 | 9개 (layout.tsx) |
+| Storybook 스토리 | 126 파일 / ~151 스토리 |
 | CSS 디자인 토큰 | 194개 (light + dark) |
 | E2E 테스트 | 18개 파일 |
-| 단위 테스트 | 20개 파일, 259 테스트 (Vitest) |
+| 단위 테스트 | 20 파일, ~284 테스트 (Vitest) |
 | Wiki 콘텐츠 | 28 페이지 (5개 섹션) |
 | AI 모델 (LLM Router) | 86개 |
-| 커스텀 훅 | 58개 |
+| 커스텀 훅 | 60개 |
+| Git 커밋 | 97개 (56일간) |
 
 ---
 
-## 완료된 Phase (1~20)
+## 완료된 Phase (1~35)
 
-### Phase 1~2: Wiki 사이트 ✅
-Next.js 16 + Tailwind CSS 4, 마크다운 파이프라인, GitHub Pages 배포
+### Phase 1~10: Wiki + HMG + 모노레포 ✅
+Next.js 16 + Tailwind CSS 4, 마크다운 위키 28페이지, HMG 4페이지, npm workspaces + Turborepo
 
-### Phase 3~5: wiki.pen 디자인 + Storybook ✅
-Wiki 6개 + HMG 8개 + Admin 10개 화면, Storybook 9, 33개 스토리
+### Phase 11~15: Admin + ROI + Enterprise API ✅
+Admin 14페이지, ROI 9페이지, 5종 SVG 차트, Excel 업로드, 부서관리/감사로그/SSO
 
-### Phase 6~9: Extension 분석 + Admin 구현 + 접근성 ✅
-Admin 컴포넌트 12개 + 페이지 5개, ARIA 접근성
+### Phase 16~18: User 앱 + 채팅 인터랙션 ✅
+User 5페이지, SSE 스트리밍, 커스텀 비서 생성, 대화 검색
 
-### Phase 10: 모노레포 전환 + HMG + 배포 ✅
-npm workspaces + Turborepo, HMG 8개 컴포넌트 + 4 페이지
+### Phase 19~20: LLM Router + E2E + Lighthouse ✅
+LLM Router 10페이지, 86개 모델, 12개 E2E, WCAG 2.1 AA, Lighthouse CI
 
-### Phase 11~12: ROI 대시보드 + 데이터 업로드 ✅
-9개 ROI 페이지, 5종 SVG 차트, Excel 업로드, ROIDataContext
+### Phase 21~22: Storybook + 서비스 레이어 ✅
+73개+ 스토리, Admin/User/LLM Router Provider Pattern, Skeleton/Toast/ErrorBoundary
 
-### Phase 13~15: LLM Router 설계 + Enterprise API 구현 ✅
-wiki.pen 10개 화면, 부서관리/감사로그/SSO 구현
+### Phase 23~24: 성능 최적화 + CI/CD ✅
+Dynamic import, Bundle Analyzer, Turbo 캐시, Prettier + Husky + lint-staged
 
-### Phase 16: User 앱 구현 ✅
-5개 페이지, 12개 컴포넌트, 8종 AI 비서, 번역/OCR/문서작성
-
-### Phase 17: User 다크모드 + 반응형 + Storybook ✅
-User 다크모드 CSS 토큰, 반응형 레이아웃, 12개 스토리
-
-### Phase 18: 채팅 인터랙션 ✅
-SSE 스트리밍, 커스텀 비서 생성, 대화 검색, 마크다운 렌더링
-
-### Phase 19: LLM Router 앱 ✅
-10개 페이지, 86개 모델 가격표, Playground, Dashboard, API 키 관리
-
-### Phase 20: E2E 테스트 + 접근성 + Lighthouse CI ✅
-12개 E2E 테스트, WCAG 2.1 AA, skip nav, Lighthouse CI
-
-### 추가: 문서 정리 + 배포 ✅
-- Wiki 콘텐츠 v4 업데이트 (Extension/Desktop 분석 반영)
-- Desktop 섹션 신규 생성 (overview, features, backend)
-- 도구 페이지 4개 추가 (OCR, 번역, 심층리서치, 템플릿)
-- README + 패키지별 README 전면 업데이트
-- LLM Router + Storybook Vercel 프로젝트 생성
-- 랜딩페이지 프로젝트 포트폴리오 구현
-
-### Phase 21: Storybook 완성 + 디자인 시스템 정리 ✅
-73개+ 스토리 (Wiki 13, Admin 17, HMG 8, LLM Router 6, ROI 3, Design System 1), 디자인 토큰 문서
-
-### Phase 22: API 서비스 레이어 + UX 폴리싱 ✅
-Admin/User/LLM Router Provider Pattern 서비스 레이어, Skeleton/Toast/ErrorBoundary/EmptyState 공통 컴포넌트
-
-### Phase 23: 성능 최적화 + 번들 분석 ✅
-- @next/bundle-analyzer 설정 (admin, hmg, user, llm-router)
-- Dynamic import 코드 스플리팅 23개 페이지 (Admin 16, User 5, LLM Router 2)
-- Turbo 빌드 캐시 최적화 (inputs/env 필드)
-- Lighthouse CI URL 추가 (llm-router, desktop)
-- OpenGraph 메타데이터 보강
-
-### Phase 24: CI/CD 파이프라인 강화 ✅
-- CI: Lighthouse CI job 추가, E2E workflow 확장 (user 프로젝트, concurrency, artifact retention)
-- 코드 품질: Prettier + Husky + lint-staged (pre-commit hook)
-
-### Phase 25: 통합 테스트 + 문서 최종화 ✅
-- E2E 테스트 확장: responsive (4앱), dark-mode-all (4앱), a11y-all (axe-core 4앱) → 18개 파일
-- 프로젝트 문서: CONTRIBUTING.md, ARCHITECTURE.md (Mermaid), DEPLOYMENT.md, API_SPEC.md, DEMO.md
-- Playwright config: llm-router 배포 URL로 전환
-
-### Phase 26: Storybook 103개 완성 ✅
-- 30개 신규 스토리 추가 (Shared 5, ROI 원자 6, ROI 페이지 9, Admin/User 페이지 6, User 컴포넌트 4)
-- Shared 카테고리 신규 (Skeleton, Toast, EmptyState, ErrorBoundary, LanguageToggle)
-- main.ts에 @hchat/ui/i18n alias 추가
-- 97% UI 컴포넌트 커버리지 달성
-
-### Phase 27: 프로젝트 심층 분석 + 문서 정비 ✅
-- PROJECT_ANALYSIS.md 신규 작성 (아키텍처, 패턴, 통계, 기술 부채 심층 분석)
-- README.md 통계 업데이트 (116 토큰, 138 소스 파일)
-- 기능별 README 7개 교차 참조 추가
-- MEMORY.md 전면 업데이트 (6개 앱 + 규모 데이터)
-- TODO.md 신규 기능 기획 추가
-
----
+### Phase 25~27: 통합 테스트 + 문서 + 심층 분석 ✅
+18개 E2E (반응형, 다크모드, a11y), 5개 프로젝트 문서, PROJECT_ANALYSIS.md
 
 ### Phase 28: 단위 테스트 기반 구축 ✅
-- Vitest 4 + @testing-library/react 16 + jsdom 28 설정
-- 9개 테스트 파일, 123개 테스트 케이스 (전체 통과)
-- 테스트 대상: 공통 컴포넌트 (Badge, EmptyState, Skeleton, FeatureCard), 유틸리티 (validation), 서비스 레이어 (Admin MockApi, User chatService, LLM Router MockService, ROI aggregateData)
-- @vitest/coverage-v8 커버리지 리포트 (v8, lcov, html)
-- CI 통합: GitHub Actions ci.yml에 `npm test` 단계 추가
-- Turbo test task 등록
+Vitest 4 + @testing-library/react 16 + jsdom 28, 20파일 ~284 테스트, CI 통합
 
 ### Phase 29: 실시간 대시보드 ✅
-- Mock 기반 실시간 데이터 스트리밍 서비스 (setInterval 시뮬레이션)
-- 4종 실시간 컴포넌트: LiveMetricCard, LiveLineChart, LiveActivityFeed, LiveModelDistribution
-- AdminRealtimeDashboard 페이지 (실시간 모니터링 대시보드)
-- 4개 커스텀 훅: useRealtimeMetrics, useRealtimeTimeSeries, useRealtimeActivities, useRealtimeStats
-- Storybook 스토리 + 단위 테스트 (realtimeService, realtimeHooks)
-- Dynamic import (ssr: false) + ProtectedRoute
+Mock 실시간 데이터 스트리밍, 4종 Live 컴포넌트, 4개 커스텀 훅
 
----
-
-### Phase 30: AI 모델 실연동 (SSE 스트리밍) ✅
-- SSE 스트리밍 시뮬레이션 (토큰 단위 30-80ms, 프로바이더별 지연 프로파일 7종)
-- StreamingPlayground 컴포넌트 (모델 선택, Temperature/MaxTokens/TopP, 채팅 히스토리)
-- ModelComparison 컴포넌트 (2-3개 모델 나란히 비교, 가격/컨텍스트 시각화)
-- API 키 유틸리티 (maskAPIKey, validateAPIKey, generateAPIKey, estimateTokens, calculateCost)
-- useStreamingChat 훅 (onComplete 콜백, abort 지원, mountedRef 안전 업데이트)
-- 단위 테스트: streamingService (6개), apiKeyUtils (22개)
-- Storybook: ModelComparison 2개 스토리
-- apps/llm-router/app/compare/page.tsx 신규 페이지
-
----
+### Phase 30: SSE 스트리밍 실연동 ✅
+StreamingPlayground, ModelComparison, 7 프로바이더 레이턴시, API 키 유틸리티
 
 ### Phase 31: Desktop 모노레포 통합 ✅
-- apps/desktop/ Next.js 16 앱 스캐폴딩 (5페이지: Chat, Agents, Swarm, Debate, Tools)
-- packages/ui/src/desktop/ 공유 컴포넌트 7개 (DesktopSidebar, DesktopChatBubble, AgentCard, SwarmPanel, DebateArena, ToolGrid)
-- Desktop 디자인 토큰 24개 (--dt-* 변수, light+dark)
-- Storybook 스토리 6개, 단위 테스트 18개
+apps/desktop/ 스캐폴딩 (5페이지), 7개 컴포넌트, 24개 디자인 토큰
 
 ### Phase 32: 알림 시스템 ✅
-- Mock WebSocket 알림 서비스 (18개 한국어 템플릿, setInterval 스트리밍)
-- UI 컴포넌트 4개: NotificationBell, NotificationPanel, NotificationPreferences, NotificationCenter
-- 커스텀 훅: useNotifications, useNotificationBadge
-- Admin 알림 페이지 + Storybook 7개 스토리 + 단위 테스트 19개
-
----
+Mock WebSocket, 18개 한국어 템플릿, 4 UI + 2 훅, Admin 알림 페이지
 
 ### Phase 33: 대시보드 커스터마이징 ✅
-- 위젯 시스템 (10종 WidgetType, CSS Grid, localStorage 영속)
-- UI 컴포넌트 4개: WidgetCard, WidgetCatalogPanel, WidgetRenderer, CustomDashboard
-- 커스텀 훅: useDashboardLayout (13개 액션), useWidgetCatalog
-- Storybook 5개 + 단위 테스트 10개
+10종 위젯, CSS Grid, 드래그앤드롭, localStorage 영속, 4 UI + 2 훅
 
 ### Phase 34: AI 워크플로우 빌더 ✅
-- 비주얼 노드 파이프라인 (8종 NodeType, SVG 베지어 엣지, 노드 상태 시각화)
-- 4개 워크플로우 템플릿 (RAG/Agent/Summary/Classify)
-- Mock 순차 실행 시뮬레이션 (노드별 200-500ms)
-- UI 5개: WorkflowNodeCard, WorkflowCanvas, WorkflowNodeCatalog, WorkflowTemplateGallery, WorkflowBuilder
-- Storybook 7개 + 단위 테스트 12개
+8종 노드, SVG 베지어 엣지, 4개 템플릿, Mock 순차 실행, 5 UI
 
 ### Phase 35: 모바일 앱 ✅
-- PWA 모바일 앱 (480px 컨테이너, viewport meta)
-- 7개 모바일 컴포넌트: MobileTabBar, MobileChatList, MobileAssistantList, MobileChatView, MobileSettingsPage, MobileHeader, MobileApp
-- 서비스 레이어: mobileService (8개 CRUD), mobileHooks (5개 훅 incl. useSwipeGesture)
-- apps/mobile/ Next.js 16 앱 스캐폴딩 (port 3005)
-- Storybook 6개 스토리 + 단위 테스트 18개
+PWA 480px, 7개 모바일 컴포넌트, 스와이프 제스처, mobileService + 5 훅
 
 ---
 
-## 다음 계획 (Phase 36+)
+## 다음 계획 (Phase 36~54)
 
-→ 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
+### Phase 36: 테스트 커버리지 80% 달성 [ ]
 
-| Phase | 작업 | 설명 |
-|-------|------|------|
-| 36 | 멀티테넌트 | 조직별 격리, 커스텀 브랜딩, 데이터 파티셔닝 |
-| 37 | AI 에이전트 마켓플레이스 | 커뮤니티 에이전트 공유, 설치, 평가 시스템 |
-| 38 | 분석 엔진 고도화 | ML 기반 이상 탐지, 예측 분석, 자동 인사이트 |
-| 39 | 단위 테스트 커버리지 80% | Vitest 컴포넌트 테스트 확장, MSW 모킹, CI 임계값 강화 |
-| 40 | Storybook Interaction Tests | play() 함수 기반 사용자 시나리오 자동 검증, 폼 제출/모달 테스트 |
-| 41 | RAG 문서 검색 | 벡터 DB 기반 사내 문서 검색, 임베딩 파이프라인, 청킹 전략 |
-| 42 | 프롬프트 버전 관리 | 프롬프트 히스토리, A/B 테스트, 성과 비교 대시보드 |
-| 43 | SSO/SAML 실연동 | Okta/Azure AD SAML 2.0, JWT 토큰 관리, 세션 갱신 |
-| 44 | 채팅 히스토리 분석 | 대화 패턴 시각화, 주제 클러스터링, 사용자 행동 인사이트 대시보드 |
-| 45 | Admin 권한 관리 고도화 | RBAC (역할 기반 접근 제어), 세분화된 권한 매트릭스, 감사 추적 |
-| 46 | AI 모델 벤치마크 | 모델별 응답 품질/속도/비용 자동 벤치마크, 비교 리포트 생성 |
-| 47 | 피드백 루프 시스템 | 사용자 만족도 수집, 모델 응답 평가, A/B 테스트 자동화 |
-| 48 | 모니터링 알림 규칙 엔진 | 커스텀 알림 조건 빌더, Slack/Teams 웹훅, 에스컬레이션 정책 |
-| 49 | 팀 협업 채팅 | 실시간 멀티유저 채팅방, 멘션, 스레드, 파일 공유, WebSocket |
-| 50 | AI 모델 파인튜닝 | 사내 데이터 기반 모델 커스터마이징, 학습 진행 대시보드, 평가 메트릭 |
-| 51 | 데이터 시각화 고도화 | D3.js 기반 인터랙티브 차트, 드릴다운, 커스텀 대시보드 위젯 |
-| 52 | API Gateway | Rate limiting, 캐싱, 로드밸런싱, API 버전 관리, 헬스체크 |
-| 53 | 지식 그래프 | 사내 문서/대화 기반 지식 네트워크, 관계 시각화, 자동 태깅 |
-| 54 | 음성 인터페이스 | STT/TTS 통합, 음성 명령, 실시간 회의 요약 |
+**목표**: 현재 4.3% → 80%+ 단위 테스트 커버리지
+
+- [ ] 핵심 서비스 테스트: chatService, mockApiService, aggregateData, workflowService
+- [ ] UI 컴포넌트 테스트: ChatPage, WorkflowBuilder, CustomDashboard, StreamingPlayground
+- [ ] 훅 테스트: useDashboardLayout, useStreamingChat, useNotifications, useSwipeGesture
+- [ ] CI 커버리지 임계값 강화 (--coverage.thresholds)
+- [ ] MSW(Mock Service Worker) 도입으로 네트워크 레벨 모킹
+
+### Phase 37: @hchat/ui 패키지 분리 [ ]
+
+**목표**: 23,385줄 단일 패키지 → 도메인별 서브패키지
+
+- [ ] `@hchat/ui-admin` (68파일) 분리
+- [ ] `@hchat/ui-user` (34파일) 분리
+- [ ] `@hchat/ui-llm-router` (22파일) 분리
+- [ ] 배럴 export 정리 (admin/index.ts 46→도메인별 분산)
+- [ ] Turborepo 의존성 그래프 업데이트
+- [ ] 기존 import 경로 마이그레이션 스크립트
+
+### Phase 38: Storybook Interaction Tests [ ]
+
+**목표**: play() 함수 기반 사용자 시나리오 자동 검증
+
+- [ ] Admin: 로그인 폼 제출, ROI 차트 인터랙션, 위젯 드래그앤드롭
+- [ ] User: 채팅 메시지 전송, 비서 생성 모달, 파일 업로드
+- [ ] LLM Router: 모델 필터링/정렬, Playground 파라미터 조절
+- [ ] @storybook/test 설정 + CI 통합
+
+### Phase 39: 멀티테넌트 시스템 [ ]
+
+**목표**: 조직별 격리, 커스텀 브랜딩
+
+- [ ] 테넌트 컨텍스트 (TenantProvider, useTenant)
+- [ ] 조직별 토큰 오버라이드 (CSS 변수 동적 주입)
+- [ ] 데이터 파티셔닝 (테넌트 ID 기반 필터링)
+- [ ] 테넌트 관리 Admin 페이지 (생성/수정/삭제)
+- [ ] 테넌트별 로고, 컬러, 이름 커스터마이징
+
+### Phase 40: AI 에이전트 마켓플레이스 [ ]
+
+**목표**: 커뮤니티 에이전트 공유/설치/평가 시스템
+
+- [ ] 에이전트 카드 UI (설명, 평점, 설치수, 카테고리)
+- [ ] 에이전트 상세 페이지 (README, 변경로그, 리뷰)
+- [ ] 설치/제거 워크플로우 (의존성 체크, 권한 요청)
+- [ ] 에이전트 빌더 (프롬프트/도구/모델 조합 에디터)
+- [ ] 평가 시스템 (별점, 리뷰, 사용량 통계)
+
+### Phase 41: 분석 엔진 고도화 [ ]
+
+**목표**: ML 기반 이상 탐지, 예측 분석, 자동 인사이트
+
+- [ ] 시계열 이상 탐지 (z-score, IQR 기반)
+- [ ] 사용량 예측 (선형 회귀, 이동 평균)
+- [ ] 자동 인사이트 생성 (패턴 감지 → 자연어 설명)
+- [ ] 대시보드 위젯으로 인사이트 표시
+- [ ] 알림 연동 (이상 감지 시 자동 알림)
+
+### Phase 42: RAG 문서 검색 [ ]
+
+**목표**: 벡터 DB 기반 사내 문서 검색
+
+- [ ] 임베딩 파이프라인 (OpenAI/Cohere 임베딩)
+- [ ] 청킹 전략 (문단/섹션/슬라이딩 윈도우)
+- [ ] 벡터 검색 UI (질의 입력, 관련 문서 카드)
+- [ ] 하이브리드 검색 (키워드 + 시맨틱)
+- [ ] 출처 표시 (문서명, 섹션, 하이라이트)
+
+### Phase 43: 프롬프트 버전 관리 [ ]
+
+**목표**: 프롬프트 히스토리, A/B 테스트
+
+- [ ] 프롬프트 에디터 (버전 히스토리, diff 비교)
+- [ ] A/B 테스트 설정 (트래픽 분배, 기간 설정)
+- [ ] 성과 비교 대시보드 (응답 품질, 속도, 비용)
+- [ ] 프롬프트 라이브러리 공유 (팀 내 공유/포크)
+- [ ] 롤백 기능 (이전 버전으로 즉시 복원)
+
+### Phase 44: SSO/SAML 실연동 [ ]
+
+**목표**: Okta/Azure AD SAML 2.0 실연동
+
+- [ ] SAML 2.0 SP 구현 (metadata, assertion consumer)
+- [ ] Okta/Azure AD IdP 연동 테스트
+- [ ] JWT 토큰 발급/검증 (RS256, 리프레시 토큰)
+- [ ] 세션 관리 (갱신, 만료, 강제 로그아웃)
+- [ ] SSO 설정 관리 페이지 (기존 Mock → 실연동)
+
+### Phase 45: 채팅 히스토리 분석 [ ]
+
+**목표**: 대화 패턴 시각화, 주제 클러스터링
+
+- [ ] 대화 통계 대시보드 (일별/주별/월별 추이)
+- [ ] 주제 클러스터링 (TF-IDF + k-means 시각화)
+- [ ] 사용자 행동 인사이트 (자주 쓰는 기능, 피크 시간)
+- [ ] 대화 품질 분석 (응답 시간, 사용자 만족도)
+- [ ] 내보내기 (CSV, PDF 리포트)
+
+### Phase 46: Admin 권한 관리 고도화 [ ]
+
+**목표**: RBAC (역할 기반 접근 제어)
+
+- [ ] 역할 정의 (admin, manager, viewer, custom)
+- [ ] 권한 매트릭스 UI (리소스 × 액션 체크박스)
+- [ ] 페이지/기능별 접근 제어 (PermissionGate 컴포넌트)
+- [ ] 감사 추적 강화 (권한 변경 로그)
+- [ ] 위임 기능 (일시적 권한 부여/해제)
+
+### Phase 47: AI 모델 벤치마크 [ ]
+
+**목표**: 모델별 응답 품질/속도/비용 자동 벤치마크
+
+- [ ] 벤치마크 테스트 스위트 (10개 표준 질문)
+- [ ] 자동 실행 스케줄러 (일간/주간)
+- [ ] 비교 리포트 (레이더 차트, 랭킹 테이블)
+- [ ] 모델 추천 엔진 (용도별 최적 모델 제안)
+- [ ] 벤치마크 히스토리 (성능 변화 추이)
+
+### Phase 48: 피드백 루프 시스템 [ ]
+
+**목표**: 사용자 만족도 수집, 응답 평가, A/B 자동화
+
+- [ ] 인라인 피드백 (👍/👎, 별점, 코멘트)
+- [ ] 피드백 대시보드 (시간별 추이, 모델별 비교)
+- [ ] 자동 A/B 테스트 (트래픽 분배, 승자 자동 배포)
+- [ ] 피드백 기반 프롬프트 튜닝 제안
+- [ ] 피드백 내보내기 (CSV, API)
+
+### Phase 49: 모니터링 알림 규칙 엔진 [ ]
+
+**목표**: 커스텀 알림 조건 빌더
+
+- [ ] 규칙 빌더 UI (조건 조합: AND/OR, 임계값, 기간)
+- [ ] 알림 채널 (이메일, Slack, Teams 웹훅)
+- [ ] 에스컬레이션 정책 (단계별 알림, 자동 해제)
+- [ ] 알림 히스토리 + 통계
+- [ ] 프리셋 규칙 템플릿 (API 오류율, 비용 초과, 사용량 급증)
+
+### Phase 50: 팀 협업 채팅 [ ]
+
+**목표**: 실시간 멀티유저 채팅방
+
+- [ ] 채팅방 CRUD (생성, 초대, 나가기)
+- [ ] 실시간 메시지 (WebSocket, presence 표시)
+- [ ] 멘션 (@user), 스레드 (답글), 리액션
+- [ ] 파일 공유 (드래그앤드롭, 미리보기)
+- [ ] AI 비서 공유 (팀 내 비서 결과 공유)
+
+### Phase 51: AI 모델 파인튜닝 [ ]
+
+**목표**: 사내 데이터 기반 모델 커스터마이징
+
+- [ ] 학습 데이터셋 관리 (업로드, 검증, 전처리)
+- [ ] 파인튜닝 작업 관리 (시작, 진행률, 완료)
+- [ ] 학습 진행 대시보드 (loss 차트, 에포크)
+- [ ] 평가 메트릭 (기본 vs 파인튜닝 비교)
+- [ ] 모델 배포 (파인튜닝 모델 → LLM Router 등록)
+
+### Phase 52: 데이터 시각화 고도화 [ ]
+
+**목표**: D3.js 기반 인터랙티브 차트
+
+- [ ] D3.js 차트 라이브러리 래퍼 (현재 SVG → D3 마이그레이션)
+- [ ] 드릴다운 (차트 클릭 → 상세 데이터)
+- [ ] 커스텀 대시보드 위젯 (사용자 정의 차트)
+- [ ] 애니메이션 전환 (데이터 변경 시 부드러운 트랜지션)
+- [ ] 차트 내보내기 (PNG, SVG, PDF)
+
+### Phase 53: 지식 그래프 [ ]
+
+**목표**: 사내 문서/대화 기반 지식 네트워크
+
+- [ ] 지식 노드 (문서, 개념, 인물, 프로젝트)
+- [ ] 관계 시각화 (D3 force-directed graph)
+- [ ] 자동 태깅 (NER 기반 엔티티 추출)
+- [ ] 검색 연동 (지식 그래프 기반 관련 문서 추천)
+- [ ] 그래프 편집 (노드/엣지 추가, 수정, 삭제)
+
+### Phase 54: 음성 인터페이스 [ ]
+
+**목표**: STT/TTS 통합, 음성 명령
+
+- [ ] STT (Web Speech API / Whisper API)
+- [ ] TTS (Web Speech API / ElevenLabs)
+- [ ] 음성 명령 (채팅 전송, 페이지 이동)
+- [ ] 실시간 회의 요약 (녹음 → 트랜스크립트 → 요약)
+- [ ] 접근성 강화 (시각장애인 음성 네비게이션)
 
 ---
 
 ## 기술 부채
 
-| # | 항목 | 상태 |
-|---|------|------|
-| 1 | 단위 테스트 | ✅ Phase 28 완료 (20파일, 259 테스트, 커버리지 80% 목표 진행 중) |
-| 2 | Desktop 모노레포 통합 | ✅ Phase 31 완료 |
-| 3 | AI 모델 실제 API 연동 | 현재 Mock 데이터, Phase 31에서 실연동 예정 |
-| 4 | Storybook interaction tests | 현재 visual only, 인터랙션 테스트 추가 필요 |
-| 5 | 서비스 레이어 실제 API 전환 | Admin/User/LLM Router Mock → Real API 전환 |
-| 6 | 모바일 반응형 | Phase 35 모바일 앱으로 부분 해결, E2E 모바일 viewport 자동화 필요 |
-| 7 | PROJECT_ANALYSIS 자동 생성 | 수동 작성 중, CI에서 자동 생성 스크립트 도입 검토 |
-| 8 | i18n 키 커버리지 | HMG 49키만 지원, Admin/User/LLM Router 확장 필요 |
-| 9 | Storybook 인터랙션 테스트 | play() 함수 기반 사용자 시나리오 자동 검증 필요 |
+| # | 우선순위 | 항목 | 상태 |
+|---|----------|------|------|
+| 1 | CRITICAL | 단위 테스트 커버리지 | 20/463 파일 (4.3%), Phase 36에서 80% 목표 |
+| 2 | CRITICAL | Mock → Real API 전환 | 전체 Mock, MSW 도입 후 점진적 전환 |
+| 3 | HIGH | @hchat/ui 패키지 분리 | 23,385줄 단일 패키지, Phase 37에서 분리 |
+| 4 | HIGH | Admin 배럴 export 비대 | index.ts 46 exports, tree-shaking 비효율 |
+| 5 | HIGH | Storybook Interaction Tests | 0개, Phase 38에서 play() 함수 도입 |
+| 6 | MEDIUM | console.log (소스) | 4개 (LLM Router login/signup) |
+| 7 | MEDIUM | ChatPage.tsx 429줄 | 서브 컴포넌트 분리 필요 |
+| 8 | MEDIUM | mockData.ts 1,099줄 | 프로바이더별 분리 필요 |
+| 9 | LOW | i18n 키 커버리지 | HMG 49키만 지원, 전체 앱 확장 필요 |
+| 10 | LOW | Admin 빌드 캐시 | .next 275MB, 캐시 정리 자동화 |
