@@ -57,6 +57,12 @@ export { default as BenchmarkDashboard } from './BenchmarkDashboard'
 export { default as KnowledgeGraphView } from './KnowledgeGraphView'
 export { default as FeedbackDashboard } from './FeedbackDashboard'
 export { default as AlertRuleBuilder } from './AlertRuleBuilder'
+export { default as TeamChatRoom } from './TeamChatRoom'
+export { default as FineTuneDashboard } from './FineTuneDashboard'
+export { default as PromptVersionManager } from './PromptVersionManager'
+export { default as RBACManager } from './RBACManager'
+export { default as ChatAnalyticsPage } from './ChatAnalyticsPage'
+export { default as VoiceInterface } from './VoiceInterface'
 
 // Tenant
 export { default as TenantSelector } from './TenantSelector'
