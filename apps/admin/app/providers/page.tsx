@@ -3,13 +3,15 @@ import { SkeletonCard } from '@hchat/ui'
 import { ProtectedRoute } from '@hchat/ui/admin'
 import type { Metadata } from 'next'
 
+export const revalidate = 3600
+
 export const metadata: Metadata = {
   title: 'AI 제공자 상태',
 }
 
 const AdminProviderStatus = dynamic(
-  () => import('@hchat/ui/admin').then(m => ({ default: m.AdminProviderStatus })),
-  { loading: () => <SkeletonCard /> }
+  () => import('@hchat/ui/admin').then((m) => ({ default: m.AdminProviderStatus })),
+  { loading: () => <SkeletonCard /> },
 )
 
 export default function ProvidersPage() {

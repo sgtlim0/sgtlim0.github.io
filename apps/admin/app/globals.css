@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import '../../../packages/tokens/styles/tokens.css';
 
+@source "../../../packages/ui/src/admin";
+@source "../../../packages/ui/src/roi";
 @source "../../../packages/ui/src";
 
 @theme inline {
@@ -26,23 +28,23 @@
   --color-hmg-text-primary: var(--hmg-text-body);
   --color-hmg-text-secondary: var(--hmg-text-caption);
   --color-hmg-text-tertiary: var(--hmg-text-caption);
-  --color-hmg-text-placeholder: #CCCCCC;
+  --color-hmg-text-placeholder: #cccccc;
   --color-hmg-link: var(--hmg-navy);
 
   /* Admin tokens (referencing CSS vars for dark mode) */
   --color-admin-teal: var(--admin-teal);
-  --color-admin-teal-hover: #005F6E;
+  --color-admin-teal-hover: #005f6e;
   --color-admin-bg-card: var(--admin-bg-card);
   --color-admin-bg-section: var(--admin-bg-section);
   --color-admin-border: var(--admin-input-border);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
-  --color-text-placeholder: #CCCCCC;
-  --color-status-warning: #F59E0B;
-  --color-status-success: #10B981;
-  --color-status-error: #EF4444;
-  --color-status-info: #3B82F6;
+  --color-text-placeholder: #cccccc;
+  --color-status-warning: #f59e0b;
+  --color-status-success: #10b981;
+  --color-status-error: #ef4444;
+  --color-status-info: #3b82f6;
 
   /* ROI tokens */
   --color-roi-sidebar-bg: var(--roi-sidebar-bg);
@@ -70,9 +72,19 @@
 }
 
 body {
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-admin-bg-section);
