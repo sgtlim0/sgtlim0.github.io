@@ -10,14 +10,23 @@
     "./hmg/*": "./src/hmg/*.tsx",
     "./admin": "./src/admin/index.ts",
     "./admin/*": "./src/admin/*.tsx",
+    "./admin/auth": "./src/admin/auth/index.ts",
+    "./admin/services": "./src/admin/services/index.ts",
+    "./admin/services/notifications": "./src/admin/services/notificationService.ts",
+    "./admin/services/widgets": "./src/admin/services/widgetService.ts",
+    "./admin/services/workflows": "./src/admin/services/workflowService.ts",
     "./user": "./src/user/index.ts",
     "./user/*": "./src/user/*.tsx",
+    "./user/services": "./src/user/services/index.ts",
     "./llm-router": "./src/llm-router/index.ts",
     "./llm-router/*": "./src/llm-router/*.tsx",
+    "./llm-router/services": "./src/llm-router/services/index.ts",
     "./desktop": "./src/desktop/index.ts",
     "./desktop/*": "./src/desktop/*.tsx",
     "./mobile": "./src/mobile/index.ts",
-    "./mobile/*": "./src/mobile/*/index.ts"
+    "./mobile/*": "./src/mobile/*/index.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./roi": "./src/roi/index.ts"
   },
   "files": [
     "src"

@@ -14,7 +14,6 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // TODO: Implement login logic
-    console.log('Login:', formData)
   }
 
   return (
@@ -77,11 +76,7 @@ export default function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-lr-text-muted hover:text-lr-text-primary transition-colors"
                 >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
@@ -153,7 +148,10 @@ export default function LoginPage() {
           {/* Signup Link */}
           <div className="mt-6 text-center text-sm text-lr-text-secondary">
             계정이 없으신가요?{' '}
-            <Link href="/signup" className="text-lr-primary hover:text-lr-primary-hover font-semibold">
+            <Link
+              href="/signup"
+              className="text-lr-primary hover:text-lr-primary-hover font-semibold"
+            >
               회원가입
             </Link>
           </div>

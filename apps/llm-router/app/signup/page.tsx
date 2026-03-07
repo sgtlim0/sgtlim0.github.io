@@ -29,7 +29,6 @@ export default function SignupPage() {
     }
 
     // TODO: Implement signup logic
-    console.log('Signup:', formData)
   }
 
   return (
@@ -52,10 +51,7 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Input */}
             <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium mb-2 text-lr-text-primary"
-              >
+              <label htmlFor="name" className="block text-sm font-medium mb-2 text-lr-text-primary">
                 이름
               </label>
               <div className="relative">
@@ -119,11 +115,7 @@ export default function SignupPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-lr-text-muted hover:text-lr-text-primary transition-colors"
                 >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
               <p className="mt-1 text-xs text-lr-text-muted">최소 8자 이상</p>
@@ -143,9 +135,7 @@ export default function SignupPage() {
                   type={showConfirmPassword ? 'text' : 'password'}
                   id="confirmPassword"
                   value={formData.confirmPassword}
-                  onChange={(e) =>
-                    setFormData({ ...formData, confirmPassword: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   className="w-full pl-10 pr-12 py-3 border border-lr-border rounded-lg bg-lr-bg text-lr-text-primary focus:outline-none focus:ring-2 focus:ring-lr-primary focus:border-transparent"
                   placeholder="••••••••"
                   required
@@ -170,9 +160,7 @@ export default function SignupPage() {
                 type="checkbox"
                 id="agreeToTerms"
                 checked={formData.agreeToTerms}
-                onChange={(e) =>
-                  setFormData({ ...formData, agreeToTerms: e.target.checked })
-                }
+                onChange={(e) => setFormData({ ...formData, agreeToTerms: e.target.checked })}
                 className="mt-1 w-4 h-4 border-lr-border rounded focus:ring-2 focus:ring-lr-primary"
                 required
               />
@@ -200,7 +188,10 @@ export default function SignupPage() {
           {/* Login Link */}
           <div className="mt-6 text-center text-sm text-lr-text-secondary">
             이미 계정이 있으신가요?{' '}
-            <Link href="/login" className="text-lr-primary hover:text-lr-primary-hover font-semibold">
+            <Link
+              href="/login"
+              className="text-lr-primary hover:text-lr-primary-hover font-semibold"
+            >
               로그인
             </Link>
           </div>
