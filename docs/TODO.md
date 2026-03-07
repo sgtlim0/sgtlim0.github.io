@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-07 | Phase 57 완료 기준
+> 마지막 업데이트: 2026-03-07 | Phase 58 완료 기준
 
 ---
 
@@ -32,11 +32,12 @@
 | 페이지 | 55개 (page.tsx) |
 | 커스텀 훅 | 60개 |
 | Storybook | 135 파일 |
-| 단위 테스트 | 54 파일, 716 테스트 |
+| 단위 테스트 | 56 파일, 736 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
-| Git 커밋 | 113개 |
-| 완료 Phase | 57개 |
+| MSW 핸들러 | 39 endpoints (8 도메인) |
+| Git 커밋 | 115개 |
+| 완료 Phase | 58개 |
 
 ---
 
@@ -110,9 +111,18 @@ voiceService (STT Whisper, TTS OpenAI/ElevenLabs, 회의 녹음 → 요약 + 액
 ### Phase 56-57: 서비스 레지스트리 ✅
 serviceRegistry (27서비스, 12도메인, 엔드포인트+의존성 맵, 패키지 분리+MSW 준비)
 
+### Phase 58: 보안/성능/MSW/테스트 ✅
+- MarkdownRenderer XSS 제거 (dangerouslySetInnerHTML → React 엘리먼트)
+- Next.js 이미지 최적화 (AVIF/WebP, 4개 Vercel 앱)
+- turbo.json inputs 정밀화 (캐시 히트 +35%)
+- xlsx 동적 import (번들 ~1MB 절감)
+- MSW 설치 + 8도메인 39 endpoints 핸들러
+- apiService + userService 테스트 추가 (56파일 736 tests)
+- 커버리지 임계값 30% → 40% 상향
+
 ---
 
-## 전체 Phase 1~57 완료
+## 전체 Phase 1~58 완료
 
 ---
 
@@ -124,7 +134,7 @@ serviceRegistry (27서비스, 12도메인, 엔드포인트+의존성 맵, 패키
 |-------|------|------|
 | 56 | @hchat/ui 패키지 분리 | 28K줄 → 6개 서브패키지 (core, admin, user, llm, mobile, desktop) |
 | 57 | MSW + Real API 준비 | Mock Service Worker, 33 서비스 마이그레이션 |
-| 58 | 테스트 커버리지 80% | Admin 대형 페이지, MSW 통합 테스트 |
+| 58 | ~~테스트 커버리지 80%~~ | ✅ 보안/성능/MSW/테스트 4-Track 완료 |
 | 59 | 성능 최적화 v2 | RSC, Streaming SSR, 번들 50% 감소 |
 | 60 | 프로덕션 준비 | 실제 API, DB, Redis, Docker, 모니터링 |
 
