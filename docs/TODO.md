@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-07 | Phase 54 완료 기준
+> 마지막 업데이트: 2026-03-07 | Phase 57 완료 기준
 
 ---
 
@@ -24,19 +24,19 @@
 | 항목 | 수량 |
 |------|------|
 | 앱 (모노레포) | 8개 |
-| TS/TSX 파일 | 516개 |
-| 총 코드 라인 | 48,025줄 (TS/TSX) |
-| @hchat/ui | 28,327줄 |
-| UI 컴포넌트 | 132개 |
-| 서비스 파일 | 40개 |
+| TS/TSX 파일 | 530개 |
+| 총 코드 라인 | 50,226줄 (TS/TSX) |
+| @hchat/ui | 30,464줄 (61%) |
+| UI 컴포넌트 | 144개 |
+| 서비스 파일 | 41개 |
 | 페이지 | 55개 (page.tsx) |
-| 커스텀 훅 | 61개 |
+| 커스텀 훅 | 60개 |
 | Storybook | 135 파일 |
-| 단위 테스트 | 53 파일, 707 테스트 |
+| 단위 테스트 | 54 파일, 716 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
-| Git 커밋 | 107개 |
-| 완료 Phase | 54개 |
+| Git 커밋 | 113개 |
+| 완료 Phase | 57개 |
 
 ---
 
@@ -104,17 +104,24 @@ voiceService (STT Whisper, TTS OpenAI/ElevenLabs, 회의 녹음 → 요약 + 액
 
 ---
 
-## 전체 Phase 1~54 완료
+### Phase 55: UI 컴포넌트 구현 ✅
+12개 Admin 페이지 구현 (AnalyticsDashboard, RAGSearchPage, BenchmarkDashboard, KnowledgeGraphView, FeedbackDashboard, AlertRuleBuilder, TeamChatRoom, FineTuneDashboard, PromptVersionManager, RBACManager, ChatAnalyticsPage, VoiceInterface)
+
+### Phase 56-57: 서비스 레지스트리 ✅
+serviceRegistry (27서비스, 12도메인, 엔드포인트+의존성 맵, 패키지 분리+MSW 준비)
 
 ---
 
-## 다음 계획 (Phase 55~60)
+## 전체 Phase 1~57 완료
+
+---
+
+## 다음 계획 (Phase 58~60)
 
 → 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
 
 | Phase | 작업 | 설명 |
 |-------|------|------|
-| 55 | UI 컴포넌트 구현 | Phase 39-54 서비스의 페이지/컴포넌트 14개 추가 |
 | 56 | @hchat/ui 패키지 분리 | 28K줄 → 6개 서브패키지 (core, admin, user, llm, mobile, desktop) |
 | 57 | MSW + Real API 준비 | Mock Service Worker, 33 서비스 마이그레이션 |
 | 58 | 테스트 커버리지 80% | Admin 대형 페이지, MSW 통합 테스트 |
