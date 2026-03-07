@@ -37,7 +37,7 @@ export default function WorkflowBuilder() {
   const handleExecute = async () => {
     resetStatuses()
     clearResults()
-    await execute(nodes, edges, updateNodeStatus)
+    await execute()
   }
 
   const handleNewWorkflow = () => {
@@ -114,7 +114,12 @@ export default function WorkflowBuilder() {
       {viewMode === 'editor' && (
         <div className="flex gap-4 flex-1 min-h-0">
           {/* Left: Catalog sidebar */}
-          {showCatalog && <WorkflowNodeCatalog catalog={[...catalog]} onAddNode={addNode} />}
+          {showCatalog && (
+            <WorkflowNodeCatalog
+              catalog={[...catalog]}
+              onAddNode={(type) => addNode(type, { x: 200, y: 200 })}
+            />
+          )}
 
           {/* Center: Canvas */}
           <WorkflowCanvas
@@ -150,12 +155,12 @@ export default function WorkflowBuilder() {
               </div>
 
               {/* Dynamic config fields */}
-              {selectedNodeSchema.length > 0 && (
+              {selectedNodeSchema && selectedNodeSchema.configSchema.length > 0 && (
                 <div className="flex flex-col gap-3 border-t border-admin-border pt-3">
                   <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
                     설정 값
                   </h3>
-                  {selectedNodeSchema.map((field) => {
+                  {selectedNodeSchema.configSchema.map((field) => {
                     const currentValue = selectedNode.config[field.key] ?? ''
                     return (
                       <div key={field.key} className="flex flex-col gap-1">
@@ -170,7 +175,7 @@ export default function WorkflowBuilder() {
                             id={`cfg-${field.key}`}
                             value={String(currentValue)}
                             onChange={(e) =>
-                              updateNodeConfig(selectedNode.id, field.key, e.target.value)
+                              updateNodeConfig(selectedNode.id, { [field.key]: e.target.value })
                             }
                             className="rounded-lg border border-admin-border bg-admin-bg-section px-3 py-2 text-sm text-text-primary outline-none focus:border-primary"
                           >
@@ -186,11 +191,10 @@ export default function WorkflowBuilder() {
                             type={field.type === 'number' ? 'number' : 'text'}
                             value={String(currentValue)}
                             onChange={(e) =>
-                              updateNodeConfig(
-                                selectedNode.id,
-                                field.key,
-                                field.type === 'number' ? Number(e.target.value) : e.target.value,
-                              )
+                              updateNodeConfig(selectedNode.id, {
+                                [field.key]:
+                                  field.type === 'number' ? Number(e.target.value) : e.target.value,
+                              })
                             }
                             className="rounded-lg border border-admin-border bg-admin-bg-section px-3 py-2 text-sm text-text-primary outline-none focus:border-primary"
                           />
@@ -206,7 +210,7 @@ export default function WorkflowBuilder() {
       )}
 
       {/* Execution Results Panel */}
-      {results.length > 0 && (
+      {Object.keys(results).length > 0 && (
         <div className="rounded-xl border border-admin-border bg-admin-bg-card p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-text-primary">실행 결과</h2>
@@ -219,25 +223,22 @@ export default function WorkflowBuilder() {
             </button>
           </div>
           <div className="flex flex-col gap-2">
-            {results.map((result) => {
-              const node = nodes.find((n) => n.id === result.nodeId)
+            {Object.entries(results).map(([nodeId, status]) => {
+              const node = nodes.find((n) => n.id === nodeId)
               return (
                 <div
-                  key={result.nodeId}
+                  key={nodeId}
                   className="flex items-center gap-3 rounded-lg border border-admin-border p-2.5 text-sm"
                 >
                   <span
                     className={`w-2 h-2 rounded-full shrink-0 ${
-                      result.status === 'success' ? 'bg-green-500' : 'bg-red-500'
+                      status === 'success' ? 'bg-green-500' : 'bg-red-500'
                     }`}
                   />
                   <span className="font-medium text-text-primary min-w-[100px]">
-                    {node?.label ?? result.nodeId}
+                    {node?.label ?? nodeId}
                   </span>
-                  <span className="text-text-secondary text-xs">{result.durationMs}ms</span>
-                  <span className="text-xs text-text-secondary flex-1 truncate">
-                    {result.output}
-                  </span>
+                  <span className="text-text-secondary text-xs">{status}</span>
                 </div>
               )
             })}

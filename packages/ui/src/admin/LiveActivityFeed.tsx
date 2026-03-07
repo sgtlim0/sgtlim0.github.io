@@ -76,7 +76,7 @@ function ActivityItem({ activity, isNew }: { activity: RealtimeActivity; isNew: 
   )
 }
 
-export default function LiveActivityFeed({ activities }: LiveActivityFeedProps) {
+export function LiveActivityFeed({ activities }: LiveActivityFeedProps) {
   return (
     <div
       className="rounded-xl border overflow-hidden"
@@ -104,3 +104,5 @@ export default function LiveActivityFeed({ activities }: LiveActivityFeedProps) 
     </div>
   )
 }
+
+export default LiveActivityFeed

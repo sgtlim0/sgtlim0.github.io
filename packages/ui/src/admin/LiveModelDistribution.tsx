@@ -69,7 +69,7 @@ function DonutSegments({
   )
 }
 
-export default function LiveModelDistribution({ distribution }: LiveModelDistributionProps) {
+export function LiveModelDistribution({ distribution }: LiveModelDistributionProps) {
   const [hovered, setHovered] = useState<number | null>(null)
 
   const total = distribution.reduce((sum, d) => sum + d.count, 0)
@@ -136,3 +136,5 @@ export default function LiveModelDistribution({ distribution }: LiveModelDistrib
     </div>
   )
 }
+
+export default LiveModelDistribution

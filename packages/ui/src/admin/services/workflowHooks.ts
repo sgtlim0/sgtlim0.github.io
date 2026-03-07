@@ -46,6 +46,8 @@ export function useWorkflowEditor(workflowId?: string) {
   )
   const [workflows, setWorkflows] = useState<Workflow[]>(() => serviceGetWorkflows())
   const [execution, setExecution] = useState<WorkflowExecution | null>(null)
+  const [workflowName, setWorkflowName] = useState(workflow?.name ?? '새 워크플로우')
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
   const catalog = useMemo<readonly NodeCatalogItem[]>(() => getNodeCatalog(), [])
   const templates = useMemo<readonly WorkflowTemplate[]>(() => getWorkflowTemplates(), [])
 
@@ -165,16 +167,65 @@ export function useWorkflowEditor(workflowId?: string) {
   const nodes = workflow?.nodes ?? []
   const edges = workflow?.edges ?? []
 
+  const selectedNode = useMemo(
+    () => (selectedNodeId ? (nodes.find((n) => n.id === selectedNodeId) ?? null) : null),
+    [selectedNodeId, nodes],
+  )
+
+  const selectedNodeSchema = useMemo(
+    () => (selectedNode ? (catalog.find((c) => c.type === selectedNode.type) ?? null) : null),
+    [selectedNode, catalog],
+  )
+
+  const selectNode = useCallback((nodeId: string | null) => {
+    setSelectedNodeId(nodeId)
+  }, [])
+
+  const deleteNode = removeNode
+  const updateNodeConfig = updateConfig
+
+  const updateNodeStatus = useCallback(
+    (_nodeId: string, _status: string) => {
+      if (!workflow) return
+      refreshWorkflow(workflow.id)
+    },
+    [workflow, refreshWorkflow],
+  )
+
+  const loadTemplate = useCallback(
+    (templateId: string) => {
+      createFromTemplate(templateId)
+    },
+    [createFromTemplate],
+  )
+
+  const newWorkflow = useCallback(() => {
+    createNew('새 워크플로우', '')
+  }, [createNew])
+
+  const resetStatuses = useCallback(() => {
+    setExecution(null)
+  }, [])
+
   return {
     workflow,
+    workflowName,
+    setWorkflowName,
     nodes,
     edges,
+    selectedNodeId,
+    selectedNode,
+    selectedNodeSchema,
     catalog,
     templates,
     addNode,
     removeNode,
+    deleteNode,
     moveNode,
     updateConfig,
+    updateNodeConfig,
+    updateNodeStatus,
+    selectNode,
     addEdge,
     removeEdge,
     save,
@@ -182,6 +233,9 @@ export function useWorkflowEditor(workflowId?: string) {
     execution,
     createNew,
     createFromTemplate,
+    loadTemplate,
+    newWorkflow,
+    resetStatuses,
     workflows,
     deleteWorkflow,
     loadWorkflow,
@@ -194,7 +248,7 @@ export function useWorkflowEditor(workflowId?: string) {
  * Simulates sequential node execution with setInterval.
  * Each node transitions: idle -> running -> success/error with 200-500ms delay.
  */
-export function useWorkflowExecution(workflowId: string) {
+export function useWorkflowExecution(workflowId?: string) {
   const [execution, setExecution] = useState<WorkflowExecution | null>(null)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -209,6 +263,7 @@ export function useWorkflowExecution(workflowId: string) {
   }, [execution])
 
   const execute = useCallback(() => {
+    if (!workflowId) return
     const workflow = serviceGetWorkflow(workflowId)
     if (!workflow || workflow.nodes.length === 0) return
 
@@ -271,5 +326,17 @@ export function useWorkflowExecution(workflowId: string) {
     }, 300)
   }, [workflowId])
 
-  return { execution, isRunning, execute, nodeStatuses }
+  const clearResults = useCallback(() => {
+    setExecution(null)
+  }, [])
+
+  return {
+    execution,
+    isRunning,
+    executing: isRunning,
+    results: nodeStatuses,
+    execute,
+    nodeStatuses,
+    clearResults,
+  }
 }

@@ -118,7 +118,7 @@ function XAxisLabels({ data }: { data: RealtimeDataPoint[] }) {
   )
 }
 
-export default function LiveLineChart({
+export function LiveLineChart({
   data,
   color = 'var(--primary)',
   height = 200,
@@ -213,3 +213,5 @@ export default function LiveLineChart({
     </div>
   )
 }
+
+export default LiveLineChart

@@ -24,7 +24,7 @@ function formatValue(value: number, unit: string): string {
   return `${value.toLocaleString()}${unit ? ` ${unit}` : ''}`
 }
 
-export default function LiveMetricCard({ metric }: LiveMetricCardProps) {
+export function LiveMetricCard({ metric }: LiveMetricCardProps) {
   const trendColor = getTrendColor(metric.trend)
 
   return (
@@ -61,3 +61,5 @@ export default function LiveMetricCard({ metric }: LiveMetricCardProps) {
     </div>
   )
 }
+
+export default LiveMetricCard
