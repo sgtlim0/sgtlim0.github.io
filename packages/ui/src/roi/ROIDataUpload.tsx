@@ -1,38 +1,57 @@
-'use client';
+'use client'
 
-import { useState, useRef, useCallback } from 'react';
-import { read, utils, type WorkBook } from 'xlsx';
-import { useROIData } from './ROIDataContext';
+import { useState, useRef, useCallback } from 'react'
+import type { WorkBook } from 'xlsx'
+import { useROIData } from './ROIDataContext'
 
 interface UploadState {
-  status: 'idle' | 'dragging' | 'parsing' | 'done' | 'error';
-  fileName?: string;
-  recordCount?: number;
-  errorMessage?: string;
+  status: 'idle' | 'dragging' | 'parsing' | 'done' | 'error'
+  fileName?: string
+  recordCount?: number
+  errorMessage?: string
 }
 
 interface ParsedRecord {
-  [key: string]: string | number | boolean | null;
+  [key: string]: string | number | boolean | null
 }
 
 function generateSampleData(): ParsedRecord[] {
-  const departments = ['개발팀', '마케팅팀', '영업팀', '기획팀', '인사팀', 'IT인프라팀', '디자인팀', '재무팀'];
-  const models = ['Claude Sonnet', 'GPT-4o', 'Gemini Pro', 'Claude Haiku', 'GPT-4o-mini'];
-  const features = ['AI 채팅', '문서 요약', '코드 리뷰', '번역', '데이터 분석', '회의록 작성', '이메일 작성'];
-  const grades = ['임원', '팀장', '과장', '대리', '사원'];
+  const departments = [
+    '개발팀',
+    '마케팅팀',
+    '영업팀',
+    '기획팀',
+    '인사팀',
+    'IT인프라팀',
+    '디자인팀',
+    '재무팀',
+  ]
+  const models = ['Claude Sonnet', 'GPT-4o', 'Gemini Pro', 'Claude Haiku', 'GPT-4o-mini']
+  const features = [
+    'AI 채팅',
+    '문서 요약',
+    '코드 리뷰',
+    '번역',
+    '데이터 분석',
+    '회의록 작성',
+    '이메일 작성',
+  ]
+  const grades = ['임원', '팀장', '과장', '대리', '사원']
 
-  const records: ParsedRecord[] = [];
-  const startDate = new Date('2025-09-01');
-  const endDate = new Date('2026-02-28');
+  const records: ParsedRecord[] = []
+  const startDate = new Date('2025-09-01')
+  const endDate = new Date('2026-02-28')
 
   for (let i = 0; i < 10433; i++) {
-    const date = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
-    const dept = departments[Math.floor(Math.random() * departments.length)];
-    const model = models[Math.floor(Math.random() * models.length)];
-    const feature = features[Math.floor(Math.random() * features.length)];
-    const grade = grades[Math.floor(Math.random() * grades.length)];
-    const tokens = Math.floor(Math.random() * 8000) + 200;
-    const savedMin = Math.floor(Math.random() * 40) + 2;
+    const date = new Date(
+      startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()),
+    )
+    const dept = departments[Math.floor(Math.random() * departments.length)]
+    const model = models[Math.floor(Math.random() * models.length)]
+    const feature = features[Math.floor(Math.random() * features.length)]
+    const grade = grades[Math.floor(Math.random() * grades.length)]
+    const tokens = Math.floor(Math.random() * 8000) + 200
+    const savedMin = Math.floor(Math.random() * 40) + 2
 
     records.push({
       날짜: date.toISOString().slice(0, 10),
@@ -44,86 +63,106 @@ function generateSampleData(): ParsedRecord[] {
       토큰수: tokens,
       절감시간_분: savedMin,
       만족도: Math.floor(Math.random() * 3) + 3,
-    });
+    })
   }
 
-  return records.sort((a, b) => String(a['날짜']).localeCompare(String(b['날짜'])));
+  return records.sort((a, b) => String(a['날짜']).localeCompare(String(b['날짜'])))
 }
 
-function parseWorkbook(wb: WorkBook): ParsedRecord[] {
-  const sheetName = wb.SheetNames[0];
-  if (!sheetName) return [];
-  const sheet = wb.Sheets[sheetName];
-  if (!sheet) return [];
-  return utils.sheet_to_json<ParsedRecord>(sheet);
+async function parseWorkbook(wb: WorkBook): Promise<ParsedRecord[]> {
+  const sheetName = wb.SheetNames[0]
+  if (!sheetName) return []
+  const sheet = wb.Sheets[sheetName]
+  if (!sheet) return []
+  const { utils } = await import('xlsx')
+  return utils.sheet_to_json<ParsedRecord>(sheet)
 }
 
 export default function ROIDataUpload() {
-  const [state, setState] = useState<UploadState>({ status: 'idle' });
-  const [records, setRecords] = useState<ParsedRecord[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const { setRecords: setGlobalRecords, clearRecords: clearGlobalRecords } = useROIData();
+  const [state, setState] = useState<UploadState>({ status: 'idle' })
+  const [records, setRecords] = useState<ParsedRecord[]>([])
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const { setRecords: setGlobalRecords, clearRecords: clearGlobalRecords } = useROIData()
 
   const processFile = useCallback(async (file: File) => {
-    setState({ status: 'parsing', fileName: file.name });
+    setState({ status: 'parsing', fileName: file.name })
     try {
-      const buffer = await file.arrayBuffer();
-      const wb = read(buffer, { type: 'array' });
-      const data = parseWorkbook(wb);
+      const buffer = await file.arrayBuffer()
+      const { read } = await import('xlsx')
+      const wb = read(buffer, { type: 'array' })
+      const data = await parseWorkbook(wb)
       if (data.length === 0) {
-        setState({ status: 'error', fileName: file.name, errorMessage: '파일에 데이터가 없습니다.' });
-        return;
+        setState({
+          status: 'error',
+          fileName: file.name,
+          errorMessage: '파일에 데이터가 없습니다.',
+        })
+        return
       }
-      setRecords(data);
-      setGlobalRecords(data);
-      setState({ status: 'done', fileName: file.name, recordCount: data.length });
+      setRecords(data)
+      setGlobalRecords(data)
+      setState({ status: 'done', fileName: file.name, recordCount: data.length })
     } catch {
-      setState({ status: 'error', fileName: file.name, errorMessage: '파일 파싱에 실패했습니다. Excel 형식을 확인해주세요.' });
+      setState({
+        status: 'error',
+        fileName: file.name,
+        errorMessage: '파일 파싱에 실패했습니다. Excel 형식을 확인해주세요.',
+      })
     }
-  }, []);
+  }, [])
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setState((prev) => ({ ...prev, status: 'idle' }));
-    const file = e.dataTransfer.files[0];
-    if (file) processFile(file);
-  }, [processFile]);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault()
+      setState((prev) => ({ ...prev, status: 'idle' }))
+      const file = e.dataTransfer.files[0]
+      if (file) processFile(file)
+    },
+    [processFile],
+  )
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setState((prev) => ({ ...prev, status: 'dragging' }));
-  }, []);
+    e.preventDefault()
+    setState((prev) => ({ ...prev, status: 'dragging' }))
+  }, [])
 
   const handleDragLeave = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setState((prev) => (prev.status === 'dragging' ? { ...prev, status: 'idle' } : prev));
-  }, []);
+    e.preventDefault()
+    setState((prev) => (prev.status === 'dragging' ? { ...prev, status: 'idle' } : prev))
+  }, [])
 
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) processFile(file);
-  }, [processFile]);
+  const handleFileSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (file) processFile(file)
+    },
+    [processFile],
+  )
 
   const handleSampleLoad = useCallback(() => {
-    setState({ status: 'parsing', fileName: '샘플 데이터' });
+    setState({ status: 'parsing', fileName: '샘플 데이터' })
     // simulate brief processing
     setTimeout(() => {
-      const data = generateSampleData();
-      setRecords(data);
-      setGlobalRecords(data);
-      setState({ status: 'done', fileName: '샘플_이용통계_2025Q3-2026Q1.xlsx', recordCount: data.length });
-    }, 600);
-  }, []);
+      const data = generateSampleData()
+      setRecords(data)
+      setGlobalRecords(data)
+      setState({
+        status: 'done',
+        fileName: '샘플_이용통계_2025Q3-2026Q1.xlsx',
+        recordCount: data.length,
+      })
+    }, 600)
+  }, [])
 
   const handleReset = useCallback(() => {
-    setState({ status: 'idle' });
-    setRecords([]);
-    clearGlobalRecords();
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  }, [clearGlobalRecords]);
+    setState({ status: 'idle' })
+    setRecords([])
+    clearGlobalRecords()
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }, [clearGlobalRecords])
 
-  const columns = records.length > 0 ? Object.keys(records[0]) : [];
-  const previewRows = records.slice(0, 10);
+  const columns = records.length > 0 ? Object.keys(records[0]) : []
+  const previewRows = records.slice(0, 10)
 
   return (
     <div className="flex flex-col gap-6">
@@ -132,11 +171,16 @@ export default function ROIDataUpload() {
       {/* Upload Card */}
       <div className="p-8 rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)]">
         <div className="flex items-start gap-3 mb-6">
-          <span className="material-symbols-rounded text-2xl text-[var(--roi-chart-1)]">upload_file</span>
+          <span className="material-symbols-rounded text-2xl text-[var(--roi-chart-1)]">
+            upload_file
+          </span>
           <div>
-            <h2 className="text-base font-bold text-[var(--roi-text-primary)]">이용 통계 파일 업로드</h2>
+            <h2 className="text-base font-bold text-[var(--roi-text-primary)]">
+              이용 통계 파일 업로드
+            </h2>
             <p className="text-sm text-[var(--roi-text-secondary)] mt-1">
-              H Chat에서 다운로드한 이용 통계 Excel 파일을 업로드하세요. 파일은 브라우저 로컬에서만 처리되며, 서버로 전송되지 않습니다.
+              H Chat에서 다운로드한 이용 통계 Excel 파일을 업로드하세요. 파일은 브라우저 로컬에서만
+              처리되며, 서버로 전송되지 않습니다.
             </p>
           </div>
         </div>
@@ -150,7 +194,9 @@ export default function ROIDataUpload() {
           role="button"
           aria-label="파일 업로드 영역"
           tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click(); }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click()
+          }}
           className={`flex flex-col items-center justify-center gap-3 py-12 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
             state.status === 'dragging'
               ? 'border-[var(--roi-chart-1)] bg-[var(--roi-chart-1)]/5'
@@ -161,13 +207,19 @@ export default function ROIDataUpload() {
         >
           {state.status === 'parsing' ? (
             <>
-              <span className="material-symbols-rounded text-4xl text-[var(--roi-chart-2)] animate-spin">progress_activity</span>
+              <span className="material-symbols-rounded text-4xl text-[var(--roi-chart-2)] animate-spin">
+                progress_activity
+              </span>
               <p className="text-sm text-[var(--roi-text-secondary)]">파일 분석 중...</p>
             </>
           ) : (
             <>
-              <span className="material-symbols-rounded text-4xl text-[var(--roi-text-muted)]">cloud_upload</span>
-              <p className="text-sm text-[var(--roi-text-secondary)]">파일을 여기로 드래그하거나 클릭하여 선택하세요</p>
+              <span className="material-symbols-rounded text-4xl text-[var(--roi-text-muted)]">
+                cloud_upload
+              </span>
+              <p className="text-sm text-[var(--roi-text-secondary)]">
+                파일을 여기로 드래그하거나 클릭하여 선택하세요
+              </p>
               <p className="text-xs text-[var(--roi-text-muted)]">지원 형식: .xlsx, .xls</p>
             </>
           )}
@@ -184,10 +236,16 @@ export default function ROIDataUpload() {
         {/* Sample Data CTA */}
         <div className="flex items-center gap-4 mt-5 p-4 rounded-lg bg-[var(--roi-chart-1)]/5 border border-[var(--roi-chart-1)]/20">
           <div className="flex items-center gap-2 flex-1">
-            <span className="material-symbols-rounded text-lg text-[var(--roi-chart-1)]">lightbulb</span>
+            <span className="material-symbols-rounded text-lg text-[var(--roi-chart-1)]">
+              lightbulb
+            </span>
             <div>
-              <p className="text-sm font-semibold text-[var(--roi-text-primary)]">샘플 데이터로 먼저 체험해보세요!</p>
-              <p className="text-xs text-[var(--roi-text-secondary)]">가상의 회사 데이터로 대시보드 기능을 미리 살펴볼 수 있습니다.</p>
+              <p className="text-sm font-semibold text-[var(--roi-text-primary)]">
+                샘플 데이터로 먼저 체험해보세요!
+              </p>
+              <p className="text-xs text-[var(--roi-text-secondary)]">
+                가상의 회사 데이터로 대시보드 기능을 미리 살펴볼 수 있습니다.
+              </p>
             </div>
           </div>
           <button
@@ -202,7 +260,9 @@ export default function ROIDataUpload() {
         {/* Usage Guide */}
         <div className="mt-5 p-4 rounded-lg bg-[var(--roi-body-bg)]">
           <div className="flex items-center gap-2 mb-3">
-            <span className="material-symbols-rounded text-base text-[var(--roi-text-secondary)]">help</span>
+            <span className="material-symbols-rounded text-base text-[var(--roi-text-secondary)]">
+              help
+            </span>
             <p className="text-xs font-semibold text-[var(--roi-text-primary)]">사용 안내</p>
           </div>
           <ul className="text-xs text-[var(--roi-text-secondary)] space-y-1.5">
@@ -222,7 +282,11 @@ export default function ROIDataUpload() {
             <p className="text-sm font-semibold text-[var(--roi-text-primary)]">업로드 실패</p>
             <p className="text-xs text-[var(--roi-text-secondary)] mt-0.5">{state.errorMessage}</p>
           </div>
-          <button onClick={handleReset} className="text-xs text-[var(--roi-chart-1)] font-semibold" aria-label="다시 시도">
+          <button
+            onClick={handleReset}
+            className="text-xs text-[var(--roi-chart-1)] font-semibold"
+            aria-label="다시 시도"
+          >
             다시 시도
           </button>
         </div>
@@ -232,7 +296,9 @@ export default function ROIDataUpload() {
       {state.status === 'done' && records.length > 0 && (
         <>
           <div className="flex items-center gap-3 p-4 rounded-xl bg-[var(--roi-positive)]/10 border border-[var(--roi-positive)]/20">
-            <span className="material-symbols-rounded text-xl text-[var(--roi-positive)]">check_circle</span>
+            <span className="material-symbols-rounded text-xl text-[var(--roi-positive)]">
+              check_circle
+            </span>
             <div className="flex-1">
               <p className="text-sm font-semibold text-[var(--roi-text-primary)]">
                 {state.fileName} — {state.recordCount?.toLocaleString()}개 레코드 분석 완료
@@ -253,7 +319,9 @@ export default function ROIDataUpload() {
           {/* Data Table Preview */}
           <div className="rounded-xl bg-[var(--roi-card-bg)] border border-[var(--roi-card-border)] overflow-hidden">
             <div className="px-5 py-3 border-b border-[var(--roi-divider)] flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-[var(--roi-text-primary)]">데이터 미리보기</h3>
+              <h3 className="text-sm font-semibold text-[var(--roi-text-primary)]">
+                데이터 미리보기
+              </h3>
               <span className="text-xs text-[var(--roi-text-muted)]">
                 전체 {state.recordCount?.toLocaleString()}건 중 10건 표시
               </span>
@@ -263,7 +331,10 @@ export default function ROIDataUpload() {
                 <thead>
                   <tr className="bg-[var(--roi-body-bg)]">
                     {columns.map((col) => (
-                      <th key={col} className="px-4 py-2.5 text-left font-semibold text-[var(--roi-text-secondary)] whitespace-nowrap">
+                      <th
+                        key={col}
+                        className="px-4 py-2.5 text-left font-semibold text-[var(--roi-text-secondary)] whitespace-nowrap"
+                      >
                         {col}
                       </th>
                     ))}
@@ -273,7 +344,10 @@ export default function ROIDataUpload() {
                   {previewRows.map((row, idx) => (
                     <tr key={idx} className="border-t border-[var(--roi-divider)]">
                       {columns.map((col) => (
-                        <td key={col} className="px-4 py-2 text-[var(--roi-text-primary)] whitespace-nowrap">
+                        <td
+                          key={col}
+                          className="px-4 py-2 text-[var(--roi-text-primary)] whitespace-nowrap"
+                        >
                           {String(row[col] ?? '')}
                         </td>
                       ))}
@@ -291,16 +365,8 @@ export default function ROIDataUpload() {
               label="총 레코드"
               value={`${state.recordCount?.toLocaleString()}건`}
             />
-            <StatBox
-              icon="view_column"
-              label="컬럼 수"
-              value={`${columns.length}개`}
-            />
-            <StatBox
-              icon="date_range"
-              label="기간"
-              value={getDateRange(records)}
-            />
+            <StatBox icon="view_column" label="컬럼 수" value={`${columns.length}개`} />
+            <StatBox icon="date_range" label="기간" value={getDateRange(records)} />
             <StatBox
               icon="group"
               label="고유 사용자"
@@ -315,7 +381,7 @@ export default function ROIDataUpload() {
         &copy; 2026 H Chat - 생산성 대시보드 | 모든 데이터는 브라우저에서만 처리됩니다
       </p>
     </div>
-  );
+  )
 }
 
 function StatBox({ icon, label, value }: { icon: string; label: string; value: string }) {
@@ -327,20 +393,20 @@ function StatBox({ icon, label, value }: { icon: string; label: string; value: s
         <p className="text-sm font-semibold text-[var(--roi-text-primary)]">{value}</p>
       </div>
     </div>
-  );
+  )
 }
 
 function getDateRange(records: ParsedRecord[]): string {
   const dates = records
     .map((r) => String(r['날짜'] ?? ''))
     .filter(Boolean)
-    .sort();
-  if (dates.length === 0) return '-';
-  const first = dates[0]?.slice(0, 7) ?? '';
-  const last = dates[dates.length - 1]?.slice(0, 7) ?? '';
-  return first === last ? first : `${first} ~ ${last}`;
+    .sort()
+  if (dates.length === 0) return '-'
+  const first = dates[0]?.slice(0, 7) ?? ''
+  const last = dates[dates.length - 1]?.slice(0, 7) ?? ''
+  return first === last ? first : `${first} ~ ${last}`
 }
 
 function getUniqueCount(records: ParsedRecord[], key: string): number {
-  return new Set(records.map((r) => String(r[key] ?? ''))).size;
+  return new Set(records.map((r) => String(r[key] ?? ''))).size
 }

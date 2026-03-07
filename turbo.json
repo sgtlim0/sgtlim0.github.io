@@ -9,10 +9,12 @@
         "components/**",
         "lib/**",
         "styles/**",
-        "*.ts",
-        "*.tsx",
-        "*.json",
-        "*.css"
+        "public/**",
+        "content/**",
+        "next.config.ts",
+        "tsconfig.json",
+        "package.json",
+        "postcss.config.*"
       ],
       "outputs": ["out/**", ".next/**", "dist/**", "storybook-static/**"],
       "env": ["ANALYZE"]
@@ -22,10 +24,11 @@
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^build"]
+      "inputs": ["src/**", "app/**", "eslint.config.*", ".eslintrc*"]
     },
     "type-check": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "app/**", "tsconfig.json", "tsconfig.*.json"]
     },
     "test": {
       "dependsOn": ["^build"],

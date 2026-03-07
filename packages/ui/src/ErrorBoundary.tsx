@@ -1,58 +1,56 @@
-'use client';
+'use client'
 
-import React, { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react'
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: ReactNode
+  fallback?: ReactNode
 }
 
 interface ErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
+  hasError: boolean
+  error?: Error
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    if (process.env.NODE_ENV === 'development') {
+       
+      console.error('ErrorBoundary caught an error:', error, errorInfo)
+    }
   }
 
   resetErrorBoundary = () => {
-    this.setState({ hasError: false, error: undefined });
-  };
+    this.setState({ hasError: false, error: undefined })
+  }
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback;
+        return this.props.fallback
       }
-      return (
-        <ErrorFallback
-          error={this.state.error}
-          onRetry={this.resetErrorBoundary}
-        />
-      );
+      return <ErrorFallback error={this.state.error} onRetry={this.resetErrorBoundary} />
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary
 
 interface ErrorFallbackProps {
-  error?: Error;
-  onRetry?: () => void;
-  title?: string;
+  error?: Error
+  onRetry?: () => void
+  title?: string
 }
 
 export function ErrorFallback({
@@ -91,10 +89,7 @@ export function ErrorFallback({
         </div>
 
         {/* Title */}
-        <h2
-          className="text-2xl font-semibold"
-          style={{ color: 'var(--text-primary)' }}
-        >
+        <h2 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>
           {title}
         </h2>
 
@@ -107,10 +102,7 @@ export function ErrorFallback({
               border: '1px solid var(--border)',
             }}
           >
-            <p
-              className="text-sm font-mono break-words"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <p className="text-sm font-mono break-words" style={{ color: 'var(--text-secondary)' }}>
               {error.message || 'An unexpected error occurred'}
             </p>
           </div>
@@ -126,10 +118,10 @@ export function ErrorFallback({
               color: 'var(--text-white)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-hover)';
+              e.currentTarget.style.backgroundColor = 'var(--primary-hover)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary)';
+              e.currentTarget.style.backgroundColor = 'var(--primary)'
             }}
           >
             Try Again
@@ -137,5 +129,5 @@ export function ErrorFallback({
         )}
       </div>
     </div>
-  );
+  )
 }

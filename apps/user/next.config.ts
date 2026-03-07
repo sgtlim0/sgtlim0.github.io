@@ -6,7 +6,11 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 const nextConfig: NextConfig = {
-  images: { unoptimized: true },
+  images: {
+    unoptimized: false,
+    formats: ['image/avif', 'image/webp'],
+  },
+  poweredByHeader: false,
   transpilePackages: ['@hchat/ui', '@hchat/tokens'],
 }
 

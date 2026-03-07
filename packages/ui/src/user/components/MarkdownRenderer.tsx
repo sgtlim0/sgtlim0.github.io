@@ -1,102 +1,264 @@
-'use client';
+'use client'
+
+import React, { useMemo } from 'react'
 
 export interface MarkdownRendererProps {
-  content: string;
-  className?: string;
+  content: string
+  className?: string
+}
+
+interface ParsedNode {
+  type: 'heading' | 'paragraph' | 'code-block' | 'blockquote' | 'list' | 'hr' | 'table'
+  level?: number
+  ordered?: boolean
+  items?: string[]
+  content?: string
+  lang?: string
+  rows?: string[][]
+}
+
+function escapeForRegex(text: string): string {
+  return text.replace(/[&<>"']/g, (ch) => {
+    const map: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }
+    return map[ch] ?? ch
+  })
+}
+
+function renderInline(text: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = []
+  const regex = /(`[^`]+`)|(\*\*[^*]+\*\*)|(\*[^*]+\*)|(\[([^\]]+)\]\(([^)]+)\))/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+  let key = 0
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index))
+    }
+
+    if (match[1]) {
+      const code = match[1].slice(1, -1)
+      nodes.push(
+        <code key={key++} className="inline-code">
+          {code}
+        </code>,
+      )
+    } else if (match[2]) {
+      const bold = match[2].slice(2, -2)
+      nodes.push(<strong key={key++}>{bold}</strong>)
+    } else if (match[3]) {
+      const italic = match[3].slice(1, -1)
+      nodes.push(<em key={key++}>{italic}</em>)
+    } else if (match[4] && match[5] && match[6]) {
+      nodes.push(
+        <a key={key++} href={match[6]} className="link" target="_blank" rel="noopener noreferrer">
+          {match[5]}
+        </a>,
+      )
+    }
+    lastIndex = match.index + match[0].length
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex))
+  }
+
+  return nodes
+}
+
+function parseBlocks(content: string): ParsedNode[] {
+  const lines = content.split('\n')
+  const blocks: ParsedNode[] = []
+  let i = 0
+
+  while (i < lines.length) {
+    const line = lines[i]
+
+    // Code blocks
+    if (line.startsWith('```')) {
+      const lang = line.slice(3).trim()
+      const codeLines: string[] = []
+      i++
+      while (i < lines.length && !lines[i].startsWith('```')) {
+        codeLines.push(lines[i])
+        i++
+      }
+      i++ // skip closing ```
+      blocks.push({ type: 'code-block', content: codeLines.join('\n'), lang })
+      continue
+    }
+
+    // Horizontal rule
+    if (/^---$/.test(line.trim())) {
+      blocks.push({ type: 'hr' })
+      i++
+      continue
+    }
+
+    // Headings
+    const headingMatch = line.match(/^(#{1,3})\s+(.*)/)
+    if (headingMatch) {
+      blocks.push({ type: 'heading', level: headingMatch[1].length, content: headingMatch[2] })
+      i++
+      continue
+    }
+
+    // Blockquotes
+    if (line.startsWith('> ')) {
+      blocks.push({ type: 'blockquote', content: line.slice(2) })
+      i++
+      continue
+    }
+
+    // Table
+    if (line.startsWith('|') && line.endsWith('|')) {
+      const rows: string[][] = []
+      while (i < lines.length && lines[i].startsWith('|') && lines[i].endsWith('|')) {
+        const cells = lines[i]
+          .slice(1, -1)
+          .split('|')
+          .map((c) => c.trim())
+        if (!cells.every((c) => /^[-:]+$/.test(c))) {
+          rows.push(cells)
+        }
+        i++
+      }
+      blocks.push({ type: 'table', rows })
+      continue
+    }
+
+    // Unordered list
+    if (line.match(/^- /)) {
+      const items: string[] = []
+      while (i < lines.length && lines[i].match(/^- /)) {
+        items.push(lines[i].slice(2))
+        i++
+      }
+      blocks.push({ type: 'list', ordered: false, items })
+      continue
+    }
+
+    // Ordered list
+    if (line.match(/^\d+\. /)) {
+      const items: string[] = []
+      while (i < lines.length && lines[i].match(/^\d+\. /)) {
+        items.push(lines[i].replace(/^\d+\.\s/, ''))
+        i++
+      }
+      blocks.push({ type: 'list', ordered: true, items })
+      continue
+    }
+
+    // Empty line
+    if (line.trim() === '') {
+      i++
+      continue
+    }
+
+    // Paragraph
+    blocks.push({ type: 'paragraph', content: line })
+    i++
+  }
+
+  return blocks
+}
+
+function renderBlock(block: ParsedNode, index: number): React.ReactNode {
+  switch (block.type) {
+    case 'heading': {
+      const Tag = `h${block.level}` as 'h1' | 'h2' | 'h3'
+      return (
+        <Tag key={index} className={`heading-${block.level}`}>
+          {renderInline(block.content ?? '')}
+        </Tag>
+      )
+    }
+    case 'paragraph':
+      return (
+        <p key={index} className="paragraph">
+          {renderInline(block.content ?? '')}
+        </p>
+      )
+    case 'code-block':
+      return (
+        <pre key={index} className="code-block">
+          <code>{block.content}</code>
+        </pre>
+      )
+    case 'blockquote':
+      return (
+        <blockquote key={index} className="blockquote">
+          {renderInline(block.content ?? '')}
+        </blockquote>
+      )
+    case 'hr':
+      return <hr key={index} className="horizontal-rule" />
+    case 'list': {
+      const ListTag = block.ordered ? 'ol' : 'ul'
+      const listClass = block.ordered ? 'ordered-list' : 'unordered-list'
+      return (
+        <ListTag key={index} className={listClass}>
+          {block.items?.map((item, j) => (
+            <li key={j} className="list-item">
+              {renderInline(item)}
+            </li>
+          ))}
+        </ListTag>
+      )
+    }
+    case 'table': {
+      if (!block.rows || block.rows.length === 0) return null
+      const [header, ...body] = block.rows
+      return (
+        <table key={index} className="markdown-table">
+          <thead>
+            <tr className="table-row">
+              {header.map((cell, j) => (
+                <th key={j} className="table-cell">
+                  {renderInline(cell)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {body.map((row, j) => (
+              <tr key={j} className="table-row">
+                {row.map((cell, k) => (
+                  <td key={k} className="table-cell">
+                    {renderInline(cell)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )
+    }
+    default:
+      return null
+  }
 }
 
 export default function MarkdownRenderer({ content, className = '' }: MarkdownRendererProps) {
-  const parseMarkdown = (text: string): string => {
-    let html = text;
-
-    // Code blocks (must be first to avoid processing their contents)
-    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, lang, code) => {
-      const escapedCode = code
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-      return `<pre class="code-block"><code>${escapedCode}</code></pre>`;
-    });
-
-    // Inline code
-    html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
-
-    // Bold
-    html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-
-    // Italic
-    html = html.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
-
-    // Headings
-    html = html.replace(/^### (.*?)$/gm, '<h3 class="heading-3">$1</h3>');
-    html = html.replace(/^## (.*?)$/gm, '<h2 class="heading-2">$1</h2>');
-    html = html.replace(/^# (.*?)$/gm, '<h1 class="heading-1">$1</h1>');
-
-    // Horizontal rules
-    html = html.replace(/^---$/gm, '<hr class="horizontal-rule" />');
-
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" class="link" target="_blank" rel="noopener noreferrer">$1</a>');
-
-    // Blockquotes
-    html = html.replace(/^> (.*)$/gm, '<blockquote class="blockquote">$1</blockquote>');
-
-    // Tables
-    html = html.replace(/^\|(.+)\|$/gm, (match) => {
-      const cells = match
-        .slice(1, -1)
-        .split('|')
-        .map((cell) => cell.trim());
-
-      // Check if this is a separator row
-      if (cells.every((cell) => /^[-:]+$/.test(cell))) {
-        return '<tr class="table-separator"></tr>';
-      }
-
-      const cellsHtml = cells.map((cell) => `<td class="table-cell">${cell}</td>`).join('');
-      return `<tr class="table-row">${cellsHtml}</tr>`;
-    });
-
-    // Wrap table rows in table
-    html = html.replace(/(<tr class="table-row">[\s\S]*?<\/tr>)+/g, (match) => {
-      const rows = match.split('</tr>').filter(Boolean);
-      const headerRow = rows[0] + '</tr>';
-      const bodyRows = rows.slice(1).map((row) => row + '</tr>').join('');
-
-      const headerCells = headerRow.replace(/<td/g, '<th').replace(/<\/td>/g, '</th>');
-
-      return `<table class="markdown-table"><thead>${headerCells}</thead><tbody>${bodyRows}</tbody></table>`;
-    });
-
-    // Unordered lists
-    html = html.replace(/^- (.*)$/gm, '<li class="list-item">$1</li>');
-    html = html.replace(/(<li class="list-item">.*<\/li>\n?)+/g, '<ul class="unordered-list">$&</ul>');
-
-    // Ordered lists
-    html = html.replace(/^\d+\. (.*)$/gm, '<li class="list-item">$1</li>');
-    html = html.replace(/(<li class="list-item">.*<\/li>\n?)+/g, (match) => {
-      // Only wrap in ol if not already wrapped in ul
-      if (match.includes('<ul')) return match;
-      return `<ol class="ordered-list">${match}</ol>`;
-    });
-
-    // Paragraphs
-    html = html.replace(/^(?!<[hblotu]|<\/|<pre|<code|<hr|<table)(.+)$/gm, '<p class="paragraph">$1</p>');
-
-    return html;
-  };
-
-  const htmlContent = parseMarkdown(content);
+  const blocks = useMemo(() => parseBlocks(content), [content])
 
   return (
     <div
       className={`markdown-renderer ${className}`}
-      dangerouslySetInnerHTML={{ __html: htmlContent }}
-      style={{
-        '--code-bg': 'var(--user-text-primary)',
-        '--code-text': 'var(--user-bg-main)',
-      } as React.CSSProperties}
+      style={
+        {
+          '--code-bg': 'var(--user-text-primary)',
+          '--code-text': 'var(--user-bg-main)',
+        } as React.CSSProperties
+      }
     >
+      {blocks.map((block, i) => renderBlock(block, i))}
       <style jsx>{`
         .markdown-renderer {
           color: var(--user-text-primary);
@@ -226,5 +388,5 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
         }
       `}</style>
     </div>
-  );
+  )
 }
