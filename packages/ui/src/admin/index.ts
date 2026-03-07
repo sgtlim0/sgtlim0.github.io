@@ -50,6 +50,14 @@ export { default as WorkflowNodeCatalog } from './WorkflowNodeCatalog'
 export { default as WorkflowTemplateGallery } from './WorkflowTemplateGallery'
 export { default as WorkflowBuilder } from './WorkflowBuilder'
 
+// Phase 55 UI Pages
+export { default as AnalyticsDashboard } from './AnalyticsDashboard'
+export { default as RAGSearchPage } from './RAGSearchPage'
+export { default as BenchmarkDashboard } from './BenchmarkDashboard'
+export { default as KnowledgeGraphView } from './KnowledgeGraphView'
+export { default as FeedbackDashboard } from './FeedbackDashboard'
+export { default as AlertRuleBuilder } from './AlertRuleBuilder'
+
 // Tenant
 export { default as TenantSelector } from './TenantSelector'
 export type { TenantSelectorProps } from './TenantSelector'
