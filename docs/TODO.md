@@ -105,7 +105,21 @@ voiceService (STT Whisper, TTS OpenAI/ElevenLabs, 회의 녹음 → 요약 + 액
 ---
 
 ## 전체 Phase 1~54 완료
-| 54 | 음성 인터페이스 | STT/TTS, 음성 명령, 회의 요약 |
+
+---
+
+## 다음 계획 (Phase 55~60)
+
+→ 상세 계획: [`docs/NEXT_PHASE_PLAN.md`](./NEXT_PHASE_PLAN.md)
+
+| Phase | 작업 | 설명 |
+|-------|------|------|
+| 55 | UI 컴포넌트 구현 | Phase 39-54 서비스의 페이지/컴포넌트 14개 추가 |
+| 56 | @hchat/ui 패키지 분리 | 28K줄 → 6개 서브패키지 (core, admin, user, llm, mobile, desktop) |
+| 57 | MSW + Real API 준비 | Mock Service Worker, 33 서비스 마이그레이션 |
+| 58 | 테스트 커버리지 80% | Admin 대형 페이지, MSW 통합 테스트 |
+| 59 | 성능 최적화 v2 | RSC, Streaming SSR, 번들 50% 감소 |
+| 60 | 프로덕션 준비 | 실제 API, DB, Redis, Docker, 모니터링 |
 
 ---
 
@@ -113,8 +127,12 @@ voiceService (STT Whisper, TTS OpenAI/ElevenLabs, 회의 녹음 → 요약 + 액
 
 | # | 우선순위 | 항목 | 상태 |
 |---|----------|------|------|
-| 1 | CRITICAL | 단위 테스트 커버리지 | 43파일 608테스트 (35%), 목표 80% |
-| 2 | CRITICAL | Mock → Real API 전환 | 전체 Mock, MSW 도입 후 점진적 전환 |
+| 1 | CRITICAL | Mock → Real API 전환 | 33 서비스 전체 Mock, Phase 57에서 MSW |
+| 2 | HIGH | @hchat/ui 패키지 분리 | 28,327줄 단일 패키지, Phase 56에서 분리 |
+| 3 | HIGH | 테스트 커버리지 | 53파일 707테스트 (35%), Phase 58에서 80% |
+| 4 | MEDIUM | Phase 39-54 UI 미구현 | 서비스만 존재, Phase 55에서 페이지 추가 |
+| 5 | MEDIUM | Storybook 갭 | 신규 서비스 스토리 필요 |
+| 6 | LOW | i18n 전체 앱 확장 | HMG 49키만 지원 |
 | 3 | HIGH | @hchat/ui 패키지 분리 | 25,988줄 단일 패키지, exports 16경로 준비됨 |
 | 4 | HIGH | Admin 대형 페이지 테스트 | Context Provider 모킹 필요 |
 | 5 | MEDIUM | Storybook Interaction 확장 | 6파일 → 전체 커버 |

@@ -1,181 +1,132 @@
-# H Chat 다음 단계 계획 (Phase 45~54)
+# H Chat 다음 단계 계획 (Phase 55+)
 
 > 작성일: 2026-03-07
-> 현재 상태: Phase 44 완료, 모노레포 8개 앱 + 별도 레포 2개
-> 완료 현황: 8개 앱 배포, 132 컴포넌트, 55 페이지, 135 스토리 파일, 608 테스트, 30 서비스
+> 현재 상태: Phase 54 완료, 모노레포 8개 앱 + 별도 레포 2개
+> 완료 현황: 516파일, 48,025줄, 132 컴포넌트, 33 서비스, 707 테스트
 
 ---
 
-## Phase 21~44 완료 요약
+## Phase 1~54 완료 요약
 
-| Phase | 주요 작업 | 상태 |
-|-------|----------|------|
-| 21-27 | Storybook, 서비스 레이어, 성능, CI/CD, E2E, 문서 | ✅ |
-| 28-35 | 단위테스트, 실시간, SSE, Desktop, 알림, 위젯, 워크플로우, Mobile | ✅ |
-| 36 | 단위 테스트 확장 (43파일 608테스트, 커버리지 35%) | ✅ |
-| 37 | console.log 0개, 커버리지 임계값 30%, exports 16경로 | ✅ |
-| 38 | Storybook Interaction Tests (6파일 28인터랙션) | ✅ |
-| 39 | 멀티테넌트 (tenantService, CSS 오버라이드, 3 테넌트) | ✅ |
-| 40 | AI 에이전트 마켓플레이스 (10 에이전트, 8 카테고리) | ✅ |
-| 41 | 분석 엔진 (z-score 이상탐지, 선형회귀, 자동 인사이트) | ✅ |
-| 42 | RAG 문서 검색 (벡터 검색, 6문서, 3 임베딩 모델) | ✅ |
-| 43 | 프롬프트 버전 관리 (diff, A/B 테스트, 롤백) | ✅ |
-| 44 | SSO/SAML (Okta/Azure AD, JWT RS256, 감사 로그) | ✅ |
+| 구간 | Phase | 핵심 |
+|------|-------|------|
+| 기반 | 1-10 | Wiki 28p + HMG 4p + 모노레포 |
+| 확장 | 11-20 | Admin 24p + ROI 9p + User 5p + LLM 10p |
+| 품질 | 21-27 | Storybook 103 + 서비스 레이어 + CI/CD |
+| 고도화 | 28-35 | 테스트 284 + 실시간 + SSE + Desktop + Mobile |
+| 테스트 | 36-38 | 707 테스트 + Interaction 28 + exports 16경로 |
+| 엔터프라이즈 | 39-44 | 멀티테넌트, 마켓, 분석, RAG, 프롬프트, SSO |
+| 지능화 | 45-50 | 채팅분석, RBAC, 벤치마크, 피드백, 알림, 팀채팅 |
+| AI 고도화 | 51-54 | 파인튜닝, D3 시각화, 지식그래프, 음성 |
 
 ---
 
-## Phase 36: 테스트 커버리지 80% 달성 [ ]
+## Phase 55: Phase 39-54 UI 컴포넌트 구현 [ ]
 
-**목표**: 현재 4.3% (20/463) → 80%+ 단위 테스트 커버리지
+**목표**: 서비스만 있고 UI가 없는 16개 서비스에 페이지/컴포넌트 추가
 
-### 36-1. 핵심 서비스 테스트 (최우선)
-- [ ] chatService 전체 메서드 (send, stream, history, CRUD)
-- [ ] mockApiService 전체 메서드 (providers, models, features, departments)
-- [ ] workflowService (노드 CRUD, 엣지 연결, 실행 시뮬레이션)
-- [ ] widgetService (위젯 CRUD, 레이아웃 저장/복원)
-- [ ] notificationService (구독, 해제, 읽음 표시)
-- [ ] mobileService (채팅, 어시스턴트, 히스토리, 설정)
+### 55-1. Admin 페이지 추가
+- [ ] `/tenants` — 테넌트 관리 페이지 (TenantManagement + TenantSelector)
+- [ ] `/marketplace` — 에이전트 마켓플레이스 (AgentMarketGrid + 상세)
+- [ ] `/analytics` — 분석 엔진 대시보드 (이상 탐지, 예측, 인사이트)
+- [ ] `/rag` — RAG 문서 검색 (검색 UI + 문서 관리)
+- [ ] `/prompt-versions` — 프롬프트 버전 관리 (diff 뷰어 + A/B 대시보드)
+- [ ] `/chat-analytics` — 채팅 히스토리 분석 (클러스터, 시간대)
+- [ ] `/rbac` — 역할/권한 관리 (매트릭스 UI + 위임)
+- [ ] `/benchmarks` — AI 벤치마크 (레이더 차트 + 추천)
+- [ ] `/feedback` — 피드백 대시보드 (트렌드, 모델별)
+- [ ] `/alert-rules` — 알림 규칙 빌더 (조건 UI)
+- [ ] `/team-chat` — 팀 채팅 (채팅방, 멘션, 스레드)
+- [ ] `/finetune` — 파인튜닝 대시보드 (학습 진행, loss 차트)
+- [ ] `/knowledge-graph` — 지식 그래프 시각화 (D3 force)
+- [ ] `/voice` — 음성 인터페이스 (녹음, 요약)
 
-### 36-2. UI 컴포넌트 테스트
-- [ ] ChatPage (메시지 전송, SSE 응답, 대화 전환)
-- [ ] WorkflowBuilder (노드 추가/삭제, 엣지 연결)
-- [ ] CustomDashboard (위젯 추가/제거, 레이아웃 변경)
-- [ ] StreamingPlayground (모델 선택, 파라미터, 스트리밍)
-- [ ] NotificationPanel (알림 목록, 읽음 처리, 설정)
+### 55-2. Storybook 추가
+- [ ] 14개 신규 페이지 스토리
 
-### 36-3. 훅 테스트
-- [ ] useDashboardLayout (13개 액션)
-- [ ] useStreamingChat (스트리밍, abort, onComplete)
-- [ ] useNotifications + useNotificationBadge
-- [ ] useSwipeGesture (터치 이벤트)
-- [ ] useFormValidation (검증 규칙, 에러 메시지)
-
-### 36-4. CI 강화
-- [ ] --coverage.thresholds 설정 (statements: 80, branches: 75, functions: 80, lines: 80)
-- [ ] PR 코멘트 커버리지 요약
-- [ ] MSW(Mock Service Worker) 도입
-
-**산출물**: 80%+ 커버리지, MSW 모킹, CI 임계값 강화
+**산출물**: ~14 Admin 페이지, ~30 UI 컴포넌트, ~14 스토리
 
 ---
 
-## Phase 37: @hchat/ui 패키지 분리 [ ]
+## Phase 56: @hchat/ui 패키지 분리 [ ]
 
-**목표**: 23,385줄 → 도메인별 서브패키지 분리
+**목표**: 28,327줄 단일 패키지 → 도메인별 분리
 
-### 37-1. 패키지 분리
-- [ ] `@hchat/ui-core` (root 컴포넌트: Badge, Theme, Toast, Skeleton, etc.)
-- [ ] `@hchat/ui-admin` (admin/ + roi/ = 95파일)
-- [ ] `@hchat/ui-user` (user/ = 34파일)
-- [ ] `@hchat/ui-llm-router` (llm-router/ = 22파일)
-- [ ] `@hchat/ui-mobile` (mobile/ = 12파일)
-- [ ] `@hchat/ui-desktop` (desktop/ = 8파일)
-
-### 37-2. 마이그레이션
-- [ ] import 경로 자동 변환 스크립트 (codemod)
+- [ ] `@hchat/ui-core` (Badge, Theme, Toast, Skeleton, ErrorBoundary)
+- [ ] `@hchat/ui-admin` (admin/ 107파일 → 독립 패키지)
+- [ ] `@hchat/ui-user` (user/ 34파일)
+- [ ] `@hchat/ui-llm-router` (llm-router/ 22파일)
+- [ ] `@hchat/ui-mobile` (mobile/ 12파일)
+- [ ] `@hchat/ui-desktop` (desktop/ 8파일)
 - [ ] Turborepo 의존성 그래프 업데이트
-- [ ] Storybook alias 업데이트
-- [ ] CI 빌드 검증
-
-**산출물**: 6개 UI 서브패키지, 빌드 독립성, tree-shaking 개선
+- [ ] import 경로 자동 변환 (codemod)
 
 ---
 
-## Phase 38: Storybook Interaction Tests [ ]
+## Phase 57: MSW + Real API 전환 준비 [ ]
 
-**목표**: play() 함수 기반 사용자 시나리오 자동 검증
+**목표**: Mock Service Worker 도입, API 스펙 검증
 
-### 38-1. 테스트 작성
-- [ ] Admin: 로그인 폼 → 대시보드 진입
-- [ ] Admin: ROI 차트 호버/클릭 인터랙션
-- [ ] Admin: 위젯 드래그앤드롭 레이아웃
-- [ ] User: 채팅 메시지 전송 → SSE 응답
-- [ ] User: 커스텀 비서 생성 모달
-- [ ] LLM Router: 모델 테이블 정렬/필터
-- [ ] LLM Router: Playground 파라미터 조절
-
-### 38-2. CI 통합
-- [ ] @storybook/test 설정
-- [ ] test-storybook CLI 통합
-- [ ] GitHub Actions workflow 추가
-
-**산출물**: 15+ interaction tests, CI 자동 실행
+- [ ] MSW 설치 및 핸들러 설정
+- [ ] 33개 서비스의 Mock → MSW 핸들러 마이그레이션
+- [ ] API 스펙 기반 타입 자동 생성 (OpenAPI → TypeScript)
+- [ ] E2E에서 MSW 통합 테스트
+- [ ] 실제 백엔드 연동 가이드 문서
 
 ---
 
-## Phase 39: 멀티테넌트 시스템 [ ]
+## Phase 58: 테스트 커버리지 80% [ ]
 
-**목표**: 조직별 격리, 커스텀 브랜딩
+**목표**: 35% → 80%
 
-- [ ] TenantProvider + useTenant 컨텍스트
-- [ ] 조직별 CSS 변수 동적 오버라이드
-- [ ] 데이터 파티셔닝 (테넌트 ID 기반)
-- [ ] 테넌트 관리 Admin 페이지
-- [ ] 테넌트별 커스터마이징 (로고, 컬러, 이름)
-
-**산출물**: 멀티테넌트 아키텍처, 테넌트 관리 UI
+- [ ] Admin 대형 페이지 테스트 (Context Provider 모킹)
+- [ ] Phase 55 신규 UI 컴포넌트 테스트
+- [ ] MSW 기반 통합 테스트
+- [ ] CI 커버리지 임계값 80% 강화
 
 ---
 
-## Phase 40: AI 에이전트 마켓플레이스 [ ]
+## Phase 59: 성능 최적화 v2 [ ]
 
-**목표**: 커뮤니티 에이전트 공유/설치/평가 시스템
-
-- [ ] 에이전트 카드 UI (설명, 평점, 설치수)
-- [ ] 에이전트 상세 (README, 변경로그, 리뷰)
-- [ ] 설치/제거 워크플로우
-- [ ] 에이전트 빌더 (프롬프트+도구+모델 조합)
-- [ ] 평가 시스템 (별점, 리뷰, 통계)
-
-**산출물**: 마켓플레이스 UI, 에이전트 빌더, 평가 시스템
+- [ ] React Server Components 활용 (Next.js 16)
+- [ ] Streaming SSR 적용
+- [ ] 이미지 최적화 (next/image)
+- [ ] 번들 사이즈 50% 감소 목표
 
 ---
 
-## Phase 41~54: 장기 로드맵
+## Phase 60: 프로덕션 준비 [ ]
 
-| Phase | 작업 | 핵심 기능 |
-|-------|------|----------|
-| 41 | 분석 엔진 고도화 | ML 이상 탐지, 예측 분석, 자동 인사이트 |
-| 42 | RAG 문서 검색 | 벡터 DB, 임베딩 파이프라인, 하이브리드 검색 |
-| 43 | 프롬프트 버전 관리 | 히스토리, A/B 테스트, 성과 비교 |
-| 44 | SSO/SAML 실연동 | Okta/Azure AD, JWT, 세션 관리 |
-| 45 | 채팅 히스토리 분석 | 대화 패턴, 주제 클러스터링, 행동 인사이트 |
-| 46 | Admin 권한 고도화 | RBAC, 권한 매트릭스, 위임 |
-| 47 | AI 모델 벤치마크 | 자동 품질/속도/비용 벤치마크, 추천 엔진 |
-| 48 | 피드백 루프 | 인라인 피드백, A/B 자동화, 프롬프트 튜닝 |
-| 49 | 알림 규칙 엔진 | 조건 빌더, Slack/Teams 웹훅, 에스컬레이션 |
-| 50 | 팀 협업 채팅 | WebSocket, 멘션, 스레드, 파일 공유 |
-| 51 | AI 파인튜닝 | 학습 데이터셋, 진행 대시보드, 평가 메트릭 |
-| 52 | 데이터 시각화 고도화 | D3.js, 드릴다운, 애니메이션 |
-| 53 | 지식 그래프 | force-directed graph, NER 태깅, 검색 연동 |
-| 54 | 음성 인터페이스 | STT/TTS, 음성 명령, 회의 요약 |
+- [ ] 실제 API 연동 (OpenAI, Anthropic, Google)
+- [ ] 데이터베이스 연동 (PostgreSQL + Prisma)
+- [ ] Redis 캐싱 레이어
+- [ ] Docker Compose 프로덕션 설정
+- [ ] 모니터링 (Sentry, Datadog)
+- [ ] 로드 테스트 (k6)
 
 ---
 
 ## 우선순위 및 의존성
 
 ```
-Phase 36 (테스트 80%)        ──┐
-Phase 37 (UI 패키지 분리)     ──┼── 병렬 실행 가능 (기반 강화)
-Phase 38 (Interaction Tests)  ──┘
+Phase 55 (UI 구현)           ──┐
+Phase 56 (패키지 분리)        ──┼── 병렬 가능 (별도 워크트리)
+Phase 57 (MSW)               ──┘
                                ↓
-Phase 39 (멀티테넌트)         ──┐
-Phase 40 (에이전트 마켓)       ──┼── 병렬 실행 가능 (기능 확장)
-Phase 41 (분석 엔진)           ──┘
+Phase 58 (커버리지 80%)       ── Phase 55+57 이후
                                ↓
-Phase 42~54 (장기 로드맵)     ── 순서 유연, 비즈니스 우선순위에 따라
+Phase 59 (성능 최적화)        ──┐
+Phase 60 (프로덕션)           ──┘── 순차
 ```
 
 ---
 
 ## 성공 지표
 
-| 지표 | Phase 35 현재 | Phase 40 목표 |
+| 지표 | Phase 54 현재 | Phase 60 목표 |
 |------|--------------|---------------|
-| 단위 테스트 커버리지 | 4.3% | 80%+ |
-| UI 패키지 수 | 1 (monolithic) | 6 (domain-split) |
-| Interaction Tests | 0 | 15+ |
-| Storybook 스토리 | 126 파일 | 150+ 파일 |
-| 앱 배포 | 8개 | 8개 |
-| 컴포넌트 | 128개 | 150+ |
-| 페이지 | 55개 | 65+ |
+| 테스트 커버리지 | 35% | 80%+ |
+| UI 패키지 | 1 (28K줄) | 6 (분리) |
+| Admin 페이지 | 24 | 38+ |
+| Mock API | 33/33 | 0/33 (Real) |
+| 프로덕션 준비 | 0% | 100% |
