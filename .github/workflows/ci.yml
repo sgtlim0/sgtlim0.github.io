@@ -11,8 +11,63 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-and-build:
+  # ── Detect changed paths to enable conditional execution ──
+  changes:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      packages: ${{ steps.filter.outputs.packages }}
+      wiki: ${{ steps.filter.outputs.wiki }}
+      hmg: ${{ steps.filter.outputs.hmg }}
+      admin: ${{ steps.filter.outputs.admin }}
+      user: ${{ steps.filter.outputs.user }}
+      llm-router: ${{ steps.filter.outputs.llm-router }}
+      desktop: ${{ steps.filter.outputs.desktop }}
+      mobile: ${{ steps.filter.outputs.mobile }}
+      storybook: ${{ steps.filter.outputs.storybook }}
+      any-source: ${{ steps.filter.outputs.any-source }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            packages:
+              - 'packages/**'
+            wiki:
+              - 'apps/wiki/**'
+            hmg:
+              - 'apps/hmg/**'
+            admin:
+              - 'apps/admin/**'
+            user:
+              - 'apps/user/**'
+            llm-router:
+              - 'apps/llm-router/**'
+            desktop:
+              - 'apps/desktop/**'
+            mobile:
+              - 'apps/mobile/**'
+            storybook:
+              - 'apps/storybook/**'
+            any-source:
+              - 'packages/**'
+              - 'apps/**'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'turbo.json'
+              - 'vitest.config.*'
+              - 'tsconfig*.json'
+
+  # ── Install & cache dependencies (shared by all jobs) ──
+  install:
+    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.any-source == 'true'
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,32 +76,64 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+
+      - name: Restore node_modules cache
+        id: cache-nm
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
+        if: steps.cache-nm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Type check
-        run: npx turbo run type-check
+      - name: Save Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+  # ── Lint (parallel, independent) ──
+  lint:
+    runs-on: ubuntu-latest
+    needs: [changes, install]
+    if: needs.changes.outputs.any-source == 'true'
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Restore Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
       - name: Lint
         run: npx turbo run lint
 
-      - name: Unit tests
-        run: npm test
-
-      - name: Build all apps
-        run: npx turbo run build
-
-      - name: Cache node_modules
-        uses: actions/cache/save@v4
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
-
-  lighthouse:
+  # ── Type check (parallel, independent) ──
+  type-check:
     runs-on: ubuntu-latest
-    needs: lint-and-build
+    needs: [changes, install]
+    if: needs.changes.outputs.any-source == 'true'
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,11 +143,155 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Restore node_modules
-        uses: actions/cache/restore@v4
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Restore Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Type check
+        run: npx turbo run type-check
+
+  # ── Unit tests (parallel, independent) ──
+  test:
+    runs-on: ubuntu-latest
+    needs: [changes, install]
+    if: needs.changes.outputs.any-source == 'true'
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Unit tests
+        run: npm test
+
+  # ── Build (after lint + type-check, matrix per app, conditional) ──
+  build:
+    runs-on: ubuntu-latest
+    needs: [changes, lint, type-check]
+    if: needs.changes.outputs.any-source == 'true'
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: wiki
+            filter: wiki
+            command: npm run build:wiki
+          - app: hmg
+            filter: hmg
+            command: npm run build:hmg
+          - app: admin
+            filter: admin
+            command: npm run build:admin
+          - app: user
+            filter: user
+            command: npm run build:user
+          - app: llm-router
+            filter: llm-router
+            command: npm run build:llm-router
+          - app: desktop
+            filter: desktop
+            command: npm run build:desktop
+          - app: mobile
+            filter: mobile
+            command: npm run build:mobile
+          - app: storybook
+            filter: storybook
+            command: npm run build:storybook
+    steps:
+      - name: Check if build needed
+        id: should-build
+        run: |
+          PACKAGES="${{ needs.changes.outputs.packages }}"
+          APP="${{ needs.changes.outputs[matrix.filter] }}"
+          if [[ "$PACKAGES" == "true" || "$APP" == "true" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.should-build.outputs.run == 'true'
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        if: steps.should-build.outputs.run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore node_modules cache
+        if: steps.should-build.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Restore Turbo cache
+        if: steps.should-build.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Restore Next.js cache
+        if: steps.should-build.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: apps/${{ matrix.app }}/.next/cache
+          key: nextjs-${{ matrix.app }}-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles(format('apps/{0}/**', matrix.app)) }}
+          restore-keys: |
+            nextjs-${{ matrix.app }}-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nextjs-${{ matrix.app }}-${{ runner.os }}-
+
+      - name: Build ${{ matrix.app }}
+        if: steps.should-build.outputs.run == 'true'
+        run: ${{ matrix.command }}
+
+  # ── Lighthouse (after build, push to main only) ──
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: [changes, build]
+    if: |
+      needs.changes.outputs.any-source == 'true' &&
+      github.event_name == 'push'
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Run Lighthouse CI
         run: npm run lighthouse

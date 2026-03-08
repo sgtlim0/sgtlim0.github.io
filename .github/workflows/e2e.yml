@@ -1,9 +1,22 @@
 name: E2E Tests
+
 on:
   push:
     branches: [main]
+    paths:
+      - 'packages/**'
+      - 'apps/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'playwright.config.*'
   pull_request:
     branches: [main]
+    paths:
+      - 'packages/**'
+      - 'apps/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'playwright.config.*'
 
 concurrency:
   group: e2e-${{ github.ref }}
@@ -12,17 +25,44 @@ concurrency:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
+
+      - name: Restore node_modules cache
+        id: cache-nm
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-nm.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Cache Playwright browsers
+        id: cache-pw
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright browsers
+        if: steps.cache-pw.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright system deps
+        if: steps.cache-pw.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
       - name: Run E2E tests
         run: npx playwright test --project=admin --project=hmg --project=wiki --project=user
         continue-on-error: false
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
