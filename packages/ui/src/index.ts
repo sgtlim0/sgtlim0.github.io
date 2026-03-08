@@ -40,5 +40,9 @@ export type { OptimizedImageProps } from './OptimizedImage'
 export { validate, useFormValidation, patterns } from './validation'
 export type { ValidationRule, ValidationErrors } from './validation'
 
+// Push Notification
+export { default as NotificationBanner } from './NotificationBanner'
+export { usePushNotification } from './hooks/usePushNotification'
+
 // Mobile components — import from '@hchat/ui/mobile' for tree-shaking
 // export * from './mobile'  // Removed: use '@hchat/ui/mobile'

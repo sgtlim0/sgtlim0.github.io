@@ -132,3 +132,13 @@ export {
 } from './featureFlags'
 export type { FeatureFlag } from './featureFlags'
 export { default as FeatureFlagProvider, useFeatureFlag, useFeatureFlags, FeatureGate } from './FeatureFlagProvider'
+
+// Push Notification
+export {
+  isSupported as isPushNotificationSupported,
+  getPermissionStatus,
+  requestPermission as requestNotificationPermission,
+  showNotification,
+  wasPreviouslyDenied,
+  clearDeniedFlag,
+} from './pushNotification'
