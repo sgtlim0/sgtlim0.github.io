@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@hchat/ui'
+import { BaseLayout } from '@hchat/ui'
 import { AuthProvider } from '@hchat/ui/admin'
 import AdminNav from '@/components/AdminNav'
 import './globals.css'
@@ -36,28 +36,25 @@ export const viewport = {
   initialScale: 1,
 }
 
+const adminHead = (
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+  />
+)
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
-        />
-      </head>
-      <body className={inter.variable}>
-        <ThemeProvider>
-          <AuthProvider>
-            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-admin-primary focus:text-white focus:rounded">본문 바로가기</a>
-            <AdminNav />
-            <main id="main-content" className="min-h-[calc(100vh-80px)]">{children}</main>
-          </AuthProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <BaseLayout fontVariable={inter.variable} head={adminHead}>
+      <AuthProvider>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-admin-primary focus:text-white focus:rounded">본문 바로가기</a>
+        <AdminNav />
+        <main id="main-content" className="min-h-[calc(100vh-80px)]">{children}</main>
+      </AuthProvider>
+    </BaseLayout>
   )
 }

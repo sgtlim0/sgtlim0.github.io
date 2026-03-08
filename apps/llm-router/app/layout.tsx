@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@hchat/ui'
+import { BaseLayout } from '@hchat/ui'
 import './globals.css'
 
 const inter = Inter({
@@ -36,13 +36,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
-      <body className={inter.variable}>
-        <ThemeProvider>
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-lr-primary focus:text-white focus:rounded">본문 바로가기</a>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <BaseLayout fontVariable={inter.variable}>
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-lr-primary focus:text-white focus:rounded">본문 바로가기</a>
+      {children}
+    </BaseLayout>
   )
 }

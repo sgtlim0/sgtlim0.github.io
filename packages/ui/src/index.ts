@@ -9,6 +9,9 @@ export type { BadgeProps } from './Badge'
 export { default as ThemeProvider, useTheme } from './ThemeProvider'
 export { default as ThemeToggle } from './ThemeToggle'
 
+export { default as BaseLayout } from './BaseLayout'
+export type { BaseLayoutProps } from './BaseLayout'
+
 export { default as FeatureCard } from './FeatureCard'
 export type { FeatureCardProps } from './FeatureCard'
 
