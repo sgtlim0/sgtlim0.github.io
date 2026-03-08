@@ -120,6 +120,16 @@ export { LogProvider, useLogger } from './LogProvider'
 export { supportsWorker, createWorkerClient, runWorkerTask } from './workerUtils'
 export type { WorkerClient } from './workerUtils'
 
+// Data Export
+export {
+  downloadBlob,
+  buildCsvString,
+  exportToCSV,
+  exportToJSON,
+  formatDataForExport,
+} from './dataExport'
+export type { ColumnConfig } from './dataExport'
+
 // Feature Flags
 export {
   isFeatureEnabled,

@@ -40,5 +40,10 @@ export type { OptimizedImageProps } from './OptimizedImage'
 export { validate, useFormValidation, patterns } from './validation'
 export type { ValidationRule, ValidationErrors } from './validation'
 
+// Data Export
+export { default as ExportButton } from './ExportButton'
+export type { ExportButtonProps } from './ExportButton'
+export { useDataExport } from './hooks/useDataExport'
+
 // Mobile components — import from '@hchat/ui/mobile' for tree-shaking
 // export * from './mobile'  // Removed: use '@hchat/ui/mobile'
