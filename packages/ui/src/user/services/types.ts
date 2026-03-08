@@ -70,6 +70,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   timestamp: string
+  sessionId?: string
   assistantId?: string
   mode?: 'chat' | 'research'
   sources?: Array<{ title: string; url: string; snippet?: string }>
