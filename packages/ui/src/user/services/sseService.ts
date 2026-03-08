@@ -1,5 +1,6 @@
 
 import { getApiMode, getApiUrl } from '../../client/serviceFactory'
+import { realStreamResponse } from './realSseService'
 
 export interface SSEStream {
   subscribe(
@@ -234,4 +235,21 @@ export function streamResponse(prompt: string, assistantId: string): SSEStream {
     return streamResponseReal(prompt, assistantId)
   }
   return streamResponseMock(prompt, assistantId)
+}
+
+/**
+ * Enhanced stream factory that supports conversation history.
+ *
+ * In 'real' mode, sends history to the backend for multi-turn context.
+ * In 'mock' mode, falls back to the simple mock stream (history ignored).
+ */
+export function createStreamResponse(
+  content: string,
+  assistantId: string,
+  history?: Array<{ role: string; content: string }>,
+): SSEStream {
+  if (getApiMode() === 'real') {
+    return realStreamResponse(content, assistantId, history)
+  }
+  return streamResponseMock(content, assistantId)
 }
