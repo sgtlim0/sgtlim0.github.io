@@ -25,10 +25,23 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next({ request: { headers: requestHeaders } })
   response.headers.set('Content-Security-Policy', cspHeader)
 
-  // Cache headers based on request path
+  // Cache headers and API versioning based on request path
   const { pathname } = request.nextUrl
   if (pathname.startsWith('/api/')) {
     response.headers.set('Cache-Control', 'private, no-cache')
+
+    // API version detection: versioned vs legacy endpoints
+    if (pathname.startsWith('/api/v1/')) {
+      response.headers.set('X-API-Version', 'v1')
+    } else if (pathname.startsWith('/api/') && !pathname.startsWith('/api/lib/')) {
+      // Legacy unversioned endpoint — add deprecation hints
+      response.headers.set('X-API-Version', 'v1')
+      response.headers.set('Deprecation', 'true')
+      response.headers.set(
+        'Link',
+        `</api/v1${pathname.slice(4)}>; rel="successor-version"`,
+      )
+    }
   } else {
     response.headers.set(
       'Cache-Control',
