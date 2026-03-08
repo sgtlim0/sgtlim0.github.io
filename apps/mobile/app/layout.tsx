@@ -32,6 +32,14 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 }
 
 export const viewport: Viewport = {

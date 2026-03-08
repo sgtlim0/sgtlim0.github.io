@@ -10,8 +10,28 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'H Chat Wiki',
-  description: '현대차그룹 생성형 AI 서비스 H Chat 사용 가이드',
+  title: {
+    default: 'H Chat Wiki',
+    template: '%s | H Chat Wiki',
+  },
+  description: '현대차그룹 생성형 AI 서비스 H Chat 사용 가이드 - 채팅, 도구, 브라우저, 데스크톱 기능 안내',
+  keywords: ['H Chat', '현대자동차그룹', 'AI', '위키', '사용 가이드', '생성형 AI'],
+  openGraph: {
+    title: 'H Chat Wiki',
+    description: '현대차그룹 생성형 AI 서비스 H Chat 사용 가이드',
+    type: 'website',
+    locale: 'ko_KR',
+    url: 'https://sgtlim0.github.io',
+    siteName: 'H Chat Wiki',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'H Chat Wiki',
+    description: '현대차그룹 생성형 AI 서비스 H Chat 사용 가이드',
+  },
+  alternates: {
+    canonical: 'https://sgtlim0.github.io',
+  },
 }
 
 const securityHeaders = (
