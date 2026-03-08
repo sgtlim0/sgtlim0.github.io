@@ -70,12 +70,11 @@ export { HotkeyProvider } from './hooks/HotkeyProvider'
 export { createDefaultHotkeys } from './hooks/defaultHotkeys'
 export type { DefaultHotkeyHandlers } from './hooks/defaultHotkeys'
 
-<<<<<<< HEAD
 // Undo/Redo
 export { useUndoRedo } from './hooks/useUndoRedo'
 export type { UndoRedoState } from './hooks/useUndoRedo'
 export { UndoRedoProvider, useUndoRedoContext } from './hooks/UndoRedoProvider'
-=======
+
 // Drag and Drop
 export { useDragAndDrop } from './hooks/useDragAndDrop'
 export type { DragItem, DragHandlerProps, UseDragAndDropReturn } from './hooks/useDragAndDrop'
@@ -83,4 +82,9 @@ export { default as DraggableList } from './DraggableList'
 export type { DraggableListProps } from './DraggableList'
 export { default as DragHandle } from './DragHandle'
 export type { DragHandleProps } from './DragHandle'
->>>>>>> worktree-agent-aed47cbe
+
+// Virtual List
+export { useVirtualList } from './hooks/useVirtualList'
+export type { UseVirtualListOptions, VirtualItem, UseVirtualListReturn } from './hooks/useVirtualList'
+export { default as VirtualList } from './VirtualList'
+export type { VirtualListProps } from './VirtualList'
