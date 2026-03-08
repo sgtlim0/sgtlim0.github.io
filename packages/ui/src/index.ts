@@ -49,6 +49,11 @@ export { useCommandPalette } from './hooks/useCommandPalette'
 export { default as NotificationBanner } from './NotificationBanner'
 export { usePushNotification } from './hooks/usePushNotification'
 
+// Data Export
+export { default as ExportButton } from './ExportButton'
+export type { ExportButtonProps } from './ExportButton'
+export { useDataExport } from './hooks/useDataExport'
+
 // Mobile components — import from '@hchat/ui/mobile' for tree-shaking
 // export * from './mobile'  // Removed: use '@hchat/ui/mobile'
 
