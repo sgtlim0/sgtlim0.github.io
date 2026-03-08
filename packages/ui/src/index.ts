@@ -28,6 +28,7 @@ export * from './i18n'
 export { SkeletonPulse, SkeletonText, SkeletonCard, SkeletonTable, SkeletonChart } from './Skeleton'
 export { ToastProvider, useToast } from './Toast'
 export { default as ErrorBoundary, ErrorFallback } from './ErrorBoundary'
+export { ErrorPage, NotFoundPage } from './ErrorPage'
 export { default as EmptyState } from './EmptyState'
 export type { EmptyStateProps } from './EmptyState'
 
