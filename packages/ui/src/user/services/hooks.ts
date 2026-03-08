@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useUserService } from './UserServiceProvider';
+import { useAsyncData } from '../../hooks/useAsyncData';
+import type { AsyncDataResult } from '../../hooks/useAsyncData';
 import type {
   Conversation,
   Assistant,
@@ -12,34 +14,28 @@ import type {
   OCRJob
 } from './types';
 
-interface UseDataResult<T> {
-  data: T | null;
-  loading: boolean;
-  error: Error | null;
-  refetch: () => Promise<void>;
-}
+type UseDataResult<T> = AsyncDataResult<T>;
 
 /**
  * Hook for managing conversations with CRUD operations.
+ * Uses useAsyncData for initial fetch; manages local state for mutations.
  */
 export function useConversations() {
   const service = useUserService();
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [mutationError, setMutationError] = useState<Error | null>(null);
 
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const data = await service.getConversations();
+  const { data, loading, error, refetch } = useAsyncData(
+    () => service.getConversations(),
+    [service],
+  );
+
+  // Sync fetched data into local state
+  useEffect(() => {
+    if (data) {
       setConversations(data);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('대화 목록 로드 실패'));
-    } finally {
-      setLoading(false);
     }
-  }, [service]);
+  }, [data]);
 
   const create = useCallback(async (assistantId: string) => {
     try {
@@ -47,9 +43,9 @@ export function useConversations() {
       setConversations(prev => [newConv, ...prev]);
       return newConv;
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('대화 생성 실패');
-      setError(error);
-      throw error;
+      const e = err instanceof Error ? err : new Error('대화 생성 실패');
+      setMutationError(e);
+      throw e;
     }
   }, [service]);
 
@@ -58,49 +54,36 @@ export function useConversations() {
       await service.deleteConversation(id);
       setConversations(prev => prev.filter(c => c.id !== id));
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('대화 삭제 실패');
-      setError(error);
-      throw error;
+      const e = err instanceof Error ? err : new Error('대화 삭제 실패');
+      setMutationError(e);
+      throw e;
     }
   }, [service]);
 
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  return { conversations, loading, error, create, remove, refetch: fetch };
+  return {
+    conversations,
+    loading,
+    error: error ?? mutationError,
+    create,
+    remove,
+    refetch,
+  };
 }
 
 /**
  * Hook for managing assistants (official + custom).
+ * Uses useAsyncData for initial fetch; derives computed state from result.
  */
 export function useAssistants() {
   const service = useUserService();
-  const [assistants, setAssistants] = useState<Assistant[]>([]);
-  const [customAssistants, setCustomAssistants] = useState<Assistant[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
 
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const [official, custom] = await Promise.all([
-        service.getAssistants(),
-        service.getCustomAssistants()
-      ]);
-      setAssistants(official);
-      setCustomAssistants(custom);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('어시스턴트 로드 실패'));
-    } finally {
-      setLoading(false);
-    }
-  }, [service]);
+  const { data, loading, error, refetch } = useAsyncData(
+    () => Promise.all([service.getAssistants(), service.getCustomAssistants()]),
+    [service],
+  );
 
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
+  const assistants = data?.[0] ?? [];
+  const customAssistants = data?.[1] ?? [];
 
   return {
     assistants,
@@ -108,7 +91,7 @@ export function useAssistants() {
     allAssistants: [...assistants, ...customAssistants],
     loading,
     error,
-    refetch: fetch
+    refetch,
   };
 }
 
@@ -117,28 +100,7 @@ export function useAssistants() {
  */
 export function useUsageStats(): UseDataResult<ModelUsage[]> {
   const service = useUserService();
-  const [data, setData] = useState<ModelUsage[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const stats = await service.getUsageStats();
-      setData(stats);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('사용량 통계 로드 실패'));
-    } finally {
-      setLoading(false);
-    }
-  }, [service]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  return { data, loading, error, refetch: fetch };
+  return useAsyncData(() => service.getUsageStats(), [service]);
 }
 
 /**
@@ -146,28 +108,7 @@ export function useUsageStats(): UseDataResult<ModelUsage[]> {
  */
 export function useSubscription(): UseDataResult<Subscription> {
   const service = useUserService();
-  const [data, setData] = useState<Subscription | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const sub = await service.getSubscription();
-      setData(sub);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('구독 정보 로드 실패'));
-    } finally {
-      setLoading(false);
-    }
-  }, [service]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  return { data, loading, error, refetch: fetch };
+  return useAsyncData(() => service.getSubscription(), [service]);
 }
 
 /**
@@ -175,28 +116,7 @@ export function useSubscription(): UseDataResult<Subscription> {
  */
 export function useTranslationJobs(): UseDataResult<TranslationJob[]> {
   const service = useUserService();
-  const [data, setData] = useState<TranslationJob[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const jobs = await service.getTranslationJobs();
-      setData(jobs);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('번역 작업 로드 실패'));
-    } finally {
-      setLoading(false);
-    }
-  }, [service]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  return { data, loading, error, refetch: fetch };
+  return useAsyncData(() => service.getTranslationJobs(), [service]);
 }
 
 /**
@@ -204,28 +124,7 @@ export function useTranslationJobs(): UseDataResult<TranslationJob[]> {
  */
 export function useDocProjects(): UseDataResult<DocProject[]> {
   const service = useUserService();
-  const [data, setData] = useState<DocProject[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const projects = await service.getDocProjects();
-      setData(projects);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('문서 프로젝트 로드 실패'));
-    } finally {
-      setLoading(false);
-    }
-  }, [service]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  return { data, loading, error, refetch: fetch };
+  return useAsyncData(() => service.getDocProjects(), [service]);
 }
 
 /**
@@ -233,26 +132,5 @@ export function useDocProjects(): UseDataResult<DocProject[]> {
  */
 export function useOCRJobs(): UseDataResult<OCRJob[]> {
   const service = useUserService();
-  const [data, setData] = useState<OCRJob[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetch = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const jobs = await service.getOCRJobs();
-      setData(jobs);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('OCR 작업 로드 실패'));
-    } finally {
-      setLoading(false);
-    }
-  }, [service]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-
-  return { data, loading, error, refetch: fetch };
+  return useAsyncData(() => service.getOCRJobs(), [service]);
 }

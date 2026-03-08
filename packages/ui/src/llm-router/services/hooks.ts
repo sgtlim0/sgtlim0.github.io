@@ -9,6 +9,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useLlmRouterService } from './LlmRouterServiceProvider';
+import { useAsyncData } from '../../hooks/useAsyncData';
+import type { AsyncDataResult } from '../../hooks/useAsyncData';
 import type {
   LLMModel,
   APIKey,
@@ -21,51 +23,15 @@ import type {
 } from './types';
 
 /**
- * Generic data fetching state
+ * Generic data fetching state (preserved for backward compatibility)
  */
-interface DataState<T> {
-  data: T | null;
-  loading: boolean;
-  error: Error | null;
-}
+type DataState<T> = Pick<AsyncDataResult<T>, 'data' | 'loading' | 'error'>;
 
 /**
- * Generic hook for data fetching
+ * Thin wrapper: strips refetch to preserve DataState return type
  */
 function useData<T>(fetchFn: () => Promise<T>, deps: unknown[] = []): DataState<T> {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const result = await fetchFn();
-        if (mounted) {
-          setData(result);
-        }
-      } catch (err) {
-        if (mounted) {
-          setError(err instanceof Error ? err : new Error('Unknown error'));
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      mounted = false;
-    };
-  }, deps);
-
+  const { data, loading, error } = useAsyncData(fetchFn, deps);
   return { data, loading, error };
 }
 
@@ -238,51 +204,32 @@ export function useModelUsageBreakdown() {
 export function useAPIKeys() {
   const service = useLlmRouterService();
   const [keys, setKeys] = useState<APIKey[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [mutationError, setMutationError] = useState<Error | null>(null);
 
-  // Fetch keys on mount
+  const { data, loading, error: fetchError } = useAsyncData(
+    () => service.getAPIKeys(),
+    [service],
+  );
+
+  // Sync fetched data into local state
   useEffect(() => {
-    let mounted = true;
-
-    const fetchKeys = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const result = await service.getAPIKeys();
-        if (mounted) {
-          setKeys(result);
-        }
-      } catch (err) {
-        if (mounted) {
-          setError(err instanceof Error ? err : new Error('Unknown error'));
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchKeys();
-
-    return () => {
-      mounted = false;
-    };
-  }, [service]);
+    if (data) {
+      setKeys(data);
+    }
+  }, [data]);
 
   // Create key mutation
   const createKey = useCallback(
     async (name: string) => {
       try {
-        setError(null);
+        setMutationError(null);
         const newKey = await service.createAPIKey(name);
         setKeys((prev) => [...prev, newKey]);
         return newKey;
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Unknown error');
-        setError(error);
-        throw error;
+        const e = err instanceof Error ? err : new Error('Unknown error');
+        setMutationError(e);
+        throw e;
       }
     },
     [service]
@@ -292,13 +239,13 @@ export function useAPIKeys() {
   const revokeKey = useCallback(
     async (id: string) => {
       try {
-        setError(null);
+        setMutationError(null);
         await service.revokeAPIKey(id);
         setKeys((prev) => prev.map((k) => (k.id === id ? { ...k, status: 'revoked' as const } : k)));
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Unknown error');
-        setError(error);
-        throw error;
+        const e = err instanceof Error ? err : new Error('Unknown error');
+        setMutationError(e);
+        throw e;
       }
     },
     [service]
@@ -307,7 +254,7 @@ export function useAPIKeys() {
   return {
     keys,
     loading,
-    error,
+    error: fetchError ?? mutationError,
     createKey,
     revokeKey,
   };

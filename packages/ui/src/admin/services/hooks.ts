@@ -7,8 +7,9 @@
  * All hooks use the AdminApiService from context.
  */
 
-import { useState, useEffect } from 'react';
 import { useAdminService } from './AdminServiceProvider';
+import { useAsyncData } from '../../hooks/useAsyncData';
+import type { AsyncDataResult } from '../../hooks/useAsyncData';
 import type {
   DashboardSummary,
   UsageRecord,
@@ -30,51 +31,15 @@ import type {
 } from './types';
 
 /**
- * Generic data fetching state
+ * Generic data fetching state (preserved for backward compatibility)
  */
-interface DataState<T> {
-  data: T | null;
-  loading: boolean;
-  error: Error | null;
-}
+type DataState<T> = Pick<AsyncDataResult<T>, 'data' | 'loading' | 'error'>;
 
 /**
- * Generic hook for data fetching
+ * Thin wrapper: strips refetch to preserve DataState return type
  */
 function useData<T>(fetchFn: () => Promise<T>, deps: unknown[] = []): DataState<T> {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const result = await fetchFn();
-        if (mounted) {
-          setData(result);
-        }
-      } catch (err) {
-        if (mounted) {
-          setError(err instanceof Error ? err : new Error('Unknown error'));
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      mounted = false;
-    };
-  }, deps);
-
+  const { data, loading, error } = useAsyncData(fetchFn, deps);
   return { data, loading, error };
 }
 

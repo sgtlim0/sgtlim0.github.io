@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect, type RefObject } from 'react'
 import type { MobileTab, MobileChat, MobileAssistant, MobileSetting } from '../types'
+import { useAsyncData } from '../../hooks/useAsyncData'
 import * as svc from './mobileService'
 
 export function useMobileTabs(initial: MobileTab = 'chat') {
@@ -11,47 +12,31 @@ export function useMobileTabs(initial: MobileTab = 'chat') {
 
 export function useChatList() {
   const [chats, setChats] = useState<readonly MobileChat[]>([])
-  const [loading, setLoading] = useState(true)
-
-  const refresh = useCallback(async () => {
-    setLoading(true)
-    try {
-      const data = await svc.getChatList()
-      setChats(data)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+  const { data, loading, refetch } = useAsyncData(() => svc.getChatList())
 
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    if (data) {
+      setChats(data)
+    }
+  }, [data])
 
   const deleteChat = useCallback(async (id: string) => {
     await svc.deleteChat(id)
     setChats((prev) => prev.filter((c) => c.id !== id))
   }, [])
 
-  return { chats, loading, deleteChat, refresh } as const
+  return { chats, loading, deleteChat, refresh: refetch } as const
 }
 
 export function useAssistants() {
   const [assistants, setAssistants] = useState<readonly MobileAssistant[]>([])
-  const [loading, setLoading] = useState(true)
-
-  const refresh = useCallback(async () => {
-    setLoading(true)
-    try {
-      const data = await svc.getAssistants()
-      setAssistants(data)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+  const { data, loading, refetch } = useAsyncData(() => svc.getAssistants())
 
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    if (data) {
+      setAssistants(data)
+    }
+  }, [data])
 
   const favorites = useMemo(() => assistants.filter((a) => a.isFavorite), [assistants])
 
@@ -62,26 +47,18 @@ export function useAssistants() {
     )
   }, [])
 
-  return { assistants, favorites, loading, toggleFavorite, refresh } as const
+  return { assistants, favorites, loading, toggleFavorite, refresh: refetch } as const
 }
 
 export function useMobileSettings() {
   const [settings, setSettings] = useState<readonly MobileSetting[]>([])
-  const [loading, setLoading] = useState(true)
-
-  const refresh = useCallback(async () => {
-    setLoading(true)
-    try {
-      const data = await svc.getSettings()
-      setSettings(data)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+  const { data, loading, refetch } = useAsyncData(() => svc.getSettings())
 
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    if (data) {
+      setSettings(data)
+    }
+  }, [data])
 
   const grouped = useMemo(() => {
     const groups: Record<MobileSetting['section'], MobileSetting[]> = {
@@ -101,7 +78,7 @@ export function useMobileSettings() {
     setSettings((prev) => prev.map((s) => (s.id === id ? { ...s, value } : s)))
   }, [])
 
-  return { settings, grouped, loading, updateSetting, refresh } as const
+  return { settings, grouped, loading, updateSetting, refresh: refetch } as const
 }
 
 interface SwipeGestureOptions {
