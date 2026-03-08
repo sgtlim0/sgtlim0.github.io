@@ -13,13 +13,66 @@ export {
 } from './csrf'
 
 // Error Monitoring
-export { initErrorMonitoring, logError } from './errorMonitoring'
+export {
+  initSentry,
+  captureError,
+  captureMessage,
+  setUser,
+  clearUser,
+  addBreadcrumb,
+  getBreadcrumbs,
+  startTransaction,
+  finishTransaction,
+  getErrorBoundaryConfig,
+  getMonitoringConfig,
+} from './errorMonitoring'
+export type {
+  ErrorContext,
+  BreadcrumbData,
+  UserContext,
+  TransactionContext,
+  ErrorBoundaryConfig,
+} from './errorMonitoring'
 
 // Health Check
-export { checkHealth } from './healthCheck'
+export { checkServiceHealth, getSystemHealth, getMonitoringStatus } from './healthCheck'
+export type {
+  ServiceHealth,
+  HealthStatus,
+  MonitoringStatus,
+  ServiceEndpoint,
+} from './healthCheck'
 
 // Web Vitals
-export { reportWebVitals } from './webVitals'
+export {
+  reportWebVitals,
+  evaluateMetric,
+  buildReport,
+  getCollectedMetrics,
+  clearCollectedMetrics,
+  createMetric,
+  WEB_VITAL_THRESHOLDS,
+} from './webVitals'
+export type { WebVitalMetric, WebVitalThresholds, WebVitalsReport } from './webVitals'
+
+// Alert Configuration & Manager
+export {
+  DEFAULT_ALERT_RULES,
+  getAlertSeverity,
+  evaluateAlert,
+  evaluateAllRules,
+  createAlertRule,
+  updateAlertRule,
+  toggleAlertRule,
+  AlertManager,
+} from './alertConfig'
+export type {
+  AlertRule,
+  AlertEvent,
+  MetricData,
+  NotificationChannel,
+  AlertManagerConfig,
+} from './alertConfig'
 
 // Token Storage
 export { tokenStorage } from './tokenStorage'

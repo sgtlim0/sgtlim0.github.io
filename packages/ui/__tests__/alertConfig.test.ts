@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import {
   evaluateAlert,
   evaluateAllRules,
@@ -7,7 +7,12 @@ import {
   updateAlertRule,
   toggleAlertRule,
   DEFAULT_ALERT_RULES,
-  type AlertRule,
+  AlertManager,
+} from '../src/utils/alertConfig'
+import type {
+  AlertRule,
+  MetricData,
+  NotificationChannel,
 } from '../src/utils/alertConfig'
 
 describe('alertConfig', () => {
@@ -235,6 +240,225 @@ describe('alertConfig', () => {
       }
       const toggled = toggleAlertRule(rule)
       expect(toggled.enabled).toBe(true)
+    })
+  })
+
+  // -----------------------------------------------------------------------
+  // AlertManager
+  // -----------------------------------------------------------------------
+
+  describe('AlertManager', () => {
+    let manager: AlertManager
+
+    const testRules: AlertRule[] = [
+      {
+        id: 'err',
+        name: 'Error Rate',
+        metric: 'error_rate',
+        condition: 'gt',
+        threshold: 5,
+        channel: 'slack',
+        enabled: true,
+      },
+      {
+        id: 'lcp',
+        name: 'LCP',
+        metric: 'lcp',
+        condition: 'gt',
+        threshold: 4000,
+        channel: 'email',
+        enabled: true,
+      },
+    ]
+
+    beforeEach(() => {
+      manager = new AlertManager({
+        rules: testRules,
+        defaultCooldownMs: 1000,
+        maxHistorySize: 5,
+      })
+    })
+
+    describe('getRules', () => {
+      it('returns a copy of rules', () => {
+        const rules = manager.getRules()
+        expect(rules).toHaveLength(2)
+        expect(rules[0].id).toBe('err')
+      })
+    })
+
+    describe('addRule', () => {
+      it('adds a rule with generated id', () => {
+        const rule = manager.addRule({
+          name: 'CPU',
+          metric: 'cpu_usage',
+          condition: 'gt',
+          threshold: 90,
+          channel: 'email',
+          enabled: true,
+        })
+        expect(rule.id).toMatch(/^rule-/)
+        expect(manager.getRules()).toHaveLength(3)
+      })
+    })
+
+    describe('removeRule', () => {
+      it('removes existing rule', () => {
+        expect(manager.removeRule('err')).toBe(true)
+        expect(manager.getRules()).toHaveLength(1)
+      })
+
+      it('returns false for nonexistent rule', () => {
+        expect(manager.removeRule('nope')).toBe(false)
+      })
+    })
+
+    describe('updateRule', () => {
+      it('updates existing rule', () => {
+        const updated = manager.updateRule('err', { threshold: 10 })
+        expect(updated).not.toBeNull()
+        expect(updated!.threshold).toBe(10)
+      })
+
+      it('returns null for nonexistent rule', () => {
+        expect(manager.updateRule('nope', { threshold: 1 })).toBeNull()
+      })
+    })
+
+    describe('toggleRule', () => {
+      it('toggles existing rule', () => {
+        const toggled = manager.toggleRule('err')
+        expect(toggled).not.toBeNull()
+        expect(toggled!.enabled).toBe(false)
+      })
+
+      it('returns null for nonexistent rule', () => {
+        expect(manager.toggleRule('nope')).toBeNull()
+      })
+    })
+
+    describe('checkAlerts', () => {
+      it('triggers alerts for breached metrics', () => {
+        const events = manager.checkAlerts({ errorRate: 10, lcp: 2000 })
+        expect(events).toHaveLength(1)
+        expect(events[0].ruleId).toBe('err')
+      })
+
+      it('triggers multiple alerts', () => {
+        const events = manager.checkAlerts({ errorRate: 10, lcp: 5000 })
+        expect(events).toHaveLength(2)
+      })
+
+      it('returns empty when no breach', () => {
+        expect(manager.checkAlerts({ errorRate: 1, lcp: 1000 })).toEqual([])
+      })
+
+      it('respects cooldown', () => {
+        const now = 100_000
+        expect(manager.checkAlerts({ errorRate: 10 }, now)).toHaveLength(1)
+        expect(manager.checkAlerts({ errorRate: 10 }, now + 500)).toHaveLength(0)
+        expect(manager.checkAlerts({ errorRate: 10 }, now + 1001)).toHaveLength(1)
+      })
+
+      it('records events in history', () => {
+        manager.checkAlerts({ errorRate: 10 })
+        expect(manager.getAlertHistory()).toHaveLength(1)
+        expect(manager.getAlertHistory()[0].ruleId).toBe('err')
+      })
+
+      it('respects maxHistorySize', () => {
+        for (let i = 0; i < 6; i++) {
+          manager.checkAlerts({ errorRate: 10 }, i * 2000)
+        }
+        expect(manager.getAlertHistory()).toHaveLength(5)
+      })
+
+      it('fires notification channel on alert', async () => {
+        const sendFn = vi.fn().mockResolvedValue(undefined)
+        const channel: NotificationChannel = { name: 'slack', send: sendFn }
+        const mgr = new AlertManager({
+          rules: [testRules[0]],
+          channels: { slack: channel },
+        })
+
+        mgr.checkAlerts({ errorRate: 10 })
+        await vi.waitFor(() => {
+          expect(sendFn).toHaveBeenCalledTimes(1)
+        })
+        expect(sendFn.mock.calls[0][0].ruleId).toBe('err')
+      })
+
+      it('does not throw when notification channel fails', () => {
+        const failChannel: NotificationChannel = {
+          name: 'fail',
+          send: vi.fn().mockRejectedValue(new Error('network')),
+        }
+        const mgr = new AlertManager({
+          rules: [testRules[0]],
+          channels: { slack: failChannel },
+        })
+        expect(() => mgr.checkAlerts({ errorRate: 10 })).not.toThrow()
+      })
+
+      it('maps camelCase MetricData keys to snake_case', () => {
+        const mgr = new AlertManager({
+          rules: [...DEFAULT_ALERT_RULES],
+          defaultCooldownMs: 0,
+        })
+        const events = mgr.checkAlerts({
+          errorRate: 10,
+          responseTime: 5000,
+          cpuUsage: 95,
+          memoryUsage: 90,
+        })
+        const metrics = events.map((e) => e.metric)
+        expect(metrics).toContain('error_rate')
+        expect(metrics).toContain('response_time')
+        expect(metrics).toContain('cpu_usage')
+        expect(metrics).toContain('memory_usage')
+      })
+    })
+
+    describe('clearAlert', () => {
+      it('removes history entries for a specific rule and resets cooldown', () => {
+        manager.checkAlerts({ errorRate: 10 })
+        expect(manager.clearAlert('err')).toBe(true)
+        expect(manager.getAlertHistory()).toHaveLength(0)
+        // Can fire immediately after clearing
+        expect(manager.checkAlerts({ errorRate: 10 })).toHaveLength(1)
+      })
+
+      it('returns false when no entries match', () => {
+        expect(manager.clearAlert('nonexistent')).toBe(false)
+      })
+    })
+
+    describe('clearAllHistory', () => {
+      it('removes all history and cooldowns', () => {
+        manager.checkAlerts({ errorRate: 10, lcp: 5000 })
+        expect(manager.getAlertHistory()).toHaveLength(2)
+        manager.clearAllHistory()
+        expect(manager.getAlertHistory()).toHaveLength(0)
+        expect(manager.checkAlerts({ errorRate: 10, lcp: 5000 })).toHaveLength(2)
+      })
+    })
+
+    describe('registerChannel', () => {
+      it('registers a channel used on subsequent alerts', async () => {
+        const sendFn = vi.fn().mockResolvedValue(undefined)
+        manager.registerChannel('slack', { name: 'slack', send: sendFn })
+        manager.checkAlerts({ errorRate: 10 })
+        await vi.waitFor(() => {
+          expect(sendFn).toHaveBeenCalledTimes(1)
+        })
+      })
+    })
+
+    describe('default config', () => {
+      it('uses DEFAULT_ALERT_RULES when no rules provided', () => {
+        const mgr = new AlertManager()
+        expect(mgr.getRules()).toHaveLength(DEFAULT_ALERT_RULES.length)
+      })
     })
   })
 })
