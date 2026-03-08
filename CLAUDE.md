@@ -64,8 +64,8 @@ npm run dev:llm-router   # LLM Router dev at localhost:3004
 npm run dev:desktop      # Desktop dev at localhost:5173
 npm run dev:mobile       # Mobile dev at localhost:3005
 npm run dev:storybook    # Storybook dev at localhost:6006
-npm test                 # Vitest: run all unit tests (2,647 tests)
-npm run test:coverage    # Coverage report (83.1% statements)
+npm test                 # Vitest: run all unit tests (3,223 tests)
+npm run test:coverage    # Coverage report (89.9% statements)
 npm run test:e2e         # Playwright E2E tests (18 files)
 npm run docker:prod      # Start production Docker stack
 ```
@@ -97,6 +97,10 @@ npm run docker:prod      # Start production Docker stack
 - Docker Compose (PostgreSQL 16 + Redis 7 + FastAPI) for local infrastructure
 - Zod for runtime validation (9 schema files, 40+ types)
 - idb (IndexedDB) for client-side persistence
+- Feature Flags: localStorage-based runtime toggle (`packages/ui/src/utils/featureFlags.ts`, 4 default flags)
+- Structured Logging: `createLogger()` with JSON output (prod), console (dev), log buffering, captureError integration (`packages/ui/src/utils/logger.ts`)
+- Web Workers: `createWorkerClient()` promise wrapper with SSR fallback (`packages/ui/src/utils/workerUtils.ts`), used for xlsx parsing
+- API Versioning: `/api/v1/*` endpoints with `X-API-Version` header and deprecation sunset headers (`apps/user/app/api/v1/`)
 
 ## Architecture
 
@@ -106,7 +110,7 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 **Important**: Tailwind CSS 4 requires `@source "../../../packages/ui/src";` in app globals.css to scan cross-package utility classes. Glob patterns do not work — use directory paths only.
 
 ### Shared UI (`packages/ui/`)
-- `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState, LanguageToggle
+- `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState, LanguageToggle, FeatureFlagProvider, LogProvider, OptimizedImage, CommandPalette, HotkeyProvider
 - `@hchat/ui/hmg` — GNB, HeroBanner, TabFilter, Footer, HmgStatCard, StepItem, DownloadItem, PillButton
 - `@hchat/ui/admin` — StatusBadge, MonthPicker, StatCard, DataTable, BarChartRow, UserCard, SettingsRow, AdminDashboard, AdminUsageHistory, AdminStatistics, AdminUserManagement, AdminSettings, AdminProviderStatus, AdminModelPricing, AdminFeatureUsage, AdminPromptLibrary, AdminAgentMonitoring, DepartmentManagement, AuditLogViewer, SSOConfigPanel, LoginPage
 - `@hchat/ui/admin/auth` — AuthProvider, ProtectedRoute, useAuth hook, authService, mockAuthService
@@ -164,7 +168,7 @@ Chrome Extension (Manifest V3) built with Vite + React 19. Features: content scr
 Python FastAPI backend for LLM routing and AI services. Routers: chat, analyze, research. Requires Python environment with `requirements.txt`. Runs on port 8000. Docker-based deployment.
 
 ### Storybook (`apps/storybook/`)
-135 stories across categories: Wiki (13), Admin (21), HMG (12), ROI (24+), User (21), LLM Router (12), Desktop (8), Shared (12), Design System (1+). Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+167 stories across categories: Admin, HMG, ROI, User, LLM Router, Desktop, Mobile, Shared, Design System, plus atomic design (atoms/molecules/organisms). Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
@@ -185,17 +189,18 @@ Vercel projects connected via Git (auto-deploy on push to main).
 ### CI/CD
 - GitHub Actions CI: type-check + lint + build on push/PR (`.github/workflows/ci.yml`)
 - GitHub Actions Deploy: Wiki → GitHub Pages (`.github/workflows/deploy.yml`)
-- Playwright E2E tests: `npm run test:e2e` (admin, hmg, user, llm-router, wiki projects)
-- Lighthouse CI for performance monitoring
+- GitHub Actions E2E: Playwright tests (`.github/workflows/e2e.yml`)
+- Lighthouse CI: weekly schedule + manual dispatch, performance budgets (FCP<3s, LCP<4s, CLS<0.1, TBT<500ms) (`.github/workflows/lighthouse.yml`, `lighthouserc.json`)
+- Dependabot: auto-merge patch/minor PRs (`.github/workflows/dependabot-auto-merge.yml`)
 - Prettier + Husky + lint-staged for code quality
 
 ### Testing
-- Vitest: 152 test files, 3,198 unit tests (90.9% statement coverage, 82.3% branches)
-- MSW: 39 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
+- Vitest: 154 test files, 3,223 unit tests (89.9% statement coverage, 81.4% branches, 89.9% functions)
+- MSW: 42 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
 - Playwright E2E: 20 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience
-- Storybook: 167 stories with 86+ interaction tests
+- Storybook: 167 stories with 51 play-function interaction tests
 - k6 Load: 6 scenarios (smoke, chat, stream, research, pages, spike)
-- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 90.9% stmts, 82.3% branches)
+- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.9% stmts, 81.4% branches)
 - Test location: `packages/ui/__tests__/` (all unit tests)
 
 ### Infrastructure
@@ -205,4 +210,8 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - API Client: `packages/ui/src/client/` (ServiceFactory with Mock/Real switching via `NEXT_PUBLIC_API_MODE`)
 - Monitoring: `packages/ui/src/utils/errorMonitoring.ts` (Sentry-ready), `healthCheck.ts`, `webVitals.ts`
 - Security: 7 security headers on all apps, CSP nonce (SSR apps via middleware.ts), CSRF protection, PBKDF2 password hashing, HMAC-SHA256 JWT, Zod input validation, PII sanitization
+- DB Migration: `docker/init.sql` with `schema_migrations` tracking table, 3 migration scripts
+- Structured Logging: `createLogger(context)` → JSON (prod) / console (dev), log buffer (50 entries), custom transport support, auto captureError integration
+- Feature Flags: localStorage-based runtime toggle with React `useSyncExternalStore` integration (`FeatureFlagProvider.tsx`), 4 default flags (chat.streaming, roi.simulator, desktop.swarm, user.research)
+- Web Workers: xlsx parsing offloaded via `xlsxWorker.ts` + `useXlsxWorker` hook, generic `workerUtils.ts` with SSR fallback
 - Environment: `.env.development`, `.env.production`, `.env.test` templates + `.env.example` reference
