@@ -6,7 +6,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 describe('xlsxWorker', () => {
-  let originalSelf: typeof globalThis
   let postMessageMock: ReturnType<typeof vi.fn>
   let onmessageHandler: ((e: MessageEvent) => void) | null
 
@@ -45,20 +44,17 @@ describe('xlsxWorker', () => {
   })
 
   it('posts error when file exceeds max size', async () => {
-    // Import the worker module to trigger self.onmessage assignment
     await import('../src/roi/xlsxWorker')
 
     if (!onmessageHandler) {
-      // Fallback: access from self
       onmessageHandler = (globalThis as unknown as { self: { onmessage: typeof onmessageHandler } }).self.onmessage
     }
 
     expect(onmessageHandler).toBeDefined()
 
-    // Create a buffer that exceeds 50MB
     const hugeBuffer = new ArrayBuffer(51 * 1024 * 1024)
     const event = new MessageEvent('message', {
-      data: { type: 'parse', buffer: hugeBuffer },
+      data: { type: 'parse', buffer: hugeBuffer, fileName: 'huge.xlsx' },
     })
 
     await onmessageHandler!(event)
@@ -71,7 +67,7 @@ describe('xlsxWorker', () => {
     )
   })
 
-  it('ignores messages with non-parse type', async () => {
+  it('ignores messages with unknown type', async () => {
     await import('../src/roi/xlsxWorker')
 
     if (!onmessageHandler) {
@@ -85,5 +81,85 @@ describe('xlsxWorker', () => {
     await onmessageHandler!(event)
 
     expect(postMessageMock).not.toHaveBeenCalled()
+  })
+
+  it('validates data with missing required columns', async () => {
+    await import('../src/roi/xlsxWorker')
+
+    if (!onmessageHandler) {
+      onmessageHandler = (globalThis as unknown as { self: { onmessage: typeof onmessageHandler } }).self.onmessage
+    }
+
+    const event = new MessageEvent('message', {
+      data: { type: 'validate', data: [{ name: 'test' }] },
+    })
+
+    await onmessageHandler!(event)
+
+    expect(postMessageMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'validated',
+        valid: false,
+        errors: expect.arrayContaining([
+          expect.stringContaining('날짜'),
+        ]),
+      }),
+    )
+  })
+
+  it('validates empty data array', async () => {
+    await import('../src/roi/xlsxWorker')
+
+    if (!onmessageHandler) {
+      onmessageHandler = (globalThis as unknown as { self: { onmessage: typeof onmessageHandler } }).self.onmessage
+    }
+
+    const event = new MessageEvent('message', {
+      data: { type: 'validate', data: [] },
+    })
+
+    await onmessageHandler!(event)
+
+    expect(postMessageMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'validated',
+        valid: false,
+        errors: ['데이터가 비어있습니다.'],
+      }),
+    )
+  })
+
+  it('validates data with all required columns', async () => {
+    await import('../src/roi/xlsxWorker')
+
+    if (!onmessageHandler) {
+      onmessageHandler = (globalThis as unknown as { self: { onmessage: typeof onmessageHandler } }).self.onmessage
+    }
+
+    const validRow = {
+      날짜: '2025-01-01',
+      사용자ID: 'USR-001',
+      부서: '개발팀',
+      직급: '사원',
+      기능: 'AI 채팅',
+      모델: 'GPT-4o',
+      토큰수: 1000,
+      절감시간_분: 10,
+      만족도: 4,
+    }
+
+    const event = new MessageEvent('message', {
+      data: { type: 'validate', data: [validRow] },
+    })
+
+    await onmessageHandler!(event)
+
+    expect(postMessageMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'validated',
+        valid: true,
+        errors: [],
+      }),
+    )
   })
 })

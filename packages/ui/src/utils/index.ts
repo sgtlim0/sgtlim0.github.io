@@ -116,6 +116,10 @@ export {
 export type { LogLevel, LogEntry, Logger } from './logger'
 export { LogProvider, useLogger } from './LogProvider'
 
+// Worker Utilities
+export { supportsWorker, createWorkerClient, runWorkerTask } from './workerUtils'
+export type { WorkerClient } from './workerUtils'
+
 // Feature Flags
 export {
   isFeatureEnabled,

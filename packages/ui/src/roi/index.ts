@@ -13,6 +13,7 @@ export { default as DepartmentFilter } from './DepartmentFilter';
 export { MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart } from './charts';
 
 export { ROIDataProvider, useROIData } from './ROIDataContext';
+export { useXlsxWorker } from './useXlsxWorker';
 
 export { default as ROIOverview } from './ROIOverview';
 export { default as ROIAdoption } from './ROIAdoption';
