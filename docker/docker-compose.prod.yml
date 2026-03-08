@@ -44,6 +44,8 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/00_init.sql
       - ./migrations:/docker-entrypoint-initdb.d/migrations
       - ./migrations:/migrations
+      - ./seed.sql:/seed/seed.sql
+      - ./seed.sh:/seed/seed.sh
     environment:
       POSTGRES_DB: ${DB_NAME:-hchat}
       POSTGRES_USER: ${DB_USER:-hchat}

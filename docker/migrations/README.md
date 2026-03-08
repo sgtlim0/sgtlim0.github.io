@@ -60,6 +60,30 @@ SELECT * FROM schema_migrations ORDER BY version;
 | name       | TEXT        | File name without .sql   |
 | applied_at | TIMESTAMPTZ | When migration was applied|
 
+## Seed Data (Development Only)
+
+Development seed data is in `docker/seed.sql`. It populates the database with test users, conversations, messages, API keys, and audit logs for local development.
+
+```bash
+# Seed via npm script (requires running postgres container)
+npm run db:seed
+
+# Seed via docker compose directly
+docker compose exec postgres psql -U hchat -d hchat -f /seed/seed.sql
+
+# Seed via shell script inside container
+docker compose exec postgres bash /seed/seed.sh
+```
+
+Seed data summary:
+- 5 users (admin, manager, developer, analyst, viewer)
+- 10 conversations (2 per user)
+- 50 messages (5 per conversation)
+- 2 API keys
+- 15 audit logs
+
+The seed script is idempotent (uses `ON CONFLICT DO NOTHING`) and safe to run multiple times. **Do not use seed data in production.**
+
 ## Conventions
 
 - Prefix: 3-digit zero-padded (`001`, `002`, ...)
