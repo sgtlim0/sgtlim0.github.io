@@ -14,6 +14,10 @@ export function getApiUrl(): string {
   return process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api'
 }
 
+export function getAiCoreUrl(): string {
+  return process.env.NEXT_PUBLIC_AI_CORE_URL ?? 'http://localhost:8000'
+}
+
 let clientInstance: ApiClient | null = null
 
 export function getApiClient(): ApiClient {
