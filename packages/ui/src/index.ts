@@ -107,3 +107,6 @@ export type { ThemeCustomizerProps } from './ThemeCustomizer'
 export { useAnalytics } from './hooks/useAnalytics'
 export type { UseAnalyticsReturn } from './hooks/useAnalytics'
 export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvider'
+// Persisted State
+export { usePersistedState } from './hooks/usePersistedState'
+export type { UsePersistedStateOptions } from './hooks/usePersistedState'

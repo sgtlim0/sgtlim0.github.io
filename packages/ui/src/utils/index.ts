@@ -191,3 +191,6 @@ export type { AnalyticsEvent, AnalyticsProvider as AnalyticsProviderInterface, E
 export { AnalyticsProvider, useAnalyticsContext } from './AnalyticsProvider'
 export { useAnalytics } from '../hooks/useAnalytics'
 export type { UseAnalyticsReturn } from '../hooks/useAnalytics'
+// Persist Storage (IndexedDB + localStorage)
+export { createPersistStorage, persistStorage, _resetDB as _resetPersistDB } from './persistStorage'
+export type { PersistStorage } from './persistStorage'
