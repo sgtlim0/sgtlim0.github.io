@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-08 | AI Platform 프로토타입 Week 3 + PWA/Extension 분석 완료 기준
+> 마지막 업데이트: 2026-03-08 | AI Platform 프로토타입 Week 3 + 레퍼런스 심층분석 완료 기준
 
 ---
 
@@ -25,19 +25,20 @@
 |------|------|
 | 앱 (모노레포) | 7+1 (storybook) |
 | 패키지 | 7개 (tokens, ui, ui-core, ui-admin, ui-user, ui-roi, ui-llm-router) |
-| TS/TSX 파일 | 568개 |
+| TS/TSX 파일 | 635개 |
 | Python 파일 | 12개 (apps/ai-core/) |
 | 총 코드 라인 | ~60,000줄 (TS/TSX + Python) |
 | UI 컴포넌트 | 160개 |
 | 서비스 파일 | 42개 |
 | 페이지 | 56개 (page.tsx) |
-| 커스텀 훅 | 61개 |
-| Storybook | 160 스토리 |
+| 커스텀 훅 | 62개 (exported functions) |
+| Storybook | 135 스토리 파일 |
 | 단위 테스트 | 77 파일, 1,214 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
 | MSW 핸들러 | 39 endpoints (8 도메인) |
-| Git 커밋 | 133개 |
+| 'use client' | 136개 파일 |
+| Git 커밋 | 134개 |
 | 완료 Phase | 61개 |
 
 ---
@@ -146,27 +147,131 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 
 ---
 
-## 다음 계획: PWA + Extension (4주 로드맵)
+## 레퍼런스 구현 심층분석 결과 (~/Desktop/hchat/)
+
+> 6개 병렬 에이전트로 38개 파일 분석 완료 (2026-03-08)
+> 대상: backend(9), frontend(19), extension(8), 총 ~1,200 LOC
+
+### 레퍼런스 vs 모노레포 핵심 차이
+
+| 영역 | 레퍼런스 (Desktop) | 모노레포 (hchat-wiki) | 조치 |
+|------|-------------------|----------------------|------|
+| Next.js | 14, React 18, Tailwind 3 | 16, React 19, Tailwind 4 | 모노레포 기준 유지 |
+| 백엔드 | 동기식 FastAPI + requests | 비동기 FastAPI + httpx | 모노레포 우수 |
+| SSE | AsyncGenerator 패턴 | Subscribe/callback 패턴 | 현행 유지 (결정됨) |
+| 저장소 | IndexedDB (idb) | localStorage | **이관 필요** |
+| 세션 관리 | sessionId 1급 시민 | 없음 | **신규 도입** |
+| ChatPage | 훅 분리 (4개), ~200줄 | 모놀리식 599줄 | **리팩토링 필요** |
+| PWA | manifest + SW + Install | 없음 | **신규 구현** |
+| Extension | MV3 (content+popup) | 없음 | **신규 구현** |
+| /analyze | 4모드 분석 엔드포인트 | 없음 | **신규 추가** |
+| 컨텍스트 윈도우 | historyRef 슬라이딩 20 | 전체 전송 | **최적화 필요** |
+| 콘텐츠 살균 | 없음 | 없음 | **양쪽 모두 필요** |
+
+### 반영 우선순위: 레퍼런스에서 가져올 것
+
+| # | 우선순위 | 항목 | 레퍼런스 파일 | 모노레포 대상 | 난이도 |
+|---|----------|------|--------------|--------------|--------|
+| 1 | **CRITICAL** | ChatPage 훅 분리 | hooks/useChat.ts, useResearch.ts | packages/ui/src/user/hooks/ | 중간 |
+| 2 | **CRITICAL** | IndexedDB 마이그레이션 | lib/db.ts | packages/ui/src/user/services/indexedDbService.ts | 중간 |
+| 3 | **HIGH** | 세션 관리 도입 | lib/types.ts (sessionId) | ChatMessage 타입 + chatService | 중간 |
+| 4 | **HIGH** | API 히스토리 슬라이딩 윈도우 | hooks/useChat.ts (historyRef, 20) | useChat 훅에 통합 | 낮음 |
+| 5 | **HIGH** | /analyze 엔드포인트 | backend/main.py (/analyze) | apps/ai-core/routers/analyze.py | 낮음 |
+| 6 | **HIGH** | PWA 기본 설정 | manifest.json + sw.js | apps/user/public/ | 낮음 |
+| 7 | **MEDIUM** | Extension 기본 구조 | extension/src/* | apps/extension/ (Vite) | 중간 |
+| 8 | **MEDIUM** | 콘텐츠 살균 (PII 마스킹) | (미구현) | packages/ui/src/utils/sanitize.ts | 낮음 |
+| 9 | **MEDIUM** | InstallBanner 컴포넌트 | components/InstallBanner.tsx | packages/ui/src/user/components/ | 낮음 |
+| 10 | **MEDIUM** | PageContextBanner | components/PageContextBanner.tsx | packages/ui/src/user/components/ | 낮음 |
+| 11 | **LOW** | 한국어 불용어 확장 | optimizer/entropy_encoder.py (70개) | stopwords.ts (현재 72개, 차이 대조) | 낮음 |
+| 12 | **LOW** | InputArea 자동 높이 | components/InputArea.tsx | ChatSearchBar 개선 | 낮음 |
+
+### 보안 이슈 (레퍼런스에서 절대 가져오면 안 되는 것)
+
+| 심각도 | 레퍼런스 문제 | 모노레포 대응 |
+|--------|-------------|--------------|
+| CRITICAL | Extension `<all_urls>` host_permissions | optional_host_permissions 사용 |
+| CRITICAL | Popup → FastAPI 직접 호출 (localhost:8000) | API Gateway 경유 강제 |
+| HIGH | CORS `["*"]` 설정 | 특정 도메인 + Extension ID만 허용 |
+| HIGH | PII/민감 데이터 미살균 | sanitize.ts 유틸 구현 |
+| MEDIUM | background.ts에 추출 로직 중복 | content.ts에서만 추출, 메시지 전달 |
+| MEDIUM | 하드코딩된 localhost URL | 환경변수 기반 설정 |
+
+### 타입 스키마 정규화 필요
+
+| 필드 | 레퍼런스 | 모노레포 | 통합 방안 |
+|------|---------|---------|----------|
+| 타임스탬프 | `createdAt: number` (epoch) | `timestamp: string` (ISO) | **epoch number 채택** (정렬/비교 유리) |
+| 압축 정보 | `CompressionInfo { original, compressed, ratio }` | `CompressionStats { originalTokens, compressedTokens, reductionPct }` | **모노레포 유지** (더 상세) |
+| 세션 | `sessionId: string` | 없음 | **추가** |
+| 모드 | `'chat' \| 'research'` | `mode?: 'chat' \| 'research'` | 동일, 유지 |
+| Extension | `ExtensionContext { text, url, title, mode }` | 없음 | **추가** |
+
+---
+
+## 통합 구현 로드맵: PWA + Extension (4주)
 
 > 상세: [`docs/PWA_EXTENSION_IMPLEMENTATION_PLAN.md`](./PWA_EXTENSION_IMPLEMENTATION_PLAN.md)
 
-| 주차 | 작업 | 핵심 내용 | 상태 |
-|------|------|-----------|------|
-| Phase A (Week 1) | PWA 기반 + 훅 리팩토링 | manifest.json, SW, CSP, ChatPage 599→200줄 | 대기 |
-| Phase B (Week 2) | IndexedDB + 오프라인 | idb, localStorage 마이그레이션, 오프라인 UI | 대기 |
-| Phase C (Week 3) | Chrome Extension 기본 | content.ts, background.ts, Popup.tsx, /analyze | 대기 |
-| Phase D (Week 4) | Extension↔PWA 통합 | useExtensionContext, 보안, E2E | 대기 |
+### Phase A: ChatPage 훅 분리 + PWA 기본 (Week 1)
 
-### 핵심 설계 결정
+| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
+|---|------|------|-------------|--------|
+| A-1 | useConversations 훅 추출 | `packages/ui/src/user/hooks/useConversations.ts` | - | 중간 |
+| A-2 | useChat 훅 추출 (슬라이딩 윈도우 포함) | `packages/ui/src/user/hooks/useChat.ts` | `hooks/useChat.ts` | 중간 |
+| A-3 | useResearch 훅 추출 | `packages/ui/src/user/hooks/useResearch.ts` | `hooks/useResearch.ts` | 중간 |
+| A-4 | useAssistants 훅 추출 | `packages/ui/src/user/hooks/useAssistants.ts` | - | 중간 |
+| A-5 | ChatPage 리팩토링 (599→200줄) | `packages/ui/src/user/pages/ChatPage.tsx` | `app/page.tsx` | 중간 |
+| A-6 | 세션 관리 타입 추가 | `packages/ui/src/user/services/types.ts` | `lib/types.ts` | 낮음 |
+| A-7 | PWA manifest.json + 아이콘 | `apps/user/public/manifest.json` | `public/manifest.json` | 낮음 |
+| A-8 | Service Worker (3-tier 캐싱) | `apps/user/public/sw.js` | `public/sw.js` | 중간 |
+| A-9 | layout.tsx PWA 메타데이터 | `apps/user/app/layout.tsx` | `app/layout.tsx` | 낮음 |
+| A-10 | CSP 헤더 수정 (worker-src) | `apps/user/next.config.ts` | - | 낮음 |
 
-| 항목 | 결정 | 이유 |
-|------|------|------|
-| SSE 패턴 | Subscribe (현행 유지) | AbortController 깔끔, Mock/Real 전환 용이 |
-| API 프록시 | API Routes (현행 유지) | Zod + Rate Limit + 서버사이드 URL |
-| Service Worker | 수동 구현 (next-pwa X) | 모노레포 복잡도, 최소 의존성 |
-| IndexedDB | idb 라이브러리 | TS 네이티브, 기존 인터페이스 유지 |
-| Extension 배치 | apps/extension/ (Vite) | 의미적 적합, 타입 공유, 빌드 독립 |
-| Extension 보안 | optional_host_permissions | <all_urls> 제거, API Gateway 경유 강제 |
+**검증**: ChatPage 정상 동작 + Lighthouse PWA 검사 + 훅 단위 테스트
+
+### Phase B: IndexedDB + 오프라인 (Week 2)
+
+| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
+|---|------|------|-------------|--------|
+| B-1 | idb 라이브러리 설치 | `package.json` | - | 낮음 |
+| B-2 | IndexedDB 서비스 구현 | `packages/ui/src/user/services/indexedDbService.ts` | `lib/db.ts` | 중간 |
+| B-3 | chatService 내부 구현 교체 | `packages/ui/src/user/services/chatService.ts` | - | 중간 |
+| B-4 | localStorage → IndexedDB 마이그레이션 로직 | `indexedDbService.ts` | - | 중간 |
+| B-5 | useNetworkStatus 훅 | `packages/ui/src/hooks/useNetworkStatus.ts` | - | 낮음 |
+| B-6 | usePWAInstall 훅 | `packages/ui/src/hooks/usePWAInstall.ts` | `hooks/usePWAInstall.ts` | 낮음 |
+| B-7 | InstallBanner 컴포넌트 | `packages/ui/src/user/components/InstallBanner.tsx` | `components/InstallBanner.tsx` | 낮음 |
+| B-8 | 오프라인 UI (배너, 입력 비활성화) | `ChatPage, UserGNB` | - | 낮음 |
+| B-9 | 테스트 (fake-indexeddb) | `__tests__/indexedDb.test.ts` | - | 중간 |
+
+**검증**: DevTools IndexedDB 확인, 오프라인 모드 동작, 마이그레이션 정상
+
+### Phase C: Chrome Extension 기본 (Week 3)
+
+| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
+|---|------|------|-------------|--------|
+| C-1 | Extension 프로젝트 셋업 (Vite + React 19 + TW4) | `apps/extension/` | `extension/` | 중간 |
+| C-2 | manifest.json (**최소 권한**) | `apps/extension/public/manifest.json` | 참조하되 보안 수정 | 낮음 |
+| C-3 | content.ts (텍스트 추출 + **PII 살균**) | `apps/extension/src/content.ts` | `src/content.ts` | 중간 |
+| C-4 | background.ts (컨텍스트 메뉴, **중복 제거**) | `apps/extension/src/background.ts` | `src/background.ts` | 낮음 |
+| C-5 | Popup.tsx (4모드 분석 UI, **API Gateway 경유**) | `apps/extension/src/popup/Popup.tsx` | `src/popup/Popup.tsx` | 중간 |
+| C-6 | 콘텐츠 살균 유틸 (PII 마스킹) | `packages/ui/src/utils/sanitize.ts` | (미구현, 신규) | 낮음 |
+| C-7 | FastAPI /analyze 엔드포인트 | `apps/ai-core/routers/analyze.py` | `backend/main.py` | 낮음 |
+| C-8 | API Gateway /api/analyze | `apps/user/app/api/analyze/route.ts` | - | 낮음 |
+
+**검증**: Extension 로드, 팝업 동작, API Gateway 경유 확인, PII 마스킹 테스트
+
+### Phase D: Extension ↔ PWA 통합 + 보안 (Week 4)
+
+| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
+|---|------|------|-------------|--------|
+| D-1 | useExtensionContext 훅 | `packages/ui/src/user/hooks/useExtensionContext.ts` | `hooks/useExtensionContext.ts` | 중간 |
+| D-2 | PageContextBanner 컴포넌트 | `packages/ui/src/user/components/PageContextBanner.tsx` | `components/PageContextBanner.tsx` | 낮음 |
+| D-3 | ChatPage Extension 통합 | `ChatPage.tsx` | `app/page.tsx` | 낮음 |
+| D-4 | 민감 사이트 차단 목록 | `apps/extension/src/utils/blocklist.ts` | (미구현, 신규) | 중간 |
+| D-5 | Extension CORS 설정 (특정 ID) | `apps/ai-core/main.py` | - | 낮음 |
+| D-6 | E2E 테스트 | `tests/extension/` | - | 높음 |
+
+**검증**: 우클릭 → PWA 연동, 보안 체크리스트, E2E 통과
 
 ---
 
@@ -178,7 +283,7 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 |-------|------|------|------|
 | 62 | Zod Validation | 입력 검증 전체 서비스 적용 | 62+63 |
 | 63 | 테스트 커버리지 80% | 1,214 → ~2,000 tests | 62+63 |
-| 64 | Server Component | 'use client' 210 → <130 | - |
+| 64 | Server Component | 'use client' 136 → <80 | - |
 | 65 | Real API v1 | Auth+Chat+Admin DB 연동 | - |
 | 66 | Real API v2 + AI | OpenAI/Anthropic/Google 통합 | 66+67 |
 | 67 | Bundle & Perf | LLM Router 36MB → <5MB | 66+67 |
@@ -197,8 +302,12 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 3 | PARTIAL | Zod 검증 | 6개 스키마 추가 (chat, auth, common, roi, text) |
 | 4 | PARTIAL | 보안 헤더 | 4/7 앱 next.config.ts 헤더 추가 |
 | 5 | HIGH | 테스트 커버리지 51.81% | 목표 80% |
-| 6 | HIGH | 'use client' 210개 | Phase 64 |
+| 6 | HIGH | 'use client' 136개 | Phase 64 (기존 210→136 개선) |
 | 7 | HIGH | Mock → Real API | Phase 65-66 |
-| 8 | MEDIUM | CSRF 보호 | csrf.ts 유틸 구현, 실적용 대기 |
-| 9 | MEDIUM | LLM Router 번들 36MB | Phase 67 |
-| 10 | LOW | i18n | Phase 68 |
+| 8 | HIGH | ChatPage 599줄 모놀리식 | Phase A (훅 분리 → 200줄) |
+| 9 | HIGH | localStorage → IndexedDB | Phase B |
+| 10 | MEDIUM | CSRF 보호 | csrf.ts 유틸 구현, 실적용 대기 |
+| 11 | MEDIUM | LLM Router 번들 36MB | Phase 67 |
+| 12 | MEDIUM | PII 콘텐츠 살균 유틸 없음 | Phase C에서 구현 |
+| 13 | LOW | i18n | Phase 68 |
+| 14 | LOW | 한국어 불용어 대조 확인 | 레퍼런스 70개 vs 모노레포 72개 |
