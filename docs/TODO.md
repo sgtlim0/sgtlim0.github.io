@@ -276,9 +276,9 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 |-------|------|------|------|
 | 62 | Zod Validation | admin/llm-router/user 스키마 (34 타입) | ✅ |
 | 63 | 테스트 커버리지 확장 | 1,261 → 1,639 tests (104 files), 56→60% | ✅ (진행 중) |
-| 64 | Server Component | 'use client' 136 → <80 | - |
-| 65 | Real API v1 | Auth+Chat+Admin DB 연동 | - |
-| 66 | Real API v2 + AI | OpenAI/Anthropic/Google 통합 | 66+67 |
+| 64 | Server Component | 'use client' 146→137 (9개 제거) | ✅ |
+| 65 | Real API v1 | Auth/Chat/Admin Real 서비스 (serviceFactory Mock↔Real) | ✅ |
+| 66 | Real API v2 + AI | OpenAI/Anthropic/Google llm_client + realSseService | ✅ |
 | 67 | Bundle & Perf | LLM Router 36MB → <5MB | 66+67 |
 | 68 | i18n Full | ko/en/zh 3개 언어 | 68+69 |
 | 69 | Monitoring | Sentry + Web Vitals + Alerts | 68+69 |
@@ -295,8 +295,8 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 3 | PARTIAL | Zod 검증 | 6개 스키마 추가 (chat, auth, common, roi, text) |
 | 4 | PARTIAL | 보안 헤더 | 4/7 앱 next.config.ts 헤더 추가 |
 | 5 | PARTIAL | 테스트 커버리지 59.7% (104파일, 1639 tests) | 목표 80% |
-| 6 | HIGH | 'use client' 136개 | Phase 64 (기존 210→136 개선) |
-| 7 | HIGH | Mock → Real API | Phase 65-66 |
+| 6 | RESOLVED | 'use client' 146→137개 | Phase 64 완료 |
+| 7 | RESOLVED | Mock → Real API | Phase 65-66 완료 (serviceFactory 패턴) |
 | 8 | RESOLVED | ChatPage 599줄 모놀리식 | Phase A 완료 (4훅 분리 → 305줄) |
 | 9 | RESOLVED | localStorage → IndexedDB | Phase B 완료 (idb + 마이그레이션) |
 | 10 | MEDIUM | CSRF 보호 | csrf.ts 유틸 구현, 실적용 대기 |
