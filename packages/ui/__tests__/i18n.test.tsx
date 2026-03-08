@@ -62,7 +62,7 @@ describe('LanguageToggle', () => {
     expect(screen.getByText('EN')).toBeDefined()
   })
 
-  it('should toggle language on click', () => {
+  it('should cycle to English on first click', () => {
     render(
       <I18nProvider>
         <LanguageToggle />
@@ -70,18 +70,24 @@ describe('LanguageToggle', () => {
     )
 
     fireEvent.click(screen.getByText('EN'))
-    expect(screen.getByText('KO')).toBeDefined()
+    expect(screen.getByText('中文')).toBeDefined()
     expect(localStorage.getItem('locale')).toBe('en')
   })
 
-  it('should toggle back to Korean', () => {
+  it('should cycle through all three languages', () => {
     render(
       <I18nProvider>
         <LanguageToggle />
       </I18nProvider>,
     )
 
+    // ko -> en (shows next: 中文)
     fireEvent.click(screen.getByText('EN'))
+    expect(localStorage.getItem('locale')).toBe('en')
+    // en -> zh (shows next: KO)
+    fireEvent.click(screen.getByText('中文'))
+    expect(localStorage.getItem('locale')).toBe('zh')
+    // zh -> ko (shows next: EN)
     fireEvent.click(screen.getByText('KO'))
     expect(screen.getByText('EN')).toBeDefined()
     expect(localStorage.getItem('locale')).toBe('ko')
