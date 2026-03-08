@@ -1,14 +1,13 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { App } from './App'
+import Popup from './Popup'
+import './Popup.css'
 
-const rootElement = document.getElementById('root')
-if (!rootElement) {
-  throw new Error('Root element not found')
+const root = document.getElementById('root')
+if (root) {
+  createRoot(root).render(
+    <React.StrictMode>
+      <Popup />
+    </React.StrictMode>
+  )
 }
-
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
