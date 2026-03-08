@@ -1,6 +1,7 @@
 import type { Conversation, ChatMessage } from './types'
 import type { ApiClient } from '../../client/apiClient'
 import { getApiClient } from '../../client/serviceFactory'
+import { conversationsResponseSchema } from '../../schemas/user'
 
 export class RealChatService {
   private client: ApiClient
@@ -11,7 +12,8 @@ export class RealChatService {
 
   async getConversations(): Promise<Conversation[]> {
     try {
-      return await this.client.get<Conversation[]>('/conversations')
+      const data = await this.client.get<Conversation[]>('/conversations')
+      return conversationsResponseSchema.parse(data)
     } catch (error) {
       throw new Error(
         error instanceof Error

@@ -8,12 +8,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { fetchAiCore, getClientIp } from '../lib/aiCore'
+import { validateCsrfHeader } from '../lib/csrf'
 import { checkRateLimit } from '../lib/rateLimit'
 import { researchRequestSchema } from '../lib/validation'
 
 const RATE_LIMIT_PER_MINUTE = 10
 
 export async function POST(request: NextRequest) {
+  const csrfError = validateCsrfHeader(request)
+  if (csrfError) return csrfError
+
   try {
     const ip = getClientIp(request)
     const { allowed, remaining } = checkRateLimit(ip, RATE_LIMIT_PER_MINUTE)

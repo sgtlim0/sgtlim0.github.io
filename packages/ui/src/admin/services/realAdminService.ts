@@ -20,6 +20,10 @@ import type {
 } from './types'
 import type { ApiClient } from '../../client/apiClient'
 import { getApiClient } from '../../client/serviceFactory'
+import {
+  dashboardSummarySchema,
+  usersResponseSchema,
+} from '../../schemas/admin'
 
 export class RealAdminService implements AdminApiService {
   private client: ApiClient
@@ -32,7 +36,8 @@ export class RealAdminService implements AdminApiService {
 
   async getDashboardSummary(): Promise<DashboardSummary> {
     try {
-      return await this.client.get<DashboardSummary>('/admin/stats')
+      const data = await this.client.get<DashboardSummary>('/admin/stats')
+      return dashboardSummarySchema.parse(data)
     } catch (error) {
       throw new Error(
         error instanceof Error
@@ -95,7 +100,8 @@ export class RealAdminService implements AdminApiService {
 
   async getUsers(): Promise<User[]> {
     try {
-      return await this.client.get<User[]>('/admin/users')
+      const data = await this.client.get<User[]>('/admin/users')
+      return usersResponseSchema.parse(data)
     } catch (error) {
       throw new Error(
         error instanceof Error

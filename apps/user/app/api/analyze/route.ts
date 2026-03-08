@@ -8,9 +8,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { fetchAiCore } from '../lib/aiCore'
+import { validateCsrfHeader } from '../lib/csrf'
 import { analyzeRequestSchema } from '../lib/validation'
 
 export async function POST(request: NextRequest) {
+  const csrfError = validateCsrfHeader(request)
+  if (csrfError) return csrfError
+
   try {
     const body = await request.json()
     const parsed = analyzeRequestSchema.safeParse(body)

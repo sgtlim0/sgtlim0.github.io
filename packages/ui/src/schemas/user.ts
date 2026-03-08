@@ -135,8 +135,37 @@ export const docProjectSchema = z.object({
   step: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]),
 })
 
+// ============= Conversation Response =============
+
+export const chatMessageResponseSchema = z.object({
+  id: z.string().min(1),
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  timestamp: z.string(),
+  sessionId: z.string().optional(),
+  assistantId: z.string().optional(),
+  mode: chatMessageModeEnum.optional(),
+  sources: z
+    .array(sourceSchema)
+    .optional(),
+  compressionStats: compressionStatsSchema.optional(),
+})
+
+export const conversationResponseSchema = z.object({
+  id: z.string().min(1),
+  title: z.string(),
+  messages: z.array(chatMessageResponseSchema),
+  assistantId: z.string().min(1),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+
+export const conversationsResponseSchema = z.array(conversationResponseSchema)
+
 // ============= Inferred Types =============
 
+export type ChatMessageResponseOutput = z.infer<typeof chatMessageResponseSchema>
+export type ConversationResponseOutput = z.infer<typeof conversationResponseSchema>
 export type AssistantInput = z.infer<typeof assistantSchema>
 export type CreateAssistantInput = z.infer<typeof createAssistantSchema>
 export type UpdateAssistantInput = z.infer<typeof updateAssistantSchema>

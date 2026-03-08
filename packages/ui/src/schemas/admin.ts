@@ -208,8 +208,58 @@ export const promptTemplateSchema = z.object({
   tags: z.array(z.string()).max(20, '태그는 최대 20개까지 가능합니다'),
 })
 
+// ============= User Response =============
+
+export const userStatusEnum = z.enum(['active', 'inactive'])
+
+export const userResponseSchema = z.object({
+  userId: z.string().min(1),
+  name: z.string().min(1),
+  department: z.string().min(1),
+  totalConversations: z.number().int().nonnegative(),
+  monthlyTokens: z.string().min(1),
+  status: userStatusEnum,
+})
+
+export const usersResponseSchema = z.array(userResponseSchema)
+
+// ============= Dashboard Response =============
+
+export const dashboardStatSchema = z.object({
+  label: z.string().min(1),
+  value: z.string().min(1),
+  trend: z.string().optional(),
+  trendUp: z.boolean().optional(),
+})
+
+export const usageRecordStatusEnum = z.enum(['success', 'error', 'pending'])
+
+export const usageRecordSchema = z.object({
+  date: z.string().min(1),
+  user: z.string().min(1),
+  type: z.string().min(1),
+  model: z.string().min(1),
+  tokens: z.string().min(1),
+  cost: z.string().min(1),
+  status: usageRecordStatusEnum,
+})
+
+export const modelUsageSchema = z.object({
+  label: z.string().min(1),
+  value: z.number(),
+  color: z.string().min(1),
+})
+
+export const dashboardSummarySchema = z.object({
+  stats: z.array(dashboardStatSchema),
+  recentUsage: z.array(usageRecordSchema),
+  modelUsage: z.array(modelUsageSchema),
+})
+
 // ============= Inferred Types =============
 
+export type UserResponseOutput = z.infer<typeof userResponseSchema>
+export type DashboardSummaryOutput = z.infer<typeof dashboardSummarySchema>
 export type ProviderInfoInput = z.infer<typeof providerInfoSchema>
 export type IncidentLogInput = z.infer<typeof incidentLogSchema>
 export type ModelDefInput = z.infer<typeof modelDefSchema>
