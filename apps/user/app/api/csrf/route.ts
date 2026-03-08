@@ -1,24 +1,16 @@
 /**
  * GET /api/csrf
  *
- * Issues a signed CSRF token using the Double Submit Cookie pattern.
- * Sets the token as an httpOnly cookie and returns it in the JSON body.
- * The client must include the token in the X-CSRF-Token header on POST requests.
+ * DEPRECATED: Use /api/v1/csrf instead.
+ * Delegates to v1 handler with deprecation headers for backward compatibility.
  */
 
 import { NextRequest } from 'next/server'
 
-import { getClientIp } from '../lib/aiCore'
-import { createCsrfTokenResponse } from '../lib/csrf'
-import { checkRateLimit, createRateLimitResponse } from '../lib/rateLimit'
+import { GET as v1GET } from '../v1/csrf/route'
+import { withVersionHeaders } from '../v1/version'
 
 export async function GET(request: NextRequest) {
-  const ip = getClientIp(request)
-  const rateLimitResult = checkRateLimit(ip, 'csrf')
-
-  if (!rateLimitResult.allowed) {
-    return createRateLimitResponse(rateLimitResult)
-  }
-
-  return createCsrfTokenResponse()
+  const response = await v1GET(request)
+  return withVersionHeaders(response, true)
 }

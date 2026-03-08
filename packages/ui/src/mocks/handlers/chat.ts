@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 
-export const chatHandlers = [
-  http.post('/api/chat/send', async ({ request }) => {
+function chatSendHandler() {
+  return async ({ request }: { request: Request }) => {
     const body = (await request.json()) as { conversationId: string; content: string }
     return HttpResponse.json({
       success: true,
@@ -12,13 +12,17 @@ export const chatHandlers = [
         timestamp: new Date().toISOString(),
       },
     })
-  }),
+  }
+}
 
-  http.get('/api/chat/history', () => {
+function chatHistoryHandler() {
+  return () => {
     return HttpResponse.json({ success: true, data: [] })
-  }),
+  }
+}
 
-  http.get('/api/assistants', () => {
+function assistantsHandler() {
+  return () => {
     return HttpResponse.json({
       success: true,
       data: [
@@ -38,7 +42,19 @@ export const chatHandlers = [
         },
       ],
     })
-  }),
+  }
+}
+
+export const chatHandlers = [
+  // v1 versioned endpoints
+  http.post('/api/v1/chat/send', chatSendHandler()),
+  http.get('/api/v1/chat/history', chatHistoryHandler()),
+  http.get('/api/v1/assistants', assistantsHandler()),
+
+  // Legacy unversioned endpoints (backward compatibility)
+  http.post('/api/chat/send', chatSendHandler()),
+  http.get('/api/chat/history', chatHistoryHandler()),
+  http.get('/api/assistants', assistantsHandler()),
 
   http.get('/api/mobile/chats', () => {
     return HttpResponse.json({ success: true, data: [] })
