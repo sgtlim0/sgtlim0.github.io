@@ -102,3 +102,8 @@ export { useThemeCustomizer } from './hooks/useThemeCustomizer'
 export type { ThemeColors, ThemePreset } from './hooks/useThemeCustomizer'
 export { default as ThemeCustomizer } from './ThemeCustomizer'
 export type { ThemeCustomizerProps } from './ThemeCustomizer'
+
+// Analytics / Telemetry
+export { useAnalytics } from './hooks/useAnalytics'
+export type { UseAnalyticsReturn } from './hooks/useAnalytics'
+export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvider'
