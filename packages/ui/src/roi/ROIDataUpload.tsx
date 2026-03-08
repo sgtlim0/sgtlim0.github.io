@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react'
 import { useROIData } from './ROIDataContext'
+import { useXlsxWorker } from './useXlsxWorker'
 import { roiDatasetSchema } from '../schemas/roi'
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024 // 50MB
@@ -20,25 +21,6 @@ interface UploadState {
 
 interface ParsedRecord {
   [key: string]: string | number | boolean | null
-}
-
-function parseXlsxInWorker(buffer: ArrayBuffer): Promise<ParsedRecord[]> {
-  return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL('./xlsxWorker.ts', import.meta.url), { type: 'module' })
-    worker.onmessage = (e: MessageEvent) => {
-      worker.terminate()
-      if (e.data.type === 'result') {
-        resolve(e.data.data)
-      } else {
-        reject(new Error(e.data.message))
-      }
-    }
-    worker.onerror = (err) => {
-      worker.terminate()
-      reject(new Error(err.message || '파일 파싱에 실패했습니다.'))
-    }
-    worker.postMessage({ type: 'parse', buffer }, [buffer])
-  })
 }
 
 function generateSampleData(): ParsedRecord[] {
@@ -100,6 +82,7 @@ export default function ROIDataUpload() {
   const [records, setRecords] = useState<ParsedRecord[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { setRecords: setGlobalRecords, clearRecords: clearGlobalRecords } = useROIData()
+  const { parseFile: workerParseFile, progress } = useXlsxWorker()
 
   const processFile = useCallback(
     async (file: File) => {
@@ -137,7 +120,7 @@ export default function ROIDataUpload() {
       setState({ status: 'parsing', fileName: file.name })
       try {
         const buffer = await file.arrayBuffer()
-        const data = await parseXlsxInWorker(buffer)
+        const { data } = await workerParseFile(buffer, file.name)
         if (data.length === 0) {
           setState({
             status: 'error',
@@ -176,7 +159,7 @@ export default function ROIDataUpload() {
         })
       }
     },
-    [setGlobalRecords],
+    [setGlobalRecords, workerParseFile],
   )
 
   const handleDrop = useCallback(
@@ -291,7 +274,21 @@ export default function ROIDataUpload() {
               <span className="material-symbols-rounded text-4xl text-[var(--roi-chart-2)] animate-spin">
                 progress_activity
               </span>
-              <p className="text-sm text-[var(--roi-text-secondary)]">파일 분석 중...</p>
+              <p className="text-sm text-[var(--roi-text-secondary)]">
+                파일 분석 중...{progress > 0 && ` (${progress}%)`}
+              </p>
+              {progress > 0 && (
+                <div className="w-48 h-1.5 rounded-full bg-[var(--roi-divider)] overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-[var(--roi-chart-2)] transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                    role="progressbar"
+                    aria-valuenow={progress}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  />
+                </div>
+              )}
             </>
           ) : (
             <>
