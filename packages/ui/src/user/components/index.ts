@@ -50,3 +50,6 @@ export type { ResearchPanelProps } from './ResearchPanel'
 
 export { default as InstallBanner } from './InstallBanner'
 export type { InstallBannerProps } from './InstallBanner'
+
+export { default as PageContextBanner } from './PageContextBanner'
+export type { PageContextBannerProps } from './PageContextBanner'
