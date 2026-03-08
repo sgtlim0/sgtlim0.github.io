@@ -30,3 +30,6 @@ export { sanitizePII, containsPII } from './sanitize'
 // Text Processing
 export { EN_STOPWORDS, KO_STOPWORDS, detectLanguage, encode, getCompressionStats } from './text'
 export type { EncoderOptions, CompressionResult, CompressionStats } from './text'
+
+// Blocklist (Extension content extraction guard)
+export { isBlockedSite, isSensitivePattern, shouldBlockExtraction } from './blocklist'
