@@ -34,13 +34,13 @@
 | Zod 스키마 | 9 파일, 40+ 타입 |
 | 페이지 | 55개 (page.tsx) |
 | Storybook | 144 스토리 파일 |
-| 단위 테스트 | 111 파일, 1,893 테스트 |
+| 단위 테스트 | 121 파일, 2,347 테스트 |
 | E2E 테스트 | 18 파일 |
-| 테스트 커버리지 | 60.5% stmts, 47.7% branch, 60.9% funcs |
+| 테스트 커버리지 | 72.8% stmts, 59.4% branch, 72.6% funcs |
 | 보안 헤더 | 7/7 앱 (CSP + HSTS + X-Frame + Referrer + Permissions) |
 | CSRF 보호 | 4 API Routes (chat, stream, research, analyze) |
 | 'use client' | 138개 파일 (구조적 최적값) |
-| Git 커밋 | 197개 |
+| Git 커밋 | 206개 |
 | 완료 Phase | **74개** (1~70 + A~D) + 기술 부채 전체 해소 |
 | CI 워크플로우 | 4개 (ci, deploy, e2e, lighthouse) |
 | 9/9 앱 빌드 | ✅ 전체 성공 |
@@ -109,7 +109,7 @@ Wiki + HMG + Admin(24p) + User(5p) + LLM Router(10p) + Desktop(5p) + Mobile(4tab
 | Phase | 핵심 성과 |
 |-------|----------|
 | **62** | Zod 스키마 3개 (admin/llmRouter/user, 40+ 타입) |
-| **63** | 테스트 80→111 파일, 1,261→1,893 tests |
+| **63** | 테스트 80→121 파일, 1,261→2,347 tests (72.8%) |
 | **64** | 'use client' 146→138 |
 | **65** | RealAuthService, RealChatService, RealAdminService + serviceFactory |
 | **66** | Multi-provider LLM (OpenAI/Anthropic/Google) + realSseService |
