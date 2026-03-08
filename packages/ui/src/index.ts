@@ -63,3 +63,11 @@ export type { HotkeyConfig, HotkeyRegistryEntry } from './hooks/useHotkeys'
 export { HotkeyProvider } from './hooks/HotkeyProvider'
 export { createDefaultHotkeys } from './hooks/defaultHotkeys'
 export type { DefaultHotkeyHandlers } from './hooks/defaultHotkeys'
+
+// Drag and Drop
+export { useDragAndDrop } from './hooks/useDragAndDrop'
+export type { DragItem, DragHandlerProps, UseDragAndDropReturn } from './hooks/useDragAndDrop'
+export { default as DraggableList } from './DraggableList'
+export type { DraggableListProps } from './DraggableList'
+export { default as DragHandle } from './DragHandle'
+export type { DragHandleProps } from './DragHandle'
