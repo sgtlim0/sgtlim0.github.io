@@ -4,5 +4,6 @@
 export * from './types';
 export * from './authService';
 export { mockAuthService } from './mockAuthService';
+export { RealAuthService, createRealAuthService } from './realAuthService';
 export { AuthProvider, useAuth } from './AuthProvider';
 export { default as ProtectedRoute } from './ProtectedRoute';

@@ -1,5 +1,12 @@
 import { ApiClient } from './apiClient'
 import { tokenStorage } from '../utils/tokenStorage'
+import type { AuthService } from '../admin/auth/authService'
+import type { AdminApiService } from '../admin/services/apiService'
+import { mockAuthService } from '../admin/auth/mockAuthService'
+import { RealAuthService } from '../admin/auth/realAuthService'
+import { mockApiService } from '../admin/services/mockApiService'
+import { RealAdminService } from '../admin/services/realAdminService'
+import { RealChatService } from '../user/services/realChatService'
 
 export type ApiMode = 'mock' | 'real'
 
@@ -31,4 +38,37 @@ export function getApiClient(): ApiClient {
     })
   }
   return clientInstance
+}
+
+// ========== Service Factories ==========
+
+/**
+ * Create Auth service based on NEXT_PUBLIC_API_MODE.
+ * Returns RealAuthService when mode is 'real', MockAuthService otherwise.
+ */
+export function createAuthService(): AuthService {
+  if (getApiMode() === 'real') {
+    return new RealAuthService(getApiClient())
+  }
+  return mockAuthService
+}
+
+/**
+ * Create Chat service based on NEXT_PUBLIC_API_MODE.
+ * Returns RealChatService when mode is 'real'.
+ * Note: mock chat uses module-level functions (chatService.ts), not a class instance.
+ */
+export function createChatService(): RealChatService {
+  return new RealChatService(getApiClient())
+}
+
+/**
+ * Create Admin API service based on NEXT_PUBLIC_API_MODE.
+ * Returns RealAdminService when mode is 'real', MockApiService otherwise.
+ */
+export function createAdminService(): AdminApiService {
+  if (getApiMode() === 'real') {
+    return new RealAdminService(getApiClient())
+  }
+  return mockApiService
 }

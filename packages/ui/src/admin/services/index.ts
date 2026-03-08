@@ -74,6 +74,9 @@ export type { AdminApiService } from './apiService'
 // Mock implementation
 export { MockApiService, mockApiService } from './mockApiService'
 
+// Real implementation
+export { RealAdminService, createRealAdminService } from './realAdminService'
+
 // Context provider
 export { AdminServiceProvider, useAdminService } from './AdminServiceProvider'
 
