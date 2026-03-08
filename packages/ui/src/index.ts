@@ -25,12 +25,16 @@ export * from './i18n'
 // export * from './llm-router'  // Removed: use '@hchat/ui/llm-router'
 
 // UX components
-export { SkeletonPulse, SkeletonText, SkeletonCard, SkeletonTable, SkeletonChart } from './Skeleton'
+export { SkeletonPulse, SkeletonText, SkeletonCard, SkeletonTable, SkeletonImage, SkeletonChart } from './Skeleton'
 export { ToastProvider, useToast } from './Toast'
 export { default as ErrorBoundary, ErrorFallback } from './ErrorBoundary'
 export { ErrorPage, NotFoundPage } from './ErrorPage'
 export { default as EmptyState } from './EmptyState'
 export type { EmptyStateProps } from './EmptyState'
+
+// Optimized Image
+export { OptimizedImage } from './OptimizedImage'
+export type { OptimizedImageProps } from './OptimizedImage'
 
 // Validation utilities
 export { validate, useFormValidation, patterns } from './validation'

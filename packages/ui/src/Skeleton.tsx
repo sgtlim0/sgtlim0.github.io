@@ -101,6 +101,31 @@ interface SkeletonChartProps {
   height?: number;
 }
 
+interface SkeletonImageProps {
+  width?: number;
+  height?: number;
+  aspectRatio?: string;
+  rounded?: boolean;
+}
+
+export function SkeletonImage({
+  width,
+  height,
+  aspectRatio = '16 / 9',
+  rounded = true,
+}: SkeletonImageProps) {
+  return (
+    <SkeletonPulse
+      className={rounded ? 'rounded-lg' : ''}
+      style={{
+        width: width ? `${width}px` : '100%',
+        height: height ? `${height}px` : undefined,
+        aspectRatio: height ? undefined : aspectRatio,
+      }}
+    />
+  );
+}
+
 export function SkeletonChart({ height = 300 }: SkeletonChartProps) {
   return (
     <div className="space-y-4">
