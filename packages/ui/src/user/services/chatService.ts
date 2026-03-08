@@ -1,6 +1,7 @@
 'use client';
 
 import type { Conversation, ChatMessage } from './types';
+import { captureError } from '../../utils/errorMonitoring';
 
 const STORAGE_KEY = 'hchat-conversations';
 
@@ -11,7 +12,10 @@ function getStoredConversations(): Conversation[] {
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
   } catch (error) {
-    console.error('대화 목록 로드 실패:', error);
+    captureError(error instanceof Error ? error : new Error('대화 목록 로드 실패'), {
+      component: 'chatService',
+      action: 'getStoredConversations',
+    });
     return [];
   }
 }
@@ -22,7 +26,10 @@ function saveToStorage(conversations: Conversation[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(conversations));
   } catch (error) {
-    console.error('대화 목록 저장 실패:', error);
+    captureError(error instanceof Error ? error : new Error('대화 목록 저장 실패'), {
+      component: 'chatService',
+      action: 'saveToStorage',
+    });
   }
 }
 

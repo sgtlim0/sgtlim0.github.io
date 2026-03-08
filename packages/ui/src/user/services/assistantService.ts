@@ -1,6 +1,7 @@
 'use client';
 
 import type { Assistant } from './types';
+import { captureError } from '../../utils/errorMonitoring';
 
 const STORAGE_KEY = 'hchat-custom-assistants';
 
@@ -11,7 +12,10 @@ function getStoredAssistants(): Assistant[] {
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
   } catch (error) {
-    console.error('커스텀 어시스턴트 로드 실패:', error);
+    captureError(error instanceof Error ? error : new Error('커스텀 어시스턴트 로드 실패'), {
+      component: 'assistantService',
+      action: 'getStoredAssistants',
+    });
     return [];
   }
 }
@@ -22,7 +26,10 @@ function saveToStorage(assistants: Assistant[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(assistants));
   } catch (error) {
-    console.error('커스텀 어시스턴트 저장 실패:', error);
+    captureError(error instanceof Error ? error : new Error('커스텀 어시스턴트 저장 실패'), {
+      component: 'assistantService',
+      action: 'saveToStorage',
+    });
   }
 }
 
