@@ -46,6 +46,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write \"apps/*/app/**/*.{ts,tsx}\" \"packages/*/src/**/*.{ts,tsx}\"",
+    "docker:prod": "docker compose -f docker/docker-compose.prod.yml up -d",
+    "docker:prod:down": "docker compose -f docker/docker-compose.prod.yml down",
+    "test:load": "k6 run tests/load/k6-config.js",
     "prepare": "husky"
   },
   "lint-staged": {
