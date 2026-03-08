@@ -2,9 +2,7 @@ import { ApiClient } from './apiClient'
 import { tokenStorage } from '../utils/tokenStorage'
 import type { AuthService } from '../admin/auth/authService'
 import type { AdminApiService } from '../admin/services/apiService'
-import { mockAuthService } from '../admin/auth/mockAuthService'
 import { RealAuthService } from '../admin/auth/realAuthService'
-import { mockApiService } from '../admin/services/mockApiService'
 import { RealAdminService } from '../admin/services/realAdminService'
 import { RealChatService } from '../user/services/realChatService'
 
@@ -44,12 +42,13 @@ export function getApiClient(): ApiClient {
 
 /**
  * Create Auth service based on NEXT_PUBLIC_API_MODE.
- * Returns RealAuthService when mode is 'real', MockAuthService otherwise.
+ * Returns RealAuthService when mode is 'real', dynamically loads MockAuthService otherwise.
  */
-export function createAuthService(): AuthService {
+export async function createAuthService(): Promise<AuthService> {
   if (getApiMode() === 'real') {
     return new RealAuthService(getApiClient())
   }
+  const { mockAuthService } = await import('../admin/auth/mockAuthService')
   return mockAuthService
 }
 
@@ -64,11 +63,12 @@ export function createChatService(): RealChatService {
 
 /**
  * Create Admin API service based on NEXT_PUBLIC_API_MODE.
- * Returns RealAdminService when mode is 'real', MockApiService otherwise.
+ * Returns RealAdminService when mode is 'real', dynamically loads MockApiService otherwise.
  */
-export function createAdminService(): AdminApiService {
+export async function createAdminService(): Promise<AdminApiService> {
   if (getApiMode() === 'real') {
     return new RealAdminService(getApiClient())
   }
+  const { mockApiService } = await import('../admin/services/mockApiService')
   return mockApiService
 }
