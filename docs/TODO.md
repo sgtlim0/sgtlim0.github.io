@@ -33,7 +33,7 @@
 | 페이지 | 56개 (page.tsx) |
 | 커스텀 훅 | 66개 (exported functions) |
 | Storybook | 135 스토리 파일 |
-| 단위 테스트 | 104 파일, 1,639 테스트 |
+| 단위 테스트 | 107 파일, 1,690 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
 | MSW 핸들러 | 39 endpoints (8 도메인) |
@@ -279,10 +279,10 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 64 | Server Component | 'use client' 146→137 (9개 제거) | ✅ |
 | 65 | Real API v1 | Auth/Chat/Admin Real 서비스 (serviceFactory Mock↔Real) | ✅ |
 | 66 | Real API v2 + AI | OpenAI/Anthropic/Google llm_client + realSseService | ✅ |
-| 67 | Bundle & Perf | LLM Router 36MB → <5MB | 66+67 |
-| 68 | i18n Full | ko/en/zh 3개 언어 | 68+69 |
-| 69 | Monitoring | Sentry + Web Vitals + Alerts | 68+69 |
-| 70 | Production Launch | Go-live + 부하 테스트 | - |
+| 67 | Bundle & Perf | dynamic import + 성능 유틸 (lazy/debounce/throttle) | ✅ |
+| 68 | i18n | ko/en 2개 언어 (LanguageToggle 개선) | ✅ |
+| 69 | Monitoring | Sentry 통합 + Web Vitals + alertConfig + useMonitoring | ✅ |
+| 70 | Production Launch | Docker prod + k6 부하테스트 + 배포 체크리스트 | ✅ |
 
 ---
 
