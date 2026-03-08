@@ -93,6 +93,21 @@ export { lazy, debounce, throttle } from './performance'
 // Accessibility Utilities
 export { trapFocus, announceToScreenReader, getFocusableElements } from './a11y'
 
+// Structured Logging
+export {
+  createLogger,
+  setLogLevel,
+  getLogLevel,
+  getLogBuffer,
+  clearLogBuffer,
+  setBufferSize,
+  getBufferSize,
+  setTransport,
+  resetLogger,
+} from './logger'
+export type { LogLevel, LogEntry, Logger } from './logger'
+export { LogProvider, useLogger } from './LogProvider'
+
 // Feature Flags
 export {
   isFeatureEnabled,
