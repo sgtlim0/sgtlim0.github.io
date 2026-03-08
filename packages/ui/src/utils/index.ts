@@ -132,3 +132,7 @@ export {
 } from './featureFlags'
 export type { FeatureFlag } from './featureFlags'
 export { default as FeatureFlagProvider, useFeatureFlag, useFeatureFlags, FeatureGate } from './FeatureFlagProvider'
+
+// Keyboard Utilities
+export { parseKeyCombo, matchesKeyEvent, normalizeKeyCombo } from './keyboardUtils'
+export type { KeyCombo } from './keyboardUtils'

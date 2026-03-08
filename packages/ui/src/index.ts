@@ -42,3 +42,10 @@ export type { ValidationRule, ValidationErrors } from './validation'
 
 // Mobile components — import from '@hchat/ui/mobile' for tree-shaking
 // export * from './mobile'  // Removed: use '@hchat/ui/mobile'
+
+// Keyboard Shortcuts
+export { useHotkeys, useHotkeyRegistry } from './hooks/useHotkeys'
+export type { HotkeyConfig, HotkeyRegistryEntry } from './hooks/useHotkeys'
+export { HotkeyProvider } from './hooks/HotkeyProvider'
+export { createDefaultHotkeys } from './hooks/defaultHotkeys'
+export type { DefaultHotkeyHandlers } from './hooks/defaultHotkeys'
