@@ -1,5 +1,9 @@
 import type { NextConfig } from 'next'
 
+// Static Export limitation: headers() in next.config.ts does not execute at runtime
+// for static exports. These headers serve as documentation and are applied when
+// served behind a reverse proxy (e.g., Nginx, Cloudflare) that reads next.config.ts.
+// Nonce-based CSP is not possible without a server — unsafe-inline is retained for scripts.
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'DENY' },
@@ -13,7 +17,7 @@ const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value:
-      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https:; worker-src 'self'; frame-ancestors 'none';",
+      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https:; worker-src 'self'; frame-ancestors 'none';",
   },
 ]
 
