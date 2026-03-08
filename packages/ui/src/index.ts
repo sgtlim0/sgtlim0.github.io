@@ -115,6 +115,12 @@ export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvide
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
 
+// Clipboard
+export { useClipboard } from './hooks/useClipboard'
+export type { UseClipboardOptions, UseClipboardReturn } from './hooks/useClipboard'
+export { default as CopyButton } from './CopyButton'
+export type { CopyButtonProps } from './CopyButton'
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
