@@ -190,11 +190,11 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Prettier + Husky + lint-staged for code quality
 
 ### Testing
-- Vitest: 128 test files, 2,647 unit tests (83.1% statement coverage)
+- Vitest: 138 test files, 2,864 unit tests (~85.7% statement coverage)
 - MSW: 39 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
-- Playwright E2E: 18 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode)
+- Playwright E2E: 20 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience
 - Storybook: 135 stories with 28 interaction tests
-- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 83.1% stmts)
+- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: ~85.7% stmts)
 - Test location: `packages/ui/__tests__/` (all unit tests)
 
 ### Infrastructure
@@ -203,5 +203,5 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - DB Schema: `docker/init.sql` (users, conversations, messages, api_keys, audit_logs)
 - API Client: `packages/ui/src/client/` (ServiceFactory with Mock/Real switching via `NEXT_PUBLIC_API_MODE`)
 - Monitoring: `packages/ui/src/utils/errorMonitoring.ts` (Sentry-ready), `healthCheck.ts`, `webVitals.ts`
-- Security: 7 security headers on all apps, CSRF protection, Zod input validation, PII sanitization
-- Environment: `.env.example` with all required variables
+- Security: 7 security headers on all apps, CSP nonce (SSR apps via middleware.ts), CSRF protection, PBKDF2 password hashing, HMAC-SHA256 JWT, Zod input validation, PII sanitization
+- Environment: `.env.development`, `.env.production`, `.env.test` templates + `.env.example` reference
