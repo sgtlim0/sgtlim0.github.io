@@ -151,7 +151,7 @@ export default function ROIDataUpload() {
         const parseResult = roiDatasetSchema.safeParse(data)
         if (!parseResult.success) {
           // 첫 번째 에러만 표시
-          const firstError = parseResult.error.errors[0]
+          const firstError = parseResult.error.issues[0]
           setState({
             status: 'error',
             fileName: file.name,
