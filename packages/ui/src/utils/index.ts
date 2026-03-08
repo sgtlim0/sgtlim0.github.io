@@ -23,3 +23,7 @@ export { reportWebVitals } from './webVitals'
 
 // Token Storage
 export { tokenStorage } from './tokenStorage'
+
+// Text Processing
+export { EN_STOPWORDS, KO_STOPWORDS, detectLanguage, encode, getCompressionStats } from './text'
+export type { EncoderOptions, CompressionResult, CompressionStats } from './text'

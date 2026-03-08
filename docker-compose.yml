@@ -30,6 +30,30 @@ services:
       timeout: 5s
       retries: 5
 
+  ai-core:
+    build:
+      context: ./apps/ai-core
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    environment:
+      DATABASE_URL: postgresql://hchat:${POSTGRES_PASSWORD:-hchat_dev_2026}@postgres:5432/hchat
+      REDIS_URL: redis://redis:6379
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      SEARCH_API_KEY: ${SEARCH_API_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   redis_data:
