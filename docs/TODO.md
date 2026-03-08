@@ -1,6 +1,6 @@
 # H Chat 프로젝트 TODO 리스트
 
-> 마지막 업데이트: 2026-03-08 | AI Platform 프로토타입 Week 3 + 레퍼런스 심층분석 완료 기준
+> 마지막 업데이트: 2026-03-08 | Phase A+B 완료 (훅 분리 + IndexedDB + 오프라인 + PWA)
 
 ---
 
@@ -31,9 +31,9 @@
 | UI 컴포넌트 | 160개 |
 | 서비스 파일 | 42개 |
 | 페이지 | 56개 (page.tsx) |
-| 커스텀 훅 | 62개 (exported functions) |
+| 커스텀 훅 | 66개 (exported functions) |
 | Storybook | 135 스토리 파일 |
-| 단위 테스트 | 77 파일, 1,214 테스트 |
+| 단위 테스트 | 78 파일, 1,230 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
 | MSW 핸들러 | 39 endpoints (8 도메인) |
@@ -159,10 +159,10 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | Next.js | 14, React 18, Tailwind 3 | 16, React 19, Tailwind 4 | 모노레포 기준 유지 |
 | 백엔드 | 동기식 FastAPI + requests | 비동기 FastAPI + httpx | 모노레포 우수 |
 | SSE | AsyncGenerator 패턴 | Subscribe/callback 패턴 | 현행 유지 (결정됨) |
-| 저장소 | IndexedDB (idb) | localStorage | **이관 필요** |
-| 세션 관리 | sessionId 1급 시민 | 없음 | **신규 도입** |
-| ChatPage | 훅 분리 (4개), ~200줄 | 모놀리식 599줄 | **리팩토링 필요** |
-| PWA | manifest + SW + Install | 없음 | **신규 구현** |
+| 저장소 | IndexedDB (idb) | IndexedDB (idb 8.0.2) | ✅ 완료 (Phase B) |
+| 세션 관리 | sessionId 1급 시민 | sessionId optional | ✅ 타입 추가 완료 |
+| ChatPage | 훅 분리 (4개), ~200줄 | 훅 분리 (4개), 305줄 | ✅ 완료 (Phase A) |
+| PWA | manifest + SW + Install | manifest + SW + InstallBanner | ✅ 완료 (Phase A+B) |
 | Extension | MV3 (content+popup) | 없음 | **신규 구현** |
 | /analyze | 4모드 분석 엔드포인트 | 없음 | **신규 추가** |
 | 컨텍스트 윈도우 | historyRef 슬라이딩 20 | 전체 전송 | **최적화 필요** |
@@ -212,38 +212,34 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 
 > 상세: [`docs/PWA_EXTENSION_IMPLEMENTATION_PLAN.md`](./PWA_EXTENSION_IMPLEMENTATION_PLAN.md)
 
-### Phase A: ChatPage 훅 분리 + PWA 기본 (Week 1)
+### Phase A: ChatPage 훅 분리 + PWA 기본 (Week 1) ✅
 
-| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
-|---|------|------|-------------|--------|
-| A-1 | useConversations 훅 추출 | `packages/ui/src/user/hooks/useConversations.ts` | - | 중간 |
-| A-2 | useChat 훅 추출 (슬라이딩 윈도우 포함) | `packages/ui/src/user/hooks/useChat.ts` | `hooks/useChat.ts` | 중간 |
-| A-3 | useResearch 훅 추출 | `packages/ui/src/user/hooks/useResearch.ts` | `hooks/useResearch.ts` | 중간 |
-| A-4 | useAssistants 훅 추출 | `packages/ui/src/user/hooks/useAssistants.ts` | - | 중간 |
-| A-5 | ChatPage 리팩토링 (599→200줄) | `packages/ui/src/user/pages/ChatPage.tsx` | `app/page.tsx` | 중간 |
-| A-6 | 세션 관리 타입 추가 | `packages/ui/src/user/services/types.ts` | `lib/types.ts` | 낮음 |
-| A-7 | PWA manifest.json + 아이콘 | `apps/user/public/manifest.json` | `public/manifest.json` | 낮음 |
-| A-8 | Service Worker (3-tier 캐싱) | `apps/user/public/sw.js` | `public/sw.js` | 중간 |
-| A-9 | layout.tsx PWA 메타데이터 | `apps/user/app/layout.tsx` | `app/layout.tsx` | 낮음 |
-| A-10 | CSP 헤더 수정 (worker-src) | `apps/user/next.config.ts` | - | 낮음 |
+| # | 작업 | 파일 | 상태 |
+|---|------|------|------|
+| A-1 | useConversations 훅 추출 | `packages/ui/src/user/hooks/useConversations.ts` (175줄) | ✅ |
+| A-2 | useChat 훅 추출 (슬라이딩 윈도우 포함) | `packages/ui/src/user/hooks/useChat.ts` (178줄) | ✅ |
+| A-3 | useResearch 훅 추출 | `packages/ui/src/user/hooks/useResearch.ts` (92줄) | ✅ |
+| A-4 | useAssistants 훅 추출 | `packages/ui/src/user/hooks/useAssistants.ts` (80줄) | ✅ |
+| A-5 | ChatPage 리팩토링 (599→305줄) | `packages/ui/src/user/pages/ChatPage.tsx` | ✅ |
+| A-6 | 세션 관리 타입 추가 (sessionId) | `packages/ui/src/user/services/types.ts` | ✅ |
+| A-7 | PWA manifest.json + 아이콘 | `apps/user/public/manifest.json` | ✅ |
+| A-8 | Service Worker (3-tier 캐싱) | `apps/user/public/sw.js` (73줄) | ✅ |
+| A-9 | layout.tsx PWA 메타데이터 | `apps/user/app/layout.tsx` | ✅ |
+| A-10 | CSP 헤더 수정 (worker-src) | `apps/user/next.config.ts` | ✅ |
 
-**검증**: ChatPage 정상 동작 + Lighthouse PWA 검사 + 훅 단위 테스트
+### Phase B: IndexedDB + 오프라인 (Week 2) ✅
 
-### Phase B: IndexedDB + 오프라인 (Week 2)
-
-| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
-|---|------|------|-------------|--------|
-| B-1 | idb 라이브러리 설치 | `package.json` | - | 낮음 |
-| B-2 | IndexedDB 서비스 구현 | `packages/ui/src/user/services/indexedDbService.ts` | `lib/db.ts` | 중간 |
-| B-3 | chatService 내부 구현 교체 | `packages/ui/src/user/services/chatService.ts` | - | 중간 |
-| B-4 | localStorage → IndexedDB 마이그레이션 로직 | `indexedDbService.ts` | - | 중간 |
-| B-5 | useNetworkStatus 훅 | `packages/ui/src/hooks/useNetworkStatus.ts` | - | 낮음 |
-| B-6 | usePWAInstall 훅 | `packages/ui/src/hooks/usePWAInstall.ts` | `hooks/usePWAInstall.ts` | 낮음 |
-| B-7 | InstallBanner 컴포넌트 | `packages/ui/src/user/components/InstallBanner.tsx` | `components/InstallBanner.tsx` | 낮음 |
-| B-8 | 오프라인 UI (배너, 입력 비활성화) | `ChatPage, UserGNB` | - | 낮음 |
-| B-9 | 테스트 (fake-indexeddb) | `__tests__/indexedDb.test.ts` | - | 중간 |
-
-**검증**: DevTools IndexedDB 확인, 오프라인 모드 동작, 마이그레이션 정상
+| # | 작업 | 파일 | 상태 |
+|---|------|------|------|
+| B-1 | idb 8.0.2 + fake-indexeddb 6.0.0 설치 | `packages/ui/package.json` | ✅ |
+| B-2 | IndexedDB 서비스 구현 (5 CRUD + singleton) | `packages/ui/src/user/services/indexedDbService.ts` (99줄) | ✅ |
+| B-3 | useConversations 비동기 전환 (IndexedDB) | `packages/ui/src/user/hooks/useConversations.ts` | ✅ |
+| B-4 | localStorage → IndexedDB 마이그레이션 로직 | `indexedDbService.ts` (migrateFromLocalStorage) | ✅ |
+| B-5 | useNetworkStatus 훅 | `packages/ui/src/hooks/useNetworkStatus.ts` (38줄) | ✅ |
+| B-6 | usePWAInstall 훅 | `packages/ui/src/hooks/usePWAInstall.ts` (54줄) | ✅ |
+| B-7 | InstallBanner 컴포넌트 | `packages/ui/src/user/components/InstallBanner.tsx` (27줄) | ✅ |
+| B-8 | 오프라인 UI (배너 + 입력 차단) | `ChatPage.tsx` (WifiOff 배너 + isOnline guard) | ✅ |
+| B-9 | IndexedDB 테스트 16개 (fake-indexeddb) | `__tests__/indexedDbService.test.ts` (277줄) | ✅ |
 
 ### Phase C: Chrome Extension 기본 (Week 3)
 
@@ -304,8 +300,8 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 5 | HIGH | 테스트 커버리지 51.81% | 목표 80% |
 | 6 | HIGH | 'use client' 136개 | Phase 64 (기존 210→136 개선) |
 | 7 | HIGH | Mock → Real API | Phase 65-66 |
-| 8 | HIGH | ChatPage 599줄 모놀리식 | Phase A (훅 분리 → 200줄) |
-| 9 | HIGH | localStorage → IndexedDB | Phase B |
+| 8 | RESOLVED | ChatPage 599줄 모놀리식 | Phase A 완료 (4훅 분리 → 305줄) |
+| 9 | RESOLVED | localStorage → IndexedDB | Phase B 완료 (idb + 마이그레이션) |
 | 10 | MEDIUM | CSRF 보호 | csrf.ts 유틸 구현, 실적용 대기 |
 | 11 | MEDIUM | LLM Router 번들 36MB | Phase 67 |
 | 12 | MEDIUM | PII 콘텐츠 살균 유틸 없음 | Phase C에서 구현 |
