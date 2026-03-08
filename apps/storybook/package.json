@@ -18,6 +18,7 @@
     "@storybook/addon-a11y": "^9.1.19",
     "@storybook/addon-themes": "^9.1.19",
     "@storybook/nextjs-vite": "^9.1.19",
+    "@storybook/test": "^8.6.18",
     "@tailwindcss/postcss": "^4",
     "@types/react": "^19",
     "@types/react-dom": "^19",

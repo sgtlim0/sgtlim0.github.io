@@ -28,6 +28,8 @@ const config: StorybookConfig = {
       '@hchat/ui/i18n': path.resolve(__dirname, '../../../packages/ui/src/i18n'),
       '@hchat/tokens': path.resolve(__dirname, '../../../packages/tokens/src'),
     }
+    // Vite 7 + Rollup: "iife" worker format is incompatible with code-splitting
+    config.worker = { ...config.worker, format: 'es' as const }
     return config
   },
 }
