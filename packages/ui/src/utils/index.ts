@@ -136,3 +136,13 @@ export { default as FeatureFlagProvider, useFeatureFlag, useFeatureFlags, Featur
 // Keyboard Utilities
 export { parseKeyCombo, matchesKeyEvent, normalizeKeyCombo } from './keyboardUtils'
 export type { KeyCombo } from './keyboardUtils'
+
+// Push Notification
+export {
+  isSupported as isPushNotificationSupported,
+  getPermissionStatus,
+  requestPermission as requestNotificationPermission,
+  showNotification,
+  wasPreviouslyDenied,
+  clearDeniedFlag,
+} from './pushNotification'

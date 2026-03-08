@@ -45,6 +45,10 @@ export { CommandPalette, CommandPaletteProvider, useCommandPaletteContext, creat
 export type { Command, CommandPaletteProps } from './CommandPalette'
 export { useCommandPalette } from './hooks/useCommandPalette'
 
+// Push Notification
+export { default as NotificationBanner } from './NotificationBanner'
+export { usePushNotification } from './hooks/usePushNotification'
+
 // Mobile components — import from '@hchat/ui/mobile' for tree-shaking
 // export * from './mobile'  // Removed: use '@hchat/ui/mobile'
 
