@@ -96,3 +96,9 @@ export { useVirtualList } from './hooks/useVirtualList'
 export type { UseVirtualListOptions, VirtualItem, UseVirtualListReturn } from './hooks/useVirtualList'
 export { default as VirtualList } from './VirtualList'
 export type { VirtualListProps } from './VirtualList'
+
+// Theme Customizer
+export { useThemeCustomizer } from './hooks/useThemeCustomizer'
+export type { ThemeColors, ThemePreset } from './hooks/useThemeCustomizer'
+export { default as ThemeCustomizer } from './ThemeCustomizer'
+export type { ThemeCustomizerProps } from './ThemeCustomizer'
