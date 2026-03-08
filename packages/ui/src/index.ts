@@ -115,6 +115,13 @@ export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvide
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
 
+// Portal
+export { usePortal, DEFAULT_PORTAL_ID } from './hooks/usePortal'
+export { Portal } from './Portal'
+export type { PortalProps } from './Portal'
+export { PortalProvider, usePortalContext, DEFAULT_CONTAINERS } from './hooks/PortalProvider'
+export type { PortalProviderProps } from './hooks/PortalProvider'
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
