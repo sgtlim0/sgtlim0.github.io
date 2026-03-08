@@ -1,7 +1,7 @@
-// H Chat Service Worker v2
+// H Chat Mobile Service Worker v1
 // Cache strategies: Cache First (static), Network First (API), Stale While Revalidate (HTML)
 
-const CACHE_VERSION = 'hchat-user-v2'
+const CACHE_VERSION = 'hchat-mobile-v1'
 const STATIC_CACHE = `${CACHE_VERSION}-static`
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`
 const MAX_DYNAMIC_CACHE_SIZE = 50

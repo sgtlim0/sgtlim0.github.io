@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import { BaseLayout } from '@hchat/ui'
 import './globals.css'
 
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
   },
+  manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -72,6 +74,9 @@ export default function RootLayout({
       >
         {children}
       </div>
+      <Script id="sw-register" strategy="lazyOnload">
+        {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js') }`}
+      </Script>
     </BaseLayout>
   )
 }
