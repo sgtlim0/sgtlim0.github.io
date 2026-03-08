@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { MiniLineChart } from '@hchat/ui'
+import { MiniLineChart } from '@hchat/ui/roi'
 
 const monthlyData = [
   { label: '9월', value: 320 },

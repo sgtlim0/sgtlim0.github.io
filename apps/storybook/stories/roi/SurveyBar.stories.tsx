@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { SurveyBar } from '@hchat/ui'
+import { SurveyBar } from '@hchat/ui/roi'
 
 const meta: Meta<typeof SurveyBar> = {
   title: 'ROI/SurveyBar',

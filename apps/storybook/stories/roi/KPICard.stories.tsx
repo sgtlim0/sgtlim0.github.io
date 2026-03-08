@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { KPICard } from '@hchat/ui';
+import { KPICard } from '@hchat/ui/roi';
 
 const meta: Meta<typeof KPICard> = {
   title: 'ROI/KPICard',

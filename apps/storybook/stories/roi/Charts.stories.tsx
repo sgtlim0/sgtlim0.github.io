@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart } from '@hchat/ui';
+import { MiniLineChart, DonutChart, MiniBarChart, AreaChart, RadarChart } from '@hchat/ui/roi';
 
 // === MiniLineChart ===
 const lineMeta: Meta<typeof MiniLineChart> = {

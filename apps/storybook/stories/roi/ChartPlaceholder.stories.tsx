@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { ChartPlaceholder } from '@hchat/ui'
+import { ChartPlaceholder } from '@hchat/ui/roi'
 
 const meta: Meta<typeof ChartPlaceholder> = {
   title: 'ROI/ChartPlaceholder',

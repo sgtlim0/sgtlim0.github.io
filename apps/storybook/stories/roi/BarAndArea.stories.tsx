@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { MiniBarChart, AreaChart } from '@hchat/ui';
+import { MiniBarChart, AreaChart } from '@hchat/ui/roi';
 
 // === MiniBarChart ===
 const barMeta: Meta<typeof MiniBarChart> = {

@@ -1,5 +1,13 @@
-import { ROISettings } from '@hchat/ui';
+'use client';
+
+import dynamic from 'next/dynamic';
+import { SkeletonCard } from '@hchat/ui';
 import { ProtectedRoute } from '@hchat/ui/admin';
+
+const ROISettings = dynamic(
+  () => import('@hchat/ui/roi/ROISettings'),
+  { ssr: false, loading: () => <SkeletonCard /> }
+);
 
 export default function SettingsPage() {
   return (

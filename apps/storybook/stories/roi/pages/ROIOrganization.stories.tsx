@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { ROIOrganization, ROIDataProvider } from '@hchat/ui'
+import { ROIOrganization, ROIDataProvider } from '@hchat/ui/roi'
 
 const meta: Meta<typeof ROIOrganization> = {
   title: 'ROI/Pages/ROIOrganization',
