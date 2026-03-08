@@ -101,6 +101,21 @@ export {
   BLUR_PLACEHOLDERS,
 } from './imagePlaceholder'
 
+// Structured Logging
+export {
+  createLogger,
+  setLogLevel,
+  getLogLevel,
+  getLogBuffer,
+  clearLogBuffer,
+  setBufferSize,
+  getBufferSize,
+  setTransport,
+  resetLogger,
+} from './logger'
+export type { LogLevel, LogEntry, Logger } from './logger'
+export { LogProvider, useLogger } from './LogProvider'
+
 // Feature Flags
 export {
   isFeatureEnabled,
