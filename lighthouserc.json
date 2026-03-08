@@ -2,15 +2,19 @@
   "ci": {
     "collect": {
       "url": [
-        "https://hchat-admin.vercel.app",
-        "https://hchat-hmg.vercel.app",
-        "https://hchat-user.vercel.app",
-        "https://hchat-llm-router.vercel.app",
-        "https://sgtlim0.github.io"
+        "https://sgtlim0.github.io/",
+        "https://hchat-hmg.vercel.app/",
+        "https://hchat-admin.vercel.app/",
+        "https://hchat-user.vercel.app/",
+        "https://hchat-llm-router.vercel.app/",
+        "https://hchat-desktop.vercel.app/"
       ],
       "numberOfRuns": 3,
       "settings": {
-        "preset": "desktop"
+        "preset": "desktop",
+        "throttling": {
+          "cpuSlowdownMultiplier": 1
+        }
       }
     },
     "assert": {
