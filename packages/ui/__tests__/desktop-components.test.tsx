@@ -4,7 +4,16 @@ import DesktopSidebar from '../src/desktop/DesktopSidebar'
 import DesktopChatBubble from '../src/desktop/DesktopChatBubble'
 import AgentCard from '../src/desktop/AgentCard'
 import ToolGrid from '../src/desktop/ToolGrid'
-import type { DesktopMessage, DesktopAgent, DesktopTool } from '../src/desktop/types'
+import SwarmPanel from '../src/desktop/SwarmPanel'
+import DebateArena from '../src/desktop/DebateArena'
+import type {
+  DesktopMessage,
+  DesktopAgent,
+  DesktopTool,
+  SwarmAgent,
+  DebateParticipant,
+  DebateMessage,
+} from '../src/desktop/types'
 
 describe('DesktopSidebar', () => {
   const mockOnItemClick = vi.fn()
@@ -369,5 +378,152 @@ describe('ToolGrid', () => {
     expect(screen.getByText('text')).toBeInTheDocument()
     expect(screen.getByText('data')).toBeInTheDocument()
     expect(screen.getByText('search')).toBeInTheDocument()
+  })
+})
+
+// ---------------------------------------------------------------------------
+// SwarmPanel
+// ---------------------------------------------------------------------------
+describe('SwarmPanel', () => {
+  const agents: SwarmAgent[] = [
+    { id: 's1', name: 'Agent A', role: 'Researcher', model: 'GPT-4', status: 'done', avatar: 'R' },
+    { id: 's2', name: 'Agent B', role: 'Writer', model: 'Claude', status: 'thinking', avatar: 'W' },
+    { id: 's3', name: 'Agent C', role: 'Editor', model: 'Gemini', status: 'idle', avatar: 'E' },
+  ]
+
+  it('renders agent names', () => {
+    render(<SwarmPanel agents={agents} />)
+    expect(screen.getByText('Agent A')).toBeInTheDocument()
+    expect(screen.getByText('Agent B')).toBeInTheDocument()
+    expect(screen.getByText('Agent C')).toBeInTheDocument()
+  })
+
+  it('shows completed count', () => {
+    render(<SwarmPanel agents={agents} />)
+    expect(screen.getByText('1 / 3 완료')).toBeInTheDocument()
+  })
+
+  it('renders progress bar when progress is provided', () => {
+    const { container } = render(<SwarmPanel agents={agents} progress={60} />)
+    const progressBar = container.querySelector('div[style]')
+    expect(progressBar?.getAttribute('style')).toContain('60%')
+  })
+
+  it('shows empty state when no agents', () => {
+    render(<SwarmPanel agents={[]} />)
+    expect(screen.getByText('에이전트가 없습니다')).toBeInTheDocument()
+  })
+
+  it('clamps progress to 100 for values above 100', () => {
+    const { container } = render(<SwarmPanel agents={agents} progress={150} />)
+    const progressBar = container.querySelector('div[style]')
+    expect(progressBar?.getAttribute('style')).toContain('100%')
+  })
+
+  it('clamps progress to 0 for negative values', () => {
+    const { container } = render(<SwarmPanel agents={agents} progress={-10} />)
+    const progressBar = container.querySelector('div[style]')
+    expect(progressBar?.getAttribute('style')).toContain('0%')
+  })
+
+  it('displays status labels for each agent', () => {
+    render(<SwarmPanel agents={agents} />)
+    expect(screen.getByText('완료')).toBeInTheDocument()
+    expect(screen.getByText('사고 중')).toBeInTheDocument()
+    expect(screen.getByText('대기')).toBeInTheDocument()
+  })
+
+  it('displays role and model info', () => {
+    render(<SwarmPanel agents={agents} />)
+    expect(screen.getByText(/Researcher/)).toBeInTheDocument()
+    expect(screen.getByText(/Writer/)).toBeInTheDocument()
+  })
+
+  it('does not render progress bar when progress is not provided', () => {
+    const { container } = render(<SwarmPanel agents={agents} />)
+    const bars = container.querySelectorAll('.rounded-full.bg-\\[var\\(--dt-primary\\)\\]')
+    // The progress bar div should not exist
+    expect(bars.length).toBe(0)
+  })
+
+  it('renders responding status', () => {
+    const respondingAgents: SwarmAgent[] = [
+      { id: 's4', name: 'Agent D', role: 'Coder', model: 'GPT-4', status: 'responding', avatar: 'D' },
+    ]
+    render(<SwarmPanel agents={respondingAgents} />)
+    expect(screen.getByText('응답 중')).toBeInTheDocument()
+  })
+})
+
+// ---------------------------------------------------------------------------
+// DebateArena
+// ---------------------------------------------------------------------------
+describe('DebateArena', () => {
+  const participants: DebateParticipant[] = [
+    { id: 'p1', name: 'Pro A', position: 'for', model: 'GPT-4', avatar: 'P' },
+    { id: 'p2', name: 'Con A', position: 'against', model: 'Claude', avatar: 'C' },
+    { id: 'p3', name: 'Moderator', position: 'moderator', model: 'Gemini', avatar: 'M' },
+  ]
+
+  const messages: DebateMessage[] = [
+    { participantId: 'p1', content: '찬성 발언입니다', round: 1 },
+    { participantId: 'p2', content: '반대 발언입니다', round: 1 },
+    { participantId: 'p1', content: '반박합니다', round: 2 },
+  ]
+
+  it('renders participant names', () => {
+    render(<DebateArena participants={participants} messages={messages} />)
+    expect(screen.getAllByText('Pro A').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Con A').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Moderator').length).toBeGreaterThan(0)
+  })
+
+  it('renders position labels', () => {
+    render(<DebateArena participants={participants} messages={messages} />)
+    expect(screen.getAllByText('찬성').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('반대').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('사회자').length).toBeGreaterThan(0)
+  })
+
+  it('renders message content grouped by round', () => {
+    render(<DebateArena participants={participants} messages={messages} />)
+    expect(screen.getByText('찬성 발언입니다')).toBeInTheDocument()
+    expect(screen.getByText('반대 발언입니다')).toBeInTheDocument()
+    expect(screen.getByText('반박합니다')).toBeInTheDocument()
+  })
+
+  it('shows round headers', () => {
+    render(<DebateArena participants={participants} messages={messages} />)
+    expect(screen.getByText('Round 1')).toBeInTheDocument()
+    expect(screen.getByText('Round 2')).toBeInTheDocument()
+  })
+
+  it('shows empty state when no messages', () => {
+    render(<DebateArena participants={participants} messages={[]} />)
+    expect(screen.getByText('토론이 시작되지 않았습니다')).toBeInTheDocument()
+  })
+
+  it('renders participant avatars', () => {
+    render(<DebateArena participants={participants} messages={messages} />)
+    expect(screen.getAllByText('P').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('C').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('M').length).toBeGreaterThan(0)
+  })
+
+  it('renders model info for participants', () => {
+    render(<DebateArena participants={participants} messages={messages} />)
+    expect(screen.getByText('GPT-4')).toBeInTheDocument()
+    expect(screen.getByText('Claude')).toBeInTheDocument()
+    expect(screen.getByText('Gemini')).toBeInTheDocument()
+  })
+
+  it('skips messages for unknown participant ids', () => {
+    const badMessages: DebateMessage[] = [
+      { participantId: 'unknown', content: 'should not show', round: 1 },
+      { participantId: 'p1', content: '정상 발언', round: 1 },
+    ]
+    render(<DebateArena participants={participants} messages={badMessages} />)
+    expect(screen.queryByText('should not show')).not.toBeInTheDocument()
+    expect(screen.getByText('정상 발언')).toBeInTheDocument()
   })
 })
