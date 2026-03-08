@@ -1,7 +1,6 @@
 /**
- * Web Crypto API 기반 비밀번호 해싱
- * PBKDF2 + SHA-256, 랜덤 salt 사용
- * 브라우저 환경 전용 (bcrypt 대체)
+ * Browser-only password hashing using Web Crypto API.
+ * Uses PBKDF2 with SHA-256 and a random salt (bcrypt alternative for browser environments).
  */
 
 const ITERATIONS = 100_000
@@ -53,8 +52,9 @@ async function deriveKey(password: string, salt: Uint8Array): Promise<ArrayBuffe
 }
 
 /**
- * 비밀번호를 PBKDF2로 해싱
- * @returns "salt:hash" 형식의 hex 문자열
+ * Hashes a password using PBKDF2 with a random salt.
+ * @param password - Plain-text password to hash
+ * @returns Hex string in the format "salt:hash"
  */
 export async function hashPassword(password: string): Promise<string> {
   const crypto = getCrypto()
@@ -65,9 +65,10 @@ export async function hashPassword(password: string): Promise<string> {
 }
 
 /**
- * 비밀번호와 저장된 해시를 비교
- * @param password 평문 비밀번호
- * @param storedHash "salt:hash" 형식의 hex 문자열
+ * Verifies a password against a stored hash using constant-time comparison.
+ * @param password - Plain-text password to verify
+ * @param storedHash - Previously stored hash in "salt:hash" hex format
+ * @returns True if the password matches the stored hash
  */
 export async function verifyPassword(
   password: string,

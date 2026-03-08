@@ -18,7 +18,8 @@ type UseDataResult<T> = AsyncDataResult<T>;
 
 /**
  * Hook for managing conversations with CRUD operations.
- * Uses useAsyncData for initial fetch; manages local state for mutations.
+ * Uses useAsyncData for initial fetch and manages local state for optimistic mutations.
+ * @returns Object with conversations array, loading/error states, create/remove callbacks, and refetch
  */
 export function useConversations() {
   const service = useUserService();
@@ -72,7 +73,8 @@ export function useConversations() {
 
 /**
  * Hook for managing assistants (official + custom).
- * Uses useAsyncData for initial fetch; derives computed state from result.
+ * Fetches both official and custom assistants in parallel via Promise.all.
+ * @returns Object with assistants, customAssistants, allAssistants (merged), loading/error, and refetch
  */
 export function useAssistants() {
   const service = useUserService();
@@ -96,7 +98,8 @@ export function useAssistants() {
 }
 
 /**
- * Hook for fetching usage statistics.
+ * Hook for fetching model usage statistics.
+ * @returns AsyncDataResult with ModelUsage array, loading, error, and refetch
  */
 export function useUsageStats(): UseDataResult<ModelUsage[]> {
   const service = useUserService();
@@ -104,7 +107,8 @@ export function useUsageStats(): UseDataResult<ModelUsage[]> {
 }
 
 /**
- * Hook for fetching subscription information.
+ * Hook for fetching the current user's subscription information.
+ * @returns AsyncDataResult with Subscription data, loading, error, and refetch
  */
 export function useSubscription(): UseDataResult<Subscription> {
   const service = useUserService();
@@ -112,7 +116,8 @@ export function useSubscription(): UseDataResult<Subscription> {
 }
 
 /**
- * Hook for fetching translation jobs.
+ * Hook for fetching translation job history.
+ * @returns AsyncDataResult with TranslationJob array, loading, error, and refetch
  */
 export function useTranslationJobs(): UseDataResult<TranslationJob[]> {
   const service = useUserService();
@@ -120,7 +125,8 @@ export function useTranslationJobs(): UseDataResult<TranslationJob[]> {
 }
 
 /**
- * Hook for fetching document projects.
+ * Hook for fetching document collaboration projects.
+ * @returns AsyncDataResult with DocProject array, loading, error, and refetch
  */
 export function useDocProjects(): UseDataResult<DocProject[]> {
   const service = useUserService();
@@ -128,7 +134,8 @@ export function useDocProjects(): UseDataResult<DocProject[]> {
 }
 
 /**
- * Hook for fetching OCR jobs.
+ * Hook for fetching OCR (optical character recognition) job history.
+ * @returns AsyncDataResult with OCRJob array, loading, error, and refetch
  */
 export function useOCRJobs(): UseDataResult<OCRJob[]> {
   const service = useUserService();

@@ -18,6 +18,13 @@ const PII_PATTERNS: Array<{ pattern: RegExp; replacement: string }> = [
   { pattern: /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, replacement: '[IP주소]' },
 ]
 
+/**
+ * Scans text for PII patterns and replaces them with Korean-labeled placeholders.
+ * Detects: resident registration numbers, phone numbers, emails, credit cards,
+ * business registration numbers, and IP addresses.
+ * @param text - Raw text to sanitize
+ * @returns Object with sanitized text and the count of masked items
+ */
 export function sanitizePII(text: string): { sanitized: string; maskedCount: number } {
   let sanitized = text
   let maskedCount = 0
@@ -33,6 +40,11 @@ export function sanitizePII(text: string): { sanitized: string; maskedCount: num
   return { sanitized, maskedCount }
 }
 
+/**
+ * Checks whether text contains any PII patterns without modifying it.
+ * @param text - Text to check
+ * @returns True if any PII pattern matches
+ */
 export function containsPII(text: string): boolean {
   return PII_PATTERNS.some(({ pattern }) => {
     const fresh = new RegExp(pattern.source, pattern.flags)

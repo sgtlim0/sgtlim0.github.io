@@ -10,13 +10,27 @@ interface LoginResponse {
   user: AuthUser
 }
 
+/**
+ * Production implementation of AuthService that communicates with a real API backend.
+ * Validates credentials with Zod, stores tokens in sessionStorage, and supports token refresh.
+ */
 export class RealAuthService implements AuthService {
   private client: ApiClient
 
+  /**
+   * @param client - Configured ApiClient instance for making HTTP requests
+   */
   constructor(client: ApiClient) {
     this.client = client
   }
 
+  /**
+   * Authenticates a user by sending credentials to the /auth/login endpoint.
+   * Stores the returned JWT token and user data in sessionStorage.
+   * @param credentials - Email and password
+   * @returns The authenticated AuthUser
+   * @throws Error if login fails
+   */
   async login(credentials: LoginCredentials): Promise<AuthUser> {
     const validated = loginCredentialsSchema.parse(credentials)
 
@@ -40,6 +54,10 @@ export class RealAuthService implements AuthService {
     }
   }
 
+  /**
+   * Logs out by calling /auth/logout and clearing local tokens.
+   * Local tokens are always cleared, even if the server request fails.
+   */
   async logout(): Promise<void> {
     try {
       await this.client.post('/auth/logout')
@@ -50,6 +68,11 @@ export class RealAuthService implements AuthService {
     }
   }
 
+  /**
+   * Fetches the current user's profile from /auth/profile.
+   * Clears tokens if the request fails (e.g., expired token).
+   * @returns The current AuthUser, or null if not authenticated
+   */
   async getCurrentUser(): Promise<AuthUser | null> {
     const token = tokenStorage.getToken()
     if (!token) {
@@ -68,10 +91,19 @@ export class RealAuthService implements AuthService {
     }
   }
 
+  /**
+   * Checks whether a valid token exists in storage.
+   * @returns True if a token is present
+   */
   isAuthenticated(): boolean {
     return tokenStorage.isAuthenticated()
   }
 
+  /**
+   * Requests a new JWT token via /auth/refresh.
+   * Clears tokens if the refresh fails.
+   * @returns The new token string, or null on failure
+   */
   async refreshToken(): Promise<string | null> {
     try {
       const response = await this.client.post<{ token: string }>(
@@ -86,6 +118,10 @@ export class RealAuthService implements AuthService {
   }
 }
 
+/**
+ * Factory function that creates a RealAuthService using the default ApiClient.
+ * @returns A new RealAuthService instance
+ */
 export function createRealAuthService(): RealAuthService {
   return new RealAuthService(getApiClient())
 }
