@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import chat, research
+from routers import analyze, chat, research
 
 load_dotenv()
 
@@ -52,6 +52,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(analyze.router, prefix="/analyze", tags=["analyze"])
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
 app.include_router(research.router, prefix="/research", tags=["research"])
 

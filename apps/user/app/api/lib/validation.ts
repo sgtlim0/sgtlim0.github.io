@@ -23,5 +23,13 @@ export const researchRequestSchema = z.object({
   num_sources: z.number().int().min(1).max(10).default(3),
 })
 
+export const analyzeRequestSchema = z.object({
+  text: z.string().min(1).max(50000),
+  mode: z.enum(['summarize', 'explain', 'research', 'translate']),
+  url: z.string().url().optional(),
+  title: z.string().max(500).optional(),
+})
+
 export type ChatRequestBody = z.infer<typeof chatRequestSchema>
 export type ResearchRequestBody = z.infer<typeof researchRequestSchema>
+export type AnalyzeRequestBody = z.infer<typeof analyzeRequestSchema>
