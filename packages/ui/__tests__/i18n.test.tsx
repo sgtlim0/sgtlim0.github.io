@@ -70,24 +70,21 @@ describe('LanguageToggle', () => {
     )
 
     fireEvent.click(screen.getByText('EN'))
-    expect(screen.getByText('中文')).toBeDefined()
+    expect(screen.getByText('KO')).toBeDefined()
     expect(localStorage.getItem('locale')).toBe('en')
   })
 
-  it('should cycle through all three languages', () => {
+  it('should cycle between two languages', () => {
     render(
       <I18nProvider>
         <LanguageToggle />
       </I18nProvider>,
     )
 
-    // ko -> en (shows next: 中文)
+    // ko -> en (shows next: KO)
     fireEvent.click(screen.getByText('EN'))
     expect(localStorage.getItem('locale')).toBe('en')
-    // en -> zh (shows next: KO)
-    fireEvent.click(screen.getByText('中文'))
-    expect(localStorage.getItem('locale')).toBe('zh')
-    // zh -> ko (shows next: EN)
+    // en -> ko (shows next: EN)
     fireEvent.click(screen.getByText('KO'))
     expect(screen.getByText('EN')).toBeDefined()
     expect(localStorage.getItem('locale')).toBe('ko')
