@@ -63,3 +63,8 @@ export type { HotkeyConfig, HotkeyRegistryEntry } from './hooks/useHotkeys'
 export { HotkeyProvider } from './hooks/HotkeyProvider'
 export { createDefaultHotkeys } from './hooks/defaultHotkeys'
 export type { DefaultHotkeyHandlers } from './hooks/defaultHotkeys'
+
+// Undo/Redo
+export { useUndoRedo } from './hooks/useUndoRedo'
+export type { UndoRedoState } from './hooks/useUndoRedo'
+export { UndoRedoProvider, useUndoRedoContext } from './hooks/UndoRedoProvider'
