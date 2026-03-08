@@ -11,10 +11,12 @@ import CustomAssistantModal from '../components/CustomAssistantModal'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 import ResearchPanel from '../components/ResearchPanel'
 import InstallBanner from '../components/InstallBanner'
+import PageContextBanner from '../components/PageContextBanner'
 import { useAssistants } from '../hooks/useAssistants'
 import { useConversations } from '../hooks/useConversations'
 import { useChat } from '../hooks/useChat'
 import { useResearch } from '../hooks/useResearch'
+import { useExtensionContext } from '../hooks/useExtensionContext'
 import { useNetworkStatus } from '../../hooks/useNetworkStatus'
 
 export default function ChatPage() {
@@ -22,6 +24,7 @@ export default function ChatPage() {
   const [showSearchPanel, setShowSearchPanel] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { isOnline } = useNetworkStatus()
+  const { extensionContext, clearContext } = useExtensionContext()
 
   const {
     allAssistants,
@@ -152,6 +155,16 @@ export default function ChatPage() {
           </div>
         )}
         <InstallBanner />
+        {extensionContext && (
+          <PageContextBanner
+            context={extensionContext}
+            onDismiss={clearContext}
+            onUseContext={(text) => {
+              handleSendMessage(text)
+              clearContext()
+            }}
+          />
+        )}
         {isLoading ? (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-sm text-user-text-muted">대화를 불러오는 중...</div>
