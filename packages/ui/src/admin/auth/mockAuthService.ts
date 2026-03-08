@@ -2,6 +2,8 @@ import type { AuthService } from './authService'
 import type { AuthUser, LoginCredentials } from './types'
 import { loginCredentialsSchema, authUserSchema } from '../../schemas/auth'
 import { tokenStorage } from '../../utils/tokenStorage'
+import { hashPassword, verifyPassword } from './crypto'
+import { generateToken, verifyToken } from './token'
 
 const MOCK_USERS: Record<string, AuthUser> = {
   'admin@hchat.ai': {
@@ -22,24 +24,60 @@ const MOCK_USERS: Record<string, AuthUser> = {
   },
 }
 
+// 사전 해싱된 비밀번호 저장소 (초기화 시 생성)
+let passwordHashes: Record<string, string> = {}
+let initialized = false
+
+const MOCK_PASSWORDS: Record<string, string> = {
+  'admin@hchat.ai': 'Admin123!',
+  'manager@hchat.ai': 'Manager123!',
+}
+
+async function ensureInitialized(): Promise<void> {
+  if (initialized) {
+    return
+  }
+  const entries = Object.entries(MOCK_PASSWORDS)
+  const hashes = await Promise.all(
+    entries.map(async ([email, password]) => {
+      const hash = await hashPassword(password)
+      return [email, hash] as const
+    }),
+  )
+  passwordHashes = Object.fromEntries(hashes)
+  initialized = true
+}
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 class MockAuthService implements AuthService {
   async login(credentials: LoginCredentials): Promise<AuthUser> {
-    // Zod 검증 추가
+    // Zod 검증
     const validated = loginCredentialsSchema.parse(credentials)
 
+    await ensureInitialized()
     await delay(500)
 
     const user = MOCK_USERS[validated.email]
-    if (!user || !validated.password) {
+    const storedHash = passwordHashes[validated.email]
+
+    if (!user || !storedHash) {
       throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.')
     }
 
-    const token = btoa(JSON.stringify({ email: validated.email, timestamp: Date.now() }))
+    const isValid = await verifyPassword(validated.password, storedHash)
+    if (!isValid) {
+      throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.')
+    }
+
+    // HMAC-SHA256 서명된 JWT 토큰 생성
+    const token = await generateToken({
+      email: validated.email,
+      role: user.role,
+      sub: user.id,
+    })
 
     // Security: always use sessionStorage to mitigate XSS token theft
-    // (localStorage persists across tabs/sessions, making stolen tokens long-lived)
     tokenStorage.setToken(token)
     tokenStorage.setUser(user)
 
@@ -59,13 +97,19 @@ class MockAuthService implements AuthService {
       return null
     }
 
+    // JWT 서명 및 만료 검증
+    const payload = await verifyToken(token)
+    if (!payload) {
+      tokenStorage.clear()
+      return null
+    }
+
     const user = tokenStorage.getUser<AuthUser>()
     if (!user) {
       return null
     }
 
     try {
-      // 저장된 사용자 데이터도 검증
       return authUserSchema.parse(user)
     } catch {
       return null
@@ -78,3 +122,9 @@ class MockAuthService implements AuthService {
 }
 
 export const mockAuthService = new MockAuthService()
+
+// 테스트용: 비밀번호 해시 초기화 상태 리셋
+export function _resetForTesting(): void {
+  initialized = false
+  passwordHashes = {}
+}
