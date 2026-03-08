@@ -39,3 +39,16 @@ export { lazy, debounce, throttle } from './performance'
 
 // Accessibility Utilities
 export { trapFocus, announceToScreenReader, getFocusableElements } from './a11y'
+
+// Feature Flags
+export {
+  isFeatureEnabled,
+  getFeatureFlags,
+  setFeatureFlag,
+  subscribe as subscribeFeatureFlags,
+  getSnapshot as getFeatureFlagSnapshot,
+  getServerSnapshot as getFeatureFlagServerSnapshot,
+  resetFlags,
+} from './featureFlags'
+export type { FeatureFlag } from './featureFlags'
+export { default as FeatureFlagProvider, useFeatureFlag, useFeatureFlags, FeatureGate } from './FeatureFlagProvider'
