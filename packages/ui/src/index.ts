@@ -110,3 +110,13 @@ export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvide
 // Persisted State
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
+
+// Animation Utilities
+export { useTransition } from './hooks/useTransition'
+export type { TransitionState, UseTransitionOptions, UseTransitionReturn } from './hooks/useTransition'
+export { useAnimatedList } from './hooks/useAnimatedList'
+export type { AnimatedItem, UseAnimatedListOptions, UseAnimatedListReturn } from './hooks/useAnimatedList'
+export { default as Transition, getTransitionPreset } from './Transition'
+export type { TransitionProps, TransitionPresetType } from './Transition'
+export { default as AnimatedList } from './AnimatedList'
+export type { AnimatedListProps, AnimatedListControls } from './AnimatedList'
