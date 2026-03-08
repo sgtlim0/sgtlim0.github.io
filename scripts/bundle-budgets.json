@@ -1,0 +1,37 @@
+{
+  "wiki": {
+    "maxSizeKB": 500,
+    "dir": "apps/wiki/out",
+    "type": "static"
+  },
+  "hmg": {
+    "maxSizeKB": 600,
+    "dir": "apps/hmg/.next/static",
+    "type": "ssr"
+  },
+  "admin": {
+    "maxSizeKB": 800,
+    "dir": "apps/admin/.next/static",
+    "type": "ssr"
+  },
+  "user": {
+    "maxSizeKB": 600,
+    "dir": "apps/user/.next/static",
+    "type": "ssr"
+  },
+  "llm-router": {
+    "maxSizeKB": 500,
+    "dir": "apps/llm-router/.next/static",
+    "type": "ssr"
+  },
+  "desktop": {
+    "maxSizeKB": 400,
+    "dir": "apps/desktop/out",
+    "type": "static"
+  },
+  "mobile": {
+    "maxSizeKB": 400,
+    "dir": "apps/mobile/out",
+    "type": "static"
+  }
+}

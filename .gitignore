@@ -49,6 +49,9 @@ storybook-static
 # turbo
 .turbo
 
+# bundle size report (CI-generated)
+bundle-report.md
+
 # test results
 test-results/
 .claude/worktrees/
