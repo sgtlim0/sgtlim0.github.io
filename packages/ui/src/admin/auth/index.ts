@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 
 export * from './types';
 export * from './authService';

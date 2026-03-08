@@ -1,4 +1,3 @@
-'use client';
 
 import { DonutChart } from './charts';
 import { useROIData } from './ROIDataContext';

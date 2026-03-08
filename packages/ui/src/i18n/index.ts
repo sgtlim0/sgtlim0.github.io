@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 
 export { default as I18nProvider, useI18n } from './I18nProvider';
 export type { Locale } from './I18nProvider';

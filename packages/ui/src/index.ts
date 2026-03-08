@@ -1,5 +1,6 @@
 'use client'
 
+
 // @hchat/ui — Shared UI components
 // Wiki components
 export { default as Badge } from './Badge'

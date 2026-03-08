@@ -1,4 +1,3 @@
-'use client'
 
 import { LiveMetricCard } from './LiveMetricCard'
 import { LiveLineChart } from './LiveLineChart'

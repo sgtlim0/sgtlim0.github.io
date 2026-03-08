@@ -1,4 +1,3 @@
-'use client';
 
 import KPICard from './KPICard';
 import { MiniBarChart } from './charts';

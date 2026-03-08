@@ -1,4 +1,3 @@
-'use client'
 
 import { getApiMode, getApiUrl } from '../../client/serviceFactory'
 

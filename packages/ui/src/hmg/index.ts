@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 
 export { default as GNB } from './GNB';
 export { default as HeroBanner } from './HeroBanner';

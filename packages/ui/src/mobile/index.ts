@@ -1,5 +1,6 @@
 'use client'
 
+
 // Mobile components
 export { default as MobileTabBar } from './MobileTabBar'
 export type { MobileTabBarProps } from './MobileTabBar'
