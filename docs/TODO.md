@@ -138,7 +138,14 @@ serviceRegistry (27서비스, 12도메인, 엔드포인트+의존성 맵, 패키
 
 ---
 
-## 전체 Phase 1~60 완료
+### Phase 61: @hchat/ui 서브패키지 분리 ✅
+- 5개 서브패키지 (ui-core, ui-admin, ui-user, ui-roi, ui-llm-router)
+- re-export 방식으로 기존 @hchat/ui 하위 호환 유지
+- xlsx 의존성 @hchat/ui-roi에 격리
+
+---
+
+## 전체 Phase 1~61 완료
 
 ---
 
