@@ -33,7 +33,7 @@
 | 페이지 | 56개 (page.tsx) |
 | 커스텀 훅 | 66개 (exported functions) |
 | Storybook | 135 스토리 파일 |
-| 단위 테스트 | 79 파일, 1,246 테스트 |
+| 단위 테스트 | 80 파일, 1,261 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
 | MSW 핸들러 | 39 endpoints (8 도메인) |
@@ -255,18 +255,16 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | C-8 | API Gateway /api/analyze (Zod 검증) | `apps/user/app/api/analyze/route.ts` (46줄) | ✅ |
 | - | PII 살균 테스트 16개 | `packages/ui/__tests__/sanitize.test.ts` | ✅ |
 
-### Phase D: Extension ↔ PWA 통합 + 보안 (Week 4)
+### Phase D: Extension ↔ PWA 통합 + 보안 (Week 4) ✅
 
-| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
-|---|------|------|-------------|--------|
-| D-1 | useExtensionContext 훅 | `packages/ui/src/user/hooks/useExtensionContext.ts` | `hooks/useExtensionContext.ts` | 중간 |
-| D-2 | PageContextBanner 컴포넌트 | `packages/ui/src/user/components/PageContextBanner.tsx` | `components/PageContextBanner.tsx` | 낮음 |
-| D-3 | ChatPage Extension 통합 | `ChatPage.tsx` | `app/page.tsx` | 낮음 |
-| D-4 | 민감 사이트 차단 목록 | `apps/extension/src/utils/blocklist.ts` | (미구현, 신규) | 중간 |
-| D-5 | Extension CORS 설정 (특정 ID) | `apps/ai-core/main.py` | - | 낮음 |
-| D-6 | E2E 테스트 | `tests/extension/` | - | 높음 |
-
-**검증**: 우클릭 → PWA 연동, 보안 체크리스트, E2E 통과
+| # | 작업 | 파일 | 상태 |
+|---|------|------|------|
+| D-1 | useExtensionContext 훅 (URL params + postMessage) | `packages/ui/src/user/hooks/useExtensionContext.ts` (71줄) | ✅ |
+| D-2 | PageContextBanner 컴포넌트 | `packages/ui/src/user/components/PageContextBanner.tsx` (63줄) | ✅ |
+| D-3 | ChatPage Extension 통합 | `packages/ui/src/user/pages/ChatPage.tsx` | ✅ |
+| D-4 | 민감 사이트 차단 (20도메인 + 6패턴) | `apps/extension/src/utils/blocklist.ts` + `packages/ui/src/utils/blocklist.ts` | ✅ |
+| D-5 | Extension CORS (EXTENSION_ORIGIN 환경변수) | `apps/ai-core/main.py` | ✅ |
+| D-6 | blocklist 테스트 15개 | `packages/ui/__tests__/blocklist.test.ts` | ✅ |
 
 ---
 
