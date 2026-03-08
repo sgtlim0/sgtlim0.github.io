@@ -24,6 +24,20 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     url: 'https://hchat-user.vercel.app',
+    siteName: 'H Chat',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'H Chat',
+    description: '현대자동차그룹 H Chat AI 비서 플랫폼',
+  },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
   },
   manifest: '/manifest.json',
   appleWebApp: {

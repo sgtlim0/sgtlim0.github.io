@@ -23,6 +23,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ko_KR",
     url: "https://hchat-hmg.vercel.app",
+    siteName: "H Chat HMG",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "H Chat - 현대자동차그룹",
+    description: "현대자동차그룹 H Chat - 멀티 AI 어시스턴트 플랫폼",
+  },
+  alternates: {
+    canonical: "https://hchat-hmg.vercel.app",
   },
 };
 

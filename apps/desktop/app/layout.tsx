@@ -22,6 +22,20 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     url: 'https://hchat-desktop.vercel.app',
+    siteName: 'H Chat Desktop',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'H Chat Desktop',
+    description: 'AI 데스크톱 채팅 애플리케이션',
+  },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
   },
 }
 

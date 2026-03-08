@@ -24,10 +24,20 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     url: 'https://hchat-admin.vercel.app',
+    siteName: 'H Chat Admin',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'H Chat Admin',
+    description: '현대자동차그룹 H Chat AI 생산성 관리 플랫폼',
   },
   robots: {
     index: false,
     follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
   },
 }
 
