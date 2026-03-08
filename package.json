@@ -35,6 +35,8 @@
     "test:e2e:llm-router": "playwright test --project=llm-router",
     "test:e2e:wiki": "playwright test --project=wiki",
     "test:e2e:cross": "playwright test tests/e2e/cross-app.spec.ts",
+    "test:e2e:error-paths": "playwright test tests/e2e/error-paths.spec.ts",
+    "test:e2e:resilience": "playwright test tests/e2e/resilience.spec.ts",
     "analyze:admin": "ANALYZE=true npm run build:admin",
     "analyze:hmg": "ANALYZE=true npm run build:hmg",
     "analyze:user": "ANALYZE=true npm run build:user",
