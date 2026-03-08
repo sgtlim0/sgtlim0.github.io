@@ -51,5 +51,27 @@ test.describe('Accessibility Checks', () => {
         console.warn(`${p.name} has ${emptyCount} potentially empty buttons`);
       }
     });
+
+    test(`${p.name} should have proper focus management`, async ({ page }) => {
+      await page.goto(p.url);
+      // Tab through the first few focusable elements
+      for (let i = 0; i < 5; i++) {
+        await page.keyboard.press('Tab');
+      }
+      // Verify that an element has focus (not lost to body)
+      const focusedTag = await page.evaluate(() => document.activeElement?.tagName);
+      expect(focusedTag).toBeTruthy();
+      expect(focusedTag).not.toBe('BODY');
+    });
+
+    test(`${p.name} should have ARIA landmarks`, async ({ page }) => {
+      await page.goto(p.url);
+      // Check for at least one landmark role
+      const landmarks = page.locator(
+        'main, [role="main"], nav, [role="navigation"], header, [role="banner"], footer, [role="contentinfo"]',
+      );
+      const count = await landmarks.count();
+      expect(count).toBeGreaterThan(0);
+    });
   }
 });
