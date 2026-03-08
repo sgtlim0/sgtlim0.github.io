@@ -70,12 +70,11 @@ export { HotkeyProvider } from './hooks/HotkeyProvider'
 export { createDefaultHotkeys } from './hooks/defaultHotkeys'
 export type { DefaultHotkeyHandlers } from './hooks/defaultHotkeys'
 
-<<<<<<< HEAD
 // Undo/Redo
 export { useUndoRedo } from './hooks/useUndoRedo'
 export type { UndoRedoState } from './hooks/useUndoRedo'
 export { UndoRedoProvider, useUndoRedoContext } from './hooks/UndoRedoProvider'
-=======
+
 // Drag and Drop
 export { useDragAndDrop } from './hooks/useDragAndDrop'
 export type { DragItem, DragHandlerProps, UseDragAndDropReturn } from './hooks/useDragAndDrop'
@@ -83,4 +82,11 @@ export { default as DraggableList } from './DraggableList'
 export type { DraggableListProps } from './DraggableList'
 export { default as DragHandle } from './DragHandle'
 export type { DragHandleProps } from './DragHandle'
->>>>>>> worktree-agent-aed47cbe
+
+// Form Builder
+export { useFormBuilder } from './hooks/useFormBuilder'
+export type { FieldConfig, UseFormBuilderReturn } from './hooks/useFormBuilder'
+export { default as FormField } from './FormField'
+export type { FormFieldProps } from './FormField'
+export { default as DynamicForm } from './DynamicForm'
+export type { DynamicFormProps } from './DynamicForm'
