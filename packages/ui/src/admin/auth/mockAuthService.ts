@@ -1,5 +1,6 @@
-import type { AuthService } from './authService';
-import type { AuthUser, LoginCredentials } from './types';
+import type { AuthService } from './authService'
+import type { AuthUser, LoginCredentials } from './types'
+import { loginCredentialsSchema, authUserSchema } from '../../schemas/auth'
 
 const MOCK_USERS: Record<string, AuthUser> = {
   'admin@hchat.ai': {
@@ -18,68 +19,66 @@ const MOCK_USERS: Record<string, AuthUser> = {
     organization: '현대자동차그룹',
     avatarUrl: undefined,
   },
-};
+}
 
-const STORAGE_KEY = 'hchat_admin_auth_token';
-const USER_KEY = 'hchat_admin_user';
+const STORAGE_KEY = 'hchat_admin_auth_token'
+const USER_KEY = 'hchat_admin_user'
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 class MockAuthService implements AuthService {
   async login(credentials: LoginCredentials): Promise<AuthUser> {
-    await delay(500);
+    // Zod 검증 추가
+    const validated = loginCredentialsSchema.parse(credentials)
 
-    const user = MOCK_USERS[credentials.email];
-    if (!user || !credentials.password) {
-      throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.');
+    await delay(500)
+
+    const user = MOCK_USERS[validated.email]
+    if (!user || !validated.password) {
+      throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.')
     }
 
-    const token = btoa(JSON.stringify({ email: credentials.email, timestamp: Date.now() }));
+    const token = btoa(JSON.stringify({ email: validated.email, timestamp: Date.now() }))
 
-    if (credentials.rememberMe) {
-      localStorage.setItem(STORAGE_KEY, token);
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-    } else {
-      sessionStorage.setItem(STORAGE_KEY, token);
-      sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-    }
+    // Security: always use sessionStorage to mitigate XSS token theft
+    // (localStorage persists across tabs/sessions, making stolen tokens long-lived)
+    sessionStorage.setItem(STORAGE_KEY, token)
+    sessionStorage.setItem(USER_KEY, JSON.stringify(user))
 
-    return user;
+    return user
   }
 
   async logout(): Promise<void> {
-    await delay(200);
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(USER_KEY);
-    sessionStorage.removeItem(STORAGE_KEY);
-    sessionStorage.removeItem(USER_KEY);
+    await delay(200)
+    sessionStorage.removeItem(STORAGE_KEY)
+    sessionStorage.removeItem(USER_KEY)
   }
 
   async getCurrentUser(): Promise<AuthUser | null> {
-    await delay(300);
+    await delay(300)
 
-    const token = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+    const token = sessionStorage.getItem(STORAGE_KEY)
     if (!token) {
-      return null;
+      return null
     }
 
-    const userStr = localStorage.getItem(USER_KEY) || sessionStorage.getItem(USER_KEY);
+    const userStr = sessionStorage.getItem(USER_KEY)
     if (!userStr) {
-      return null;
+      return null
     }
 
     try {
-      const user = JSON.parse(userStr) as AuthUser;
-      return user;
+      const user = JSON.parse(userStr)
+      // 저장된 사용자 데이터도 검증
+      return authUserSchema.parse(user)
     } catch {
-      return null;
+      return null
     }
   }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
-    return !!token;
+    return !!sessionStorage.getItem(STORAGE_KEY)
   }
 }
 
-export const mockAuthService = new MockAuthService();
+export const mockAuthService = new MockAuthService()

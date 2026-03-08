@@ -47,6 +47,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';"
+        />
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="X-Frame-Options" content="DENY" />
+        <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+      </head>
       <body className={inter.variable}>
         <ThemeProvider>
           <a

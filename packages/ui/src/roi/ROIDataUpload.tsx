@@ -1,8 +1,15 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
-import type { WorkBook } from 'xlsx'
 import { useROIData } from './ROIDataContext'
+import { roiDatasetSchema } from '../schemas/roi'
+
+const MAX_FILE_SIZE = 50 * 1024 * 1024 // 50MB
+const ALLOWED_EXTENSIONS = ['.xlsx', '.xls']
+const ALLOWED_MIME_TYPES = [
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.ms-excel',
+]
 
 interface UploadState {
   status: 'idle' | 'dragging' | 'parsing' | 'done' | 'error'
@@ -13,6 +20,25 @@ interface UploadState {
 
 interface ParsedRecord {
   [key: string]: string | number | boolean | null
+}
+
+function parseXlsxInWorker(buffer: ArrayBuffer): Promise<ParsedRecord[]> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL('./xlsxWorker.ts', import.meta.url), { type: 'module' })
+    worker.onmessage = (e: MessageEvent) => {
+      worker.terminate()
+      if (e.data.type === 'result') {
+        resolve(e.data.data)
+      } else {
+        reject(new Error(e.data.message))
+      }
+    }
+    worker.onerror = (err) => {
+      worker.terminate()
+      reject(new Error(err.message || '파일 파싱에 실패했습니다.'))
+    }
+    worker.postMessage({ type: 'parse', buffer }, [buffer])
+  })
 }
 
 function generateSampleData(): ParsedRecord[] {
@@ -69,47 +95,89 @@ function generateSampleData(): ParsedRecord[] {
   return records.sort((a, b) => String(a['날짜']).localeCompare(String(b['날짜'])))
 }
 
-async function parseWorkbook(wb: WorkBook): Promise<ParsedRecord[]> {
-  const sheetName = wb.SheetNames[0]
-  if (!sheetName) return []
-  const sheet = wb.Sheets[sheetName]
-  if (!sheet) return []
-  const { utils } = await import('xlsx')
-  return utils.sheet_to_json<ParsedRecord>(sheet)
-}
-
 export default function ROIDataUpload() {
   const [state, setState] = useState<UploadState>({ status: 'idle' })
   const [records, setRecords] = useState<ParsedRecord[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { setRecords: setGlobalRecords, clearRecords: clearGlobalRecords } = useROIData()
 
-  const processFile = useCallback(async (file: File) => {
-    setState({ status: 'parsing', fileName: file.name })
-    try {
-      const buffer = await file.arrayBuffer()
-      const { read } = await import('xlsx')
-      const wb = read(buffer, { type: 'array' })
-      const data = await parseWorkbook(wb)
-      if (data.length === 0) {
+  const processFile = useCallback(
+    async (file: File) => {
+      // 1. 파일 크기 검증
+      if (file.size > MAX_FILE_SIZE) {
         setState({
           status: 'error',
           fileName: file.name,
-          errorMessage: '파일에 데이터가 없습니다.',
+          errorMessage: `파일 크기가 50MB를 초과합니다. (${(file.size / 1024 / 1024).toFixed(1)}MB)`,
         })
         return
       }
-      setRecords(data)
-      setGlobalRecords(data)
-      setState({ status: 'done', fileName: file.name, recordCount: data.length })
-    } catch {
-      setState({
-        status: 'error',
-        fileName: file.name,
-        errorMessage: '파일 파싱에 실패했습니다. Excel 형식을 확인해주세요.',
-      })
-    }
-  }, [])
+
+      // 2. 파일 확장자 검증
+      const ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'))
+      if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        setState({
+          status: 'error',
+          fileName: file.name,
+          errorMessage: '지원하지 않는 파일 형식입니다. .xlsx 또는 .xls 파일만 업로드 가능합니다.',
+        })
+        return
+      }
+
+      // 3. MIME 타입 검증
+      if (file.type && !ALLOWED_MIME_TYPES.includes(file.type)) {
+        setState({
+          status: 'error',
+          fileName: file.name,
+          errorMessage: '올바른 Excel 파일이 아닙니다.',
+        })
+        return
+      }
+
+      setState({ status: 'parsing', fileName: file.name })
+      try {
+        const buffer = await file.arrayBuffer()
+        const data = await parseXlsxInWorker(buffer)
+        if (data.length === 0) {
+          setState({
+            status: 'error',
+            fileName: file.name,
+            errorMessage: '파일에 데이터가 없습니다.',
+          })
+          return
+        }
+
+        // Zod 검증 추가
+        const parseResult = roiDatasetSchema.safeParse(data)
+        if (!parseResult.success) {
+          // 첫 번째 에러만 표시
+          const firstError = parseResult.error.errors[0]
+          setState({
+            status: 'error',
+            fileName: file.name,
+            errorMessage: `데이터 검증 실패: ${firstError?.message ?? '알 수 없는 오류'}`,
+          })
+          return
+        }
+
+        // 검증 통과된 데이터 사용
+        const validatedData = parseResult.data
+        setRecords(validatedData)
+        setGlobalRecords(validatedData)
+        setState({ status: 'done', fileName: file.name, recordCount: validatedData.length })
+      } catch (error) {
+        setState({
+          status: 'error',
+          fileName: file.name,
+          errorMessage:
+            error instanceof Error
+              ? error.message
+              : '파일 파싱에 실패했습니다. Excel 형식을 확인해주세요.',
+        })
+      }
+    },
+    [setGlobalRecords],
+  )
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -144,15 +212,28 @@ export default function ROIDataUpload() {
     // simulate brief processing
     setTimeout(() => {
       const data = generateSampleData()
-      setRecords(data)
-      setGlobalRecords(data)
+
+      // 샘플 데이터도 Zod 검증
+      const parseResult = roiDatasetSchema.safeParse(data)
+      if (!parseResult.success) {
+        setState({
+          status: 'error',
+          fileName: '샘플 데이터',
+          errorMessage: '샘플 데이터 생성 중 오류가 발생했습니다.',
+        })
+        return
+      }
+
+      const validatedData = parseResult.data
+      setRecords(validatedData)
+      setGlobalRecords(validatedData)
       setState({
         status: 'done',
         fileName: '샘플_이용통계_2025Q3-2026Q1.xlsx',
         recordCount: data.length,
       })
     }, 600)
-  }, [])
+  }, [setGlobalRecords])
 
   const handleReset = useCallback(() => {
     setState({ status: 'idle' })
