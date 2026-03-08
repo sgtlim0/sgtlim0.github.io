@@ -93,6 +93,14 @@ export { lazy, debounce, throttle } from './performance'
 // Accessibility Utilities
 export { trapFocus, announceToScreenReader, getFocusableElements } from './a11y'
 
+// Image Placeholder Utilities
+export {
+  generateBlurDataURL,
+  getShimmerStyle,
+  SHIMMER_KEYFRAMES,
+  BLUR_PLACEHOLDERS,
+} from './imagePlaceholder'
+
 // Feature Flags
 export {
   isFeatureEnabled,
