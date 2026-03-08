@@ -52,6 +52,7 @@
     "test:load": "k6 run tests/load/k6-config.js",
     "test:load:staging": "k6 run -e BASE_URL=https://hchat-user.vercel.app -e WIKI_URL=https://sgtlim0.github.io -e ADMIN_URL=https://hchat-admin.vercel.app -e LLM_ROUTER_URL=https://hchat-llm-router.vercel.app tests/load/k6-config.js",
     "test:load:prod": "k6 run -e BASE_URL=https://hchat-user.vercel.app -e WIKI_URL=https://sgtlim0.github.io -e ADMIN_URL=https://hchat-admin.vercel.app -e LLM_ROUTER_URL=https://hchat-llm-router.vercel.app tests/load/k6-config.js",
+    "check:bundle": "bash scripts/check-bundle-size.sh",
     "prepare": "husky"
   },
   "lint-staged": {
