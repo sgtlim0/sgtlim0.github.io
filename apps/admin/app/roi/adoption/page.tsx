@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { SkeletonChart } from '@hchat/ui';
-import { ProtectedRoute } from '@hchat/ui/admin';
+import { ProtectedRoute } from '@hchat/ui/admin/auth';
 
 const ROIAdoption = dynamic(
   () => import('@hchat/ui/roi/ROIAdoption'),

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 import type { Assistant, AssistantCategory } from '../services/types';
+import { trapFocus } from '../../utils/a11y';
 
 export interface CustomAssistantModalProps {
   isOpen: boolean;
@@ -37,6 +38,8 @@ export default function CustomAssistantModal({
   onSave,
   editingAssistant,
 }: CustomAssistantModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('🤖');
   const [iconColor, setIconColor] = useState('#3B82F6');
@@ -72,6 +75,28 @@ export default function CustomAssistantModal({
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
+  // 포커스 트랩 및 복원
+  useEffect(() => {
+    if (!isOpen) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    let cleanup: (() => void) | undefined;
+    // requestAnimationFrame으로 DOM 렌더링 후 포커스 트랩 설정
+    const rafId = requestAnimationFrame(() => {
+      if (dialogRef.current) {
+        cleanup = trapFocus(dialogRef.current);
+      }
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      cleanup?.();
+      // 모달이 닫힐 때 이전 포커스 복원
+      previousFocusRef.current?.focus();
+    };
+  }, [isOpen]);
+
   const handleSave = () => {
     if (!name.trim()) return;
 
@@ -99,14 +124,21 @@ export default function CustomAssistantModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       onClick={handleOverlayClick}
     >
-      <div className="bg-[var(--user-bg-main)] rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="assistant-modal-title"
+        className="bg-[var(--user-bg-main)] rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[var(--user-border)]">
-          <h2 className="text-xl font-semibold text-[var(--user-text-primary)]">
+          <h2 id="assistant-modal-title" className="text-xl font-semibold text-[var(--user-text-primary)]">
             {editingAssistant ? '비서 수정' : '새 비서 만들기'}
           </h2>
           <button
             onClick={onClose}
+            aria-label="닫기"
             className="text-[var(--user-text-secondary)] hover:text-[var(--user-text-primary)] transition-colors"
           >
             <X size={24} />
@@ -117,14 +149,16 @@ export default function CustomAssistantModal({
         <div className="p-6 space-y-6">
           {/* 이름 */}
           <div>
-            <label className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
+            <label htmlFor="assistant-name" className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
               이름 *
             </label>
             <input
+              id="assistant-name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="비서 이름을 입력하세요"
+              aria-required="true"
               className="w-full px-4 py-2 border border-[var(--user-border)] rounded-lg bg-[var(--user-bg-section)] text-[var(--user-text-primary)] placeholder:text-[var(--user-text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--user-primary)]"
               required
             />
@@ -132,14 +166,17 @@ export default function CustomAssistantModal({
 
           {/* 아이콘 */}
           <div>
-            <label className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
+            <label id="icon-label" className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
               아이콘
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2" role="radiogroup" aria-labelledby="icon-label">
               {PRESET_EMOJIS.map((emoji) => (
                 <button
                   key={emoji}
                   onClick={() => setIcon(emoji)}
+                  role="radio"
+                  aria-checked={icon === emoji}
+                  aria-label={`아이콘 ${emoji}`}
                   className={`w-12 h-12 text-2xl rounded-lg border-2 transition-all ${
                     icon === emoji
                       ? 'border-[var(--user-primary)] bg-[var(--user-primary)]/10'
@@ -154,14 +191,17 @@ export default function CustomAssistantModal({
 
           {/* 아이콘 색상 */}
           <div>
-            <label className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
+            <label id="icon-color-label" className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
               아이콘 색상
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2" role="radiogroup" aria-labelledby="icon-color-label">
               {PRESET_COLORS.map((color) => (
                 <button
                   key={color}
                   onClick={() => setIconColor(color)}
+                  role="radio"
+                  aria-checked={iconColor === color}
+                  aria-label={`색상 ${color}`}
                   className={`w-12 h-12 rounded-lg border-2 transition-all ${
                     iconColor === color
                       ? 'border-[var(--user-text-primary)] scale-110'
@@ -175,10 +215,11 @@ export default function CustomAssistantModal({
 
           {/* 모델 선택 */}
           <div>
-            <label className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
+            <label htmlFor="assistant-model" className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
               모델 선택
             </label>
             <select
+              id="assistant-model"
               value={model}
               onChange={(e) => setModel(e.target.value)}
               className="w-full px-4 py-2 border border-[var(--user-border)] rounded-lg bg-[var(--user-bg-section)] text-[var(--user-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--user-primary)]"
@@ -193,10 +234,11 @@ export default function CustomAssistantModal({
 
           {/* 프롬프트 */}
           <div>
-            <label className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
+            <label htmlFor="assistant-prompt" className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
               프롬프트
             </label>
             <textarea
+              id="assistant-prompt"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="이 비서의 역할과 행동 지침을 입력하세요"
@@ -207,10 +249,11 @@ export default function CustomAssistantModal({
 
           {/* 카테고리 */}
           <div>
-            <label className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
+            <label htmlFor="assistant-category" className="block text-sm font-medium text-[var(--user-text-primary)] mb-2">
               카테고리
             </label>
             <select
+              id="assistant-category"
               value={category}
               onChange={(e) => setCategory(e.target.value as Exclude<AssistantCategory, '전체'>)}
               className="w-full px-4 py-2 border border-[var(--user-border)] rounded-lg bg-[var(--user-bg-section)] text-[var(--user-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--user-primary)]"

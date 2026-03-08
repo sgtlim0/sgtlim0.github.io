@@ -115,6 +115,7 @@ export default function ModelTable({
         </div>
         <select
           value={selectedProvider}
+          aria-label="제공사 필터"
           onChange={(e) => {
             setSelectedProvider(e.target.value);
             setCurrentPage(1);
@@ -127,6 +128,7 @@ export default function ModelTable({
         </select>
         <select
           value={selectedCategory}
+          aria-label="카테고리 필터"
           onChange={(e) => {
             setSelectedCategory(e.target.value);
             setCurrentPage(1);
@@ -140,7 +142,7 @@ export default function ModelTable({
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-lr-border">
-        <table className="w-full">
+        <table className="w-full" aria-label="AI 모델 비교 테이블">
           <thead className="bg-lr-bg-section border-b border-lr-border">
             <tr>
               <th

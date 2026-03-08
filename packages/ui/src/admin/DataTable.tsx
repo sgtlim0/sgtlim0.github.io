@@ -30,7 +30,7 @@ export default function DataTable({ rows, onViewDetail }: DataTableProps) {
 
   return (
     <div className="rounded-lg border border-border overflow-x-auto">
-      <table className="w-full text-sm">
+      <table className="w-full text-sm" role="table" aria-label="사용 내역 테이블">
         <thead>
           <tr className="bg-admin-bg-section border-b border-border">
             {columns.map((col) => (

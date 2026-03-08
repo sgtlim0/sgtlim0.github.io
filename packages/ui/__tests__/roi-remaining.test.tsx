@@ -76,7 +76,7 @@ describe('ROI - Remaining Branch Coverage', () => {
     it('should toggle sidebar visibility on mobile toggle click', async () => {
       const { default: ROISidebar } = await import('../src/roi/ROISidebar')
       render(<ROISidebar />)
-      const toggleBtn = screen.getByLabelText('Toggle sidebar')
+      const toggleBtn = screen.getByLabelText('사이드바 열기/닫기')
       // Initially not collapsed (isCollapsed = false)
       fireEvent.click(toggleBtn)
       // After click, isCollapsed = true, sidebar should have -translate-x-full class
@@ -104,7 +104,7 @@ describe('ROI - Remaining Branch Coverage', () => {
     it('should render mobile toggle button with menu/close icon', async () => {
       const { default: ROISidebar } = await import('../src/roi/ROISidebar')
       render(<ROISidebar />)
-      const toggleBtn = screen.getByLabelText('Toggle sidebar')
+      const toggleBtn = screen.getByLabelText('사이드바 열기/닫기')
       expect(toggleBtn).toBeInTheDocument()
       // Initially shows 'close' because isCollapsed starts false
       expect(toggleBtn.textContent).toContain('close')

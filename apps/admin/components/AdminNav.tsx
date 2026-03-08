@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ThemeToggle } from '@hchat/ui';
-import { useAuth } from '@hchat/ui/admin';
+import { useAuth } from '@hchat/ui/admin/auth';
 
 const navItems = [
   { href: '/', label: '대시보드' },

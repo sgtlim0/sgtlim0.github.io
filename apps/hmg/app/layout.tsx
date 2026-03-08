@@ -46,6 +46,7 @@ export default function RootLayout({
   return (
     <BaseLayout fontVariable={inter.variable}>
       <I18nProvider>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-hmg-navy focus:text-white focus:rounded">본문 바로가기</a>
         <GNB
           brand="현대자동차그룹"
           menuItems={menuItems}
@@ -56,7 +57,7 @@ export default function RootLayout({
             </>
           }
         />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
       </I18nProvider>
     </BaseLayout>
   );

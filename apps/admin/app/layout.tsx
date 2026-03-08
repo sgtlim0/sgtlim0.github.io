@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { BaseLayout } from '@hchat/ui'
-import { AuthProvider } from '@hchat/ui/admin'
+import { AuthProvider } from '@hchat/ui/admin/auth'
 import AdminNav from '@/components/AdminNav'
 import './globals.css'
 

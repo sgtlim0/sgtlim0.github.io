@@ -97,6 +97,7 @@ export default function LRNavbar({ isAuthenticated = false }: LRNavbarProps) {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-lr-nav-text hover:text-white transition-colors"
               aria-label="메뉴"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />

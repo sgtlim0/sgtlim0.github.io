@@ -10,6 +10,7 @@ export default function NavGroupHeader({ title, isOpen, onToggle }: NavGroupHead
   return (
     <button
       onClick={onToggle}
+      aria-expanded={isOpen}
       className="flex items-center gap-2 px-3 py-2 w-full text-left text-[13px] font-semibold text-text-primary tracking-wide"
     >
       <ChevronDown

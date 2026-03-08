@@ -45,6 +45,8 @@ export function ToastProvider({ children }: ToastProviderProps) {
       {children}
       <div
         className="fixed bottom-6 right-6 z-50 flex flex-col gap-2"
+        role="region"
+        aria-label="알림"
         style={{ maxWidth: '400px' }}
       >
         {toasts.map((item) => (
@@ -99,6 +101,8 @@ function ToastItem({ item }: ToastItemProps) {
 
   return (
     <div
+      role="alert"
+      aria-live={item.type === 'error' ? 'assertive' : 'polite'}
       className="rounded-lg shadow-lg px-4 py-3 flex items-center gap-3"
       style={{
         backgroundColor: 'var(--bg-card)',

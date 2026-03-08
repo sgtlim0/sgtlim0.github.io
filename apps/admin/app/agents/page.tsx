@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { SkeletonCard } from '@hchat/ui'
-import { ProtectedRoute } from '@hchat/ui/admin'
+import { ProtectedRoute } from '@hchat/ui/admin/auth'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 const AdminAgentMonitoring = dynamic(
-  () => import('@hchat/ui/admin').then(m => ({ default: m.AdminAgentMonitoring })),
+  () => import('@hchat/ui/admin/AdminAgentMonitoring'),
   { loading: () => <SkeletonCard /> }
 )
 

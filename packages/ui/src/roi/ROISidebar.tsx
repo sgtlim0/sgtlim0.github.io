@@ -26,7 +26,8 @@ export default function ROISidebar() {
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
         className="lg:hidden fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full bg-[var(--roi-sidebar-bg)] text-white shadow-lg flex items-center justify-center"
-        aria-label="Toggle sidebar"
+        aria-label="사이드바 열기/닫기"
+        aria-expanded={!isCollapsed}
       >
         <span className="material-symbols-rounded text-lg">
           {isCollapsed ? 'menu' : 'close'}
@@ -54,7 +55,7 @@ export default function ROISidebar() {
         <div className="md:flex md:items-center md:justify-center md:py-6 lg:hidden">
           <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-xs font-bold text-white">H</div>
         </div>
-        <nav className="flex-1 px-2">
+        <nav aria-label="ROI 대시보드 네비게이션" className="flex-1 px-2">
           <ul className="flex flex-col gap-0.5">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -63,6 +64,7 @@ export default function ROISidebar() {
                   <Link
                     href={item.href}
                     onClick={() => setIsCollapsed(true)}
+                    aria-current={isActive ? 'page' : undefined}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
                       isActive
                         ? 'bg-[var(--roi-chart-1)] text-white font-medium'
@@ -85,6 +87,7 @@ export default function ROISidebar() {
         <div
           className="lg:hidden fixed inset-0 bg-black/50 z-30 top-20"
           onClick={() => setIsCollapsed(true)}
+          aria-hidden="true"
         />
       )}
     </>

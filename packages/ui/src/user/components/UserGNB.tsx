@@ -47,6 +47,7 @@ export default function UserGNB({ activeTab, userEmail, onTabChange }: UserGNBPr
               <button
                 key={tab.key}
                 onClick={() => handleTabClick(tab.key)}
+                aria-current={activeTab === tab.key ? 'page' : undefined}
                 className={[
                   'relative px-4 py-4 text-sm font-medium transition-colors whitespace-nowrap',
                   activeTab === tab.key
@@ -92,6 +93,7 @@ export default function UserGNB({ activeTab, userEmail, onTabChange }: UserGNBPr
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-1.5 text-white"
             aria-label="메뉴 열기"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
               <X className="w-5 h-5" />

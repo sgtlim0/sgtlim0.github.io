@@ -1,0 +1,1999 @@
+openapi: 3.1.0
+info:
+  title: H Chat API
+  description: |
+    H Chat platform API specification covering two tiers:
+
+    1. **AI Core** (FastAPI, Python) — Internal backend AI service at `http://localhost:8000`
+    2. **User API** (Next.js API Routes) — Public-facing proxy at `http://localhost:3003/api`
+
+    The User API validates requests with Zod schemas, enforces CSRF protection and
+    rate limiting, then proxies to AI Core. Clients should only call the User API.
+
+    Additionally, **Admin API** and **Auth API** endpoints are documented from MSW
+    mock handlers (to be implemented with a real backend).
+  version: 1.0.0
+  contact:
+    name: H Chat Team
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:3003
+    description: User App (Next.js proxy)
+  - url: http://localhost:8000
+    description: AI Core (FastAPI, internal)
+
+tags:
+  - name: chat
+    description: Chat message endpoints (sync and SSE streaming)
+  - name: analyze
+    description: Text analysis — summarize, explain, research, translate
+  - name: research
+    description: Web research pipeline — search, crawl, summarize
+  - name: health
+    description: Health check and service status
+  - name: csrf
+    description: CSRF token issuance
+  - name: auth
+    description: Authentication (login, logout, current user)
+  - name: admin
+    description: Admin dashboard, users, settings, metrics
+  - name: admin-enterprise
+    description: Enterprise features — tenants, RBAC, SSO, marketplace
+  - name: admin-ai
+    description: AI engine management — RAG, prompts, benchmarks, analytics
+  - name: admin-collaboration
+    description: Alert rules, team chat rooms, messages
+  - name: admin-advanced
+    description: Fine-tuning, knowledge graph, voice (STT/TTS)
+  - name: models
+    description: LLM model catalog and API keys
+
+# ─────────────────────────────────────────────
+# Security Schemes
+# ─────────────────────────────────────────────
+components:
+  securitySchemes:
+    csrfToken:
+      type: apiKey
+      in: header
+      name: X-CSRF-Token
+      description: |
+        HMAC-signed CSRF token obtained from `GET /api/csrf`.
+        Required on all POST/PUT/PATCH/DELETE requests.
+        Format: `<uuid>.<timestamp>.<hmac-sha256>` (expires after 1 hour).
+        Also sent as `csrf_token` httpOnly cookie (Double Submit Cookie pattern).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from `POST /api/auth/login`.
+
+  # ─────────────────────────────────────────
+  # Reusable Schemas
+  # ─────────────────────────────────────────
+  schemas:
+    # --- Chat ---
+    ChatMessage:
+      type: object
+      required: [role, content]
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+          minLength: 1
+
+    ChatRequest:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: The user message to send.
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          maxItems: 50
+          default: []
+          description: Previous conversation messages for context.
+        use_compression:
+          type: boolean
+          default: true
+          description: Enable prompt compression to reduce token usage.
+
+    CompressionStats:
+      type: object
+      properties:
+        compressed:
+          type: boolean
+        original_tokens:
+          type: integer
+        compressed_tokens:
+          type: integer
+        compression_ratio:
+          type: number
+          format: float
+
+    ChatResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          description: The AI-generated reply.
+        stats:
+          $ref: '#/components/schemas/CompressionStats'
+
+    # --- Analyze ---
+    AnalyzeRequest:
+      type: object
+      required: [text, mode]
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 50000
+          description: Text to analyze.
+        mode:
+          type: string
+          enum: [summarize, explain, research, translate]
+          description: Analysis mode.
+        url:
+          type: string
+          format: uri
+          description: Optional source URL for context.
+        title:
+          type: string
+          maxLength: 500
+          description: Optional source title for context.
+
+    AnalyzeResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: Analysis result text.
+        mode:
+          type: string
+          enum: [summarize, explain, research, translate]
+
+    # --- Research ---
+    ResearchRequest:
+      type: object
+      required: [query]
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          description: Search query for the research pipeline.
+        num_sources:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 3
+          description: Number of sources to crawl and summarize.
+
+    SourceItem:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        snippet:
+          type: string
+
+    ResearchResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        summary:
+          type: string
+          description: AI-generated summary from all sources.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceItem'
+        num_sources_used:
+          type: integer
+
+    # --- Health ---
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+        aiCore:
+          type: boolean
+          description: Whether AI Core backend is reachable.
+        proxy:
+          type: boolean
+          description: Always true for the User API proxy.
+        upstream:
+          type: object
+          description: Raw health data from AI Core (only when aiCore is true).
+
+    AiCoreHealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok]
+        service:
+          type: string
+          example: ai-core
+        version:
+          type: string
+          example: 0.1.0
+
+    # --- CSRF ---
+    CsrfTokenResponse:
+      type: object
+      properties:
+        csrfToken:
+          type: string
+          description: Signed CSRF token to include in X-CSRF-Token header.
+
+    # --- Common Errors ---
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid request body
+        details:
+          type: object
+          description: Zod flattened error details.
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+
+    RateLimitError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Too many requests. Please try again later.
+
+    CsrfError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Missing CSRF token
+
+    # --- Auth ---
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        role:
+          type: string
+          enum: [admin, manager, viewer, user]
+        organization:
+          type: string
+
+    LoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+            user:
+              $ref: '#/components/schemas/User'
+
+    # --- Admin ---
+    AdminDashboard:
+      type: object
+      properties:
+        stats:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              value:
+                type: string
+        modelUsage:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              value:
+                type: number
+              color:
+                type: string
+
+    AdminUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+        status:
+          type: string
+          enum: [active, inactive]
+        lastActive:
+          type: string
+          format: date
+
+    RealtimeMetrics:
+      type: object
+      properties:
+        activeUsers:
+          type: integer
+        requestsPerMinute:
+          type: integer
+        avgLatency:
+          type: integer
+          description: Average latency in ms.
+        errorRate:
+          type: number
+          format: float
+
+    # --- Models ---
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        provider:
+          type: string
+        inputPrice:
+          type: number
+          description: Price per 1M input tokens (USD).
+        outputPrice:
+          type: number
+          description: Price per 1M output tokens (USD).
+        contextWindow:
+          type: integer
+
+    # --- Wrapper ---
+    ApiSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          description: Response payload (varies by endpoint).
+
+  # ─────────────────────────────────────────
+  # Reusable Headers
+  # ─────────────────────────────────────────
+  headers:
+    X-RateLimit-Remaining:
+      description: Number of requests remaining in the current window.
+      schema:
+        type: integer
+    X-RateLimit-Reset:
+      description: Unix timestamp (seconds) when the rate limit window resets.
+      schema:
+        type: integer
+    Retry-After:
+      description: Seconds until the client can retry (on 429 responses).
+      schema:
+        type: integer
+
+  # ─────────────────────────────────────────
+  # Reusable Responses
+  # ─────────────────────────────────────────
+  responses:
+    BadRequest:
+      description: Invalid request body (Zod validation failed).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+    Forbidden:
+      description: Missing or invalid CSRF token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CsrfError'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/Retry-After'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+    ServiceUnavailable:
+      description: AI Core backend is unreachable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+            example:
+              error: AI Core service unavailable
+
+# ─────────────────────────────────────────────
+# Paths
+# ─────────────────────────────────────────────
+paths:
+  # ===================== Chat =====================
+  /api/chat:
+    post:
+      tags: [chat]
+      summary: Send a chat message
+      description: |
+        Validates request via Zod, proxies to AI Core `/chat`, returns the
+        complete AI response with compression statistics.
+      operationId: chat
+      security:
+        - csrfToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful chat response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/chat/stream:
+    post:
+      tags: [chat]
+      summary: Stream chat response via SSE
+      description: |
+        Proxies SSE streaming from AI Core `/chat/stream`. Returns a
+        `text/event-stream` response with tokens as `data:` frames.
+        The final frame is `data: [DONE]`.
+
+        **SSE format:**
+        ```
+        data: Hello
+        data:  world
+        data: [DONE]
+        ```
+      operationId: chatStream
+      security:
+        - csrfToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: SSE event stream of tokens.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: |
+                  Server-Sent Events stream. Each event is `data: <token>\n\n`.
+                  Stream ends with `data: [DONE]\n\n`.
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Accel-Buffering:
+              schema:
+                type: string
+                example: 'no'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '502':
+          description: No stream body from AI Core.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  # ===================== Analyze =====================
+  /api/analyze:
+    post:
+      tags: [analyze]
+      summary: Analyze text (summarize, explain, research, translate)
+      description: |
+        Validates request via Zod, proxies to AI Core `/analyze`.
+        Used by the Chrome Extension popup for text analysis.
+
+        **Modes:**
+        - `summarize` — Concise summary of key points
+        - `explain` — Easy-to-understand explanation
+        - `research` — Additional context and related information
+        - `translate` — Korean to English or English to Korean
+      operationId: analyze
+      security:
+        - csrfToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyzeRequest'
+      responses:
+        '200':
+          description: Analysis result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  # ===================== Research =====================
+  /api/research:
+    post:
+      tags: [research]
+      summary: Web research pipeline
+      description: |
+        Validates request via Zod, enforces rate limiting (10 req/min),
+        proxies to AI Core `/research`.
+
+        Pipeline: web search -> crawl pages -> AI summarization.
+      operationId: research
+      security:
+        - csrfToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResearchRequest'
+      responses:
+        '200':
+          description: Research results with sources.
+          headers:
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+            X-RateLimit-Reset:
+              $ref: '#/components/headers/X-RateLimit-Reset'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  # ===================== Health =====================
+  /api/health:
+    get:
+      tags: [health]
+      summary: Health check (User API proxy)
+      description: |
+        Checks AI Core reachability and returns aggregated status.
+        Always returns 200 — `status` field indicates `ok` or `degraded`.
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Health status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  # ===================== CSRF =====================
+  /api/csrf:
+    get:
+      tags: [csrf]
+      summary: Get CSRF token
+      description: |
+        Issues an HMAC-signed CSRF token using the Double Submit Cookie pattern.
+        - Sets `csrf_token` httpOnly cookie
+        - Returns token in JSON body
+        - Token expires after 1 hour
+        - Rate limited: 30 req/min per IP
+
+        The client must include the token in `X-CSRF-Token` header on all POST requests.
+      operationId: getCsrfToken
+      responses:
+        '200':
+          description: CSRF token issued.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: csrf_token=<uuid>.<timestamp>.<hmac>; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CsrfTokenResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  # ===================== Auth (MSW mock) =====================
+  /api/auth/login:
+    post:
+      tags: [auth]
+      summary: Login
+      description: |
+        Authenticate with email and password. Returns JWT token and user profile.
+
+        **Demo credentials:** `admin@hchat.ai` / `Admin123!`
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: Invalid credentials
+
+  /api/auth/logout:
+    post:
+      tags: [auth]
+      summary: Logout
+      operationId: logout
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logout successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+
+  /api/auth/me:
+    get:
+      tags: [auth]
+      summary: Get current user
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current user profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/User'
+
+  # ===================== Admin (MSW mock) =====================
+  /api/admin/dashboard:
+    get:
+      tags: [admin]
+      summary: Get admin dashboard data
+      operationId: getAdminDashboard
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Dashboard statistics and model usage.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/AdminDashboard'
+
+  /api/admin/users:
+    get:
+      tags: [admin]
+      summary: List admin users
+      operationId: getAdminUsers
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdminUser'
+
+  /api/admin/settings:
+    get:
+      tags: [admin]
+      summary: Get admin settings
+      operationId: getAdminSettings
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      defaultModel:
+                        type: string
+                      maxTokens:
+                        type: integer
+                      theme:
+                        type: string
+                        enum: [light, dark, system]
+                      language:
+                        type: string
+                        enum: [ko, en]
+    put:
+      tags: [admin]
+      summary: Update admin settings
+      operationId: updateAdminSettings
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                defaultModel:
+                  type: string
+                maxTokens:
+                  type: integer
+                theme:
+                  type: string
+                language:
+                  type: string
+      responses:
+        '200':
+          description: Updated settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+
+  /api/admin/realtime/metrics:
+    get:
+      tags: [admin]
+      summary: Get realtime metrics
+      operationId: getRealtimeMetrics
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current system metrics.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/RealtimeMetrics'
+
+  /api/admin/notifications:
+    get:
+      tags: [admin]
+      summary: Get admin notifications
+      operationId: getAdminNotifications
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Notification list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        title:
+                          type: string
+                        message:
+                          type: string
+                        type:
+                          type: string
+                          enum: [info, warning, error]
+                        read:
+                          type: boolean
+                        createdAt:
+                          type: string
+                          format: date-time
+
+  /api/admin/widgets/layout:
+    get:
+      tags: [admin]
+      summary: Get dashboard widget layout
+      operationId: getWidgetLayout
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Widget layout configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      layout:
+                        type: array
+                      widgets:
+                        type: array
+
+  /api/admin/workflows:
+    get:
+      tags: [admin]
+      summary: Get workflows
+      operationId: getWorkflows
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Workflow list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+
+  # ===================== Enterprise (MSW mock) =====================
+  /api/admin/tenants:
+    get:
+      tags: [admin-enterprise]
+      summary: List tenants
+      operationId: getTenants
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Tenant list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        domain:
+                          type: string
+                        status:
+                          type: string
+                          enum: [active, inactive]
+                        userCount:
+                          type: integer
+
+  /api/admin/marketplace/agents:
+    get:
+      tags: [admin-enterprise]
+      summary: List marketplace agents
+      operationId: getMarketplaceAgents
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Agent marketplace listing.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        category:
+                          type: string
+                        rating:
+                          type: number
+                        installs:
+                          type: integer
+                        status:
+                          type: string
+
+  /api/admin/roles:
+    get:
+      tags: [admin-enterprise]
+      summary: List RBAC roles
+      operationId: getRoles
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Role list with permissions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        permissions:
+                          type: array
+                          items:
+                            type: string
+                        userCount:
+                          type: integer
+
+  /api/admin/permissions:
+    get:
+      tags: [admin-enterprise]
+      summary: List permissions
+      operationId: getPermissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Permission definitions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        group:
+                          type: string
+
+  /api/admin/sso/connections:
+    get:
+      tags: [admin-enterprise]
+      summary: List SSO connections
+      operationId: getSsoConnections
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: SSO connection list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        provider:
+                          type: string
+                        status:
+                          type: string
+                          enum: [active, inactive]
+                        domain:
+                          type: string
+
+  /api/admin/sso/test:
+    post:
+      tags: [admin-enterprise]
+      summary: Test SSO connection
+      operationId: testSsoConnection
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: SSO test result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      valid:
+                        type: boolean
+                      message:
+                        type: string
+
+  # ===================== AI Engine (MSW mock) =====================
+  /api/admin/analytics:
+    get:
+      tags: [admin-ai]
+      summary: Get AI analytics
+      operationId: getAnalytics
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Analytics data with anomalies, predictions, and insights.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      anomalies:
+                        type: array
+                      predictions:
+                        type: array
+                      insights:
+                        type: array
+
+  /api/admin/rag/search:
+    get:
+      tags: [admin-ai]
+      summary: RAG document search
+      operationId: ragSearch
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query.
+      responses:
+        '200':
+          description: Search results with relevance scores.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            title:
+                              type: string
+                            score:
+                              type: number
+                            snippet:
+                              type: string
+                      total:
+                        type: integer
+
+  /api/admin/rag/documents:
+    get:
+      tags: [admin-ai]
+      summary: List RAG documents
+      operationId: getRagDocuments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Indexed document list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        title:
+                          type: string
+                        chunks:
+                          type: integer
+                        status:
+                          type: string
+                          enum: [indexed, pending, error]
+
+  /api/admin/prompts/versions:
+    get:
+      tags: [admin-ai]
+      summary: List prompt versions
+      operationId: getPromptVersions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Prompt version list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        version:
+                          type: integer
+                        status:
+                          type: string
+                          enum: [active, draft, archived]
+
+  /api/admin/prompts/ab-tests:
+    get:
+      tags: [admin-ai]
+      summary: List prompt A/B tests
+      operationId: getPromptAbTests
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A/B test list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+
+  /api/admin/benchmarks:
+    get:
+      tags: [admin-ai]
+      summary: Get model benchmarks
+      operationId: getBenchmarks
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Model benchmark comparison.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        model:
+                          type: string
+                        accuracy:
+                          type: number
+                        latency:
+                          type: integer
+                          description: Average latency in ms.
+                        cost:
+                          type: number
+                          description: Cost per 1M tokens (USD).
+
+  # ===================== Collaboration (MSW mock) =====================
+  /api/admin/alert-rules:
+    get:
+      tags: [admin-collaboration]
+      summary: List alert rules
+      operationId: getAlertRules
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Alert rule list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        condition:
+                          type: string
+                        channels:
+                          type: array
+                          items:
+                            type: string
+                        enabled:
+                          type: boolean
+
+  /api/admin/rooms:
+    get:
+      tags: [admin-collaboration]
+      summary: List team chat rooms
+      operationId: getChatRooms
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Chat room list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        memberCount:
+                          type: integer
+                        lastMessage:
+                          type: string
+                        updatedAt:
+                          type: string
+                          format: date-time
+
+  /api/admin/messages:
+    get:
+      tags: [admin-collaboration]
+      summary: Get room messages
+      operationId: getRoomMessages
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: roomId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Message list for the room.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        roomId:
+                          type: string
+                        content:
+                          type: string
+                        sender:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+
+  # ===================== Advanced AI (MSW mock) =====================
+  /api/admin/finetune/jobs:
+    get:
+      tags: [admin-advanced]
+      summary: List fine-tune jobs
+      operationId: getFinetuneJobs
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Fine-tune job list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        model:
+                          type: string
+                        status:
+                          type: string
+                          enum: [pending, running, completed, failed]
+                        epochs:
+                          type: integer
+                        loss:
+                          type: number
+                        improvement:
+                          type: string
+
+  /api/admin/finetune/datasets:
+    get:
+      tags: [admin-advanced]
+      summary: List fine-tune datasets
+      operationId: getFinetuneDatasets
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Dataset list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        records:
+                          type: integer
+                        format:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date
+
+  /api/admin/charts:
+    get:
+      tags: [admin-advanced]
+      summary: Get advanced chart data
+      operationId: getCharts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Chart data (treemap, sankey, scatter).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      treemap:
+                        type: array
+                      sankey:
+                        type: array
+                      scatter:
+                        type: array
+
+  /api/admin/knowledge-graph:
+    get:
+      tags: [admin-advanced]
+      summary: Get knowledge graph
+      operationId: getKnowledgeGraph
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Knowledge graph nodes and edges.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      nodes:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            label:
+                              type: string
+                            type:
+                              type: string
+                      edges:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            source:
+                              type: string
+                            target:
+                              type: string
+                            label:
+                              type: string
+
+  /api/admin/voice/stt:
+    post:
+      tags: [admin-advanced]
+      summary: Speech-to-text
+      operationId: speechToText
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Transcription result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      text:
+                        type: string
+                      confidence:
+                        type: number
+                      language:
+                        type: string
+
+  /api/admin/voice/tts:
+    post:
+      tags: [admin-advanced]
+      summary: Text-to-speech
+      operationId: textToSpeech
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Generated audio.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      audioUrl:
+                        type: string
+                        format: uri
+                      duration:
+                        type: number
+                        description: Audio duration in seconds.
+
+  # ===================== Models (MSW mock) =====================
+  /api/models:
+    get:
+      tags: [models]
+      summary: List available LLM models
+      operationId: getModels
+      parameters:
+        - name: provider
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by provider name (e.g., Anthropic, OpenAI, Google).
+      responses:
+        '200':
+          description: Model catalog.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Model'
+
+  /api/models/{id}/stream:
+    get:
+      tags: [models]
+      summary: Stream model output (SSE)
+      operationId: streamModelOutput
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Model ID.
+      responses:
+        '200':
+          description: SSE token stream.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  /api/keys:
+    get:
+      tags: [models]
+      summary: List API keys
+      operationId: getApiKeys
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: API key list (prefix only, not full key).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        prefix:
+                          type: string
+                          description: Masked key prefix (e.g., "hc-****").
+                        createdAt:
+                          type: string
+                          format: date
+
+  # ===================== Chat Service (MSW mock) =====================
+  /api/chat/send:
+    post:
+      tags: [chat]
+      summary: Send chat message (mock service)
+      description: |
+        Used by the User app chat service layer. Different from `/api/chat`
+        which proxies to AI Core. This endpoint is for the mock chat service.
+      operationId: chatSend
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [conversationId, content]
+              properties:
+                conversationId:
+                  type: string
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Assistant message response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      role:
+                        type: string
+                        enum: [assistant]
+                      content:
+                        type: string
+                      timestamp:
+                        type: string
+                        format: date-time
+
+  /api/chat/history:
+    get:
+      tags: [chat]
+      summary: Get chat history
+      operationId: getChatHistory
+      responses:
+        '200':
+          description: Conversation history.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+
+  /api/assistants:
+    get:
+      tags: [chat]
+      summary: List available assistants
+      operationId: getAssistants
+      responses:
+        '200':
+          description: Assistant list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        model:
+                          type: string
+                        isOfficial:
+                          type: boolean
+
+  # ===================== AI Core (internal) =====================
+  /health:
+    get:
+      tags: [health]
+      summary: AI Core health check (internal)
+      description: Direct health check on the AI Core FastAPI server.
+      operationId: aiCoreHealth
+      servers:
+        - url: http://localhost:8000
+      responses:
+        '200':
+          description: AI Core health status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiCoreHealthResponse'
+
+  /chat:
+    post:
+      tags: [chat]
+      summary: AI Core chat (internal)
+      description: |
+        Direct chat endpoint on AI Core. Accepts up to 50,000-char messages.
+        Supports prompt compression via the entropy encoder.
+      operationId: aiCoreChat
+      servers:
+        - url: http://localhost:8000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  minLength: 1
+                  maxLength: 50000
+                history:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ChatMessage'
+                use_compression:
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          description: Chat response with compression stats.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: Chat request failed
+
+  /chat/stream:
+    post:
+      tags: [chat]
+      summary: AI Core SSE stream (internal)
+      description: |
+        Direct streaming endpoint on AI Core. Returns `text/event-stream`.
+        Each event: `data: <token>\n\n`. Ends with `data: [DONE]\n\n`.
+        On error: `data: [ERROR] <message>\n\n`.
+      operationId: aiCoreChatStream
+      servers:
+        - url: http://localhost:8000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  minLength: 1
+                  maxLength: 50000
+                history:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ChatMessage'
+                use_compression:
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          description: SSE token stream.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        '500':
+          description: Internal server error.
+
+  /analyze:
+    post:
+      tags: [analyze]
+      summary: AI Core analyze (internal)
+      description: |
+        Direct text analysis endpoint on AI Core.
+        Supports 4 modes: summarize, explain, research, translate.
+      operationId: aiCoreAnalyze
+      servers:
+        - url: http://localhost:8000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text, mode]
+              properties:
+                text:
+                  type: string
+                  minLength: 1
+                  maxLength: 50000
+                mode:
+                  type: string
+                  enum: [summarize, explain, research, translate]
+                url:
+                  type: string
+                title:
+                  type: string
+      responses:
+        '200':
+          description: Analysis result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeResponse'
+        '400':
+          description: Unknown analysis mode.
+        '500':
+          description: Internal server error.
+
+  /research:
+    post:
+      tags: [research]
+      summary: AI Core research (internal)
+      description: |
+        Direct research pipeline endpoint on AI Core.
+        Performs web search, page crawling, and AI summarization.
+      operationId: aiCoreResearch
+      servers:
+        - url: http://localhost:8000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query:
+                  type: string
+                  minLength: 1
+                  maxLength: 1000
+                num_sources:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                  default: 3
+      responses:
+        '200':
+          description: Research results with sources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResearchResponse'
+        '500':
+          description: Internal server error.

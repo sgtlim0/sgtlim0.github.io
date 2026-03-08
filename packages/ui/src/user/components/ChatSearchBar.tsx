@@ -32,6 +32,8 @@ export default function ChatSearchBar({ onSubmit, onAttach }: ChatSearchBarProps
   return (
     <form
       onSubmit={handleSubmit}
+      role="search"
+      aria-label="AI 비서에게 질문"
       className="w-full max-w-2xl mx-auto"
     >
       <div className="relative flex items-center bg-user-bg rounded-2xl shadow-lg shadow-black/5 dark:shadow-black/20 border border-user-border transition-shadow focus-within:shadow-xl focus-within:shadow-black/10">

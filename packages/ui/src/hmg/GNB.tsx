@@ -18,7 +18,7 @@ export default function GNB({ brand, menuItems, rightSlot }: GNBProps) {
 
   return (
     <>
-      <nav className="w-full h-20 flex items-center justify-between px-4 md:px-10 lg:px-20 bg-hmg-bg-card border-b border-hmg-border">
+      <nav role="navigation" aria-label="메인 네비게이션" className="w-full h-20 flex items-center justify-between px-4 md:px-10 lg:px-20 bg-hmg-bg-card border-b border-hmg-border">
         <div className="text-[17px] font-bold text-hmg-navy">
           {brand}
         </div>
@@ -46,7 +46,8 @@ export default function GNB({ brand, menuItems, rightSlot }: GNBProps) {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-hmg-navy"
-            aria-label="Toggle menu"
+            aria-label="메뉴 열기/닫기"
+            aria-expanded={isMenuOpen}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (

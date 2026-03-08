@@ -56,9 +56,13 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                aria-required="true"
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? 'login-error' : undefined}
                 className="w-full px-4 py-3 bg-hmg-input-bg border border-hmg-input-border rounded-md text-text-primary placeholder-text-tertiary focus:outline-none focus:ring-2 focus:ring-admin-teal focus:border-transparent transition-all"
                 placeholder="admin@hchat.ai"
                 disabled={isLoading}
+                autoComplete="email"
               />
             </div>
 
@@ -72,9 +76,13 @@ export default function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                aria-required="true"
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? 'login-error' : undefined}
                 className="w-full px-4 py-3 bg-hmg-input-bg border border-hmg-input-border rounded-md text-text-primary placeholder-text-tertiary focus:outline-none focus:ring-2 focus:ring-admin-teal focus:border-transparent transition-all"
                 placeholder="비밀번호를 입력하세요"
                 disabled={isLoading}
+                autoComplete="current-password"
               />
             </div>
 
@@ -95,7 +103,7 @@ export default function LoginPage() {
 
             {/* Error Message */}
             {error && (
-              <div className="bg-danger/10 border border-danger/30 rounded-md p-3">
+              <div id="login-error" role="alert" className="bg-danger/10 border border-danger/30 rounded-md p-3">
                 <p className="text-sm text-danger">{error}</p>
               </div>
             )}

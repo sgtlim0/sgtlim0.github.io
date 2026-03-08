@@ -36,3 +36,6 @@ export { isBlockedSite, isSensitivePattern, shouldBlockExtraction } from './bloc
 
 // Performance Utilities
 export { lazy, debounce, throttle } from './performance'
+
+// Accessibility Utilities
+export { trapFocus, announceToScreenReader, getFocusableElements } from './a11y'

@@ -168,7 +168,7 @@ describe('GNB', () => {
 
   it('toggles mobile menu on hamburger click', () => {
     render(<GNB brand="H Chat" menuItems={menuItems} />)
-    const hamburger = screen.getByLabelText('Toggle menu')
+    const hamburger = screen.getByLabelText('메뉴 열기/닫기')
     fireEvent.click(hamburger)
     // After clicking, mobile menu links appear
     expect(screen.getAllByText('Home').length).toBeGreaterThanOrEqual(2)
@@ -176,7 +176,7 @@ describe('GNB', () => {
 
   it('closes mobile menu when a link is clicked', () => {
     render(<GNB brand="H Chat" menuItems={menuItems} />)
-    const hamburger = screen.getByLabelText('Toggle menu')
+    const hamburger = screen.getByLabelText('메뉴 열기/닫기')
     fireEvent.click(hamburger)
     const homeLinks = screen.getAllByText('Home')
     fireEvent.click(homeLinks[homeLinks.length - 1])
@@ -186,7 +186,7 @@ describe('GNB', () => {
 
   it('renders hamburger button with aria-label', () => {
     render(<GNB brand="H Chat" menuItems={menuItems} />)
-    expect(screen.getByLabelText('Toggle menu')).toBeDefined()
+    expect(screen.getByLabelText('메뉴 열기/닫기')).toBeDefined()
   })
 })
 

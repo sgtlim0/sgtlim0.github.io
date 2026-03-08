@@ -12,6 +12,7 @@ export default function NavItem({ title, href, icon: Icon, active = false }: Nav
   return (
     <Link
       href={href}
+      aria-current={active ? 'page' : undefined}
       className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
         active
           ? 'bg-primary-light text-primary font-medium'

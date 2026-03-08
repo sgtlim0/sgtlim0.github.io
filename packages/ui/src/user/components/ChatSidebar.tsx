@@ -83,6 +83,7 @@ function SidebarContent({
               ].join(' ')}
               title={conv.title}
               aria-label={`대화 선택: ${conv.title}`}
+              aria-current={isActive ? 'true' : undefined}
             >
               <MessageSquare
                 className={[

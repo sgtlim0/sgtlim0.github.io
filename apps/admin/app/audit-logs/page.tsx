@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { SkeletonCard } from '@hchat/ui'
 
 const AuditLogViewer = dynamic(
-  () => import('@hchat/ui/admin').then(m => ({ default: m.AuditLogViewer })),
+  () => import('@hchat/ui/admin/AuditLogViewer'),
   { loading: () => <SkeletonCard /> }
 )
 

@@ -5,6 +5,31 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github.css';
 
+// Only register languages actually used in wiki content
+// Default 'common' set includes ~40 languages; this subset cuts ~60% of highlight bundle
+import type { LanguageFn } from 'highlight.js';
+import typescript from 'highlight.js/lib/languages/typescript';
+import javascript from 'highlight.js/lib/languages/javascript';
+import bash from 'highlight.js/lib/languages/bash';
+import css from 'highlight.js/lib/languages/css';
+import json from 'highlight.js/lib/languages/json';
+import xml from 'highlight.js/lib/languages/xml';
+import markdown from 'highlight.js/lib/languages/markdown';
+import yaml from 'highlight.js/lib/languages/yaml';
+import python from 'highlight.js/lib/languages/python';
+
+const wikiLanguages: Record<string, LanguageFn> = {
+  typescript,
+  javascript,
+  bash,
+  css,
+  json,
+  xml,
+  markdown,
+  yaml,
+  python,
+};
+
 interface MarkdownRendererProps {
   content: string;
 }
@@ -23,7 +48,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     <div className="markdown-body">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
+        rehypePlugins={[[rehypeHighlight, { languages: wikiLanguages }]]}
         components={{
           h1: ({ children }) => (
             <h1 className="text-4xl font-bold mt-8 mb-4 text-text-primary">
