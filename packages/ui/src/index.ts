@@ -116,6 +116,7 @@ export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Infinite Scroll
 export { useInfiniteScroll } from './hooks/useInfiniteScroll'
 export type { UseInfiniteScrollOptions, UseInfiniteScrollReturn } from './hooks/useInfiniteScroll'
@@ -128,3 +129,12 @@ export type { BreadcrumbItem, BreadcrumbProps } from './Breadcrumb'
 export { useBreadcrumb } from './hooks/useBreadcrumb'
 export type { UseBreadcrumbConfig, UseBreadcrumbReturn } from './hooks/useBreadcrumb'
 >>>>>>> worktree-agent-afe53f29
+=======
+// Responsive Hooks
+export { useMediaQuery } from './hooks/useMediaQuery'
+export { useWindowSize } from './hooks/useWindowSize'
+export { useBreakpoint, BREAKPOINTS } from './hooks/useBreakpoint'
+export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint'
+export { ResponsiveContainer } from './hooks/ResponsiveContainer'
+export type { ResponsiveContainerProps } from './hooks/ResponsiveContainer'
+>>>>>>> worktree-agent-ac51f608
