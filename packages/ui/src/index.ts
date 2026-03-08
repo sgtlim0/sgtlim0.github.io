@@ -126,23 +126,23 @@ export { useTabs } from './hooks/useTabs'
 export type { TabConfig, UseTabsOptions, UseTabsReturn } from './hooks/useTabs'
 export { Tabs, TabPanel } from './Tabs'
 export type { TabsProps, TabPanelProps, TabVariant } from './Tabs'
+// Clipboard
+export { useClipboard } from './hooks/useClipboard'
+export type { UseClipboardOptions, UseClipboardReturn } from './hooks/useClipboard'
+export { default as CopyButton } from './CopyButton'
+export type { CopyButtonProps } from './CopyButton'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Infinite Scroll
 export { useInfiniteScroll } from './hooks/useInfiniteScroll'
 export type { UseInfiniteScrollOptions, UseInfiniteScrollReturn } from './hooks/useInfiniteScroll'
 export { default as InfiniteList } from './InfiniteList'
 export type { InfiniteListProps } from './InfiniteList'
-=======
 // Breadcrumb Navigation
 export { default as Breadcrumb, BreadcrumbProvider, useBreadcrumbContext } from './Breadcrumb'
 export type { BreadcrumbItem, BreadcrumbProps } from './Breadcrumb'
 export { useBreadcrumb } from './hooks/useBreadcrumb'
 export type { UseBreadcrumbConfig, UseBreadcrumbReturn } from './hooks/useBreadcrumb'
 >>>>>>> worktree-agent-afe53f29
-=======
 // Responsive Hooks
 export { useMediaQuery } from './hooks/useMediaQuery'
 export { useWindowSize } from './hooks/useWindowSize'
@@ -151,7 +151,6 @@ export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint'
 export { ResponsiveContainer } from './hooks/ResponsiveContainer'
 export type { ResponsiveContainerProps } from './hooks/ResponsiveContainer'
 >>>>>>> worktree-agent-ac51f608
-=======
 // Animation Utilities
 export { useTransition } from './hooks/useTransition'
 export type { TransitionState, UseTransitionOptions, UseTransitionReturn } from './hooks/useTransition'
