@@ -170,3 +170,24 @@ export {
   wasPreviouslyDenied,
   clearDeniedFlag,
 } from './pushNotification'
+
+// Analytics / Telemetry
+export {
+  trackEvent,
+  trackPageView,
+  trackTiming,
+  getEventHistory,
+  clearEventHistory,
+  setAnalyticsEnabled,
+  isAnalyticsEnabled,
+  registerProvider as registerAnalyticsProvider,
+  removeAllProviders as removeAllAnalyticsProviders,
+  flush as flushAnalytics,
+  resetAnalytics,
+  createConsoleProvider,
+  createNoopProvider,
+} from './analytics'
+export type { AnalyticsEvent, AnalyticsProvider as AnalyticsProviderInterface, EventCategory } from './analytics'
+export { AnalyticsProvider, useAnalyticsContext } from './AnalyticsProvider'
+export { useAnalytics } from '../hooks/useAnalytics'
+export type { UseAnalyticsReturn } from '../hooks/useAnalytics'
