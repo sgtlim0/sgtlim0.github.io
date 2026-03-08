@@ -33,7 +33,7 @@
 | 페이지 | 56개 (page.tsx) |
 | 커스텀 훅 | 66개 (exported functions) |
 | Storybook | 135 스토리 파일 |
-| 단위 테스트 | 80 파일, 1,261 테스트 |
+| 단위 테스트 | 104 파일, 1,639 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
 | MSW 핸들러 | 39 endpoints (8 도메인) |
@@ -272,10 +272,10 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 
 > 상세 계획: [`docs/NEXT_PHASE_PLAN_62_70.md`](./NEXT_PHASE_PLAN_62_70.md)
 
-| Phase | 작업 | 설명 | 병렬 |
+| Phase | 작업 | 설명 | 상태 |
 |-------|------|------|------|
-| 62 | Zod Validation | 입력 검증 전체 서비스 적용 | 62+63 |
-| 63 | 테스트 커버리지 80% | 1,214 → ~2,000 tests | 62+63 |
+| 62 | Zod Validation | admin/llm-router/user 스키마 (34 타입) | ✅ |
+| 63 | 테스트 커버리지 확장 | 1,261 → 1,639 tests (104 files), 56→60% | ✅ (진행 중) |
 | 64 | Server Component | 'use client' 136 → <80 | - |
 | 65 | Real API v1 | Auth+Chat+Admin DB 연동 | - |
 | 66 | Real API v2 + AI | OpenAI/Anthropic/Google 통합 | 66+67 |
@@ -294,7 +294,7 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 2 | RESOLVED | xlsx Web Worker 격리 | xlsxWorker.ts 구현 완료 |
 | 3 | PARTIAL | Zod 검증 | 6개 스키마 추가 (chat, auth, common, roi, text) |
 | 4 | PARTIAL | 보안 헤더 | 4/7 앱 next.config.ts 헤더 추가 |
-| 5 | HIGH | 테스트 커버리지 51.81% | 목표 80% |
+| 5 | PARTIAL | 테스트 커버리지 59.7% (104파일, 1639 tests) | 목표 80% |
 | 6 | HIGH | 'use client' 136개 | Phase 64 (기존 210→136 개선) |
 | 7 | HIGH | Mock → Real API | Phase 65-66 |
 | 8 | RESOLVED | ChatPage 599줄 모놀리식 | Phase A 완료 (4훅 분리 → 305줄) |
