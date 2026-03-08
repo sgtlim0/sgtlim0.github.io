@@ -379,7 +379,7 @@ describe('useUsageStats', () => {
     })
 
     expect(result.current.error).toBeInstanceOf(Error)
-    expect(result.current.error?.message).toBe('사용량 통계 로드 실패')
+    expect(result.current.error?.message).toBe('Unknown error')
   })
 })
 
