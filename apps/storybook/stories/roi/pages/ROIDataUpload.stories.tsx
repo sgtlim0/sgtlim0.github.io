@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { ROIDataUpload, ROIDataProvider } from '@hchat/ui'
+import { ROIDataUpload, ROIDataProvider } from '@hchat/ui/roi'
 
 const meta: Meta<typeof ROIDataUpload> = {
   title: 'ROI/Pages/ROIDataUpload',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { AreaChart } from '@hchat/ui';
+import { AreaChart } from '@hchat/ui/roi';
 
 const meta: Meta<typeof AreaChart> = {
   title: 'ROI/Charts/AreaChart',

@@ -18,8 +18,8 @@ export type { FeatureCardProps } from './FeatureCard'
 // i18n
 export * from './i18n'
 
-// ROI components
-export * from './roi'
+// ROI components — import from '@hchat/ui/roi' for tree-shaking
+// export * from './roi'  // Removed: use '@hchat/ui/roi' or '@hchat/ui/roi/ROIOverview' etc.
 
 // LLM Router components
 export * from './llm-router'

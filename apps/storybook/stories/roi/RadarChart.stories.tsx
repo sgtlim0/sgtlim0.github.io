@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { RadarChart } from '@hchat/ui';
+import { RadarChart } from '@hchat/ui/roi';
 
 const meta: Meta<typeof RadarChart> = {
   title: 'ROI/Charts/RadarChart',

@@ -1,4 +1,17 @@
-import { ROISidebar, ROIDataProvider } from '@hchat/ui';
+'use client';
+
+import dynamic from 'next/dynamic';
+import { SkeletonPulse } from '@hchat/ui';
+
+const ROISidebar = dynamic(
+  () => import('@hchat/ui/roi/ROISidebar'),
+  { ssr: false, loading: () => <div className="w-56 min-h-screen"><SkeletonPulse className="h-full" /></div> }
+);
+
+const ROIDataProvider = dynamic(
+  () => import('@hchat/ui/roi/ROIDataContext').then(m => ({ default: m.ROIDataProvider })),
+  { ssr: false }
+);
 
 export default function ROILayout({ children }: { children: React.ReactNode }) {
   return (

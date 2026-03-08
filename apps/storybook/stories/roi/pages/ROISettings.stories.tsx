@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { ROISettings } from '@hchat/ui'
+import { ROISettings } from '@hchat/ui/roi'
 
 const meta: Meta<typeof ROISettings> = {
   title: 'ROI/Pages/ROISettings',

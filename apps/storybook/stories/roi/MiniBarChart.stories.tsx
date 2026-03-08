@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { MiniBarChart } from '@hchat/ui'
+import { MiniBarChart } from '@hchat/ui/roi'
 
 const weeklyData = [
   { label: '1주', value: 120 },

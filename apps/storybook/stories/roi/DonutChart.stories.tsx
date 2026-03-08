@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { DonutChart } from '@hchat/ui';
+import { DonutChart } from '@hchat/ui/roi';
 
 const meta: Meta<typeof DonutChart> = {
   title: 'ROI/Charts/DonutChart',

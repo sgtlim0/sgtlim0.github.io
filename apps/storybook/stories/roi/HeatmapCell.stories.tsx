@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { HeatmapCell } from '@hchat/ui'
+import { HeatmapCell } from '@hchat/ui/roi'
 
 const meta: Meta<typeof HeatmapCell> = {
   title: 'ROI/HeatmapCell',

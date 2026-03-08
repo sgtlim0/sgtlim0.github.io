@@ -26,7 +26,18 @@
     "./mobile": "./src/mobile/index.ts",
     "./mobile/*": "./src/mobile/*/index.ts",
     "./i18n": "./src/i18n/index.ts",
-    "./roi": "./src/roi/index.ts"
+    "./roi": "./src/roi/index.ts",
+    "./roi/ROIOverview": "./src/roi/ROIOverview.tsx",
+    "./roi/ROIAdoption": "./src/roi/ROIAdoption.tsx",
+    "./roi/ROIProductivity": "./src/roi/ROIProductivity.tsx",
+    "./roi/ROIAnalysis": "./src/roi/ROIAnalysis.tsx",
+    "./roi/ROIOrganization": "./src/roi/ROIOrganization.tsx",
+    "./roi/ROISentiment": "./src/roi/ROISentiment.tsx",
+    "./roi/ROIReports": "./src/roi/ROIReports.tsx",
+    "./roi/ROISettings": "./src/roi/ROISettings.tsx",
+    "./roi/ROIDataUpload": "./src/roi/ROIDataUpload.tsx",
+    "./roi/ROISidebar": "./src/roi/ROISidebar.tsx",
+    "./roi/ROIDataContext": "./src/roi/ROIDataContext.tsx"
   },
   "files": [
     "src"
