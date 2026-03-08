@@ -110,3 +110,9 @@ export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvide
 // Persisted State
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
+
+// Breadcrumb Navigation
+export { default as Breadcrumb, BreadcrumbProvider, useBreadcrumbContext } from './Breadcrumb'
+export type { BreadcrumbItem, BreadcrumbProps } from './Breadcrumb'
+export { useBreadcrumb } from './hooks/useBreadcrumb'
+export type { UseBreadcrumbConfig, UseBreadcrumbReturn } from './hooks/useBreadcrumb'
