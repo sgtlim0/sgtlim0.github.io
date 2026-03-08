@@ -1,5 +1,3 @@
-'use client'
-
 import type { DesktopMessage } from './types'
 
 function formatRelativeTime(timestamp: number): string {

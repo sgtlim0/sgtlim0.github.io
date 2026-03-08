@@ -1,5 +1,3 @@
-'use client'
-
 import type { SwarmAgent } from './types'
 
 const STATUS_CONFIG: Record<SwarmAgent['status'], { label: string; dot: string; text: string }> = {

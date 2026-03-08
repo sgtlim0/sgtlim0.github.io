@@ -20,3 +20,6 @@ export { checkHealth } from './healthCheck'
 
 // Web Vitals
 export { reportWebVitals } from './webVitals'
+
+// Token Storage
+export { tokenStorage } from './tokenStorage'

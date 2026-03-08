@@ -1,13 +1,11 @@
-'use client';
-
-import type { ModelUsage } from '../services/types';
+import type { ModelUsage } from '../services/types'
 
 export interface UsageTableProps {
-  usage: ModelUsage[];
+  usage: ModelUsage[]
 }
 
 function formatCost(cost: number): string {
-  return cost.toLocaleString('ko-KR');
+  return cost.toLocaleString('ko-KR')
 }
 
 export default function UsageTable({ usage }: UsageTableProps) {
@@ -33,12 +31,8 @@ export default function UsageTable({ usage }: UsageTableProps) {
                   index % 2 === 1 ? 'bg-user-bg-section' : 'bg-user-bg',
                 ].join(' ')}
               >
-                <td className="px-5 py-3 font-medium text-user-text-primary">
-                  {item.modelName}
-                </td>
-                <td className="px-5 py-3 text-user-text-secondary">
-                  {item.currentUsage}
-                </td>
+                <td className="px-5 py-3 font-medium text-user-text-primary">{item.modelName}</td>
+                <td className="px-5 py-3 text-user-text-secondary">{item.currentUsage}</td>
                 <td className="px-5 py-3 text-right text-user-text-primary">
                   {formatCost(item.cost)}
                 </td>
@@ -52,5 +46,5 @@ export default function UsageTable({ usage }: UsageTableProps) {
         매 3시간 또는 매달 제공되는 사용분은 이월되지 않습니다.
       </p>
     </div>
-  );
+  )
 }

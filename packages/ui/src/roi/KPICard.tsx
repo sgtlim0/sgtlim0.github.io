@@ -1,8 +1,17 @@
+/**
+ * ROI domain KPI card component
+ * Related components:
+ * - Admin domain: packages/ui/src/admin/StatCard.tsx
+ * - HMG domain: packages/ui/src/hmg/HmgStatCard.tsx
+ *
+ * Each uses domain-specific CSS variables (roi-*, admin-*, hmg-*)
+ * for consistent theming within their respective domains.
+ */
 export interface KPICardProps {
-  label: string;
-  value: string;
-  trend: string;
-  trendUp?: boolean;
+  label: string
+  value: string
+  trend: string
+  trendUp?: boolean
 }
 
 export default function KPICard({ label, value, trend, trendUp = true }: KPICardProps) {
@@ -20,5 +29,5 @@ export default function KPICard({ label, value, trend, trendUp = true }: KPICard
         {trendUp ? '▲' : '▼'} {trend}
       </span>
     </div>
-  );
+  )
 }

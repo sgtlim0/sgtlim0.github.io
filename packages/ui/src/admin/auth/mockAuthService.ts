@@ -1,6 +1,7 @@
 import type { AuthService } from './authService'
 import type { AuthUser, LoginCredentials } from './types'
 import { loginCredentialsSchema, authUserSchema } from '../../schemas/auth'
+import { tokenStorage } from '../../utils/tokenStorage'
 
 const MOCK_USERS: Record<string, AuthUser> = {
   'admin@hchat.ai': {
@@ -21,9 +22,6 @@ const MOCK_USERS: Record<string, AuthUser> = {
   },
 }
 
-const STORAGE_KEY = 'hchat_admin_auth_token'
-const USER_KEY = 'hchat_admin_user'
-
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 class MockAuthService implements AuthService {
@@ -42,33 +40,31 @@ class MockAuthService implements AuthService {
 
     // Security: always use sessionStorage to mitigate XSS token theft
     // (localStorage persists across tabs/sessions, making stolen tokens long-lived)
-    sessionStorage.setItem(STORAGE_KEY, token)
-    sessionStorage.setItem(USER_KEY, JSON.stringify(user))
+    tokenStorage.setToken(token)
+    tokenStorage.setUser(user)
 
     return user
   }
 
   async logout(): Promise<void> {
     await delay(200)
-    sessionStorage.removeItem(STORAGE_KEY)
-    sessionStorage.removeItem(USER_KEY)
+    tokenStorage.clear()
   }
 
   async getCurrentUser(): Promise<AuthUser | null> {
     await delay(300)
 
-    const token = sessionStorage.getItem(STORAGE_KEY)
+    const token = tokenStorage.getToken()
     if (!token) {
       return null
     }
 
-    const userStr = sessionStorage.getItem(USER_KEY)
-    if (!userStr) {
+    const user = tokenStorage.getUser<AuthUser>()
+    if (!user) {
       return null
     }
 
     try {
-      const user = JSON.parse(userStr)
       // 저장된 사용자 데이터도 검증
       return authUserSchema.parse(user)
     } catch {
@@ -77,7 +73,7 @@ class MockAuthService implements AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!sessionStorage.getItem(STORAGE_KEY)
+    return tokenStorage.isAuthenticated()
   }
 }
 

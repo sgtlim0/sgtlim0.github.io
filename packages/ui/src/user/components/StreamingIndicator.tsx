@@ -1,11 +1,9 @@
-'use client';
-
 export interface StreamingIndicatorProps {
-  isStreaming: boolean;
+  isStreaming: boolean
 }
 
 export default function StreamingIndicator({ isStreaming }: StreamingIndicatorProps) {
-  if (!isStreaming) return null;
+  if (!isStreaming) return null
 
   return (
     <div className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-[var(--user-bg-section)] max-w-fit">
@@ -16,5 +14,5 @@ export default function StreamingIndicator({ isStreaming }: StreamingIndicatorPr
         <div className="w-1.5 h-1.5 rounded-full bg-[var(--user-text-muted)] animate-bounce [animation-delay:300ms]" />
       </div>
     </div>
-  );
+  )
 }

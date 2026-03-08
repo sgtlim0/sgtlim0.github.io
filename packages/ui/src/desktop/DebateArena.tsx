@@ -1,5 +1,3 @@
-'use client'
-
 import type { DebateParticipant, DebateMessage } from './types'
 
 const POSITION_CONFIG: Record<

@@ -1,4 +1,5 @@
 import { ApiClient } from './apiClient'
+import { tokenStorage } from '../utils/tokenStorage'
 
 export type ApiMode = 'mock' | 'real'
 
@@ -21,7 +22,7 @@ export function getApiClient(): ApiClient {
       baseURL: getApiUrl(),
       getToken: () => {
         if (typeof window === 'undefined') return null
-        return localStorage.getItem('auth_token')
+        return tokenStorage.getToken()
       },
     })
   }

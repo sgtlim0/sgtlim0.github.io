@@ -1,9 +1,7 @@
-'use client';
-
-import { User } from 'lucide-react';
-import SubscriptionCard from '../components/SubscriptionCard';
-import UsageTable from '../components/UsageTable';
-import { mockSubscription, mockModelUsage } from '../services/mockData';
+import { User } from 'lucide-react'
+import SubscriptionCard from '../components/SubscriptionCard'
+import UsageTable from '../components/UsageTable'
+import { mockSubscription, mockModelUsage } from '../services/mockData'
 
 export default function MyPage() {
   return (
@@ -37,5 +35,5 @@ export default function MyPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

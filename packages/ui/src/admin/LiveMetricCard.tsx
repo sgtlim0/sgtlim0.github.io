@@ -1,5 +1,3 @@
-'use client'
-
 import type { RealtimeMetric } from './services/realtimeTypes'
 
 export interface LiveMetricCardProps {

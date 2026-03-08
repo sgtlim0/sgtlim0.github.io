@@ -1,15 +1,13 @@
-'use client';
-
-import React from 'react';
-import { Check } from 'lucide-react';
+import React from 'react'
+import { Check } from 'lucide-react'
 
 interface Step {
-  label: string;
+  label: string
 }
 
 export interface StepProgressProps {
-  steps: Step[];
-  currentStep: number;
+  steps: Step[]
+  currentStep: number
 }
 
 export default function StepProgress({ steps, currentStep }: StepProgressProps) {
@@ -17,9 +15,9 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
     <div className="w-full">
       <div className="flex items-center justify-between">
         {steps.map((step, index) => {
-          const stepNumber = index + 1;
-          const isCompleted = stepNumber < currentStep;
-          const isActive = stepNumber === currentStep;
+          const stepNumber = index + 1
+          const isCompleted = stepNumber < currentStep
+          const isActive = stepNumber === currentStep
 
           return (
             <React.Fragment key={index}>
@@ -35,11 +33,7 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
                         : 'bg-user-bg-section text-user-text-muted',
                   ].join(' ')}
                 >
-                  {isCompleted ? (
-                    <Check className="w-4 h-4" />
-                  ) : (
-                    stepNumber
-                  )}
+                  {isCompleted ? <Check className="w-4 h-4" /> : stepNumber}
                 </div>
                 <span
                   className={[
@@ -60,16 +54,14 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
                 <div
                   className={[
                     'flex-1 h-0.5 mx-2 -mt-6 transition-colors',
-                    stepNumber < currentStep
-                      ? 'bg-user-accent'
-                      : 'bg-user-bg-section',
+                    stepNumber < currentStep ? 'bg-user-accent' : 'bg-user-bg-section',
                   ].join(' ')}
                 />
               )}
             </React.Fragment>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }

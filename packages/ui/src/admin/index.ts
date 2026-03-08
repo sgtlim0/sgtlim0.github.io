@@ -40,6 +40,7 @@ export type { NotificationPanelProps } from './NotificationPanel'
 export { default as NotificationPreferences } from './NotificationPreferences'
 export type { NotificationPreferencesProps } from './NotificationPreferences'
 export { default as NotificationCenter } from './NotificationCenter'
+export type { Notification } from './services/notificationTypes'
 
 // Workflow Builder
 export { default as WorkflowNodeCard } from './WorkflowNodeCard'

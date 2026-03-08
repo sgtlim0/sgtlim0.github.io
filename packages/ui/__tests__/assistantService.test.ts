@@ -41,7 +41,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#ff0000',
         systemPrompt: 'You are helpful',
-        category: 'chat',
+        category: '채팅',
       })
 
       expect(result.id).toMatch(/^custom_/)
@@ -56,7 +56,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'prompt',
-        category: 'chat',
+        category: '채팅',
       })
 
       const stored = JSON.parse(localStorage.getItem('hchat-custom-assistants')!)
@@ -71,7 +71,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'a',
-        category: 'chat',
+        category: '채팅',
       })
       saveCustomAssistant({
         name: 'Bot B',
@@ -79,7 +79,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'b',
-        category: 'work',
+        category: '업무',
       })
 
       const result = getCustomAssistants()
@@ -95,7 +95,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'prompt',
-        category: 'chat',
+        category: '채팅',
       })
 
       const updated = updateCustomAssistant(created.id, { name: 'Updated' })
@@ -113,7 +113,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'a',
-        category: 'chat',
+        category: '채팅',
       })
       const b = saveCustomAssistant({
         name: 'B',
@@ -121,7 +121,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'b',
-        category: 'chat',
+        category: '채팅',
       })
 
       updateCustomAssistant(a.id, { name: 'A Updated' })
@@ -138,7 +138,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'prompt',
-        category: 'chat',
+        category: '채팅',
       })
 
       const updated = updateCustomAssistant(created.id, { id: 'hacked_id' } as Partial<
@@ -159,7 +159,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'prompt',
-        category: 'chat',
+        category: '채팅',
       })
 
       const remaining = deleteCustomAssistant(created.id)
@@ -173,7 +173,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'keep',
-        category: 'chat',
+        category: '채팅',
       })
       const toDelete = saveCustomAssistant({
         name: 'Delete',
@@ -181,7 +181,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'del',
-        category: 'chat',
+        category: '채팅',
       })
 
       const remaining = deleteCustomAssistant(toDelete.id)
@@ -196,7 +196,7 @@ describe('assistantService', () => {
         emoji: '🤖',
         color: '#000',
         systemPrompt: 'yes',
-        category: 'chat',
+        category: '채팅',
       })
 
       const remaining = deleteCustomAssistant('non-existent-id')

@@ -1,8 +1,17 @@
+/**
+ * Admin domain stat card component
+ * Related components:
+ * - ROI domain: packages/ui/src/roi/KPICard.tsx
+ * - HMG domain: packages/ui/src/hmg/HmgStatCard.tsx
+ *
+ * Each uses domain-specific CSS variables (admin-*, roi-*, hmg-*)
+ * for consistent theming within their respective domains.
+ */
 export interface StatCardProps {
-  label: string;
-  value: string;
-  trend?: string;
-  trendUp?: boolean;
+  label: string
+  value: string
+  trend?: string
+  trendUp?: boolean
 }
 
 export default function StatCard({ label, value, trend, trendUp }: StatCardProps) {
@@ -11,10 +20,12 @@ export default function StatCard({ label, value, trend, trendUp }: StatCardProps
       <span className="text-xs text-text-secondary">{label}</span>
       <span className="text-2xl font-bold text-text-primary tabular-nums">{value}</span>
       {trend && (
-        <span className={`text-xs font-medium ${trendUp ? 'text-admin-status-success' : 'text-admin-status-error'}`}>
+        <span
+          className={`text-xs font-medium ${trendUp ? 'text-admin-status-success' : 'text-admin-status-error'}`}
+        >
           {trendUp ? '↑' : '↓'} {trend}
         </span>
       )}
     </div>
-  );
+  )
 }

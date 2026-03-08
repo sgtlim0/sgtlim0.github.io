@@ -1,5 +1,3 @@
-'use client'
-
 import type { RealtimeActivity } from './services/realtimeTypes'
 
 export interface LiveActivityFeedProps {

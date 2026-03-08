@@ -1,18 +1,16 @@
-'use client';
-
-import type { ChatMessage } from '../services/types';
+import type { ChatMessage } from '../services/types'
 
 export interface MessageBubbleProps {
-  message: ChatMessage;
-  isStreaming?: boolean;
+  message: ChatMessage
+  isStreaming?: boolean
 }
 
 export default function MessageBubble({ message, isStreaming = false }: MessageBubbleProps) {
-  const isUser = message.role === 'user';
+  const isUser = message.role === 'user'
   const timestamp = new Date(message.timestamp).toLocaleTimeString('ko-KR', {
     hour: '2-digit',
     minute: '2-digit',
-  });
+  })
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} group`}>
@@ -40,5 +38,5 @@ export default function MessageBubble({ message, isStreaming = false }: MessageB
         </div>
       </div>
     </div>
-  );
+  )
 }
