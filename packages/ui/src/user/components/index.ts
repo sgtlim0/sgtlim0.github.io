@@ -47,3 +47,6 @@ export type { MarkdownRendererProps } from './MarkdownRenderer'
 
 export { default as ResearchPanel } from './ResearchPanel'
 export type { ResearchPanelProps } from './ResearchPanel'
+
+export { default as InstallBanner } from './InstallBanner'
+export type { InstallBannerProps } from './InstallBanner'
