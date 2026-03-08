@@ -25,6 +25,19 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next({ request: { headers: requestHeaders } })
   response.headers.set('Content-Security-Policy', cspHeader)
 
+  // Cache headers based on request path
+  const { pathname } = request.nextUrl
+  if (pathname.startsWith('/api/')) {
+    // API responses — never cache
+    response.headers.set('Cache-Control', 'private, no-cache')
+  } else {
+    // HTML pages — always revalidate
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=0, must-revalidate',
+    )
+  }
+
   return response
 }
 
