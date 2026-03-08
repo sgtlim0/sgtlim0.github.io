@@ -83,10 +83,11 @@ describe('RealChatService', () => {
   }
 
   it('getConversations returns data on success', async () => {
-    mockFetch.mockReturnValue(jsonOk([{ id: 'c1', title: 'Test' }]))
+    const conv = { id: 'c1', title: 'Test', messages: [], assistantId: 'a1', createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' }
+    mockFetch.mockReturnValue(jsonOk([conv]))
     const service = await createService()
     const result = await service.getConversations()
-    expect(result).toEqual([{ id: 'c1', title: 'Test' }])
+    expect(result).toEqual([conv])
   })
 
   it('getConversations throws readable error on failure', async () => {
