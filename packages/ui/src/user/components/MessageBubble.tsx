@@ -1,4 +1,6 @@
 import type { ChatMessage } from '../services/types'
+import CompressionBadge from './CompressionBadge'
+import SourceAttribution from './SourceAttribution'
 
 export interface MessageBubbleProps {
   message: ChatMessage
@@ -22,12 +24,23 @@ export default function MessageBubble({ message, isStreaming = false }: MessageB
               : 'bg-[var(--user-bg-section)] text-[var(--user-text-primary)]'
           }`}
         >
+          {message.mode === 'research' && !isUser && (
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-[var(--user-primary)]/10 text-[var(--user-primary)] mb-1">
+              Research
+            </span>
+          )}
           <div className="whitespace-pre-wrap break-words">
             {message.content}
             {isStreaming && !isUser && (
               <span className="inline-block w-0.5 h-4 ml-1 bg-[var(--user-text-primary)] animate-pulse" />
             )}
           </div>
+          {!isUser && message.compressionStats && (
+            <CompressionBadge stats={message.compressionStats} />
+          )}
+          {!isUser && message.sources && message.sources.length > 0 && (
+            <SourceAttribution sources={message.sources} />
+          )}
         </div>
         <div
           className={`text-xs text-[var(--user-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity px-2 ${

@@ -50,9 +50,37 @@ export function detectLanguage(text: string): 'ko' | 'en' {
 }
 
 /**
+ * Korean particle regex for splitting common particles from word stems.
+ * Only splits when the stem is at least 2 characters long to avoid false positives.
+ */
+const KOREAN_PARTICLE_REGEX =
+  /^(.+?)(은|는|이|가|을|를|의|에서|에게|으로|에|로|와|과|도|만|까지|부터)$/
+
+/**
+ * Tokenize Korean text by splitting on whitespace and separating particles from stems.
+ */
+export function tokenizeKorean(text: string): ReadonlyArray<string> {
+  const words = text
+    .split(/\s+/)
+    .map((w) => w.replace(/[^\p{L}\p{N}]/gu, ''))
+    .filter((w) => w.length > 0)
+
+  return words.flatMap((word) => {
+    const match = word.match(KOREAN_PARTICLE_REGEX)
+    if (match && match[1].length >= 2) {
+      return [match[1], match[2]]
+    }
+    return [word]
+  })
+}
+
+/**
  * Split text into word tokens based on language.
  */
-function tokenize(text: string): ReadonlyArray<string> {
+function tokenize(text: string, lang?: 'ko' | 'en'): ReadonlyArray<string> {
+  if (lang === 'ko') {
+    return tokenizeKorean(text)
+  }
   return text
     .split(/\s+/)
     .map((w) => w.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ''))
@@ -146,13 +174,13 @@ export function encode(text: string, options?: EncoderOptions): CompressionResul
     return { text: '', stats: { originalTokens: 0, compressedTokens: 0, reductionPct: 0 } }
   }
 
-  const tokens = tokenize(text)
+  const lang = opts.language === 'auto' ? detectLanguage(text) : opts.language
+  const tokens = tokenize(text, lang)
 
   if (tokens.length < opts.minWords) {
     return { text, stats: getCompressionStats(text, text) }
   }
 
-  const lang = opts.language === 'auto' ? detectLanguage(text) : opts.language
   const freqMap = buildFrequencyMap(tokens)
   const entropyMap = computeEntropyMap(freqMap, tokens.length)
   const stopwords = getStopwords(lang)

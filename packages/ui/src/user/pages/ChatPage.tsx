@@ -1,127 +1,136 @@
-'use client';
+'use client'
 
-import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { ArrowLeft, Search, Square, Plus } from 'lucide-react';
-import ChatSidebar from '../components/ChatSidebar';
-import ChatSearchBar from '../components/ChatSearchBar';
-import AssistantGrid from '../components/AssistantGrid';
-import MessageBubble from '../components/MessageBubble';
-import StreamingIndicator from '../components/StreamingIndicator';
-import CustomAssistantModal from '../components/CustomAssistantModal';
-import ChatSearchPanel from '../components/ChatSearchPanel';
-import { mockAssistants, mockConversations } from '../services/mockData';
-import { streamResponse } from '../services/sseService';
-import { getConversations, saveConversations, createConversation, addMessage } from '../services/chatService';
-import { getCustomAssistants, saveCustomAssistant } from '../services/assistantService';
-import type { Assistant, AssistantCategory, Conversation, ChatMessage } from '../services/types';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react'
+import { ArrowLeft, Search, Square, Plus, Globe } from 'lucide-react'
+import ChatSidebar from '../components/ChatSidebar'
+import ChatSearchBar from '../components/ChatSearchBar'
+import AssistantGrid from '../components/AssistantGrid'
+import MessageBubble from '../components/MessageBubble'
+import StreamingIndicator from '../components/StreamingIndicator'
+import CustomAssistantModal from '../components/CustomAssistantModal'
+import ChatSearchPanel from '../components/ChatSearchPanel'
+import ResearchPanel from '../components/ResearchPanel'
+import { mockAssistants, mockConversations } from '../services/mockData'
+import { streamResponse } from '../services/sseService'
+import {
+  getConversations,
+  saveConversations,
+  createConversation,
+  addMessage,
+} from '../services/chatService'
+import { getCustomAssistants, saveCustomAssistant } from '../services/assistantService'
+import { createResearchService } from '../services/researchService'
+import type { ResearchResult } from '../services/researchService'
+import type { Assistant, AssistantCategory, Conversation, ChatMessage } from '../services/types'
 
 function generateId(): string {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
 }
 
 export default function ChatPage() {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [currentConversationId, setCurrentConversationId] = useState<string | undefined>();
-  const [activeTab, setActiveTab] = useState<'official' | 'custom'>('official');
-  const [activeCategory, setActiveCategory] = useState<AssistantCategory>('전체');
-  const [customAssistants, setCustomAssistants] = useState<Assistant[]>([]);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [showCustomAssistantModal, setShowCustomAssistantModal] = useState(false);
-  const [showSearchPanel, setShowSearchPanel] = useState(false);
-  const [editingAssistant, setEditingAssistant] = useState<Assistant | undefined>();
+  const [conversations, setConversations] = useState<Conversation[]>([])
+  const [currentConversationId, setCurrentConversationId] = useState<string | undefined>()
+  const [activeTab, setActiveTab] = useState<'official' | 'custom'>('official')
+  const [activeCategory, setActiveCategory] = useState<AssistantCategory>('전체')
+  const [customAssistants, setCustomAssistants] = useState<Assistant[]>([])
+  const [chatMode, setChatMode] = useState<'chat' | 'research'>('chat')
+  const [isStreaming, setIsStreaming] = useState(false)
+  const [isResearching, setIsResearching] = useState(false)
+  const [researchQuery, setResearchQuery] = useState<string | undefined>()
+  const [showCustomAssistantModal, setShowCustomAssistantModal] = useState(false)
+  const [showSearchPanel, setShowSearchPanel] = useState(false)
+  const [editingAssistant, setEditingAssistant] = useState<Assistant | undefined>()
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const abortControllerRef = useRef<{ abort: () => void } | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const abortControllerRef = useRef<{ abort: () => void } | null>(null)
 
   // Load conversations and custom assistants on mount
   useEffect(() => {
-    const loadedConversations = getConversations();
-    setConversations(loadedConversations.length > 0 ? loadedConversations : mockConversations);
+    const loadedConversations = getConversations()
+    setConversations(loadedConversations.length > 0 ? loadedConversations : mockConversations)
 
-    const loadedCustomAssistants = getCustomAssistants();
-    setCustomAssistants(loadedCustomAssistants);
-  }, []);
+    const loadedCustomAssistants = getCustomAssistants()
+    setCustomAssistants(loadedCustomAssistants)
+  }, [])
 
   // Save conversations to localStorage on every change
   useEffect(() => {
     if (conversations.length > 0) {
-      saveConversations(conversations);
+      saveConversations(conversations)
     }
-  }, [conversations]);
+  }, [conversations])
 
   // Cleanup streaming on unmount
   useEffect(() => {
     return () => {
       if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
+        abortControllerRef.current.abort()
       }
-    };
-  }, []);
+    }
+  }, [])
 
-  const allAssistants = useMemo(
-    () => [...mockAssistants, ...customAssistants],
-    [customAssistants]
-  );
+  const allAssistants = useMemo(() => [...mockAssistants, ...customAssistants], [customAssistants])
 
   const currentConversation = useMemo(
     () => conversations.find((c) => c.id === currentConversationId),
-    [conversations, currentConversationId]
-  );
+    [conversations, currentConversationId],
+  )
 
   const currentAssistant = useMemo(() => {
-    if (!currentConversation) return undefined;
-    return allAssistants.find((a) => a.id === currentConversation.assistantId);
-  }, [currentConversation, allAssistants]);
+    if (!currentConversation) return undefined
+    return allAssistants.find((a) => a.id === currentConversation.assistantId)
+  }, [currentConversation, allAssistants])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [currentConversation?.messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [currentConversation?.messages])
 
   const handleNewChat = useCallback(() => {
-    setCurrentConversationId(undefined);
-  }, []);
+    setCurrentConversationId(undefined)
+  }, [])
 
   const handleSelectConversation = useCallback((id: string) => {
-    setCurrentConversationId(id);
-  }, []);
+    setCurrentConversationId(id)
+  }, [])
 
-  const handleSelectAssistant = useCallback(
-    (assistant: Assistant) => {
-      const now = new Date().toISOString();
-      const newConversation: Conversation = {
-        id: generateId(),
-        title: `${assistant.name}와의 대화`,
-        assistantId: assistant.id,
-        messages: [],
-        createdAt: now,
-        updatedAt: now,
-      };
-      setConversations((prev) => [newConversation, ...prev]);
-      setCurrentConversationId(newConversation.id);
-    },
-    []
-  );
-
-  const handleDeleteConversation = useCallback((id: string) => {
-    setConversations((prev) => prev.filter((c) => c.id !== id));
-    if (currentConversationId === id) {
-      setCurrentConversationId(undefined);
+  const handleSelectAssistant = useCallback((assistant: Assistant) => {
+    const now = new Date().toISOString()
+    const newConversation: Conversation = {
+      id: generateId(),
+      title: `${assistant.name}와의 대화`,
+      assistantId: assistant.id,
+      messages: [],
+      createdAt: now,
+      updatedAt: now,
     }
-  }, [currentConversationId]);
+    setConversations((prev) => [newConversation, ...prev])
+    setCurrentConversationId(newConversation.id)
+  }, [])
 
-  const handleSendMessage = useCallback(
-    (content: string) => {
-      let targetConversationId = currentConversationId;
+  const handleDeleteConversation = useCallback(
+    (id: string) => {
+      setConversations((prev) => prev.filter((c) => c.id !== id))
+      if (currentConversationId === id) {
+        setCurrentConversationId(undefined)
+      }
+    },
+    [currentConversationId],
+  )
+
+  const addUserMessageAndGetConversationId = useCallback(
+    (content: string): string => {
+      let targetConversationId = currentConversationId
 
       if (!targetConversationId) {
-        const defaultAssistant = allAssistants[0];
-        const now = new Date().toISOString();
+        const defaultAssistant = allAssistants[0]
+        const now = new Date().toISOString()
         const userMessage: ChatMessage = {
           id: generateId(),
           role: 'user',
           content,
           timestamp: now,
-        };
+          mode: chatMode,
+        }
         const newConversation: Conversation = {
           id: generateId(),
           title: content.length > 30 ? `${content.slice(0, 30)}...` : content,
@@ -129,18 +138,19 @@ export default function ChatPage() {
           messages: [userMessage],
           createdAt: now,
           updatedAt: now,
-        };
-        setConversations((prev) => [newConversation, ...prev]);
-        setCurrentConversationId(newConversation.id);
-        targetConversationId = newConversation.id;
+        }
+        setConversations((prev) => [newConversation, ...prev])
+        setCurrentConversationId(newConversation.id)
+        targetConversationId = newConversation.id
       } else {
-        const now = new Date().toISOString();
+        const now = new Date().toISOString()
         const userMessage: ChatMessage = {
           id: generateId(),
           role: 'user',
           content,
           timestamp: now,
-        };
+          mode: chatMode,
+        }
 
         setConversations((prev) =>
           prev.map((conv) =>
@@ -150,28 +160,35 @@ export default function ChatPage() {
                   messages: [...conv.messages, userMessage],
                   updatedAt: now,
                 }
-              : conv
-          )
-        );
+              : conv,
+          ),
+        )
       }
 
-      // Start streaming response
-      const conversation = conversations.find(c => c.id === targetConversationId) ||
-                           { assistantId: allAssistants[0].id };
-      const assistantId = conversation.assistantId;
+      return targetConversationId
+    },
+    [currentConversationId, allAssistants, chatMode],
+  )
 
-      setIsStreaming(true);
-      const assistantMessageId = generateId();
-      const now = new Date().toISOString();
+  const handleSendChatMessage = useCallback(
+    (content: string, targetConversationId: string) => {
+      const conversation = conversations.find((c) => c.id === targetConversationId) || {
+        assistantId: allAssistants[0].id,
+      }
+      const assistantId = conversation.assistantId
 
-      // Create initial empty assistant message
+      setIsStreaming(true)
+      const assistantMessageId = generateId()
+      const now = new Date().toISOString()
+
       const initialAssistantMessage: ChatMessage = {
         id: assistantMessageId,
         role: 'assistant',
         content: '',
         timestamp: now,
         assistantId,
-      };
+        mode: 'chat',
+      }
 
       setConversations((prev) =>
         prev.map((conv) =>
@@ -181,16 +198,15 @@ export default function ChatPage() {
                 messages: [...conv.messages, initialAssistantMessage],
                 updatedAt: now,
               }
-            : conv
-        )
-      );
+            : conv,
+        ),
+      )
 
-      const stream = streamResponse(content, assistantId);
-      abortControllerRef.current = stream;
+      const stream = streamResponse(content, assistantId)
+      abortControllerRef.current = stream
 
       stream.subscribe(
         (chunk: string) => {
-          // Accumulate chunks into the assistant message
           setConversations((prev) =>
             prev.map((conv) =>
               conv.id === targetConversationId
@@ -199,26 +215,22 @@ export default function ChatPage() {
                     messages: conv.messages.map((msg) =>
                       msg.id === assistantMessageId
                         ? { ...msg, content: msg.content + chunk }
-                        : msg
+                        : msg,
                     ),
                     updatedAt: new Date().toISOString(),
                   }
-                : conv
-            )
-          );
+                : conv,
+            ),
+          )
         },
         () => {
-          // onDone
-          setIsStreaming(false);
-          abortControllerRef.current = null;
+          setIsStreaming(false)
+          abortControllerRef.current = null
         },
         (error: Error) => {
-          // onError
-          console.error('Streaming error:', error);
-          setIsStreaming(false);
-          abortControllerRef.current = null;
+          setIsStreaming(false)
+          abortControllerRef.current = null
 
-          // Update message with error
           setConversations((prev) =>
             prev.map((conv) =>
               conv.id === targetConversationId
@@ -226,56 +238,139 @@ export default function ChatPage() {
                     ...conv,
                     messages: conv.messages.map((msg) =>
                       msg.id === assistantMessageId
-                        ? { ...msg, content: msg.content || '응답을 생성하는 중 오류가 발생했습니다.' }
-                        : msg
+                        ? {
+                            ...msg,
+                            content: msg.content || '응답을 생성하는 중 오류가 발생했습니다.',
+                          }
+                        : msg,
                     ),
                   }
-                : conv
-            )
-          );
-        }
-      );
+                : conv,
+            ),
+          )
+        },
+      )
     },
-    [currentConversationId, conversations, allAssistants]
-  );
+    [conversations, allAssistants],
+  )
+
+  const handleSendResearchMessage = useCallback(
+    async (content: string, targetConversationId: string) => {
+      setIsResearching(true)
+      setResearchQuery(content)
+
+      try {
+        const researchService = createResearchService()
+        const result: ResearchResult = await researchService.search(content)
+
+        const now = new Date().toISOString()
+        const assistantMessage: ChatMessage = {
+          id: generateId(),
+          role: 'assistant',
+          content: result.answer,
+          timestamp: now,
+          mode: 'research',
+          sources: result.sources,
+        }
+
+        setConversations((prev) =>
+          prev.map((conv) =>
+            conv.id === targetConversationId
+              ? {
+                  ...conv,
+                  messages: [...conv.messages, assistantMessage],
+                  updatedAt: now,
+                }
+              : conv,
+          ),
+        )
+      } catch (error) {
+        const now = new Date().toISOString()
+        const errorMessage: ChatMessage = {
+          id: generateId(),
+          role: 'assistant',
+          content: error instanceof Error ? error.message : 'Research 검색 중 오류가 발생했습니다.',
+          timestamp: now,
+          mode: 'research',
+        }
+
+        setConversations((prev) =>
+          prev.map((conv) =>
+            conv.id === targetConversationId
+              ? {
+                  ...conv,
+                  messages: [...conv.messages, errorMessage],
+                  updatedAt: now,
+                }
+              : conv,
+          ),
+        )
+      } finally {
+        setIsResearching(false)
+        setResearchQuery(undefined)
+      }
+    },
+    [],
+  )
+
+  const handleSendMessage = useCallback(
+    (content: string) => {
+      const targetConversationId = addUserMessageAndGetConversationId(content)
+
+      if (chatMode === 'research') {
+        handleSendResearchMessage(content, targetConversationId)
+      } else {
+        handleSendChatMessage(content, targetConversationId)
+      }
+    },
+    [
+      chatMode,
+      addUserMessageAndGetConversationId,
+      handleSendChatMessage,
+      handleSendResearchMessage,
+    ],
+  )
 
   const handleStopStreaming = useCallback(() => {
     if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-      setIsStreaming(false);
-      abortControllerRef.current = null;
+      abortControllerRef.current.abort()
+      setIsStreaming(false)
+      abortControllerRef.current = null
     }
-  }, []);
+  }, [])
 
-  const handleSaveCustomAssistant = useCallback((assistantData: Omit<Assistant, 'id' | 'isOfficial'>) => {
-    const assistant: Assistant = {
-      ...assistantData,
-      id: editingAssistant?.id || generateId(),
-      isOfficial: false,
-    };
-    saveCustomAssistant(assistant);
-    setCustomAssistants(getCustomAssistants());
-    setShowCustomAssistantModal(false);
-    setEditingAssistant(undefined);
-  }, [editingAssistant]);
+  const handleSaveCustomAssistant = useCallback(
+    (assistantData: Omit<Assistant, 'id' | 'isOfficial'>) => {
+      const assistant: Assistant = {
+        ...assistantData,
+        id: editingAssistant?.id || generateId(),
+        isOfficial: false,
+      }
+      saveCustomAssistant(assistant)
+      setCustomAssistants(getCustomAssistants())
+      setShowCustomAssistantModal(false)
+      setEditingAssistant(undefined)
+    },
+    [editingAssistant],
+  )
 
   const handleOpenCustomAssistantModal = useCallback(() => {
-    setEditingAssistant(undefined);
-    setShowCustomAssistantModal(true);
-  }, []);
+    setEditingAssistant(undefined)
+    setShowCustomAssistantModal(true)
+  }, [])
 
   const handleToggleSearchPanel = useCallback(() => {
-    setShowSearchPanel((prev) => !prev);
-  }, []);
+    setShowSearchPanel((prev) => !prev)
+  }, [])
 
   const handleSelectSearchConversation = useCallback((id: string) => {
-    setCurrentConversationId(id);
-    setShowSearchPanel(false);
-  }, []);
+    setCurrentConversationId(id)
+    setShowSearchPanel(false)
+  }, [])
 
   const handleBack = useCallback(() => {
-    setCurrentConversationId(undefined);
-  }, []);
+    setCurrentConversationId(undefined)
+  }, [])
 
   return (
     <div className="flex h-screen bg-user-bg">
@@ -322,13 +417,40 @@ export default function ChatPage() {
                   </div>
                 )}
               </div>
-              <button
-                onClick={handleToggleSearchPanel}
-                className="p-1.5 rounded-lg text-user-text-secondary hover:bg-user-bg-section transition-colors"
-                aria-label="검색"
-              >
-                <Search className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 bg-[var(--user-bg-section)] rounded-lg p-0.5">
+                  <button
+                    onClick={() => setChatMode('chat')}
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      chatMode === 'chat'
+                        ? 'bg-[var(--user-primary)] text-white'
+                        : 'text-[var(--user-text-secondary)] hover:text-[var(--user-text-primary)]'
+                    }`}
+                  >
+                    Chat
+                  </button>
+                  <button
+                    onClick={() => setChatMode('research')}
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      chatMode === 'research'
+                        ? 'bg-[var(--user-primary)] text-white'
+                        : 'text-[var(--user-text-secondary)] hover:text-[var(--user-text-primary)]'
+                    }`}
+                  >
+                    <span className="inline-flex items-center gap-1">
+                      <Globe className="w-3 h-3" />
+                      Research
+                    </span>
+                  </button>
+                </div>
+                <button
+                  onClick={handleToggleSearchPanel}
+                  className="p-1.5 rounded-lg text-user-text-secondary hover:bg-user-bg-section transition-colors"
+                  aria-label="검색"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
@@ -339,9 +461,18 @@ export default function ChatPage() {
                 </div>
               )}
               {currentConversation.messages.map((msg) => (
-                <MessageBubble key={msg.id} message={msg} isStreaming={isStreaming && msg.role === 'assistant' && msg === currentConversation.messages[currentConversation.messages.length - 1]} />
+                <MessageBubble
+                  key={msg.id}
+                  message={msg}
+                  isStreaming={
+                    isStreaming &&
+                    msg.role === 'assistant' &&
+                    msg === currentConversation.messages[currentConversation.messages.length - 1]
+                  }
+                />
               ))}
               {isStreaming && <StreamingIndicator isStreaming={isStreaming} />}
+              {isResearching && <ResearchPanel isSearching={isResearching} query={researchQuery} />}
               <div ref={messagesEndRef} />
             </div>
 
@@ -364,14 +495,53 @@ export default function ChatPage() {
         ) : (
           <div className="flex-1 overflow-y-auto">
             <div className="max-w-4xl mx-auto px-4 md:px-6 py-8 md:py-12">
+              {/* Mode toggle */}
+              <div className="flex justify-center mb-6">
+                <div className="flex items-center gap-1 bg-[var(--user-bg-section)] rounded-lg p-0.5">
+                  <button
+                    onClick={() => setChatMode('chat')}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      chatMode === 'chat'
+                        ? 'bg-[var(--user-primary)] text-white'
+                        : 'text-[var(--user-text-secondary)] hover:text-[var(--user-text-primary)]'
+                    }`}
+                  >
+                    Chat
+                  </button>
+                  <button
+                    onClick={() => setChatMode('research')}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      chatMode === 'research'
+                        ? 'bg-[var(--user-primary)] text-white'
+                        : 'text-[var(--user-text-secondary)] hover:text-[var(--user-text-primary)]'
+                    }`}
+                  >
+                    <span className="inline-flex items-center gap-1.5">
+                      <Globe className="w-3.5 h-3.5" />
+                      Research
+                    </span>
+                  </button>
+                </div>
+              </div>
+
               {/* Hero */}
               <div className="text-center mb-8 md:mb-10">
                 <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-user-text-primary leading-snug mb-3">
-                  실시간 검색, 사진 이해,
-                  <br className="hidden sm:block" />
-                  그림/차트 생성까지
-                  <br className="hidden sm:block" />
-                  <span className="text-user-primary">업무 비서</span>가 도와드려요
+                  {chatMode === 'research' ? (
+                    <>
+                      웹 검색으로
+                      <br className="hidden sm:block" />
+                      <span className="text-user-primary">최신 정보</span>를 찾아드려요
+                    </>
+                  ) : (
+                    <>
+                      실시간 검색, 사진 이해,
+                      <br className="hidden sm:block" />
+                      그림/차트 생성까지
+                      <br className="hidden sm:block" />
+                      <span className="text-user-primary">업무 비서</span>가 도와드려요
+                    </>
+                  )}
                 </h1>
               </div>
 
@@ -418,12 +588,12 @@ export default function ChatPage() {
       <CustomAssistantModal
         isOpen={showCustomAssistantModal}
         onClose={() => {
-          setShowCustomAssistantModal(false);
-          setEditingAssistant(undefined);
+          setShowCustomAssistantModal(false)
+          setEditingAssistant(undefined)
         }}
         onSave={handleSaveCustomAssistant}
         editingAssistant={editingAssistant}
       />
     </div>
-  );
+  )
 }
