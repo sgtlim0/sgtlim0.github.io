@@ -132,6 +132,13 @@ export type { UseClipboardOptions, UseClipboardReturn } from './hooks/useClipboa
 export { default as CopyButton } from './CopyButton'
 export type { CopyButtonProps } from './CopyButton'
 
+// Portal
+export { usePortal, DEFAULT_PORTAL_ID } from './hooks/usePortal'
+export { Portal } from './Portal'
+export type { PortalProps } from './Portal'
+export { PortalProvider, usePortalContext, DEFAULT_CONTAINERS } from './hooks/PortalProvider'
+export type { PortalProviderProps } from './hooks/PortalProvider'
+
 // Infinite Scroll
 export { useInfiniteScroll } from './hooks/useInfiniteScroll'
 export type { UseInfiniteScrollOptions, UseInfiniteScrollReturn } from './hooks/useInfiniteScroll'
@@ -142,7 +149,6 @@ export { default as Breadcrumb, BreadcrumbProvider, useBreadcrumbContext } from 
 export type { BreadcrumbItem, BreadcrumbProps } from './Breadcrumb'
 export { useBreadcrumb } from './hooks/useBreadcrumb'
 export type { UseBreadcrumbConfig, UseBreadcrumbReturn } from './hooks/useBreadcrumb'
->>>>>>> worktree-agent-afe53f29
 // Responsive Hooks
 export { useMediaQuery } from './hooks/useMediaQuery'
 export { useWindowSize } from './hooks/useWindowSize'
@@ -150,7 +156,6 @@ export { useBreakpoint, BREAKPOINTS } from './hooks/useBreakpoint'
 export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint'
 export { ResponsiveContainer } from './hooks/ResponsiveContainer'
 export type { ResponsiveContainerProps } from './hooks/ResponsiveContainer'
->>>>>>> worktree-agent-ac51f608
 // Animation Utilities
 export { useTransition } from './hooks/useTransition'
 export type { TransitionState, UseTransitionOptions, UseTransitionReturn } from './hooks/useTransition'
@@ -160,7 +165,6 @@ export { default as Transition, getTransitionPreset } from './Transition'
 export type { TransitionProps, TransitionPresetType } from './Transition'
 export { default as AnimatedList } from './AnimatedList'
 export type { AnimatedListProps, AnimatedListControls } from './AnimatedList'
->>>>>>> worktree-agent-a9431d20
 
 // Pagination
 export { usePagination } from './hooks/usePagination'
