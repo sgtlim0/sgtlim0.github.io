@@ -21,8 +21,8 @@ export * from './i18n'
 // ROI components — import from '@hchat/ui/roi' for tree-shaking
 // export * from './roi'  // Removed: use '@hchat/ui/roi' or '@hchat/ui/roi/ROIOverview' etc.
 
-// LLM Router components
-export * from './llm-router'
+// LLM Router components — import from '@hchat/ui/llm-router' for tree-shaking
+// export * from './llm-router'  // Removed: use '@hchat/ui/llm-router'
 
 // UX components
 export { SkeletonPulse, SkeletonText, SkeletonCard, SkeletonTable, SkeletonChart } from './Skeleton'
@@ -35,5 +35,5 @@ export type { EmptyStateProps } from './EmptyState'
 export { validate, useFormValidation, patterns } from './validation'
 export type { ValidationRule, ValidationErrors } from './validation'
 
-// Mobile components
-export * from './mobile'
+// Mobile components — import from '@hchat/ui/mobile' for tree-shaking
+// export * from './mobile'  // Removed: use '@hchat/ui/mobile'
