@@ -147,6 +147,20 @@ export { default as FeatureFlagProvider, useFeatureFlag, useFeatureFlags, Featur
 export { parseKeyCombo, matchesKeyEvent, normalizeKeyCombo } from './keyboardUtils'
 export type { KeyCombo } from './keyboardUtils'
 
+// Search Engine
+export {
+  fuzzyMatch,
+  createSearchIndex,
+  search,
+} from './searchEngine'
+export type {
+  SearchableItem,
+  SearchResult,
+  SearchOptions,
+  FuzzyMatchResult,
+  SearchIndex,
+} from './searchEngine'
+
 // Push Notification
 export {
   isSupported as isPushNotificationSupported,
