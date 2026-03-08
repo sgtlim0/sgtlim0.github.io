@@ -121,6 +121,12 @@ export type { TooltipPlacement, UseTooltipOptions, UseTooltipReturn } from './ho
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
 
+// Tabs
+export { useTabs } from './hooks/useTabs'
+export type { TabConfig, UseTabsOptions, UseTabsReturn } from './hooks/useTabs'
+export { Tabs, TabPanel } from './Tabs'
+export type { TabsProps, TabPanelProps, TabVariant } from './Tabs'
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
