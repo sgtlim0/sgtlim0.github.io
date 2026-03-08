@@ -34,14 +34,14 @@
 | Zod 스키마 | 9 파일, 40+ 타입 |
 | 페이지 | 55개 (page.tsx) |
 | Storybook | 144 스토리 파일 |
-| 단위 테스트 | 121 파일, 2,347 테스트 |
+| 단위 테스트 | 128 파일, 2,647 테스트 |
 | E2E 테스트 | 18 파일 |
-| 테스트 커버리지 | 72.8% stmts, 59.4% branch, 72.6% funcs |
+| 테스트 커버리지 | **83.1% stmts**, 69.7% branch, 84.1% funcs |
 | 보안 헤더 | 7/7 앱 (CSP + HSTS + X-Frame + Referrer + Permissions) |
 | CSRF 보호 | 4 API Routes (chat, stream, research, analyze) |
 | 'use client' | 138개 파일 (구조적 최적값) |
-| Git 커밋 | 206개 |
-| 완료 Phase | **74개** (1~70 + A~D) + 기술 부채 전체 해소 |
+| Git 커밋 | 213개 |
+| 완료 Phase | **74개** (1~70 + A~D) + 기술 부채 + 커버리지 80%+ 달성 |
 | CI 워크플로우 | 4개 (ci, deploy, e2e, lighthouse) |
 | 9/9 앱 빌드 | ✅ 전체 성공 |
 
@@ -109,7 +109,7 @@ Wiki + HMG + Admin(24p) + User(5p) + LLM Router(10p) + Desktop(5p) + Mobile(4tab
 | Phase | 핵심 성과 |
 |-------|----------|
 | **62** | Zod 스키마 3개 (admin/llmRouter/user, 40+ 타입) |
-| **63** | 테스트 80→121 파일, 1,261→2,347 tests (72.8%) |
+| **63** | 테스트 80→128 파일, 1,261→2,647 tests (**83.1% 달성**) |
 | **64** | 'use client' 146→138 |
 | **65** | RealAuthService, RealChatService, RealAdminService + serviceFactory |
 | **66** | Multi-provider LLM (OpenAI/Anthropic/Google) + realSseService |
@@ -125,9 +125,9 @@ Wiki + HMG + Admin(24p) + User(5p) + LLM Router(10p) + Desktop(5p) + Mobile(4tab
 | 보안 헤더 | 4/7 앱 | **7/7 앱** (CSP+HSTS+X-Frame 등 7개 헤더) |
 | Zod 서비스 바인딩 | 스키마만 정의 | **realAdmin/realChat 응답 검증 적용** |
 | CSRF 보호 | 유틸만 구현 | **4 API Route 토큰 검증 적용** |
-| 테스트 | 107파일 1,690 | **111파일 1,893 tests** |
-| 커버리지 | 57.2% | **60.5%** |
+| 테스트 커버리지 | 107파일 / 57% | **128파일 / 2,647 tests / 83.1%** |
 | ROIDataUpload 버그 | ZodError.errors | **ZodError.issues 수정** |
+| mocks 커버리지 | 66% | **100%** |
 
 ---
 

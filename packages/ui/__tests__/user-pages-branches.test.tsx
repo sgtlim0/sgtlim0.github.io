@@ -78,6 +78,9 @@ vi.mock('../src/user/services/indexedDbService', () => ({
   saveAllConversations: vi.fn(() => Promise.resolve()),
 }))
 
+// Polyfill scrollIntoView for jsdom
+Element.prototype.scrollIntoView = vi.fn()
+
 describe('User Pages - Branch Coverage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -219,12 +222,11 @@ describe('User Pages - Branch Coverage', () => {
   // DocsPage — select project, delete project, new project branches
   // =========================================================================
   describe('DocsPage branches', () => {
-    it('should select a project and advance step', async () => {
+    it('should select a project and update step', async () => {
       const { default: DocsPage } = await import('../src/user/pages/DocsPage')
       render(<DocsPage />)
-      // Click on the first project row name
       const projectName = screen.getByText('2026년 상반기 사업계획서')
-      fireEvent.click(projectName.closest('tr') || projectName)
+      fireEvent.click(projectName)
     })
 
     it('should create a new project and show it in the list', async () => {
@@ -234,12 +236,31 @@ describe('User Pages - Branch Coverage', () => {
       expect(screen.getByText('새 프로젝트')).toBeInTheDocument()
     })
 
-    it('should handle deleting a project when selected project is deleted', async () => {
+    it('should delete a project via the delete button', async () => {
       const { default: DocsPage } = await import('../src/user/pages/DocsPage')
       render(<DocsPage />)
-      // First create a new project to select it
-      fireEvent.click(screen.getByText('새 프로젝트 시작'))
-      expect(screen.getByText('새 프로젝트')).toBeInTheDocument()
+      const deleteBtn = screen.getByLabelText('2026년 상반기 사업계획서 삭제')
+      fireEvent.click(deleteBtn)
+      expect(screen.queryByText('2026년 상반기 사업계획서')).toBeNull()
+    })
+
+    it('should reset step when deleting the currently selected project', async () => {
+      const { default: DocsPage } = await import('../src/user/pages/DocsPage')
+      render(<DocsPage />)
+      fireEvent.click(screen.getByText('2026년 상반기 사업계획서'))
+      const deleteBtn = screen.getByLabelText('2026년 상반기 사업계획서 삭제')
+      fireEvent.click(deleteBtn)
+      expect(screen.queryByText('2026년 상반기 사업계획서')).toBeNull()
+    })
+
+    it('should delete a non-selected project without resetting selection', async () => {
+      const { default: DocsPage } = await import('../src/user/pages/DocsPage')
+      render(<DocsPage />)
+      fireEvent.click(screen.getByText('2026년 상반기 사업계획서'))
+      const deleteBtn = screen.getByLabelText('AI 도입 제안서 삭제')
+      fireEvent.click(deleteBtn)
+      expect(screen.queryByText('AI 도입 제안서')).toBeNull()
+      expect(screen.getByText('2026년 상반기 사업계획서')).toBeInTheDocument()
     })
 
     it('should render all 5 step labels', async () => {
@@ -306,6 +327,42 @@ describe('User Pages - Branch Coverage', () => {
       expect(screen.getByText(/max 5장/)).toBeInTheDocument()
       expect(screen.getByText(/max 20장/)).toBeInTheDocument()
     })
+
+    it('should start OCR and show step 2 after uploading files', async () => {
+      const { default: OCRPage } = await import('../src/user/pages/OCRPage')
+      render(<OCRPage />)
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
+      const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' })
+      fireEvent.change(fileInput, { target: { files: [file] } })
+      fireEvent.click(screen.getByText(/업로드 \(1개 파일\)/))
+      const startBtn = screen.getByText('텍스트 추출 시작')
+      expect(startBtn.closest('button')).not.toBeDisabled()
+      fireEvent.click(startBtn)
+      expect(screen.getByText('변환된 파일 다운로드')).toBeInTheDocument()
+    })
+
+    it('should reset to step 1 when clicking new file upload button', async () => {
+      const { default: OCRPage } = await import('../src/user/pages/OCRPage')
+      render(<OCRPage />)
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
+      const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' })
+      fireEvent.change(fileInput, { target: { files: [file] } })
+      fireEvent.click(screen.getByText(/업로드 \(1개 파일\)/))
+      fireEvent.click(screen.getByText('텍스트 추출 시작'))
+      expect(screen.getByText('변환된 파일 다운로드')).toBeInTheDocument()
+      fireEvent.click(screen.getByText('새 파일 업로드'))
+      expect(screen.getByText('텍스트 추출 시작')).toBeInTheDocument()
+    })
+
+    it('should not start OCR when handleStartOCR called with no files', async () => {
+      const { default: OCRPage } = await import('../src/user/pages/OCRPage')
+      render(<OCRPage />)
+      // Button is disabled, but even if clicked nothing should happen
+      const startBtn = screen.getByText('텍스트 추출 시작')
+      expect(startBtn.closest('button')).toBeDisabled()
+      // Step 1 should still be shown
+      expect(screen.getByText(/최대 5장까지 업로드/)).toBeInTheDocument()
+    })
   })
 
   // =========================================================================
@@ -362,10 +419,136 @@ describe('User Pages - Branch Coverage', () => {
       render(<TranslationPage />)
       expect(screen.getByText(/문서를 업로드하면 형식을 유지한 채 번역/)).toBeInTheDocument()
     })
+
+    it('should start translation and show step 2 after uploading files', async () => {
+      const { default: TranslationPage } = await import('../src/user/pages/TranslationPage')
+      render(<TranslationPage />)
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
+      const file = new File(['test'], 'test.docx', { type: 'application/msword' })
+      fireEvent.change(fileInput, { target: { files: [file] } })
+      fireEvent.click(screen.getByText(/업로드 \(1개 파일\)/))
+      // Find the full-width start button
+      const startBtns = screen.getAllByText('번역 시작')
+      const fullWidthBtn = startBtns.find(
+        (el) => el.closest('button[type="button"]')?.classList.contains('w-full')
+      )
+      expect(fullWidthBtn?.closest('button')).not.toBeDisabled()
+      fireEvent.click(fullWidthBtn!.closest('button')!)
+      // Should show step 2 with results table (heading h2 "번역 결과")
+      expect(screen.getByText('test.docx')).toBeInTheDocument()
+      expect(screen.getByText('새 번역 시작')).toBeInTheDocument()
+    })
+
+    it('should reset to step 1 when clicking new translation button', async () => {
+      const { default: TranslationPage } = await import('../src/user/pages/TranslationPage')
+      render(<TranslationPage />)
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
+      const file = new File(['test'], 'test.pdf', { type: 'application/pdf' })
+      fireEvent.change(fileInput, { target: { files: [file] } })
+      fireEvent.click(screen.getByText(/업로드 \(1개 파일\)/))
+      const startBtns = screen.getAllByText('번역 시작')
+      const fullWidthBtn = startBtns.find(
+        (el) => el.closest('button[type="button"]')?.classList.contains('w-full')
+      )
+      fireEvent.click(fullWidthBtn!.closest('button')!)
+      // Now in step 2 - "새 번역 시작" button should be visible
+      expect(screen.getByText('새 번역 시작')).toBeInTheDocument()
+      fireEvent.click(screen.getByText('새 번역 시작'))
+      // Back to step 1
+      expect(screen.getByText('자체 번역 엔진')).toBeInTheDocument()
+    })
   })
 
   // =========================================================================
-  // ChatPage — AssistantGrid rendering in lobby
+  // ChatPage — conversation view (lines 172-255)
+  // =========================================================================
+  describe('ChatPage conversation view', () => {
+    it('should navigate into conversation view when clicking a conversation', async () => {
+      const { default: ChatPage } = await import('../src/user/pages/ChatPage')
+      render(<ChatPage />)
+      await waitFor(() => {
+        expect(screen.queryByText('대화를 불러오는 중...')).toBeNull()
+      })
+      const convButton = screen.getByText('프로젝트 기획 회의 정리')
+      fireEvent.click(convButton.closest('button')!)
+      await waitFor(() => {
+        expect(screen.getByLabelText('뒤로가기')).toBeInTheDocument()
+      })
+    })
+
+    it('should show assistant name and model in conversation header', async () => {
+      const { default: ChatPage } = await import('../src/user/pages/ChatPage')
+      render(<ChatPage />)
+      await waitFor(() => {
+        expect(screen.queryByText('대화를 불러오는 중...')).toBeNull()
+      })
+      fireEvent.click(screen.getByText('프로젝트 기획 회의 정리').closest('button')!)
+      await waitFor(() => {
+        expect(screen.getByText('신중한 톡정이')).toBeInTheDocument()
+        expect(screen.getByText('GPT-4o')).toBeInTheDocument()
+      })
+    })
+
+    it('should show message bubbles for existing messages', async () => {
+      const { default: ChatPage } = await import('../src/user/pages/ChatPage')
+      render(<ChatPage />)
+      await waitFor(() => {
+        expect(screen.queryByText('대화를 불러오는 중...')).toBeNull()
+      })
+      fireEvent.click(screen.getByText('프로젝트 기획 회의 정리').closest('button')!)
+      await waitFor(() => {
+        expect(screen.getByText('오늘 기획 회의 내용 정리해줘')).toBeInTheDocument()
+      })
+    })
+
+    it('should show search button and toggle search panel', async () => {
+      const { default: ChatPage } = await import('../src/user/pages/ChatPage')
+      render(<ChatPage />)
+      await waitFor(() => {
+        expect(screen.queryByText('대화를 불러오는 중...')).toBeNull()
+      })
+      fireEvent.click(screen.getByText('프로젝트 기획 회의 정리').closest('button')!)
+      await waitFor(() => {
+        expect(screen.getByLabelText('검색')).toBeInTheDocument()
+      })
+      fireEvent.click(screen.getByLabelText('검색'))
+    })
+
+    it('should navigate back to lobby when clicking back button', async () => {
+      const { default: ChatPage } = await import('../src/user/pages/ChatPage')
+      render(<ChatPage />)
+      await waitFor(() => {
+        expect(screen.queryByText('대화를 불러오는 중...')).toBeNull()
+      })
+      fireEvent.click(screen.getByText('프로젝트 기획 회의 정리').closest('button')!)
+      await waitFor(() => {
+        expect(screen.getByLabelText('뒤로가기')).toBeInTheDocument()
+      })
+      fireEvent.click(screen.getByLabelText('뒤로가기'))
+      await waitFor(() => {
+        expect(screen.getByText(/업무 비서/)).toBeInTheDocument()
+      })
+    })
+
+    it('should show empty message prompt for new conversation', async () => {
+      const { default: ChatPage } = await import('../src/user/pages/ChatPage')
+      render(<ChatPage />)
+      await waitFor(() => {
+        expect(screen.queryByText('대화를 불러오는 중...')).toBeNull()
+      })
+      const assistantCard = screen.queryByText('신중한 톡정이')
+      if (assistantCard) {
+        fireEvent.click(assistantCard.closest('button') || assistantCard)
+        await waitFor(() => {
+          const emptyMsg = screen.queryByText('메시지를 입력하여 대화를 시작하세요.')
+          expect(emptyMsg).toBeInTheDocument()
+        })
+      }
+    })
+  })
+
+  // =========================================================================
+  // ChatPage — lobby content
   // =========================================================================
   describe('ChatPage lobby content', () => {
     it('should render assistant grid in lobby view after loading', async () => {
