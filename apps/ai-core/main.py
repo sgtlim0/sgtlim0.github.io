@@ -1,6 +1,7 @@
 """FastAPI application entry point for H Chat AI Core."""
 
 import logging
+import os
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
@@ -17,6 +18,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+EXTENSION_ORIGIN = os.environ.get("EXTENSION_ORIGIN", "")
+
 ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
@@ -27,6 +30,9 @@ ALLOWED_ORIGINS = [
     "http://localhost:3006",
     "http://localhost:5173",
 ]
+
+if EXTENSION_ORIGIN:
+    ALLOWED_ORIGINS.append(EXTENSION_ORIGIN)
 
 
 @asynccontextmanager

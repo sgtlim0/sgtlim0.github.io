@@ -1,4 +1,5 @@
 import type { ExtensionMessage, ExtensionContext } from './types'
+import { shouldBlockExtraction } from './utils/blocklist'
 
 const MAX_TEXT_LENGTH = 5000
 
@@ -30,6 +31,11 @@ chrome.runtime.onMessage.addListener(
     sendResponse: (response: Omit<ExtensionContext, 'mode'>) => void,
   ) => {
     if (message.action === 'EXTRACT_TEXT') {
+      if (shouldBlockExtraction(location.href)) {
+        sendResponse(buildContext(''))
+        return false
+      }
+
       const selectedText = extractSelectedText()
       const text = selectedText.length > 0 ? selectedText : extractPageText()
       sendResponse(buildContext(text))
