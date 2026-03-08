@@ -1,8 +1,15 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { LRNavbar, CodeBlock } from '@hchat/ui/llm-router'
+import { LRNavbar } from '@hchat/ui/llm-router'
+import { SkeletonChart } from '@hchat/ui'
 import { Zap, Shield, BarChart3, ArrowRight } from 'lucide-react'
+
+const CodeBlock = dynamic(
+  () => import('@hchat/ui/llm-router').then((m) => ({ default: m.CodeBlock })),
+  { loading: () => <SkeletonChart height={200} />, ssr: false },
+)
 
 const codeExamples = [
   {

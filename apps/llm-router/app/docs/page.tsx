@@ -1,12 +1,18 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import {
   LRNavbar,
   DocsSidebar,
-  CodeBlock,
   type DocsSidebarItem,
 } from '@hchat/ui/llm-router';
+import { SkeletonChart } from '@hchat/ui';
 import { Book, Code, Rocket, ArrowRight } from 'lucide-react';
+
+const CodeBlock = dynamic(
+  () => import('@hchat/ui/llm-router').then((m) => ({ default: m.CodeBlock })),
+  { loading: () => <SkeletonChart height={200} />, ssr: false },
+);
 
 const sidebarItems: DocsSidebarItem[] = [
   {

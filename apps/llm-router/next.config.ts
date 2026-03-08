@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: false,
     formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 86400,
   },
   poweredByHeader: false,
   transpilePackages: ['@hchat/ui', '@hchat/tokens'],

@@ -33,3 +33,6 @@ export type { EncoderOptions, CompressionResult, CompressionStats } from './text
 
 // Blocklist (Extension content extraction guard)
 export { isBlockedSite, isSensitivePattern, shouldBlockExtraction } from './blocklist'
+
+// Performance Utilities
+export { lazy, debounce, throttle } from './performance'
