@@ -117,6 +117,7 @@ export type { UsePersistedStateOptions } from './hooks/usePersistedState'
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Infinite Scroll
 export { useInfiniteScroll } from './hooks/useInfiniteScroll'
 export type { UseInfiniteScrollOptions, UseInfiniteScrollReturn } from './hooks/useInfiniteScroll'
@@ -138,3 +139,14 @@ export type { Breakpoint, UseBreakpointReturn } from './hooks/useBreakpoint'
 export { ResponsiveContainer } from './hooks/ResponsiveContainer'
 export type { ResponsiveContainerProps } from './hooks/ResponsiveContainer'
 >>>>>>> worktree-agent-ac51f608
+=======
+// Animation Utilities
+export { useTransition } from './hooks/useTransition'
+export type { TransitionState, UseTransitionOptions, UseTransitionReturn } from './hooks/useTransition'
+export { useAnimatedList } from './hooks/useAnimatedList'
+export type { AnimatedItem, UseAnimatedListOptions, UseAnimatedListReturn } from './hooks/useAnimatedList'
+export { default as Transition, getTransitionPreset } from './Transition'
+export type { TransitionProps, TransitionPresetType } from './Transition'
+export { default as AnimatedList } from './AnimatedList'
+export type { AnimatedListProps, AnimatedListControls } from './AnimatedList'
+>>>>>>> worktree-agent-a9431d20
