@@ -57,6 +57,12 @@ export { useDataExport } from './hooks/useDataExport'
 // Mobile components — import from '@hchat/ui/mobile' for tree-shaking
 // export * from './mobile'  // Removed: use '@hchat/ui/mobile'
 
+// Search
+export { SearchOverlay } from './SearchOverlay'
+export type { SearchOverlayProps } from './SearchOverlay'
+export { useSearch } from './hooks/useSearch'
+export type { UseSearchReturn } from './hooks/useSearch'
+
 // Keyboard Shortcuts
 export { useHotkeys, useHotkeyRegistry } from './hooks/useHotkeys'
 export type { HotkeyConfig, HotkeyRegistryEntry } from './hooks/useHotkeys'
