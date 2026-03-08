@@ -137,9 +137,9 @@ export default function Popup(): React.JSX.Element {
   /* Load extracted context on mount */
   useEffect(() => {
     if (isChromeExtension()) {
-      chrome.storage.local.get('extractedContext', (data) => {
-        if (data.extractedContext) {
-          setContext(data.extractedContext as Omit<ExtensionContext, 'mode'>)
+      chrome.storage.local.get('hchat_context', (data) => {
+        if (data.hchat_context) {
+          setContext(data.hchat_context as Omit<ExtensionContext, 'mode'>)
         }
       })
     } else {
