@@ -3,9 +3,7 @@
 import { createContext, useContext, useEffect, useSyncExternalStore, useCallback, type ReactNode } from 'react';
 import { ko, type TranslationKey } from './ko';
 import { en } from './en';
-import { zh } from './zh';
-
-export type Locale = 'ko' | 'en' | 'zh';
+export type Locale = 'ko' | 'en';
 
 interface I18nContextValue {
   locale: Locale;
@@ -26,7 +24,7 @@ export function useI18n() {
 function getStoredLocale(): Locale {
   if (typeof window === 'undefined') return 'ko';
   const stored = localStorage.getItem('locale') as Locale | null;
-  if (stored === 'ko' || stored === 'en' || stored === 'zh') return stored;
+  if (stored === 'ko' || stored === 'en') return stored;
   return 'ko';
 }
 
@@ -56,7 +54,7 @@ function setLocaleInternal(locale: Locale) {
   }
 }
 
-const translations = { ko, en, zh };
+const translations = { ko, en };
 
 export default function I18nProvider({ children }: { children: ReactNode }) {
   const locale = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);

@@ -3,18 +3,16 @@
 import { useI18n } from './I18nProvider';
 import type { Locale } from './I18nProvider';
 
-const localeOrder: readonly Locale[] = ['ko', 'en', 'zh'] as const;
+const localeOrder: readonly Locale[] = ['ko', 'en'] as const;
 
 const localeLabels: Record<Locale, string> = {
   ko: 'KO',
   en: 'EN',
-  zh: '中文',
 };
 
 const localeAriaLabels: Record<Locale, string> = {
   ko: '한국어',
   en: 'English',
-  zh: '中文',
 };
 
 export default function LanguageToggle() {

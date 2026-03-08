@@ -7,4 +7,3 @@ export { default as LanguageToggle } from './LanguageToggle';
 export type { TranslationKey } from './ko';
 export { ko } from './ko';
 export { en } from './en';
-export { zh } from './zh';
