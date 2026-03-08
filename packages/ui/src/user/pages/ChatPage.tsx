@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react'
-import { ArrowLeft, Search, Square, Plus, Globe } from 'lucide-react'
+import { ArrowLeft, Search, Square, Plus, Globe, WifiOff } from 'lucide-react'
 import ChatSidebar from '../components/ChatSidebar'
 import ChatSearchBar from '../components/ChatSearchBar'
 import AssistantGrid from '../components/AssistantGrid'
@@ -10,15 +10,18 @@ import StreamingIndicator from '../components/StreamingIndicator'
 import CustomAssistantModal from '../components/CustomAssistantModal'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 import ResearchPanel from '../components/ResearchPanel'
+import InstallBanner from '../components/InstallBanner'
 import { useAssistants } from '../hooks/useAssistants'
 import { useConversations } from '../hooks/useConversations'
 import { useChat } from '../hooks/useChat'
 import { useResearch } from '../hooks/useResearch'
+import { useNetworkStatus } from '../../hooks/useNetworkStatus'
 
 export default function ChatPage() {
   const [chatMode, setChatMode] = useState<'chat' | 'research'>('chat')
   const [showSearchPanel, setShowSearchPanel] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { isOnline } = useNetworkStatus()
 
   const {
     allAssistants,
@@ -37,6 +40,7 @@ export default function ChatPage() {
     conversations,
     currentConversationId,
     currentConversation,
+    isLoading,
     setConversations,
     setCurrentConversationId,
     handleNewChat,
@@ -66,6 +70,7 @@ export default function ChatPage() {
 
   const handleSendMessage = useCallback(
     (content: string) => {
+      if (!isOnline) return
       const targetConversationId = addUserMessageAndGetConversationId(content)
       if (chatMode === 'research') {
         handleSendResearchMessage(content, targetConversationId)
@@ -73,7 +78,13 @@ export default function ChatPage() {
         handleSendChatMessage(content, targetConversationId)
       }
     },
-    [chatMode, addUserMessageAndGetConversationId, handleSendChatMessage, handleSendResearchMessage],
+    [
+      isOnline,
+      chatMode,
+      addUserMessageAndGetConversationId,
+      handleSendChatMessage,
+      handleSendResearchMessage,
+    ],
   )
 
   const handleToggleSearchPanel = useCallback(() => {
@@ -134,7 +145,18 @@ export default function ChatPage() {
       />
 
       <main className="flex-1 flex flex-col min-w-0 h-full md:ml-0 relative">
-        {currentConversation ? (
+        {!isOnline && (
+          <div className="shrink-0 flex items-center gap-2 px-4 py-2 bg-amber-500 text-white text-xs font-medium">
+            <WifiOff className="w-3.5 h-3.5" />
+            오프라인 상태입니다. 이전 대화를 확인할 수 있지만 새 메시지는 전송할 수 없습니다.
+          </div>
+        )}
+        <InstallBanner />
+        {isLoading ? (
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-sm text-user-text-muted">대화를 불러오는 중...</div>
+          </div>
+        ) : currentConversation ? (
           <>
             {/* Chat header */}
             <div className="shrink-0 flex items-center justify-between gap-3 px-4 md:px-6 py-4 border-b border-user-border bg-user-bg">

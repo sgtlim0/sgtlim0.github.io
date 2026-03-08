@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useCallback, useMemo, useEffect } from 'react'
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import type { Conversation, ChatMessage, Assistant } from '../services/types'
-import { getConversations, saveConversations } from '../services/chatService'
+import { migrateFromLocalStorage, saveAllConversations } from '../services/indexedDbService'
 import { mockConversations } from '../services/mockData'
 
 function generateId(): string {
@@ -18,6 +18,7 @@ export interface UseConversationsReturn {
   conversations: Conversation[]
   currentConversationId: string | undefined
   currentConversation: Conversation | undefined
+  isLoading: boolean
   setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>
   setCurrentConversationId: React.Dispatch<React.SetStateAction<string | undefined>>
   handleNewChat: () => void
@@ -33,17 +34,41 @@ export function useConversations({
 }: UseConversationsOptions): UseConversationsReturn {
   const [conversations, setConversations] = useState<Conversation[]>([])
   const [currentConversationId, setCurrentConversationId] = useState<string | undefined>()
+  const [isLoading, setIsLoading] = useState(true)
+  const isInitializedRef = useRef(false)
 
-  // Load on mount
+  // Load on mount: migrate from localStorage → IndexedDB
   useEffect(() => {
-    const loaded = getConversations()
-    setConversations(loaded.length > 0 ? loaded : mockConversations)
+    let cancelled = false
+    async function load() {
+      try {
+        const loaded = await migrateFromLocalStorage()
+        if (!cancelled) {
+          setConversations(loaded.length > 0 ? loaded : mockConversations)
+          isInitializedRef.current = true
+        }
+      } catch {
+        if (!cancelled) {
+          setConversations(mockConversations)
+          isInitializedRef.current = true
+        }
+      } finally {
+        if (!cancelled) setIsLoading(false)
+      }
+    }
+    load()
+    return () => {
+      cancelled = true
+    }
   }, [])
 
-  // Persist on change
+  // Persist to IndexedDB on change (skip until initial load completes)
   useEffect(() => {
+    if (!isInitializedRef.current) return
     if (conversations.length > 0) {
-      saveConversations(conversations)
+      saveAllConversations(conversations).catch(() => {
+        // IndexedDB write failure: silently ignore
+      })
     }
   }, [conversations])
 
@@ -136,6 +161,7 @@ export function useConversations({
     conversations,
     currentConversationId,
     currentConversation,
+    isLoading,
     setConversations,
     setCurrentConversationId,
     handleNewChat,
