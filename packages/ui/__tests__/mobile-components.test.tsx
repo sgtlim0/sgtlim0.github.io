@@ -386,9 +386,9 @@ describe('MobileChatView', () => {
 // ---------------------------------------------------------------------------
 describe('MobileAssistantList (extended)', () => {
   const assistants: MobileAssistant[] = [
-    { id: 'a1', name: '범용 어시스턴트', description: 'AI 비서', icon: 'M', category: '일반', isFavorite: true },
-    { id: 'a2', name: '코드 도우미', description: '코드 리뷰', icon: 'C', category: '코딩', isFavorite: false },
-    { id: 'a3', name: '번역 전문가', description: '다국어 번역', icon: 'T', category: '번역', isFavorite: false },
+    { id: 'a1', name: '범용 어시스턴트', description: 'AI 비서', icon: 'M', category: 'general', isFavorite: true },
+    { id: 'a2', name: '코드 도우미', description: '코드 리뷰', icon: 'C', category: 'coding', isFavorite: false },
+    { id: 'a3', name: '번역 전문가', description: '다국어 번역', icon: 'T', category: 'translation', isFavorite: false },
   ]
 
   it('sorts favorites first', () => {
@@ -403,9 +403,10 @@ describe('MobileAssistantList (extended)', () => {
     render(
       <MobileAssistantList assistants={assistants} onStart={() => {}} onToggleFavorite={() => {}} />,
     )
-    fireEvent.click(screen.getByText('번역'))
-    expect(screen.getByText('번역 전문가')).toBeInTheDocument()
-    expect(screen.queryByText('코드 도우미')).not.toBeInTheDocument()
+    // Click the '코딩' filter chip to filter to coding category only
+    fireEvent.click(screen.getByText('코딩'))
+    expect(screen.getByText('코드 도우미')).toBeInTheDocument()
+    expect(screen.queryByText('번역 전문가')).not.toBeInTheDocument()
   })
 
   it('calls onToggleFavorite with correct id', () => {
