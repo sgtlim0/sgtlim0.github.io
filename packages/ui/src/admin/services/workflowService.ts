@@ -421,12 +421,23 @@ function createNodeFromType(nodeType: NodeType, position: { x: number; y: number
 
 // ============= Node / Template Factories =============
 
-/** Create a new node (for in-memory usage by hooks) */
+/**
+ * Creates a new workflow node of the given type at the specified position.
+ * Does not persist; intended for in-memory usage by hooks.
+ * @param type - The node type (input, llm, transform, condition, output, api, template, merge)
+ * @param position - Canvas position {x, y}
+ * @returns A new WorkflowNode with default config from the node catalog
+ */
 export function createNode(type: NodeType, position: { x: number; y: number }): WorkflowNode {
   return createNodeFromType(type, position)
 }
 
-/** Create a workflow object from a template (not persisted) */
+/**
+ * Creates a new Workflow object from a WorkflowTemplate.
+ * The workflow is NOT persisted to localStorage; call saveWorkflow to persist.
+ * @param template - Template to base the workflow on
+ * @returns A new Workflow with copied nodes and edges
+ */
 export function createWorkflowFromTemplate(template: WorkflowTemplate): Workflow {
   const now = Date.now()
   return {
@@ -443,22 +454,45 @@ export function createWorkflowFromTemplate(template: WorkflowTemplate): Workflow
 
 // ============= Public API =============
 
+/**
+ * Returns the full node catalog (all available node types with metadata).
+ * @returns Readonly array of NodeCatalogItem
+ */
 export function getNodeCatalog(): readonly NodeCatalogItem[] {
   return NODE_CATALOG
 }
 
+/**
+ * Returns all predefined workflow templates (RAG, Agent Chain, Summary, Classification).
+ * @returns Readonly array of WorkflowTemplate
+ */
 export function getWorkflowTemplates(): readonly WorkflowTemplate[] {
   return WORKFLOW_TEMPLATES
 }
 
+/**
+ * Loads all persisted workflows from localStorage.
+ * @returns Array of Workflow objects
+ */
 export function getWorkflows(): Workflow[] {
   return loadWorkflows()
 }
 
+/**
+ * Retrieves a single workflow by ID from localStorage.
+ * @param id - Workflow ID
+ * @returns The matching Workflow, or null if not found
+ */
 export function getWorkflow(id: string): Workflow | null {
   return loadWorkflows().find((w) => w.id === id) ?? null
 }
 
+/**
+ * Creates a new empty workflow and persists it to localStorage.
+ * @param name - Display name for the workflow
+ * @param description - Optional description (default: '')
+ * @returns The newly created Workflow
+ */
 export function createWorkflow(name: string, description = ''): Workflow {
   const workflow: Workflow = {
     id: generateId('wf'),
@@ -475,6 +509,12 @@ export function createWorkflow(name: string, description = ''): Workflow {
   return workflow
 }
 
+/**
+ * Creates a new workflow from a template, remapping node and edge IDs, and persists it.
+ * @param templateId - ID of the template to instantiate
+ * @returns The newly created Workflow
+ * @throws Error if the template is not found
+ */
 export function createFromTemplate(templateId: string): Workflow {
   const template = WORKFLOW_TEMPLATES.find((t) => t.id === templateId)
   if (!template) {
@@ -511,6 +551,11 @@ export function createFromTemplate(templateId: string): Workflow {
   return workflow
 }
 
+/**
+ * Saves (creates or updates) a workflow in localStorage.
+ * Automatically updates the `updatedAt` timestamp.
+ * @param workflow - The workflow to save
+ */
 export function saveWorkflow(workflow: Workflow): void {
   const workflows = loadWorkflows()
   const updated = { ...workflow, updatedAt: Date.now() }
@@ -521,11 +566,22 @@ export function saveWorkflow(workflow: Workflow): void {
   persistWorkflows(next)
 }
 
+/**
+ * Deletes a workflow by ID from localStorage.
+ * @param id - Workflow ID to delete
+ */
 export function deleteWorkflow(id: string): void {
   const workflows = loadWorkflows().filter((w) => w.id !== id)
   persistWorkflows(workflows)
 }
 
+/**
+ * Adds a new node to an existing workflow and persists the change.
+ * @param workflowId - Target workflow ID
+ * @param nodeType - Type of node to create
+ * @param position - Canvas position {x, y}
+ * @returns The newly created WorkflowNode
+ */
 export function addNode(
   workflowId: string,
   nodeType: NodeType,
@@ -542,6 +598,11 @@ export function addNode(
   return node
 }
 
+/**
+ * Removes a node and all connected edges from a workflow.
+ * @param workflowId - Target workflow ID
+ * @param nodeId - ID of the node to remove
+ */
 export function removeNode(workflowId: string, nodeId: string): void {
   const workflows = loadWorkflows()
   const updated = updateWorkflowInList(workflows, workflowId, (w) => ({
@@ -553,6 +614,12 @@ export function removeNode(workflowId: string, nodeId: string): void {
   persistWorkflows(updated)
 }
 
+/**
+ * Updates the canvas position of a node within a workflow.
+ * @param workflowId - Target workflow ID
+ * @param nodeId - ID of the node to reposition
+ * @param position - New canvas position {x, y}
+ */
 export function updateNodePosition(
   workflowId: string,
   nodeId: string,
@@ -567,6 +634,12 @@ export function updateNodePosition(
   persistWorkflows(updated)
 }
 
+/**
+ * Merges new configuration values into a node's existing config.
+ * @param workflowId - Target workflow ID
+ * @param nodeId - ID of the node to update
+ * @param config - Key-value pairs to merge into the node config
+ */
 export function updateNodeConfig(
   workflowId: string,
   nodeId: string,
@@ -581,6 +654,13 @@ export function updateNodeConfig(
   persistWorkflows(updated)
 }
 
+/**
+ * Adds a directed edge between two nodes in a workflow.
+ * @param workflowId - Target workflow ID
+ * @param sourceId - Source node ID
+ * @param targetId - Target node ID
+ * @returns The newly created WorkflowEdge
+ */
 export function addEdge(workflowId: string, sourceId: string, targetId: string): WorkflowEdge {
   const edge: WorkflowEdge = {
     id: generateId('edge'),
@@ -597,6 +677,11 @@ export function addEdge(workflowId: string, sourceId: string, targetId: string):
   return edge
 }
 
+/**
+ * Removes an edge from a workflow by edge ID.
+ * @param workflowId - Target workflow ID
+ * @param edgeId - ID of the edge to remove
+ */
 export function removeEdge(workflowId: string, edgeId: string): void {
   const workflows = loadWorkflows()
   const updated = updateWorkflowInList(workflows, workflowId, (w) => ({
@@ -607,6 +692,12 @@ export function removeEdge(workflowId: string, edgeId: string): void {
   persistWorkflows(updated)
 }
 
+/**
+ * Initiates execution of a workflow (mock: returns a pending execution object).
+ * @param workflowId - ID of the workflow to execute
+ * @returns A new WorkflowExecution in 'pending' status
+ * @throws Error if the workflow is not found
+ */
 export function executeWorkflow(workflowId: string): WorkflowExecution {
   const workflow = getWorkflow(workflowId)
   if (!workflow) {

@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * Chat conversation service with localStorage persistence.
+ * Provides CRUD operations for conversations and messages.
+ * All mutations return new arrays (immutable pattern).
+ */
+
 import type { Conversation, ChatMessage } from './types';
 import { captureError } from '../../utils/errorMonitoring';
 
@@ -33,14 +39,28 @@ function saveToStorage(conversations: Conversation[]): void {
   }
 }
 
+/**
+ * Retrieves all stored conversations from localStorage.
+ * @returns Array of Conversation objects, or empty array on failure
+ */
 export function getConversations(): Conversation[] {
   return getStoredConversations();
 }
 
+/**
+ * Persists the full conversations array to localStorage.
+ * @param conversations - Complete conversations array to save
+ */
 export function saveConversations(conversations: Conversation[]): void {
   saveToStorage(conversations);
 }
 
+/**
+ * Creates a new conversation, prepends it to storage, and returns it.
+ * @param assistantId - ID of the assistant associated with the conversation
+ * @param title - Display title for the conversation
+ * @returns The newly created Conversation
+ */
 export function createConversation(assistantId: string, title: string): Conversation {
   const now = new Date().toISOString();
   const newConversation: Conversation = {
@@ -59,6 +79,12 @@ export function createConversation(assistantId: string, title: string): Conversa
   return newConversation;
 }
 
+/**
+ * Appends a message to a conversation and persists the update.
+ * @param conversationId - Target conversation ID
+ * @param message - The ChatMessage to append
+ * @returns Updated conversations array
+ */
 export function addMessage(conversationId: string, message: ChatMessage): Conversation[] {
   const conversations = getStoredConversations();
   const now = new Date().toISOString();
@@ -78,6 +104,11 @@ export function addMessage(conversationId: string, message: ChatMessage): Conver
   return updatedConversations;
 }
 
+/**
+ * Deletes a conversation by ID and persists the change.
+ * @param id - Conversation ID to delete
+ * @returns Updated conversations array without the deleted conversation
+ */
 export function deleteConversation(id: string): Conversation[] {
   const conversations = getStoredConversations();
   const updatedConversations = conversations.filter(conv => conv.id !== id);
@@ -85,6 +116,12 @@ export function deleteConversation(id: string): Conversation[] {
   return updatedConversations;
 }
 
+/**
+ * Searches conversations by title or message content (case-insensitive).
+ * Returns all conversations if the query is empty.
+ * @param query - Search text
+ * @returns Filtered conversations matching the query
+ */
 export function searchConversations(query: string): Conversation[] {
   if (!query.trim()) {
     return getStoredConversations();

@@ -1,5 +1,10 @@
 'use client';
 
+/**
+ * Custom assistant management service with localStorage persistence.
+ * Handles CRUD operations for user-created assistants.
+ */
+
 import type { Assistant } from './types';
 import { captureError } from '../../utils/errorMonitoring';
 
@@ -33,10 +38,19 @@ function saveToStorage(assistants: Assistant[]): void {
   }
 }
 
+/**
+ * Retrieves all custom (user-created) assistants from localStorage.
+ * @returns Array of custom Assistant objects
+ */
 export function getCustomAssistants(): Assistant[] {
   return getStoredAssistants();
 }
 
+/**
+ * Creates and persists a new custom assistant with an auto-generated ID.
+ * @param assistant - Assistant data (without id and isOfficial)
+ * @returns The newly created Assistant with generated ID and isOfficial=false
+ */
 export function saveCustomAssistant(
   assistant: Omit<Assistant, 'id' | 'isOfficial'>
 ): Assistant {
@@ -53,6 +67,13 @@ export function saveCustomAssistant(
   return newAssistant;
 }
 
+/**
+ * Updates a custom assistant's properties by ID.
+ * The id and isOfficial fields cannot be overridden.
+ * @param id - Assistant ID to update
+ * @param data - Partial fields to merge
+ * @returns Updated assistants array
+ */
 export function updateCustomAssistant(
   id: string,
   data: Partial<Assistant>
@@ -75,6 +96,11 @@ export function updateCustomAssistant(
   return updatedAssistants;
 }
 
+/**
+ * Deletes a custom assistant by ID and persists the change.
+ * @param id - Assistant ID to delete
+ * @returns Updated assistants array without the deleted assistant
+ */
 export function deleteCustomAssistant(id: string): Assistant[] {
   const assistants = getStoredAssistants();
   const updatedAssistants = assistants.filter(assistant => assistant.id !== id);

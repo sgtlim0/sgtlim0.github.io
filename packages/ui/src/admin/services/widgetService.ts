@@ -231,20 +231,39 @@ function updateLayoutInList(
 
 // ============= Public API =============
 
+/**
+ * Returns the full widget catalog (all available widget types with metadata).
+ * @returns Readonly array of WidgetCatalogItem
+ */
 export function getWidgetCatalog(): readonly WidgetCatalogItem[] {
   return WIDGET_CATALOG
 }
 
+/**
+ * Loads all persisted dashboard layouts from localStorage.
+ * Falls back to the default layout if none exist.
+ * @returns Array of DashboardLayout objects
+ */
 export function getLayouts(): DashboardLayout[] {
   return loadLayouts()
 }
 
+/**
+ * Returns the currently active dashboard layout.
+ * Falls back to the first available layout if the active ID is not found.
+ * @returns The active DashboardLayout
+ */
 export function getActiveLayout(): DashboardLayout {
   const layouts = loadLayouts()
   const activeId = loadActiveLayoutId()
   return layouts.find((l) => l.id === activeId) ?? layouts[0]
 }
 
+/**
+ * Saves (creates or updates) a dashboard layout in localStorage.
+ * Automatically updates the `updatedAt` timestamp.
+ * @param layout - The layout to save
+ */
 export function saveLayout(layout: DashboardLayout): void {
   const layouts = loadLayouts()
   const updated = { ...layout, updatedAt: Date.now() }
@@ -255,6 +274,11 @@ export function saveLayout(layout: DashboardLayout): void {
   persistLayouts(next)
 }
 
+/**
+ * Creates a new empty dashboard layout and sets it as the active layout.
+ * @param name - Display name for the layout
+ * @returns The newly created DashboardLayout
+ */
 export function createLayout(name: string): DashboardLayout {
   const layout: DashboardLayout = {
     id: generateId('layout'),
@@ -270,6 +294,11 @@ export function createLayout(name: string): DashboardLayout {
   return layout
 }
 
+/**
+ * Deletes a layout by ID. If the deleted layout was active, switches to the first remaining layout.
+ * If no layouts remain, restores the default layout.
+ * @param id - Layout ID to delete
+ */
 export function deleteLayout(id: string): void {
   const layouts = loadLayouts().filter((l) => l.id !== id)
   const next = layouts.length > 0 ? layouts : [DEFAULT_LAYOUT]
@@ -279,10 +308,20 @@ export function deleteLayout(id: string): void {
   }
 }
 
+/**
+ * Sets the active layout by persisting the layout ID.
+ * @param id - Layout ID to activate
+ */
 export function setActiveLayout(id: string): void {
   persistActiveLayoutId(id)
 }
 
+/**
+ * Adds a new widget to a layout using default settings from the widget catalog.
+ * @param layoutId - Target layout ID
+ * @param widgetType - Type of widget to add
+ * @returns The newly created WidgetConfig
+ */
 export function addWidget(layoutId: string, widgetType: WidgetType): WidgetConfig {
   const catalogItem = WIDGET_CATALOG.find((c) => c.type === widgetType)
   const widget: WidgetConfig = {
@@ -304,6 +343,11 @@ export function addWidget(layoutId: string, widgetType: WidgetType): WidgetConfi
   return widget
 }
 
+/**
+ * Removes a widget from a layout.
+ * @param layoutId - Target layout ID
+ * @param widgetId - ID of the widget to remove
+ */
 export function removeWidget(layoutId: string, widgetId: string): void {
   const layouts = loadLayouts()
   const updated = updateLayoutInList(layouts, layoutId, (l) => ({
@@ -314,6 +358,12 @@ export function removeWidget(layoutId: string, widgetId: string): void {
   persistLayouts(updated)
 }
 
+/**
+ * Updates the grid position of a widget within a layout.
+ * @param layoutId - Target layout ID
+ * @param widgetId - ID of the widget to reposition
+ * @param position - New grid position {x, y}
+ */
 export function updateWidgetPosition(
   layoutId: string,
   widgetId: string,
@@ -328,6 +378,12 @@ export function updateWidgetPosition(
   persistLayouts(updated)
 }
 
+/**
+ * Updates the display size of a widget.
+ * @param layoutId - Target layout ID
+ * @param widgetId - ID of the widget to resize
+ * @param size - New size ('sm' | 'md' | 'lg' | 'xl')
+ */
 export function updateWidgetSize(layoutId: string, widgetId: string, size: WidgetSize): void {
   const layouts = loadLayouts()
   const updated = updateLayoutInList(layouts, layoutId, (l) => ({
@@ -338,6 +394,12 @@ export function updateWidgetSize(layoutId: string, widgetId: string, size: Widge
   persistLayouts(updated)
 }
 
+/**
+ * Merges new settings into a widget's existing settings.
+ * @param layoutId - Target layout ID
+ * @param widgetId - ID of the widget to configure
+ * @param settings - Key-value pairs to merge into widget settings
+ */
 export function updateWidgetSettings(
   layoutId: string,
   widgetId: string,
@@ -354,6 +416,11 @@ export function updateWidgetSettings(
   persistLayouts(updated)
 }
 
+/**
+ * Toggles the visible flag of a widget (show/hide).
+ * @param layoutId - Target layout ID
+ * @param widgetId - ID of the widget to toggle
+ */
 export function toggleWidgetVisibility(layoutId: string, widgetId: string): void {
   const layouts = loadLayouts()
   const updated = updateLayoutInList(layouts, layoutId, (l) => ({
@@ -364,6 +431,10 @@ export function toggleWidgetVisibility(layoutId: string, widgetId: string): void
   persistLayouts(updated)
 }
 
+/**
+ * Resets all layouts to the built-in default layout and activates it.
+ * @returns The restored default DashboardLayout
+ */
 export function resetToDefault(): DashboardLayout {
   const now = Date.now()
   const layout: DashboardLayout = { ...DEFAULT_LAYOUT, updatedAt: now }

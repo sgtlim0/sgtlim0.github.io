@@ -1,3 +1,11 @@
+/**
+ * Error Monitoring Service
+ *
+ * Sentry-ready error tracking with graceful fallback for non-production environments.
+ * Provides error capture, breadcrumbs, user context, and transaction tracing.
+ */
+
+/** Context attached to captured errors for debugging. */
 export interface ErrorContext {
   component?: string
   action?: string
@@ -5,6 +13,7 @@ export interface ErrorContext {
   extra?: Record<string, unknown>
 }
 
+/** A timestamped breadcrumb entry for tracing event sequences. */
 export interface BreadcrumbData {
   category: string
   message: string
@@ -13,12 +22,14 @@ export interface BreadcrumbData {
   timestamp?: number
 }
 
+/** User identity context for associating errors with users. */
 export interface UserContext {
   id: string
   email: string
   role: string
 }
 
+/** Performance transaction context for measuring operation durations. */
 export interface TransactionContext {
   name: string
   op: string
@@ -60,10 +71,21 @@ function getEnvironment(): string {
   return 'development'
 }
 
+/**
+ * Initializes the monitoring module with a Sentry-compatible instance.
+ * Must be called before captureError/captureMessage will forward to Sentry.
+ * @param sentry - Object implementing the SentryLike interface
+ */
 export function initSentry(sentry: SentryLike): void {
   sentryInstance = sentry
 }
 
+/**
+ * Captures an error and sends it to Sentry (if configured) or logs it in production.
+ * No-ops in non-production when Sentry is not initialized.
+ * @param error - The Error to capture
+ * @param context - Optional context (component, action, userId, extra data)
+ */
 export function captureError(error: Error, context?: ErrorContext): void {
   if (!isProduction() && !sentryInstance) return
 
@@ -77,6 +99,11 @@ export function captureError(error: Error, context?: ErrorContext): void {
   console.error('[ErrorMonitoring]', error.message, context)
 }
 
+/**
+ * Captures a message at the specified severity level.
+ * @param message - Human-readable message to capture
+ * @param level - Severity level (default: 'info')
+ */
 export function captureMessage(
   message: string,
   level: 'info' | 'warning' | 'error' = 'info',
@@ -89,6 +116,10 @@ export function captureMessage(
   }
 }
 
+/**
+ * Sets the current user context for associating subsequent errors with a user.
+ * @param user - User identity (id, email, role)
+ */
 export function setUser(user: UserContext): void {
   if (sentryInstance) {
     sentryInstance.setUser(user)
@@ -96,6 +127,9 @@ export function setUser(user: UserContext): void {
   }
 }
 
+/**
+ * Clears the current user context (e.g., on logout).
+ */
 export function clearUser(): void {
   if (sentryInstance) {
     sentryInstance.setUser(null)
@@ -106,6 +140,11 @@ export function clearUser(): void {
 const breadcrumbs: BreadcrumbData[] = []
 const MAX_BREADCRUMBS = 100
 
+/**
+ * Adds a breadcrumb entry for tracing the sequence of events leading to an error.
+ * When Sentry is not available, stores up to 100 breadcrumbs in memory.
+ * @param breadcrumb - Breadcrumb data (category, message, level, data)
+ */
 export function addBreadcrumb(breadcrumb: BreadcrumbData): void {
   const entry: BreadcrumbData = {
     ...breadcrumb,
@@ -124,12 +163,23 @@ export function addBreadcrumb(breadcrumb: BreadcrumbData): void {
   breadcrumbs.push(entry)
 }
 
+/**
+ * Returns the in-memory breadcrumb buffer (when Sentry is not available).
+ * @returns Readonly array of BreadcrumbData entries
+ */
 export function getBreadcrumbs(): readonly BreadcrumbData[] {
   return [...breadcrumbs]
 }
 
 const activeTransactions = new Map<string, TransactionContext>()
 
+/**
+ * Starts a performance transaction for measuring operation duration.
+ * @param name - Transaction name (e.g., 'loadDashboard')
+ * @param op - Operation type (e.g., 'navigation', 'http.request')
+ * @param data - Optional key-value data to attach to the transaction
+ * @returns Unique transaction ID used to finish the transaction later
+ */
 export function startTransaction(name: string, op: string, data?: Record<string, unknown>): string {
   const id = `${name}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
   const context: TransactionContext = { name, op, startTime: Date.now(), data }
@@ -150,6 +200,11 @@ export function startTransaction(name: string, op: string, data?: Record<string,
   return id
 }
 
+/**
+ * Finishes an active transaction and returns the duration.
+ * @param id - Transaction ID returned by startTransaction
+ * @returns Object with duration in milliseconds, or null if the transaction was not found
+ */
 export function finishTransaction(id: string): { duration: number } | null {
   const context = activeTransactions.get(id)
   if (!context) return null
@@ -169,12 +224,19 @@ export function finishTransaction(id: string): { duration: number } | null {
   return { duration }
 }
 
+/** Configuration for React error boundary integration. */
 export interface ErrorBoundaryConfig {
   fallback: 'default' | 'minimal' | 'custom'
   onError: (error: Error, errorInfo: { componentStack?: string }) => void
   beforeCapture?: (error: Error) => ErrorContext
 }
 
+/**
+ * Creates an ErrorBoundaryConfig with automatic error capture and breadcrumb logging.
+ * @param componentName - Name of the component using the error boundary
+ * @param options - Optional fallback type ('default' | 'minimal' | 'custom')
+ * @returns ErrorBoundaryConfig with onError handler wired to captureError
+ */
 export function getErrorBoundaryConfig(
   componentName: string,
   options?: { fallback?: ErrorBoundaryConfig['fallback'] },
@@ -198,6 +260,10 @@ export function getErrorBoundaryConfig(
   }
 }
 
+/**
+ * Returns the current monitoring configuration derived from environment variables.
+ * @returns Object with dsn, environment, and enabled flag
+ */
 export function getMonitoringConfig(): {
   dsn: string | undefined
   environment: string

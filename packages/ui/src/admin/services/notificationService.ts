@@ -247,6 +247,13 @@ function computeStats(notifications: ReadonlyArray<Notification>): NotificationS
 
 // ============= Public API =============
 
+/**
+ * Subscribes to a push notification stream using setInterval.
+ * Immediately emits one notification, then emits at the given interval.
+ * @param callback - Handler invoked for each new notification
+ * @param intervalMs - Interval in milliseconds between notifications (default: 5000)
+ * @returns Subscription object with an `unsubscribe` method to stop the stream
+ */
 export function subscribeNotifications(
   callback: (notification: Notification) => void,
   intervalMs: number = 5000,
@@ -264,26 +271,51 @@ export function subscribeNotifications(
   return { unsubscribe: () => clearInterval(id) }
 }
 
+/**
+ * Retrieves stored notifications, optionally filtered by type, priority, read status, source, or time range.
+ * @param filter - Optional filter criteria
+ * @returns Array of notifications matching the filter
+ */
 export function getNotifications(filter?: NotificationFilter): Notification[] {
   return applyFilter(_notifications, filter)
 }
 
+/**
+ * Marks a single notification as read by its ID.
+ * @param notificationId - The ID of the notification to mark as read
+ */
 export function markAsRead(notificationId: string): void {
   _notifications = _notifications.map((n) => (n.id === notificationId ? { ...n, read: true } : n))
 }
 
+/**
+ * Marks all stored notifications as read.
+ */
 export function markAllAsRead(): void {
   _notifications = _notifications.map((n) => ({ ...n, read: true }))
 }
 
+/**
+ * Computes aggregated notification statistics (total, unread, by type, by priority).
+ * @returns NotificationStats object
+ */
 export function getNotificationStats(): NotificationStats {
   return computeStats(_notifications)
 }
 
+/**
+ * Returns the current notification channel preferences (push, email, slack, teams).
+ * @returns Array of notification preference objects
+ */
 export function getPreferences(): NotificationPreference[] {
   return [..._preferences]
 }
 
+/**
+ * Updates notification preferences for a specific channel.
+ * @param channel - The notification channel to update (push, email, slack, teams)
+ * @param update - Partial preference fields to merge (enabled, types, quiet hours)
+ */
 export function updatePreference(
   channel: NotificationChannel,
   update: Partial<Omit<NotificationPreference, 'channel'>>,

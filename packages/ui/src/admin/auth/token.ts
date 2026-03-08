@@ -1,6 +1,6 @@
 /**
- * Web Crypto API 기반 JWT 토큰 생성/검증
- * HMAC-SHA256 서명 사용 (브라우저 환경 전용)
+ * Browser-only JWT token generation and verification using Web Crypto API.
+ * Signs tokens with HMAC-SHA256.
  */
 
 const TOKEN_EXPIRY_MS = 60 * 60 * 1000 // 1시간
@@ -84,6 +84,10 @@ async function verifySignature(data: string, signatureB64: string): Promise<bool
   return crypto.subtle.verify('HMAC', key, sigBytes as BufferSource, encoder.encode(data) as BufferSource)
 }
 
+/**
+ * Payload structure embedded in a JWT token.
+ * Standard claims `exp` (expiration) and `iat` (issued-at) are optional.
+ */
 export interface TokenPayload {
   [key: string]: unknown
   exp?: number
@@ -91,9 +95,10 @@ export interface TokenPayload {
 }
 
 /**
- * HMAC-SHA256 서명된 JWT 토큰 생성
- * @param payload 토큰에 포함할 데이터
- * @param expiresInMs 만료 시간 (기본 1시간)
+ * Generates a JWT token signed with HMAC-SHA256.
+ * @param payload - Data to embed in the token
+ * @param expiresInMs - Token lifetime in milliseconds (default: 1 hour)
+ * @returns Encoded JWT string (header.payload.signature)
  */
 export async function generateToken(
   payload: Record<string, unknown>,
@@ -117,8 +122,9 @@ export async function generateToken(
 }
 
 /**
- * JWT 토큰 검증 및 페이로드 반환
- * @returns 유효한 경우 페이로드, 무효한 경우 null
+ * Verifies a JWT token's signature and expiration, then returns the decoded payload.
+ * @param token - JWT string to verify
+ * @returns Decoded TokenPayload if valid, or null if invalid/expired
  */
 export async function verifyToken(token: string): Promise<TokenPayload | null> {
   try {
