@@ -33,7 +33,7 @@
 | 페이지 | 56개 (page.tsx) |
 | 커스텀 훅 | 66개 (exported functions) |
 | Storybook | 135 스토리 파일 |
-| 단위 테스트 | 78 파일, 1,230 테스트 |
+| 단위 테스트 | 79 파일, 1,246 테스트 |
 | E2E 테스트 | 18 파일 |
 | Interaction Tests | 6 파일, 28 테스트 |
 | MSW 핸들러 | 39 endpoints (8 도메인) |
@@ -163,10 +163,10 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 세션 관리 | sessionId 1급 시민 | sessionId optional | ✅ 타입 추가 완료 |
 | ChatPage | 훅 분리 (4개), ~200줄 | 훅 분리 (4개), 305줄 | ✅ 완료 (Phase A) |
 | PWA | manifest + SW + Install | manifest + SW + InstallBanner | ✅ 완료 (Phase A+B) |
-| Extension | MV3 (content+popup) | 없음 | **신규 구현** |
-| /analyze | 4모드 분석 엔드포인트 | 없음 | **신규 추가** |
-| 컨텍스트 윈도우 | historyRef 슬라이딩 20 | 전체 전송 | **최적화 필요** |
-| 콘텐츠 살균 | 없음 | 없음 | **양쪽 모두 필요** |
+| Extension | MV3 (content+popup) | MV3 (Vite+React 19+TW4) | ✅ 완료 (Phase C) |
+| /analyze | 4모드 분석 엔드포인트 | FastAPI + API Gateway | ✅ 완료 (Phase C) |
+| 컨텍스트 윈도우 | historyRef 슬라이딩 20 | historyRef 슬라이딩 20 | ✅ 완료 (Phase A) |
+| 콘텐츠 살균 | 없음 | sanitize.ts (6패턴 PII 마스킹) | ✅ 완료 (Phase C) |
 
 ### 반영 우선순위: 레퍼런스에서 가져올 것
 
@@ -241,20 +241,19 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | B-8 | 오프라인 UI (배너 + 입력 차단) | `ChatPage.tsx` (WifiOff 배너 + isOnline guard) | ✅ |
 | B-9 | IndexedDB 테스트 16개 (fake-indexeddb) | `__tests__/indexedDbService.test.ts` (277줄) | ✅ |
 
-### Phase C: Chrome Extension 기본 (Week 3)
+### Phase C: Chrome Extension 기본 (Week 3) ✅
 
-| # | 작업 | 파일 | 레퍼런스 참조 | 난이도 |
-|---|------|------|-------------|--------|
-| C-1 | Extension 프로젝트 셋업 (Vite + React 19 + TW4) | `apps/extension/` | `extension/` | 중간 |
-| C-2 | manifest.json (**최소 권한**) | `apps/extension/public/manifest.json` | 참조하되 보안 수정 | 낮음 |
-| C-3 | content.ts (텍스트 추출 + **PII 살균**) | `apps/extension/src/content.ts` | `src/content.ts` | 중간 |
-| C-4 | background.ts (컨텍스트 메뉴, **중복 제거**) | `apps/extension/src/background.ts` | `src/background.ts` | 낮음 |
-| C-5 | Popup.tsx (4모드 분석 UI, **API Gateway 경유**) | `apps/extension/src/popup/Popup.tsx` | `src/popup/Popup.tsx` | 중간 |
-| C-6 | 콘텐츠 살균 유틸 (PII 마스킹) | `packages/ui/src/utils/sanitize.ts` | (미구현, 신규) | 낮음 |
-| C-7 | FastAPI /analyze 엔드포인트 | `apps/ai-core/routers/analyze.py` | `backend/main.py` | 낮음 |
-| C-8 | API Gateway /api/analyze | `apps/user/app/api/analyze/route.ts` | - | 낮음 |
-
-**검증**: Extension 로드, 팝업 동작, API Gateway 경유 확인, PII 마스킹 테스트
+| # | 작업 | 파일 | 상태 |
+|---|------|------|------|
+| C-1 | Extension 프로젝트 셋업 (Vite + React 19 + TW4) | `apps/extension/` (11 files) | ✅ |
+| C-2 | manifest.json (MV3, optional_host_permissions) | `apps/extension/public/manifest.json` | ✅ |
+| C-3 | content.ts (텍스트 추출, 5000자 제한) | `apps/extension/src/content.ts` (40줄) | ✅ |
+| C-4 | background.ts (컨텍스트 메뉴 + storage relay) | `apps/extension/src/background.ts` (67줄) | ✅ |
+| C-5 | Popup.tsx (4모드: 요약/설명/리서치/번역) | `apps/extension/src/popup/Popup.tsx` (257줄) | ✅ |
+| C-6 | PII 살균 유틸 (6패턴 마스킹) | `packages/ui/src/utils/sanitize.ts` (41줄) | ✅ |
+| C-7 | FastAPI /analyze (4모드 프롬프트) | `apps/ai-core/routers/analyze.py` (64줄) | ✅ |
+| C-8 | API Gateway /api/analyze (Zod 검증) | `apps/user/app/api/analyze/route.ts` (46줄) | ✅ |
+| - | PII 살균 테스트 16개 | `packages/ui/__tests__/sanitize.test.ts` | ✅ |
 
 ### Phase D: Extension ↔ PWA 통합 + 보안 (Week 4)
 
@@ -304,6 +303,6 @@ Frontend (Next.js 16) ── API Gateway (/api/*) ── AI Core (FastAPI :8000)
 | 9 | RESOLVED | localStorage → IndexedDB | Phase B 완료 (idb + 마이그레이션) |
 | 10 | MEDIUM | CSRF 보호 | csrf.ts 유틸 구현, 실적용 대기 |
 | 11 | MEDIUM | LLM Router 번들 36MB | Phase 67 |
-| 12 | MEDIUM | PII 콘텐츠 살균 유틸 없음 | Phase C에서 구현 |
+| 12 | RESOLVED | PII 콘텐츠 살균 유틸 | Phase C 완료 (sanitize.ts, 6패턴) |
 | 13 | LOW | i18n | Phase 68 |
 | 14 | LOW | 한국어 불용어 대조 확인 | 레퍼런스 70개 vs 모노레포 72개 |
