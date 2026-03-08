@@ -260,7 +260,7 @@ describe('serviceFactory', () => {
     it('returns mockAuthService when mode is mock', async () => {
       vi.resetModules()
       const { createAuthService } = await import('../src/client/serviceFactory')
-      const service = createAuthService()
+      const service = await createAuthService()
       expect(service).toBeDefined()
       expect(typeof service.login).toBe('function')
       expect(typeof service.logout).toBe('function')
@@ -271,7 +271,7 @@ describe('serviceFactory', () => {
     it('returns mockApiService when mode is mock', async () => {
       vi.resetModules()
       const { createAdminService } = await import('../src/client/serviceFactory')
-      const service = createAdminService()
+      const service = await createAdminService()
       expect(service).toBeDefined()
     })
   })

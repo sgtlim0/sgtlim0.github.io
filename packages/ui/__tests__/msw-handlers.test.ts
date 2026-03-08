@@ -586,10 +586,17 @@ describe('mocks/index.ts re-exports', () => {
     expect(indexMod.handlers.length).toBe(handlers.length)
   })
 
-  it('re-exports server from server.ts', async () => {
+  it('does not re-export server from barrel (import directly from mocks/server instead)', async () => {
     const indexMod = await import('../src/mocks/index')
-    expect(indexMod.server).toBeDefined()
-    expect(indexMod.server).toHaveProperty('listen')
-    expect(indexMod.server).toHaveProperty('close')
+    // server is intentionally excluded from barrel to prevent MSW from being
+    // bundled in production. Tests should import from '../src/mocks/server' directly.
+    expect(indexMod).not.toHaveProperty('server')
+  })
+
+  it('server is accessible via direct import from mocks/server', async () => {
+    const { server } = await import('../src/mocks/server')
+    expect(server).toBeDefined()
+    expect(server).toHaveProperty('listen')
+    expect(server).toHaveProperty('close')
   })
 })
