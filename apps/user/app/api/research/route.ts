@@ -9,10 +9,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { fetchAiCore, getClientIp } from '../lib/aiCore'
 import { validateCsrfHeader } from '../lib/csrf'
-import { checkRateLimit } from '../lib/rateLimit'
+import { checkRateLimit, createRateLimitResponse, addRateLimitHeaders } from '../lib/rateLimit'
 import { researchRequestSchema } from '../lib/validation'
-
-const RATE_LIMIT_PER_MINUTE = 10
 
 export async function POST(request: NextRequest) {
   const csrfError = validateCsrfHeader(request)
@@ -20,19 +18,10 @@ export async function POST(request: NextRequest) {
 
   try {
     const ip = getClientIp(request)
-    const { allowed, remaining } = checkRateLimit(ip, RATE_LIMIT_PER_MINUTE)
+    const rateLimitResult = checkRateLimit(ip, 'research')
 
-    if (!allowed) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        {
-          status: 429,
-          headers: {
-            'Retry-After': '60',
-            'X-RateLimit-Remaining': '0',
-          },
-        },
-      )
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult)
     }
 
     const body = await request.json()
@@ -59,12 +48,9 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await upstream.json()
+    const response = NextResponse.json(data)
 
-    return NextResponse.json(data, {
-      headers: {
-        'X-RateLimit-Remaining': String(remaining),
-      },
-    })
+    return addRateLimitHeaders(response, rateLimitResult)
   } catch (error) {
     if (error instanceof SyntaxError) {
       return NextResponse.json({ error: 'Malformed JSON in request body' }, { status: 400 })
