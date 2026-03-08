@@ -161,3 +161,9 @@ export type { TransitionProps, TransitionPresetType } from './Transition'
 export { default as AnimatedList } from './AnimatedList'
 export type { AnimatedListProps, AnimatedListControls } from './AnimatedList'
 >>>>>>> worktree-agent-a9431d20
+
+// Pagination
+export { usePagination } from './hooks/usePagination'
+export type { UsePaginationOptions, UsePaginationReturn } from './hooks/usePagination'
+export { default as Pagination } from './Pagination'
+export type { PaginationProps } from './Pagination'
