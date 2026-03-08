@@ -45,7 +45,7 @@ async function getSigningKey(): Promise<CryptoKey> {
   const encoder = new TextEncoder()
   return crypto.subtle.importKey(
     'raw',
-    encoder.encode(SECRET),
+    encoder.encode(SECRET) as BufferSource,
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['sign', 'verify'],
@@ -56,7 +56,7 @@ async function sign(data: string): Promise<string> {
   const crypto = getCrypto()
   const key = await getSigningKey()
   const encoder = new TextEncoder()
-  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data))
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data) as BufferSource)
   const bytes = new Uint8Array(signature)
   let binary = ''
   for (let i = 0; i < bytes.length; i++) {
@@ -81,7 +81,7 @@ async function verifySignature(data: string, signatureB64: string): Promise<bool
     sigBytes[i] = binary.charCodeAt(i)
   }
 
-  return crypto.subtle.verify('HMAC', key, sigBytes, encoder.encode(data))
+  return crypto.subtle.verify('HMAC', key, sigBytes as BufferSource, encoder.encode(data) as BufferSource)
 }
 
 export interface TokenPayload {
