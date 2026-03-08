@@ -190,10 +190,10 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Prettier + Husky + lint-staged for code quality
 
 ### Testing
-- Vitest: 144 test files, 3,004 unit tests (90.9% statement coverage)
+- Vitest: 147 test files, 3,128 unit tests (90.9% statement coverage, 82.3% branches)
 - MSW: 39 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
 - Playwright E2E: 20 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience
-- Storybook: 135 stories with 28 interaction tests
+- Storybook: 167 stories with 86+ interaction tests
 - Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 90.9% stmts, 82.3% branches)
 - Test location: `packages/ui/__tests__/` (all unit tests)
 
