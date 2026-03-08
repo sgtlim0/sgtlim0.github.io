@@ -111,8 +111,16 @@ export { AnalyticsProvider, useAnalyticsContext } from './utils/AnalyticsProvide
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
 
+<<<<<<< HEAD
 // Infinite Scroll
 export { useInfiniteScroll } from './hooks/useInfiniteScroll'
 export type { UseInfiniteScrollOptions, UseInfiniteScrollReturn } from './hooks/useInfiniteScroll'
 export { default as InfiniteList } from './InfiniteList'
 export type { InfiniteListProps } from './InfiniteList'
+=======
+// Breadcrumb Navigation
+export { default as Breadcrumb, BreadcrumbProvider, useBreadcrumbContext } from './Breadcrumb'
+export type { BreadcrumbItem, BreadcrumbProps } from './Breadcrumb'
+export { useBreadcrumb } from './hooks/useBreadcrumb'
+export type { UseBreadcrumbConfig, UseBreadcrumbReturn } from './hooks/useBreadcrumb'
+>>>>>>> worktree-agent-afe53f29
