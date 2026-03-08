@@ -7,3 +7,7 @@ const DebatePage = dynamic(() => import('../../components/DebatePage'), {
   ssr: false,
   loading: () => <SkeletonCard />,
 })
+
+export default function Page() {
+  return <DebatePage />
+}

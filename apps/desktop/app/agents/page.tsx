@@ -7,3 +7,7 @@ const AgentsPage = dynamic(() => import('../../components/AgentsPage'), {
   ssr: false,
   loading: () => <SkeletonCard />,
 })
+
+export default function Page() {
+  return <AgentsPage />
+}

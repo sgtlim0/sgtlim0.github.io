@@ -7,3 +7,7 @@ const MobileApp = dynamic(() => import('@hchat/ui/mobile').then((mod) => mod.Mob
   ssr: false,
   loading: () => <SkeletonCard />,
 })
+
+export default function MobilePage() {
+  return <MobileApp />
+}

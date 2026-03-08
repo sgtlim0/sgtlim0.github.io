@@ -7,3 +7,7 @@ const DesktopChatPage = dynamic(() => import('../components/DesktopChatPage'), {
   ssr: false,
   loading: () => <SkeletonCard />,
 })
+
+export default function Page() {
+  return <DesktopChatPage />
+}

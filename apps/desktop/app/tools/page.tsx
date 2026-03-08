@@ -7,3 +7,7 @@ const ToolsPage = dynamic(() => import('../../components/ToolsPage'), {
   ssr: false,
   loading: () => <SkeletonCard />,
 })
+
+export default function Page() {
+  return <ToolsPage />
+}
