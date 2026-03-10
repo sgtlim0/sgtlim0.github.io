@@ -286,3 +286,7 @@ export { SettingsPanel } from './SettingsPanel'
 export type { SettingsPanelProps } from './SettingsPanel'
 export { SettingRow } from './SettingRow'
 export type { SettingRowProps } from './SettingRow'
+
+// ProgressBar
+export { default as ProgressBar, clampPercent } from './ProgressBar'
+export type { ProgressBarProps } from './ProgressBar'
