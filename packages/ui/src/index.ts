@@ -171,3 +171,9 @@ export { usePagination } from './hooks/usePagination'
 export type { UsePaginationOptions, UsePaginationReturn } from './hooks/usePagination'
 export { default as Pagination } from './Pagination'
 export type { PaginationProps } from './Pagination'
+
+// Stepper
+export { useStepper } from './hooks/useStepper'
+export type { StepConfig, UseStepperOptions, UseStepperReturn } from './hooks/useStepper'
+export { Stepper, StepperContent } from './Stepper'
+export type { StepperProps, StepperContentProps, StepperOrientation } from './Stepper'
