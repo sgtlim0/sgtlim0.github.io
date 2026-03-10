@@ -171,3 +171,9 @@ export { usePagination } from './hooks/usePagination'
 export type { UsePaginationOptions, UsePaginationReturn } from './hooks/usePagination'
 export { default as Pagination } from './Pagination'
 export type { PaginationProps } from './Pagination'
+
+// Accordion
+export { useAccordion } from './hooks/useAccordion'
+export type { UseAccordionOptions, UseAccordionReturn } from './hooks/useAccordion'
+export { Accordion, AccordionItem } from './Accordion'
+export type { AccordionProps, AccordionItemProps, AccordionItemConfig } from './Accordion'
