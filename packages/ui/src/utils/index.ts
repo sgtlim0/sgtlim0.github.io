@@ -202,6 +202,10 @@ export { copyToClipboard, readFromClipboard, isClipboardSupported } from './clip
 export { OfflineQueue, getOfflineQueue, resetOfflineQueue } from './offlineQueue'
 export type { QueuedRequest, DeadLetterItem, OfflineQueueOptions } from './offlineQueue'
 
+// Query Cache (SWR-like stale-while-revalidate)
+export { createQueryCache } from './queryCache'
+export type { CacheEntry, QueryCache } from './queryCache'
+
 // Webhook Service
 export { createWebhookManager, signPayload, WEBHOOK_EVENT_TYPES } from './webhookService'
 export type {
