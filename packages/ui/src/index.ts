@@ -331,3 +331,13 @@ export { default as Playground } from './Playground'
 export type { PlaygroundProps } from './Playground'
 export { default as PropEditor } from './PropEditor'
 export type { PropEditorProps } from './PropEditor'
+
+// Notification Center (shared — distinct from admin NotificationCenter)
+export { useNotificationCenter } from './hooks/useNotificationCenter'
+export type {
+  Notification,
+  UseNotificationCenterOptions,
+  UseNotificationCenterReturn,
+} from './hooks/useNotificationCenter'
+export { default as AppNotificationCenter } from './AppNotificationCenter'
+export type { AppNotificationCenterProps } from './AppNotificationCenter'
