@@ -171,3 +171,10 @@ export { usePagination } from './hooks/usePagination'
 export type { UsePaginationOptions, UsePaginationReturn } from './hooks/usePagination'
 export { default as Pagination } from './Pagination'
 export type { PaginationProps } from './Pagination'
+
+// Avatar
+export { default as Avatar } from './Avatar'
+export type { AvatarProps, AvatarSize, AvatarStatus, AvatarShape } from './Avatar'
+export { default as AvatarGroup } from './AvatarGroup'
+export type { AvatarGroupProps } from './AvatarGroup'
+export { getInitials, getAvatarColor } from './utils/avatarUtils'
