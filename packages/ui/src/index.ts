@@ -242,6 +242,10 @@ export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, Heal
 // Circuit Breaker
 export { useCircuitBreaker } from './hooks/useCircuitBreaker'
 export type { UseCircuitBreakerReturn } from './hooks/useCircuitBreaker'
+
+// Request Deduplication
+export { useDedup } from './hooks/useDedup'
+export type { UseDedupReturn } from './hooks/useDedup'
 // Batch Select / Batch Operations
 export { useBatchSelect } from './hooks/useBatchSelect'
 export type { UseBatchSelectReturn } from './hooks/useBatchSelect'
