@@ -286,3 +286,9 @@ export { SettingsPanel } from './SettingsPanel'
 export type { SettingsPanelProps } from './SettingsPanel'
 export { SettingRow } from './SettingRow'
 export type { SettingRowProps } from './SettingRow'
+
+// Tree View
+export { useTree } from './hooks/useTree'
+export type { TreeNode, FlatTreeNode, UseTreeOptions, UseTreeReturn } from './hooks/useTree'
+export { TreeView, TreeItem } from './TreeView'
+export type { TreeViewProps, TreeItemProps } from './TreeView'
