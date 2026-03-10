@@ -186,6 +186,11 @@ export { ModalProvider, useModalContext } from './hooks/ModalProvider'
 export type { ModalProviderProps } from './hooks/ModalProvider'
 export { Modal } from './Modal'
 export type { ModalProps, ModalSize } from './Modal'
+// Drawer / Sheet
+export { useDrawer } from './hooks/useDrawer'
+export type { UseDrawerOptions, UseDrawerReturn } from './hooks/useDrawer'
+export { Drawer, DrawerHeader, DrawerBody, DrawerFooter } from './Drawer'
+export type { DrawerProps, DrawerPlacement, DrawerSize, DrawerHeaderProps, DrawerBodyProps, DrawerFooterProps } from './Drawer'
 // Select / Combobox
 export { useSelect } from './hooks/useSelect'
 export type { SelectOption, UseSelectConfig, UseSelectReturn } from './hooks/useSelect'
