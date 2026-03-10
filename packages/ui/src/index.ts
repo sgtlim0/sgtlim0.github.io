@@ -383,6 +383,11 @@ export { useCarousel } from './hooks/useCarousel'
 export type { UseCarouselOptions, UseCarouselReturn } from './hooks/useCarousel'
 export { default as Carousel } from './Carousel'
 export type { CarouselProps } from './Carousel'
+// File Uploader
+export { useFileUpload } from './hooks/useFileUpload'
+export type { UploadFile, UseFileUploadOptions, UseFileUploadReturn } from './hooks/useFileUpload'
+export { default as FileUploader, formatFileSize } from './FileUploader'
+export type { FileUploaderProps } from './FileUploader'
 
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
