@@ -279,6 +279,12 @@ export { useTimeline } from './hooks/useTimeline'
 export type { TimelineItemData, TimelineGroup, TimelineStatus, TimelineSortOrder, UseTimelineOptions, UseTimelineReturn } from './hooks/useTimeline'
 export { Timeline, TimelineMarker, formatTimestamp } from './Timeline'
 export type { TimelineItem, TimelineOrientation, TimelineProps, TimelineItemProps } from './Timeline'
+// Rating
+export { useRating } from './hooks/useRating'
+export type { UseRatingOptions, UseRatingReturn } from './hooks/useRating'
+export { default as Rating } from './Rating'
+export type { RatingProps, RatingSize } from './Rating'
+
 // Settings Panel
 export { useSettings } from './hooks/useSettings'
 export type { SettingField, UseSettingsReturn } from './hooks/useSettings'
