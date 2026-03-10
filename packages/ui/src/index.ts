@@ -225,3 +225,10 @@ export type { VersionHistoryProps } from './VersionHistory'
 // Health Monitor
 export { useHealthMonitor } from './hooks/useHealthMonitor'
 export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
+
+// Performance Profiler
+export { useRenderProfiler } from './hooks/useRenderProfiler'
+export type { RenderMetrics, UseRenderProfilerReturn } from './hooks/useRenderProfiler'
+export { ProfilerOverlay } from './ProfilerOverlay'
+export type { ProfilerOverlayProps } from './ProfilerOverlay'
+export { withProfiler } from './withProfiler'

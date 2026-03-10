@@ -90,6 +90,17 @@ export { isBlockedSite, isSensitivePattern, shouldBlockExtraction } from './bloc
 // Performance Utilities
 export { lazy, debounce, throttle } from './performance'
 
+// Performance Profiler
+export {
+  recordRender,
+  onRenderCallback,
+  getProfile,
+  getProfileResults,
+  clearProfiles,
+  clearProfile,
+} from './performanceProfiler'
+export type { ProfileMetrics } from './performanceProfiler'
+
 // Accessibility Utilities
 export { trapFocus, announceToScreenReader, getFocusableElements } from './a11y'
 
