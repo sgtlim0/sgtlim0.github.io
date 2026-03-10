@@ -73,6 +73,12 @@ export type { HotkeyConfig, HotkeyRegistryEntry } from './hooks/useHotkeys'
 export { HotkeyProvider } from './hooks/HotkeyProvider'
 export { createDefaultHotkeys } from './hooks/defaultHotkeys'
 export type { DefaultHotkeyHandlers } from './hooks/defaultHotkeys'
+export { ShortcutHelp } from './ShortcutHelp'
+export type { ShortcutHelpProps } from './ShortcutHelp'
+export { ShortcutKey } from './ShortcutKey'
+export type { ShortcutKeyProps } from './ShortcutKey'
+export { useShortcutHelp } from './hooks/useShortcutHelp'
+export type { ShortcutCategory, CategorizedShortcut, ShortcutGroup, UseShortcutHelpReturn } from './hooks/useShortcutHelp'
 
 // Undo/Redo
 export { useUndoRedo } from './hooks/useUndoRedo'
