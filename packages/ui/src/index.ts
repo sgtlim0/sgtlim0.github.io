@@ -93,6 +93,14 @@ export type { DraggableListProps } from './DraggableList'
 export { default as DragHandle } from './DragHandle'
 export type { DragHandleProps } from './DragHandle'
 
+// Kanban Board
+export { useKanban } from './hooks/useKanban'
+export type { KanbanCard, KanbanColumn, UseKanbanReturn } from './hooks/useKanban'
+export { default as KanbanBoard } from './KanbanBoard'
+export type { KanbanBoardProps } from './KanbanBoard'
+export { default as KanbanCardComponent } from './KanbanCard'
+export type { KanbanCardProps } from './KanbanCard'
+
 // Form Builder
 export { useFormBuilder } from './hooks/useFormBuilder'
 export type { FieldConfig, UseFormBuilderReturn } from './hooks/useFormBuilder'
