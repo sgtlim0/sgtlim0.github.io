@@ -201,3 +201,14 @@ export { copyToClipboard, readFromClipboard, isClipboardSupported } from './clip
 // Offline Queue
 export { OfflineQueue, getOfflineQueue, resetOfflineQueue } from './offlineQueue'
 export type { QueuedRequest, DeadLetterItem, OfflineQueueOptions } from './offlineQueue'
+
+// Webhook Service
+export { createWebhookManager, signPayload, WEBHOOK_EVENT_TYPES } from './webhookService'
+export type {
+  WebhookConfig,
+  WebhookPayload,
+  WebhookDelivery,
+  WebhookResult,
+  WebhookManager,
+  WebhookEventType,
+} from './webhookService'
