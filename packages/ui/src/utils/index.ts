@@ -259,3 +259,7 @@ export {
   WEEKDAY_LABELS_KO,
   MONTH_LABELS_KO,
 } from './dateUtils'
+
+// Benchmark Utilities
+export { benchmark, benchmarkAsync, compareBenchmarks } from './benchmark'
+export type { BenchmarkResult } from './benchmark'

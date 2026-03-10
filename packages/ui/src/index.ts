@@ -331,3 +331,9 @@ export { default as Playground } from './Playground'
 export type { PlaygroundProps } from './Playground'
 export { default as PropEditor } from './PropEditor'
 export type { PropEditorProps } from './PropEditor'
+
+// Benchmark
+export { benchmark, benchmarkAsync, compareBenchmarks } from './utils/benchmark'
+export type { BenchmarkResult } from './utils/benchmark'
+export { useBenchmark } from './hooks/useBenchmark'
+export type { TimingResult, UseBenchmarkReturn } from './hooks/useBenchmark'
