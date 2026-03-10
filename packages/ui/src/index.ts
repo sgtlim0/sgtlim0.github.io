@@ -171,3 +171,9 @@ export { usePagination } from './hooks/usePagination'
 export type { UsePaginationOptions, UsePaginationReturn } from './hooks/usePagination'
 export { default as Pagination } from './Pagination'
 export type { PaginationProps } from './Pagination'
+
+// Select / Combobox
+export { useSelect } from './hooks/useSelect'
+export type { SelectOption, UseSelectConfig, UseSelectReturn } from './hooks/useSelect'
+export { Select } from './Select'
+export type { SelectProps } from './Select'
