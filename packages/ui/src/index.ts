@@ -358,6 +358,12 @@ export type { BenchmarkResult } from './utils/benchmark'
 export { useBenchmark } from './hooks/useBenchmark'
 export type { TimingResult, UseBenchmarkReturn } from './hooks/useBenchmark'
 
+// File Uploader
+export { useFileUpload } from './hooks/useFileUpload'
+export type { UploadFile, UseFileUploadOptions, UseFileUploadReturn } from './hooks/useFileUpload'
+export { default as FileUploader, formatFileSize } from './FileUploader'
+export type { FileUploaderProps } from './FileUploader'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
