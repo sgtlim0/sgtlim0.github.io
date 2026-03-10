@@ -222,3 +222,6 @@ export { DiffViewer } from './DiffViewer'
 export type { DiffViewerProps, DiffViewMode } from './DiffViewer'
 export { VersionHistory } from './VersionHistory'
 export type { VersionHistoryProps } from './VersionHistory'
+// Health Monitor
+export { useHealthMonitor } from './hooks/useHealthMonitor'
+export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
