@@ -313,3 +313,10 @@ export type { TagInputProps } from './TagInput'
 // ProgressBar
 export { default as ProgressBar, clampPercent } from './ProgressBar'
 export type { ProgressBarProps } from './ProgressBar'
+
+// Event Bus (Pub/Sub)
+export { createEventBus } from './utils/eventBus'
+export type { EventBus, AppEvents } from './utils/eventBus'
+export { useEventBus, useEventListener } from './hooks/useEventBus'
+export { EventBusProvider, useEventBusContext } from './hooks/EventBusProvider'
+export type { EventBusProviderProps } from './hooks/EventBusProvider'

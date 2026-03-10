@@ -237,6 +237,10 @@ export type {
   CircuitBreaker,
 } from './circuitBreaker'
 
+// Event Bus (Pub/Sub)
+export { createEventBus } from './eventBus'
+export type { EventBus, AppEvents } from './eventBus'
+
 // Date Utilities
 export {
   getDaysInMonth,
