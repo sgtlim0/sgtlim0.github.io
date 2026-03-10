@@ -222,6 +222,14 @@ export { DiffViewer } from './DiffViewer'
 export type { DiffViewerProps, DiffViewMode } from './DiffViewer'
 export { VersionHistory } from './VersionHistory'
 export type { VersionHistoryProps } from './VersionHistory'
+// Query (SWR-like stale-while-revalidate)
+export { QueryProvider, useQueryCache } from './hooks/QueryProvider'
+export type { QueryProviderProps } from './hooks/QueryProvider'
+export { useQuery } from './hooks/useQuery'
+export type { UseQueryOptions, UseQueryReturn } from './hooks/useQuery'
+export { useMutation } from './hooks/useMutation'
+export type { UseMutationOptions, UseMutationReturn } from './hooks/useMutation'
+
 // Health Monitor
 export { useHealthMonitor } from './hooks/useHealthMonitor'
 export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
