@@ -123,6 +123,12 @@ export type { TooltipProps } from './Tooltip'
 export { useTooltip } from './hooks/useTooltip'
 export type { TooltipPlacement, UseTooltipOptions, UseTooltipReturn } from './hooks/useTooltip'
 
+// Popover
+export { Popover } from './Popover'
+export type { PopoverProps } from './Popover'
+export { usePopover } from './hooks/usePopover'
+export type { PopoverPlacement, PopoverTrigger, UsePopoverOptions, UsePopoverReturn } from './hooks/usePopover'
+
 // Persisted State
 export { usePersistedState } from './hooks/usePersistedState'
 export type { UsePersistedStateOptions } from './hooks/usePersistedState'
