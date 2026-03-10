@@ -171,3 +171,13 @@ export { usePagination } from './hooks/usePagination'
 export type { UsePaginationOptions, UsePaginationReturn } from './hooks/usePagination'
 export { default as Pagination } from './Pagination'
 export type { PaginationProps } from './Pagination'
+
+// Modal
+export { useModal } from './hooks/useModal'
+export type { UseModalReturn } from './hooks/useModal'
+export { useModalManager } from './hooks/useModalManager'
+export type { UseModalManagerReturn } from './hooks/useModalManager'
+export { ModalProvider, useModalContext } from './hooks/ModalProvider'
+export type { ModalProviderProps } from './hooks/ModalProvider'
+export { Modal } from './Modal'
+export type { ModalProps, ModalSize } from './Modal'
