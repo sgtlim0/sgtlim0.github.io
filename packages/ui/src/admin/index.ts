@@ -85,5 +85,11 @@ export { default as LoginPage } from './LoginPage'
 // Services
 export * from './services'
 
+// Rate Limit
+export { default as RateLimitCard } from './RateLimitCard'
+export type { RateLimitCardProps, RateLimitEndpoint } from './RateLimitCard'
+export { default as RateLimitDashboard } from './RateLimitDashboard'
+export type { RateLimitDashboardProps, RateLimitIncident } from './RateLimitDashboard'
+
 // Marketplace
 export * from './marketplace'
