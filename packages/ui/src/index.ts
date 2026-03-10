@@ -237,3 +237,10 @@ export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, Heal
 // Circuit Breaker
 export { useCircuitBreaker } from './hooks/useCircuitBreaker'
 export type { UseCircuitBreakerReturn } from './hooks/useCircuitBreaker'
+// Batch Select / Batch Operations
+export { useBatchSelect } from './hooks/useBatchSelect'
+export type { UseBatchSelectReturn } from './hooks/useBatchSelect'
+export { BatchActionBar } from './BatchActionBar'
+export type { BatchAction, BatchActionBarProps } from './BatchActionBar'
+export { SelectableList } from './SelectableList'
+export type { SelectableListProps } from './SelectableList'
