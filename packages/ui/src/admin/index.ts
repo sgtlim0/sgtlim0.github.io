@@ -87,3 +87,9 @@ export * from './services'
 
 // Marketplace
 export * from './marketplace'
+
+// Health Dashboard
+export { default as HealthDashboard } from './HealthDashboard'
+export type { HealthDashboardProps } from './HealthDashboard'
+export { default as HealthTimeline } from './HealthTimeline'
+export type { HealthTimelineProps } from './HealthTimeline'

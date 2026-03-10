@@ -208,3 +208,7 @@ export { useOfflineQueue } from './hooks/useOfflineQueue'
 export type { UseOfflineQueueOptions, UseOfflineQueueReturn } from './hooks/useOfflineQueue'
 export { OfflineIndicator } from './OfflineIndicator'
 export type { OfflineIndicatorProps } from './OfflineIndicator'
+
+// Health Monitor
+export { useHealthMonitor } from './hooks/useHealthMonitor'
+export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
