@@ -259,3 +259,7 @@ export {
   WEEKDAY_LABELS_KO,
   MONTH_LABELS_KO,
 } from './dateUtils'
+
+// Retry (withRetry utility)
+export { withRetry, RetryAbortedError, MaxRetriesExceededError } from './retry'
+export type { RetryOptions } from './retry'

@@ -347,3 +347,8 @@ export type {
 } from './hooks/useNotificationCenter'
 export { default as AppNotificationCenter } from './AppNotificationCenter'
 export type { AppNotificationCenterProps } from './AppNotificationCenter'
+// Retry / Error Recovery
+export { useRetry } from './hooks/useRetry'
+export type { UseRetryOptions, UseRetryReturn } from './hooks/useRetry'
+export { ErrorRecovery } from './ErrorRecovery'
+export type { ErrorRecoveryProps } from './ErrorRecovery'
