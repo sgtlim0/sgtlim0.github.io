@@ -250,3 +250,8 @@ export type { RenderMetrics, UseRenderProfilerReturn } from './hooks/useRenderPr
 export { ProfilerOverlay } from './ProfilerOverlay'
 export type { ProfilerOverlayProps } from './ProfilerOverlay'
 export { withProfiler } from './withProfiler'
+// Markdown Editor
+export { useMarkdownEditor, MARKDOWN_SYNTAXES } from './hooks/useMarkdownEditor'
+export type { MarkdownSyntax, UseMarkdownEditorReturn } from './hooks/useMarkdownEditor'
+export { default as MarkdownEditor, MarkdownPreview, TOOLBAR_BUTTONS } from './MarkdownEditor'
+export type { MarkdownEditorProps, EditorViewMode } from './MarkdownEditor'
