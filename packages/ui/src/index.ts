@@ -352,3 +352,8 @@ export { useRetry } from './hooks/useRetry'
 export type { UseRetryOptions, UseRetryReturn } from './hooks/useRetry'
 export { ErrorRecovery } from './ErrorRecovery'
 export type { ErrorRecoveryProps } from './ErrorRecovery'
+// Benchmark
+export { benchmark, benchmarkAsync, compareBenchmarks } from './utils/benchmark'
+export type { BenchmarkResult } from './utils/benchmark'
+export { useBenchmark } from './hooks/useBenchmark'
+export type { TimingResult, UseBenchmarkReturn } from './hooks/useBenchmark'

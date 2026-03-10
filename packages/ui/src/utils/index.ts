@@ -263,3 +263,6 @@ export {
 // Retry (withRetry utility)
 export { withRetry, RetryAbortedError, MaxRetriesExceededError } from './retry'
 export type { RetryOptions } from './retry'
+// Benchmark Utilities
+export { benchmark, benchmarkAsync, compareBenchmarks } from './benchmark'
+export type { BenchmarkResult } from './benchmark'
