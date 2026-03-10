@@ -56,7 +56,7 @@ export function parseKeyCombo(combo: string): KeyCombo {
     } else if (part in MODIFIER_ALIASES) {
       const modifier = MODIFIER_ALIASES[part]
       if (modifier !== 'key') {
-        ;(result as Record<string, boolean>)[modifier] = true
+        ;(result as unknown as Record<string, boolean>)[modifier] = true
       }
     } else {
       result.key = part
