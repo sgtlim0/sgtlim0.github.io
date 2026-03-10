@@ -1,6 +1,6 @@
 # H Chat Wiki -- Project Summary
 
-> Last Updated: 2026-03-10 | 302+ commits | 89 phases completed
+> Last Updated: 2026-03-10 | 320+ commits | 95 phases completed | 100+ workers | 5,207 tests
 
 ---
 
@@ -22,8 +22,8 @@
                                    |
                         +----------+-----------+
                         |  @hchat/ui (shared)  |
-                        |  108+ components     |
-                        |  42 hooks, 39 svc    |
+                        |  190 components      |
+                        |  69 hooks, 48 svc    |
                         +----------+-----------+
                                    |
                         +----------+-----------+
@@ -93,7 +93,7 @@
 | **Mobile** | 4 tabs | PWA mobile chat, swipe gestures, touch-optimized |
 | **Extension** | 4 modes | Chrome MV3, PII sanitization, blocklist, API proxy |
 | **AI Core** | 3 routers | FastAPI backend (chat, research, analyze), multi-LLM |
-| **Storybook** | 155 stories | UI component catalog with 26 interaction test files |
+| **Storybook** | 184 stories | UI component catalog with 26+ interaction test files |
 
 ---
 
@@ -103,28 +103,30 @@
 |------|-------|
 | Apps | 10 |
 | Packages | 2 (tokens, ui) |
-| TS/TSX files | 1,114 (ui 400 + apps 714) |
+| TS/TSX files | 1,164 (ui 450 + apps 714) |
 | Python files | 13 |
-| Total LOC | ~120,000 |
-| UI components (TSX) | 108+ |
-| Hook files | 42 (shared 36 + user 5 + roi 1) |
-| Service files | 39 |
+| Total LOC | ~130,000 |
+| UI components (TSX) | 190 |
+| Hook files | 69 (shared 63 + user 6) |
+| Service files | 48 |
 | Zod schema files | 9 (40+ types) |
 | Pages (page.tsx) | 55 |
 | CSS design tokens | 194 (light + dark) |
-| Unit test files | 192 |
-| Unit tests | 4,306 |
-| Statement coverage | 89.9% |
-| Branch coverage | 80.3% |
-| Function coverage | 90.2% |
-| Line coverage | 91.1% |
+| Unit test files | 217 |
+| Unit tests | 5,207 |
+| Statement coverage | 89.5% |
+| Branch coverage | 80.8% |
+| Function coverage | 89.7% |
+| Line coverage | 90.5% |
 | E2E test files | 21 |
-| Story files | 155 |
-| Interaction test files | 26 |
+| Story files | 184 |
+| Interaction test files | 26+ |
 | MSW handlers | 42 endpoints, 8 domains |
 | CI workflows | 5 (ci, deploy, e2e, lighthouse, dependabot-auto-merge) |
-| Git commits | 302+ |
-| Docs | 40 files |
+| Git commits | 320+ |
+| Phases completed | 95 |
+| Workers deployed | 100+ |
+| Docs | 40+ files |
 
 ---
 
@@ -132,20 +134,20 @@
 
 ```
 Unit (Vitest)              Integration (MSW)           E2E (Playwright)
-192 files, 4,306 tests     42 mock endpoints           21 files, 6 projects
-89.9% stmt coverage        8 API domains               admin, hmg, user,
+217 files, 5,207 tests     42 mock endpoints           21 files, 6 projects
+89.5% stmt coverage        8 API domains               admin, hmg, user,
 v8 + lcov + html           request validation           llm-router, wiki,
                            response shaping             dark-mode, cross-browser
 
 Storybook Interaction      Load (k6)                   Lighthouse CI
-26 interaction test files  6 scenarios                 Weekly + manual
-155 total story files      20-50-100 VU                FCP<3s, LCP<4s
+26+ interaction test files 6 scenarios                 Weekly + manual
+184 total story files      20-50-100 VU                FCP<3s, LCP<4s
                            smoke/chat/stream/           CLS<0.1, TBT<500ms
                            research/pages/spike         a11y>=0.9
 ```
 
 **Coverage thresholds** (vitest.config.ts): statements 40%, branches 25%, functions 40%
-**Actual coverage**: 89.9% stmts, 80.3% branches, 90.2% functions, 91.1% lines
+**Actual coverage**: 89.5% stmts, 80.8% branches, 89.7% functions, 90.5% lines
 
 ---
 
@@ -206,8 +208,8 @@ API Client (packages/ui/src/client/):
 ```
 1. npm install                    # Install all workspace dependencies
 2. npm run dev:<app>              # Start dev server (wiki/hmg/admin/user/llm-router/desktop/mobile/storybook)
-3. npm test                       # Run 4,306 unit tests
-4. npm run test:coverage          # Coverage report (89.9% stmts)
+3. npm test                       # Run 5,207 unit tests
+4. npm run test:coverage          # Coverage report (89.5% stmts)
 5. npm run test:e2e               # Playwright E2E (21 files)
 6. npx turbo build                # Build all 9 buildable apps
 7. npm run docker:prod            # Start production Docker stack
@@ -220,7 +222,7 @@ CI Pipeline (GitHub Actions):
 
 ---
 
-## Phase History (75-89)
+## Phase History (75-95)
 
 | Phase | Key Changes |
 |-------|-------------|
@@ -239,6 +241,12 @@ CI Pipeline (GitHub Actions):
 | **87** | Admin UI components (NotificationBell/Panel/Preferences, WidgetCard/CatalogPanel/Renderer, CustomDashboard, WorkflowBuilder/Canvas/NodeCard, TenantManagement/Selector, AgentMarketCard/Grid, AlertRuleBuilder, AnalyticsDashboard, BenchmarkDashboard, etc.) |
 | **88** | Storybook interaction tests (26 files), admin/user/roi/mobile interaction stories, cross-browser E2E |
 | **89** | i18n zh (Chinese) support, test coverage expansion to 192 files / 4,306 tests, performance tests |
+| **90** | Shared hooks expansion: useQuery, useMutation, useBatchSelect, useContentVersion, useWebhook, useCircuitBreaker, useHealthMonitor, QueryProvider |
+| **91** | UI primitive components: Modal, Drawer, Portal, Tooltip, Pagination, Select, Rating, Transition, ColorPicker, DatePicker, DiffViewer, DraggableList, DragHandle, DynamicForm, FormField |
+| **92** | Advanced UI: InfiniteList, VirtualList, MarkdownEditor, NotificationBanner, TreeView, Timeline, Avatar, AvatarGroup, Breadcrumb, Tag, TagInput, DataGrid, SearchOverlay, SelectableList |
+| **93** | Cross-cutting infrastructure: EventBusProvider + useEventBus, useDedup (request deduplication), Playground + usePlayground (component sandbox), PropEditor |
+| **94** | Test expansion: 217 files / 5,207 tests, 184 story files, hooks coverage (useMarkdownEditor, useDatePicker, useColorPicker, useDataGrid, useTimeline, useSettings, useTree, useTagInput, useRating, useDrawer, useRenderProfiler) |
+| **95** | Final documentation audit: metrics verification, CLAUDE.md/README.md/PROJECT_SUMMARY.md update, FINAL_MILESTONE.md |
 
 ---
 

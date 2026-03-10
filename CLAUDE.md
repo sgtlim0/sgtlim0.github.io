@@ -12,7 +12,7 @@ npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI das
 hchat-wiki/
 ├── packages/
 │   ├── tokens/          # @hchat/tokens — Design token CSS variables (light/dark)
-│   └── ui/              # @hchat/ui — Shared UI components (308 files)
+│   └── ui/              # @hchat/ui — Shared UI components (450 files)
 │       └── src/
 │           ├── admin/   # Admin components + services (84 files)
 │           ├── user/    # User components (Chat, SSE streaming, hooks)
@@ -64,8 +64,8 @@ npm run dev:llm-router   # LLM Router dev at localhost:3004
 npm run dev:desktop      # Desktop dev at localhost:5173
 npm run dev:mobile       # Mobile dev at localhost:3005
 npm run dev:storybook    # Storybook dev at localhost:6006
-npm test                 # Vitest: run all unit tests (4,306 tests)
-npm run test:coverage    # Coverage report (89.9% statements)
+npm test                 # Vitest: run all unit tests (5,207+ tests)
+npm run test:coverage    # Coverage report (89.5% statements)
 npm run test:e2e         # Playwright E2E tests (21 files)
 npm run docker:prod      # Start production Docker stack
 ```
@@ -109,10 +109,10 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 
 **Important**: Tailwind CSS 4 requires `@source "../../../packages/ui/src";` in app globals.css to scan cross-package utility classes. Glob patterns do not work — use directory paths only.
 
-### Component Library (`packages/ui/`, 400 files)
+### Component Library (`packages/ui/`, 450 files)
 
-**Shared** (14 components):
-- `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState, LanguageToggle, FeatureFlagProvider, LogProvider, OptimizedImage, CommandPalette, HotkeyProvider
+**Shared** (50+ components):
+- `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState, LanguageToggle, FeatureFlagProvider, LogProvider, OptimizedImage, CommandPalette, HotkeyProvider, Playground, Modal, Drawer, Portal, Tooltip, Pagination, Select, Rating, Transition, ColorPicker, DatePicker, DiffViewer, DraggableList, DragHandle, DynamicForm, FormField, InfiniteList, VirtualList, MarkdownEditor, NotificationBanner, OfflineIndicator, ProgressBar, SearchOverlay, SelectableList, Stepper, Tabs, Tag, TagInput, TreeView, Timeline, Avatar, AvatarGroup, Breadcrumb, CopyButton, ExportButton, AnimatedList, BatchActionBar, BaseLayout, VersionHistory, ThemeCustomizer, DataGrid, ProfilerOverlay, PropEditor, ErrorPage, SettingRow, SettingsPanel, ToastContainer, ToastQueueProvider, withProfiler
 
 **HMG** (8 components):
 - `@hchat/ui/hmg` — GNB, HeroBanner, TabFilter, Footer, HmgStatCard, StepItem, DownloadItem, PillButton
@@ -137,10 +137,12 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 **Mobile** (7 components):
 - `@hchat/ui/mobile` — MobileApp, MobileAssistantList, MobileChatList, MobileChatView, MobileHeader, MobileSettingsPage, MobileTabBar
 
-**Shared Hooks** (36 files in `packages/ui/src/hooks/`):
-- Data: useAsyncData, usePersistedState, useOfflineQueue, useSearch, useDataExport, useInfiniteScroll, useVirtualList
-- UI: useModal, useModalManager, useTooltip, useTabs, useAccordion, useStepper, useSelect, usePagination, usePortal, useBreadcrumb, useToastQueue, useAnimatedList, useTransition, useDragAndDrop, useFormBuilder
-- Platform: useNetworkStatus, usePWAInstall, usePushNotification, useMonitoring, useAnalytics, useHotkeys, useCommandPalette, useClipboard, useBreakpoint, useMediaQuery, useWindowSize, useThemeCustomizer, useUndoRedo
+**Shared Hooks** (63 files in `packages/ui/src/hooks/`):
+- Data: useAsyncData, usePersistedState, useOfflineQueue, useSearch, useDataExport, useInfiniteScroll, useVirtualList, useQuery, useMutation, useBatchSelect, useContentVersion, useWebhook
+- UI: useModal, useModalManager, useTooltip, useTabs, useAccordion, useStepper, useSelect, usePagination, usePortal, useBreadcrumb, useToastQueue, useAnimatedList, useTransition, useDragAndDrop, useFormBuilder, useMarkdownEditor, useDatePicker, useColorPicker, useDataGrid, useTimeline, useSettings, useTree, useTagInput, useRating, useDrawer
+- Platform: useNetworkStatus, usePWAInstall, usePushNotification, useMonitoring, useAnalytics, useHotkeys, useCommandPalette, useClipboard, useBreakpoint, useMediaQuery, useWindowSize, useThemeCustomizer, useUndoRedo, useRenderProfiler, useCircuitBreaker, useHealthMonitor
+- Cross-cutting: useEventBus (EventBusProvider), useDedup (request deduplication), usePlayground (component playground)
+- Providers: HotkeyProvider, UndoRedoProvider, ResponsiveContainer, PortalProvider, ModalProvider, QueryProvider, EventBusProvider
 
 **i18n** — Internationalization (ko/en/zh language support)
 
@@ -191,7 +193,7 @@ Chrome Extension (Manifest V3) built with Vite + React 19. Features: content scr
 Python FastAPI backend for LLM routing and AI services. Routers: chat, analyze, research. Requires Python environment with `requirements.txt`. Runs on port 8000. Docker-based deployment.
 
 ### Storybook (`apps/storybook/`)
-155 story files across categories: Admin (44), User (33), ROI (26), Wiki (13), HMG (12), Mobile (8), LLM Router (7), Desktop (6), Shared (5), Design System (1). Includes 26 interaction test files with play functions. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+184 story files across categories. Includes 26+ interaction test files with play functions. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
@@ -218,12 +220,12 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Prettier + Husky + lint-staged for code quality
 
 ### Testing
-- Vitest: 192 test files, 4,306 unit tests (89.9% stmts, 80.3% branches, 90.2% functions, 91.1% lines)
+- Vitest: 217 test files, 5,207 unit tests (89.5% stmts, 80.8% branches, 89.7% functions, 90.5% lines)
 - MSW: 42 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
 - Playwright E2E: 21 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience, cross-browser
-- Storybook: 155 story files with 26 play-function interaction test files
+- Storybook: 184 story files with 26+ play-function interaction test files
 - k6 Load: 6 scenarios (smoke, chat, stream, research, pages, spike)
-- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.9% stmts, 80.3% branches)
+- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.5% stmts, 80.8% branches)
 - Test location: `packages/ui/__tests__/` (all unit tests)
 
 ### Infrastructure
@@ -239,4 +241,9 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Web Workers: xlsx parsing offloaded via `xlsxWorker.ts` + `useXlsxWorker` hook, generic `workerUtils.ts` with SSR fallback
 - Offline Queue: `useOfflineQueue` hook for queueing operations during network loss, automatic retry on reconnect
 - PWA: Service Worker with 3-tier cache strategy, push notifications via `usePushNotification`, install prompt via `usePWAInstall`
+- Event Bus: `EventBusProvider` + `useEventBus` hook for decoupled cross-component communication (`packages/ui/src/hooks/EventBusProvider.tsx`, `useEventBus.ts`)
+- Request Dedup: `useDedup` hook for deduplicating concurrent identical requests (`packages/ui/src/hooks/useDedup.ts`)
+- Component Playground: `Playground` component + `usePlayground` hook for interactive component sandbox with `PropEditor` (`packages/ui/src/Playground.tsx`, `PropEditor.tsx`)
+- Query Layer: `QueryProvider` + `useQuery` / `useMutation` for data fetching with caching (`packages/ui/src/hooks/QueryProvider.tsx`)
+- Circuit Breaker: `useCircuitBreaker` + `useHealthMonitor` for fault-tolerant service calls
 - Environment: `.env.development`, `.env.production`, `.env.test` templates + `.env.example` reference
