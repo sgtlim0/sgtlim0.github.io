@@ -250,6 +250,14 @@ export type { RenderMetrics, UseRenderProfilerReturn } from './hooks/useRenderPr
 export { ProfilerOverlay } from './ProfilerOverlay'
 export type { ProfilerOverlayProps } from './ProfilerOverlay'
 export { withProfiler } from './withProfiler'
+// Color Picker
+export { useColorPicker } from './hooks/useColorPicker'
+export type { UseColorPickerReturn } from './hooks/useColorPicker'
+export { default as ColorPicker } from './ColorPicker'
+export type { ColorPickerProps } from './ColorPicker'
+export { hexToRgb, rgbToHex, rgbToHsl, hslToRgb, isValidHex, getContrastColor } from './utils/colorUtils'
+export type { RGB, HSL } from './utils/colorUtils'
+
 // Markdown Editor
 export { useMarkdownEditor, MARKDOWN_SYNTAXES } from './hooks/useMarkdownEditor'
 export type { MarkdownSyntax, UseMarkdownEditorReturn } from './hooks/useMarkdownEditor'
