@@ -105,7 +105,7 @@ function renderMarkdownLine(line: string, key: number): RenderedLine {
     const level = headingMatch[1].length
     const text = parseInlineMarkdown(headingMatch[2])
     const Tag = `h${level}` as keyof Pick<
-      JSX.IntrinsicElements,
+      React.JSX.IntrinsicElements,
       'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     >
     const sizes: Record<number, string> = {
