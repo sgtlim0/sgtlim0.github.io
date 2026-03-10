@@ -228,6 +228,10 @@ export type {
   WebhookEventType,
 } from './webhookService'
 
+// Request Deduplication
+export { createRequestDedup } from './requestDedup'
+export type { DedupOptions, DedupStats, RequestDedup } from './requestDedup'
+
 // Circuit Breaker
 export { createCircuitBreaker, CircuitBreakerError } from './circuitBreaker'
 export type {
