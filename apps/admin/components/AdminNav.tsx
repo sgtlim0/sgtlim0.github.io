@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ThemeToggle, Avatar } from '@hchat/ui';
+import { ThemeToggle, Avatar, AppNotificationCenter } from '@hchat/ui';
 import { useAuth } from '@hchat/ui/admin/auth';
 
 const navItems = [
@@ -88,6 +88,7 @@ export default function AdminNav() {
               </button>
             </div>
           )}
+          <AppNotificationCenter />
           <ThemeToggle />
           {/* Mobile hamburger */}
           <button

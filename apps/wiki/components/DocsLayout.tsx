@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import type { PageData } from '@/lib/markdown';
 import { getHeadings } from '@/lib/headings';
 import { getBreadcrumbs, getPrevNext } from '@/lib/navigation';
+import { ProgressBar } from '@hchat/ui';
 import Badge from './Badge';
 import Breadcrumb from './Breadcrumb';
 import TableOfContents from './TableOfContents';
@@ -19,8 +20,21 @@ export default function DocsLayout({ page }: DocsLayoutProps) {
   const headings = useMemo(() => getHeadings(page.content), [page.content]);
   const { prev, next } = useMemo(() => getPrevNext(page.slug), [page.slug]);
 
+  // Page loading progress indicator
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(true);
+    const id = requestAnimationFrame(() => setIsLoading(false));
+    return () => cancelAnimationFrame(id);
+  }, [page.slug]);
+
   return (
     <div className="flex h-full">
+      {isLoading && (
+        <div className="absolute top-0 left-0 right-0 z-10">
+          <ProgressBar value={0} indeterminate size="sm" />
+        </div>
+      )}
       {/* Doc Content */}
       <div className="flex-1 overflow-y-auto px-16 py-10">
         <div className="max-w-3xl">

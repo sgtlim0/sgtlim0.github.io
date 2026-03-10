@@ -357,3 +357,7 @@ export { benchmark, benchmarkAsync, compareBenchmarks } from './utils/benchmark'
 export type { BenchmarkResult } from './utils/benchmark'
 export { useBenchmark } from './hooks/useBenchmark'
 export type { TimingResult, UseBenchmarkReturn } from './hooks/useBenchmark'
+
+// Global Provider (unified wrapper for all providers)
+export { GlobalProvider, useGlobalContext } from './GlobalProvider'
+export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'

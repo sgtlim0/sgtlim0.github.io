@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ThemeToggle } from '@hchat/ui';
-import { useState } from 'react';
+import { ThemeToggle, ShortcutHelp, useShortcutHelp } from '@hchat/ui';
+import { useState, useEffect } from 'react';
 
 const navItems = [
   { href: '/', label: '업무 비서' },
@@ -16,6 +16,19 @@ const navItems = [
 export default function UserNavWrapper() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const shortcutHelp = useShortcutHelp();
+
+  // Cmd+/ (or Ctrl+/) to toggle ShortcutHelp
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+        e.preventDefault();
+        shortcutHelp.toggle();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [shortcutHelp]);
 
   return (
     <nav className="h-20 bg-user-bg border-b border-user-border">
@@ -95,6 +108,13 @@ export default function UserNavWrapper() {
           </ul>
         </div>
       )}
+      <ShortcutHelp
+        isOpen={shortcutHelp.isOpen}
+        onClose={shortcutHelp.close}
+        groups={shortcutHelp.groups}
+        query={shortcutHelp.query}
+        onQueryChange={shortcutHelp.setQuery}
+      />
     </nav>
   );
 }

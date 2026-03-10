@@ -1,6 +1,6 @@
 # H Chat Wiki -- Project Summary
 
-> Last Updated: 2026-03-10 | 320+ commits | 95 phases completed | 100+ workers | 5,207 tests
+> Last Updated: 2026-03-10 | 320+ commits | 97 phases completed | 100+ workers | 5,417 tests
 
 ---
 
@@ -112,19 +112,19 @@
 | Zod schema files | 9 (40+ types) |
 | Pages (page.tsx) | 55 |
 | CSS design tokens | 194 (light + dark) |
-| Unit test files | 217 |
-| Unit tests | 5,207 |
-| Statement coverage | 89.5% |
-| Branch coverage | 80.8% |
-| Function coverage | 89.7% |
-| Line coverage | 90.5% |
+| Unit test files | 226 |
+| Unit tests | 5,417 |
+| Statement coverage | 88.75% |
+| Branch coverage | 80.21% |
+| Function coverage | 89.34% |
+| Line coverage | 89.72% |
 | E2E test files | 21 |
 | Story files | 184 |
 | Interaction test files | 26+ |
 | MSW handlers | 42 endpoints, 8 domains |
 | CI workflows | 5 (ci, deploy, e2e, lighthouse, dependabot-auto-merge) |
 | Git commits | 320+ |
-| Phases completed | 95 |
+| Phases completed | 97 |
 | Workers deployed | 100+ |
 | Docs | 40+ files |
 
@@ -134,8 +134,8 @@
 
 ```
 Unit (Vitest)              Integration (MSW)           E2E (Playwright)
-217 files, 5,207 tests     42 mock endpoints           21 files, 6 projects
-89.5% stmt coverage        8 API domains               admin, hmg, user,
+226 files, 5,417 tests     42 mock endpoints           21 files, 6 projects
+88.75% stmt coverage       8 API domains               admin, hmg, user,
 v8 + lcov + html           request validation           llm-router, wiki,
                            response shaping             dark-mode, cross-browser
 
@@ -147,7 +147,7 @@ Storybook Interaction      Load (k6)                   Lighthouse CI
 ```
 
 **Coverage thresholds** (vitest.config.ts): statements 40%, branches 25%, functions 40%
-**Actual coverage**: 89.5% stmts, 80.8% branches, 89.7% functions, 90.5% lines
+**Actual coverage**: 88.75% stmts, 80.21% branches, 89.34% functions, 89.72% lines
 
 ---
 
@@ -208,8 +208,8 @@ API Client (packages/ui/src/client/):
 ```
 1. npm install                    # Install all workspace dependencies
 2. npm run dev:<app>              # Start dev server (wiki/hmg/admin/user/llm-router/desktop/mobile/storybook)
-3. npm test                       # Run 5,207 unit tests
-4. npm run test:coverage          # Coverage report (89.5% stmts)
+3. npm test                       # Run 5,417 unit tests
+4. npm run test:coverage          # Coverage report (88.75% stmts)
 5. npm run test:e2e               # Playwright E2E (21 files)
 6. npx turbo build                # Build all 9 buildable apps
 7. npm run docker:prod            # Start production Docker stack
