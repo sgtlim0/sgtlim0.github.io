@@ -274,3 +274,8 @@ export { useDataGrid } from './hooks/useDataGrid'
 export type { ColumnDef, DataGridOptions, UseDataGridReturn } from './hooks/useDataGrid'
 export { DataGrid } from './DataGrid'
 export type { DataGridProps } from './DataGrid'
+// Timeline
+export { useTimeline } from './hooks/useTimeline'
+export type { TimelineItemData, TimelineGroup, TimelineStatus, TimelineSortOrder, UseTimelineOptions, UseTimelineReturn } from './hooks/useTimeline'
+export { Timeline, TimelineMarker, formatTimestamp } from './Timeline'
+export type { TimelineItem, TimelineOrientation, TimelineProps, TimelineItemProps } from './Timeline'
