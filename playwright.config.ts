@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -9,6 +9,7 @@ export default defineConfig({
     viewport: { width: 1280, height: 720 },
   },
   projects: [
+    // --- Chromium (default) ---
     {
       name: 'admin',
       use: { baseURL: 'https://hchat-admin.vercel.app' },
@@ -38,6 +39,34 @@ export default defineConfig({
       name: 'wiki',
       use: { baseURL: 'https://sgtlim0.github.io' },
       testMatch: /wiki.*\.spec\.ts/,
+    },
+
+    // --- Cross-browser: Firefox ---
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+      testMatch: /cross-browser\.spec\.ts/,
+    },
+
+    // --- Cross-browser: WebKit (Safari) ---
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+      testMatch: /cross-browser\.spec\.ts/,
+    },
+
+    // --- Cross-browser: Mobile Chrome ---
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 5'] },
+      testMatch: /cross-browser\.spec\.ts/,
+    },
+
+    // --- Cross-browser: Mobile Safari ---
+    {
+      name: 'mobile-safari',
+      use: { ...devices['iPhone 13'] },
+      testMatch: /cross-browser\.spec\.ts/,
     },
   ],
 })

@@ -197,3 +197,7 @@ export type { PersistStorage } from './persistStorage'
 
 // Clipboard
 export { copyToClipboard, readFromClipboard, isClipboardSupported } from './clipboard'
+
+// Offline Queue
+export { OfflineQueue, getOfflineQueue, resetOfflineQueue } from './offlineQueue'
+export type { QueuedRequest, DeadLetterItem, OfflineQueueOptions } from './offlineQueue'

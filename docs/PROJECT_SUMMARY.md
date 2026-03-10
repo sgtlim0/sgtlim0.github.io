@@ -1,6 +1,6 @@
 # H Chat Wiki -- Project Summary
 
-> Last Updated: 2026-03-08 | 302 commits | 83 phases completed
+> Last Updated: 2026-03-10 | 302+ commits | 89 phases completed
 
 ---
 
@@ -22,8 +22,8 @@
                                    |
                         +----------+-----------+
                         |  @hchat/ui (shared)  |
-                        |  154 components      |
-                        |  12 hooks, 48 svc    |
+                        |  108+ components     |
+                        |  42 hooks, 39 svc    |
                         +----------+-----------+
                                    |
                         +----------+-----------+
@@ -93,7 +93,7 @@
 | **Mobile** | 4 tabs | PWA mobile chat, swipe gestures, touch-optimized |
 | **Extension** | 4 modes | Chrome MV3, PII sanitization, blocklist, API proxy |
 | **AI Core** | 3 routers | FastAPI backend (chat, research, analyze), multi-LLM |
-| **Storybook** | 167 stories | UI component catalog with interaction tests |
+| **Storybook** | 155 stories | UI component catalog with 26 interaction test files |
 
 ---
 
@@ -102,28 +102,29 @@
 | Item | Count |
 |------|-------|
 | Apps | 10 |
-| Packages | 7 (tokens, ui, ui-core, ui-admin, ui-user, ui-roi, ui-llm-router) |
-| TS/TSX files | 834 |
+| Packages | 2 (tokens, ui) |
+| TS/TSX files | 1,114 (ui 400 + apps 714) |
 | Python files | 13 |
-| Total LOC | ~98,500 |
-| UI components (TSX) | 154 |
-| Hook files | 12 |
-| Service files | 48 |
+| Total LOC | ~120,000 |
+| UI components (TSX) | 108+ |
+| Hook files | 42 (shared 36 + user 5 + roi 1) |
+| Service files | 39 |
 | Zod schema files | 9 (40+ types) |
 | Pages (page.tsx) | 55 |
 | CSS design tokens | 194 (light + dark) |
-| Unit test files | 154 |
-| Unit tests | 3,223 |
+| Unit test files | 192 |
+| Unit tests | 4,306 |
 | Statement coverage | 89.9% |
-| Branch coverage | 81.4% |
-| Function coverage | 89.9% |
-| E2E test files | 20 |
-| Story files | 167 |
-| Interaction tests (play) | 51 |
+| Branch coverage | 80.3% |
+| Function coverage | 90.2% |
+| Line coverage | 91.1% |
+| E2E test files | 21 |
+| Story files | 155 |
+| Interaction test files | 26 |
 | MSW handlers | 42 endpoints, 8 domains |
 | CI workflows | 5 (ci, deploy, e2e, lighthouse, dependabot-auto-merge) |
-| Git commits | 302 |
-| Docs | 38 files |
+| Git commits | 302+ |
+| Docs | 40 files |
 
 ---
 
@@ -131,20 +132,20 @@
 
 ```
 Unit (Vitest)              Integration (MSW)           E2E (Playwright)
-154 files, 3,223 tests     42 mock endpoints           20 files, 6 projects
+192 files, 4,306 tests     42 mock endpoints           21 files, 6 projects
 89.9% stmt coverage        8 API domains               admin, hmg, user,
 v8 + lcov + html           request validation           llm-router, wiki,
-                           response shaping             dark-mode
+                           response shaping             dark-mode, cross-browser
 
 Storybook Interaction      Load (k6)                   Lighthouse CI
-51 play-function tests     6 scenarios                 Weekly + manual
-167 total stories          20-50-100 VU                FCP<3s, LCP<4s
+26 interaction test files  6 scenarios                 Weekly + manual
+155 total story files      20-50-100 VU                FCP<3s, LCP<4s
                            smoke/chat/stream/           CLS<0.1, TBT<500ms
                            research/pages/spike         a11y>=0.9
 ```
 
 **Coverage thresholds** (vitest.config.ts): statements 40%, branches 25%, functions 40%
-**Actual coverage**: 89.9% stmts, 81.4% branches, 89.9% functions
+**Actual coverage**: 89.9% stmts, 80.3% branches, 90.2% functions, 91.1% lines
 
 ---
 
@@ -205,9 +206,9 @@ API Client (packages/ui/src/client/):
 ```
 1. npm install                    # Install all workspace dependencies
 2. npm run dev:<app>              # Start dev server (wiki/hmg/admin/user/llm-router/desktop/mobile/storybook)
-3. npm test                       # Run 3,223 unit tests
+3. npm test                       # Run 4,306 unit tests
 4. npm run test:coverage          # Coverage report (89.9% stmts)
-5. npm run test:e2e               # Playwright E2E (20 files)
+5. npm run test:e2e               # Playwright E2E (21 files)
 6. npx turbo build                # Build all 9 buildable apps
 7. npm run docker:prod            # Start production Docker stack
 
@@ -219,7 +220,7 @@ CI Pipeline (GitHub Actions):
 
 ---
 
-## Phase History (75-83)
+## Phase History (75-89)
 
 | Phase | Key Changes |
 |-------|-------------|
@@ -232,6 +233,12 @@ CI Pipeline (GitHub Actions):
 | **81** | Structured logging (createLogger + LogProvider), image optimization (OptimizedImage), DB migration system (schema_migrations), performance budgets CI, 150 files, 3,163 tests |
 | **82** | API v1 versioning (6 endpoints, deprecation headers), DB seeding (5 users, 10 conversations, 50 messages), Dependabot auto-merge, 152 files, 3,198 tests |
 | **83** | Web Worker xlsx parsing (workerUtils + useXlsxWorker), Command Palette (Cmd+K), PWA push notifications, keyboard shortcuts (useHotkeys + HotkeyProvider), 154 files, 3,223 tests |
+| **84** | Shared hooks library expansion (useDataExport, useUndoRedo, useSearch, useDragAndDrop, useFormBuilder, useVirtualList, useThemeCustomizer, useAnalytics, usePersistedState, useInfiniteScroll, useBreadcrumb, useToastQueue) |
+| **85** | UI primitive hooks (useBreakpoint, useMediaQuery, useWindowSize, useAnimatedList, useTransition, useTooltip, useTabs, useClipboard, usePagination, usePortal, useAccordion, useModal, useModalManager, useSelect, useStepper, useOfflineQueue) |
+| **86** | Admin advanced services (tenant, marketplace, analytics, rag, promptVersion, sso, benchmark, chatAnalytics, rbac, alertRule, feedback, teamChat, advancedChart, finetun, knowledgeGraph, voice) |
+| **87** | Admin UI components (NotificationBell/Panel/Preferences, WidgetCard/CatalogPanel/Renderer, CustomDashboard, WorkflowBuilder/Canvas/NodeCard, TenantManagement/Selector, AgentMarketCard/Grid, AlertRuleBuilder, AnalyticsDashboard, BenchmarkDashboard, etc.) |
+| **88** | Storybook interaction tests (26 files), admin/user/roi/mobile interaction stories, cross-browser E2E |
+| **89** | i18n zh (Chinese) support, test coverage expansion to 192 files / 4,306 tests, performance tests |
 
 ---
 

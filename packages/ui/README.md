@@ -238,7 +238,7 @@ Zod 기반 런타임 검증 -- auth, roi, common, text, chat, admin, llmRouter, 
 ## 테스트
 
 ```bash
-npx vitest run            # 184 files, 4,192 tests
+npx vitest run            # 192 files, 4,306 tests
 npx vitest run --coverage # 커버리지 리포트
 ```
 

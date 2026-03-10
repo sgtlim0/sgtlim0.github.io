@@ -1,6 +1,9 @@
 import StatCard from './StatCard';
 import DataTable from './DataTable';
 import BarChartRow from './BarChartRow';
+import SystemStatusWidget from './SystemStatusWidget';
+import QuickStatsWidget from './QuickStatsWidget';
+import RecentActivityWidget from './RecentActivityWidget';
 
 const RECENT_USAGE = [
   { date: '2026-03-02', user: 'user01', type: 'AI 채팅', model: 'Claude 3.5', tokens: '2,450', cost: '₩12', status: 'success' as const },
@@ -38,6 +41,13 @@ export default function AdminDashboard() {
         <StatCard label="총 토큰 사용량" value="2.4M" />
         <StatCard label="활성 사용자" value="38" />
         <StatCard label="이번 달 비용" value="₩127K" />
+      </div>
+
+      {/* Real-time Widgets Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <SystemStatusWidget />
+        <QuickStatsWidget />
+        <RecentActivityWidget />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">

@@ -202,3 +202,9 @@ export type { AvatarProps, AvatarSize, AvatarStatus, AvatarShape } from './Avata
 export { default as AvatarGroup } from './AvatarGroup'
 export type { AvatarGroupProps } from './AvatarGroup'
 export { getInitials, getAvatarColor } from './utils/avatarUtils'
+
+// Offline Queue
+export { useOfflineQueue } from './hooks/useOfflineQueue'
+export type { UseOfflineQueueOptions, UseOfflineQueueReturn } from './hooks/useOfflineQueue'
+export { OfflineIndicator } from './OfflineIndicator'
+export type { OfflineIndicatorProps } from './OfflineIndicator'
