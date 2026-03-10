@@ -305,3 +305,6 @@ export { default as Tag } from './Tag'
 export type { TagProps, TagVariant, TagSize } from './Tag'
 export { default as TagInput } from './TagInput'
 export type { TagInputProps } from './TagInput'
+// ProgressBar
+export { default as ProgressBar, clampPercent } from './ProgressBar'
+export type { ProgressBarProps } from './ProgressBar'
