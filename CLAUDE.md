@@ -64,8 +64,8 @@ npm run dev:llm-router   # LLM Router dev at localhost:3004
 npm run dev:desktop      # Desktop dev at localhost:5173
 npm run dev:mobile       # Mobile dev at localhost:3005
 npm run dev:storybook    # Storybook dev at localhost:6006
-npm test                 # Vitest: run all unit tests (5,417 tests)
-npm run test:coverage    # Coverage report (88.75% statements)
+npm test                 # Vitest: run all unit tests (5,670 tests)
+npm run test:coverage    # Coverage report (89.04% statements)
 npm run test:e2e         # Playwright E2E tests (21 files)
 npm run docker:prod      # Start production Docker stack
 ```
@@ -193,7 +193,7 @@ Chrome Extension (Manifest V3) built with Vite + React 19. Features: content scr
 Python FastAPI backend for LLM routing and AI services. Routers: chat, analyze, research. Requires Python environment with `requirements.txt`. Runs on port 8000. Docker-based deployment.
 
 ### Storybook (`apps/storybook/`)
-184 story files across categories. Includes 26+ interaction test files with play functions. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+204 story files across categories. Includes 31+ interaction test files with play functions. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
@@ -220,13 +220,13 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Prettier + Husky + lint-staged for code quality
 
 ### Testing
-- Vitest: 226 test files, 5,417 unit tests (88.75% stmts, 80.21% branches, 89.34% functions, 89.72% lines)
+- Vitest: 231 test files, 5,670 unit tests (89.04% stmts, 80.86% branches, 89.63% functions, 90.02% lines)
 - MSW: 42 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
 - Playwright E2E: 21 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience, cross-browser
-- Storybook: 184 story files with 26+ play-function interaction test files
+- Storybook: 204 story files with 31+ play-function interaction test files
 - k6 Load: 6 scenarios (smoke, chat, stream, research, pages, spike)
-- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 88.75% stmts, 80.21% branches)
-- Test location: `packages/ui/__tests__/` (226 test files)
+- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.04% stmts, 80.86% branches)
+- Test location: `packages/ui/__tests__/` (231 test files)
 
 ### Infrastructure
 - Docker Compose dev: `docker-compose.yml` (PostgreSQL 16 + Redis 7 + ai-core FastAPI)

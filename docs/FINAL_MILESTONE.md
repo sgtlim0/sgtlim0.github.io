@@ -1,6 +1,6 @@
 # H Chat Wiki -- Final Milestone Report
 
-> Phase 74 -> 97 | 100+ Workers | 5,417 Tests | 2026-03-10
+> Phase 74 -> 99 | 100+ Workers | 5,670 Tests | 2026-03-10
 
 ---
 
@@ -34,6 +34,17 @@
 - Coverage report with per-area breakdown
 - Project completion declared
 
+### Phase 98 (Storybook stories — Popover, Carousel, Calendar, KanbanBoard, FileUploader)
+- 5 new story files with 10 stories (all with play functions)
+- Story file count: 199 -> 204
+- Components covered: Popover (Click/Hover), Carousel (AutoPlay/Manual), Calendar (Month/Week), KanbanBoard (AddCard/MoveCard), FileUploader (AddFiles/FilePreview)
+
+### Phase 99 (Documentation update + test metrics refresh)
+- 231 test files, 5,670 tests (was 226 / 5,417)
+- Coverage: 89.04% stmts, 80.86% branches, 89.63% funcs, 90.02% lines
+- 204 story files with 31+ interaction test files
+- CLAUDE.md, README.md, FINAL_MILESTONE.md updated with measured data
+
 ---
 
 ## Milestones
@@ -48,7 +59,9 @@
 | 100+ workers deployed | 94 | - | - |
 | Documentation audit | 95 | - | - |
 | Final coverage analysis | 96 | - | - |
-| **Project completion** | **97** | **5,417** | **88.75%** |
+| Project completion | 97 | 5,417 | 88.75% |
+| Storybook P98 (5 components, 10 stories) | 98 | - | - |
+| **Documentation update + metrics refresh** | **99** | **5,670** | **89.04%** |
 
 ---
 
@@ -148,6 +161,8 @@ HotkeyProvider, UndoRedoProvider, ResponsiveContainer, PortalProvider, ModalProv
 | 95 | Final documentation audit, all metrics verified and updated |
 | 96 | Coverage analysis: 226 files / 5,417 tests, per-area coverage audit, gap identification |
 | 97 | Final milestone documentation update, project completion declared |
+| 98 | Storybook stories: Popover, Carousel, Calendar, KanbanBoard, FileUploader (5 files, 10 stories with play functions) |
+| 99 | Documentation update: 231 test files / 5,670 tests / 89.04% stmts / 204 stories, all docs refreshed |
 
 ---
 
@@ -164,19 +179,19 @@ HotkeyProvider, UndoRedoProvider, ResponsiveContainer, PortalProvider, ModalProv
 | Service files | 48 |
 | Schema files | 9 (40+ types) |
 | Pages | 55 |
-| Story files | 184 |
-| Test files | 226 |
-| Unit tests | 5,417 |
-| Statement coverage | 88.75% |
-| Branch coverage | 80.21% |
-| Function coverage | 89.34% |
-| Line coverage | 89.72% |
+| Story files | 204 |
+| Test files | 231 |
+| Unit tests | 5,670 |
+| Statement coverage | 89.04% |
+| Branch coverage | 80.86% |
+| Function coverage | 89.63% |
+| Line coverage | 90.02% |
 | E2E test files | 21 |
 | MSW handlers | 42 endpoints |
 | CI workflows | 5 |
-| Phases completed | 97 |
+| Phases completed | 99 |
 | Workers deployed | 100+ |
-| Git commits | 320+ |
+| Git commits | 429+ |
 
 ---
 
@@ -184,9 +199,10 @@ HotkeyProvider, UndoRedoProvider, ResponsiveContainer, PortalProvider, ModalProv
 
 H Chat Wiki monorepo has reached its target metrics:
 
-- All 4 coverage dimensions exceed 80% (stmts 88.75%, branches 80.21%, funcs 89.34%, lines 89.72%)
-- 5,417 unit tests across 226 test files, all passing
+- All 4 coverage dimensions exceed 80% (stmts 89.04%, branches 80.86%, funcs 89.63%, lines 90.02%)
+- 5,670 unit tests across 231 test files, all passing
 - 10 apps building successfully
 - 190 components, 69 hooks, 48 services fully documented
+- 204 Storybook story files with 31+ play-function interaction tests
 - CI/CD pipeline with type-check, lint, test, build, E2E, Lighthouse, and Dependabot
 - Comprehensive documentation (CLAUDE.md, README.md, COVERAGE_REPORT.md, FINAL_MILESTONE.md)
