@@ -186,3 +186,8 @@ export { ModalProvider, useModalContext } from './hooks/ModalProvider'
 export type { ModalProviderProps } from './hooks/ModalProvider'
 export { Modal } from './Modal'
 export type { ModalProps, ModalSize } from './Modal'
+// Select / Combobox
+export { useSelect } from './hooks/useSelect'
+export type { SelectOption, UseSelectConfig, UseSelectReturn } from './hooks/useSelect'
+export { Select } from './Select'
+export type { SelectProps } from './Select'
