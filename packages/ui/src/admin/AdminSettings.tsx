@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import SettingsRow from './SettingsRow';
+import { Tabs, TabPanel } from '../Tabs';
+import type { TabConfig } from '../hooks/useTabs';
 
 interface ModelSetting {
   label: string;
@@ -17,6 +19,12 @@ const INITIAL_MODELS: ModelSetting[] = [
   { label: 'GPT-4o mini', limit: '300,000', enabled: true },
 ];
 
+const SETTINGS_TABS: TabConfig[] = [
+  { id: 'general', label: '일반 설정' },
+  { id: 'models', label: '모델 설정' },
+  { id: 'cost', label: '비용 설정' },
+];
+
 export default function AdminSettings() {
   const [models, setModels] = useState(INITIAL_MODELS);
 
@@ -28,70 +36,72 @@ export default function AdminSettings() {
     <div className="flex flex-col gap-8 p-8 max-w-3xl">
       <h1 className="text-2xl font-bold text-text-primary">관리 설정</h1>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-lg font-semibold text-text-primary">일반 설정</h2>
-        <div className="h-px bg-border" />
-        <div className="flex items-center justify-between py-2">
-          <span className="text-sm text-text-secondary">시스템 이름</span>
-          <input
-            type="text"
-            defaultValue="H Chat v3"
-            className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
-          />
-        </div>
-        <div className="flex items-center justify-between py-2">
-          <span className="text-sm text-text-secondary">기본 언어</span>
-          <input
-            type="text"
-            defaultValue="한국어"
-            className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
-          />
-        </div>
-      </section>
+      <Tabs tabs={SETTINGS_TABS} variant="underline">
+        <TabPanel id="general">
+          <section className="flex flex-col gap-4 pt-6">
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-text-secondary">시스템 이름</span>
+              <input
+                type="text"
+                defaultValue="H Chat v3"
+                className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
+              />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-text-secondary">기본 언어</span>
+              <input
+                type="text"
+                defaultValue="한국어"
+                className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
+              />
+            </div>
+          </section>
+        </TabPanel>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-lg font-semibold text-text-primary">모델 설정</h2>
-        <div className="h-px bg-border" />
-        {models.map((m, i) => (
-          <SettingsRow
-            key={m.label}
-            label={m.label}
-            description={`일일 한도: ${m.limit} 토큰`}
-            enabled={m.enabled}
-            onToggle={(enabled) => handleToggle(i, enabled)}
-            onEdit={() => {}}
-          />
-        ))}
-      </section>
+        <TabPanel id="models">
+          <section className="flex flex-col gap-4 pt-6">
+            {models.map((m, i) => (
+              <SettingsRow
+                key={m.label}
+                label={m.label}
+                description={`일일 한도: ${m.limit} 토큰`}
+                enabled={m.enabled}
+                onToggle={(enabled) => handleToggle(i, enabled)}
+                onEdit={() => {}}
+              />
+            ))}
+          </section>
+        </TabPanel>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-lg font-semibold text-text-primary">비용 설정</h2>
-        <div className="h-px bg-border" />
-        <div className="flex items-center justify-between py-2">
-          <span className="text-sm text-text-secondary">월 예산 한도 (USD)</span>
-          <input
-            type="text"
-            defaultValue="$500.00"
-            className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
-          />
-        </div>
-        <div className="flex items-center justify-between py-2">
-          <span className="text-sm text-text-secondary">경고 임계값 (%)</span>
-          <input
-            type="text"
-            defaultValue="80%"
-            className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
-          />
-        </div>
-        <div className="flex items-center justify-between py-2">
-          <span className="text-sm text-text-secondary">일일 토큰 한도</span>
-          <input
-            type="text"
-            defaultValue="1,000,000"
-            className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
-          />
-        </div>
-      </section>
+        <TabPanel id="cost">
+          <section className="flex flex-col gap-4 pt-6">
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-text-secondary">월 예산 한도 (USD)</span>
+              <input
+                type="text"
+                defaultValue="$500.00"
+                className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
+              />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-text-secondary">경고 임계값 (%)</span>
+              <input
+                type="text"
+                defaultValue="80%"
+                className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
+              />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-text-secondary">일일 토큰 한도</span>
+              <input
+                type="text"
+                defaultValue="1,000,000"
+                className="w-72 px-4 py-2 text-sm rounded-md border border-admin-input-border bg-admin-input-bg text-text-primary outline-none focus:border-admin-teal"
+              />
+            </div>
+          </section>
+        </TabPanel>
+      </Tabs>
 
       <div className="flex gap-4 justify-end pt-4">
         <button className="px-8 py-3 text-sm font-semibold text-white bg-admin-teal rounded-lg hover:opacity-90 transition-opacity">

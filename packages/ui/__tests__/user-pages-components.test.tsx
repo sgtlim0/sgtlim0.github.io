@@ -158,7 +158,8 @@ describe('User Pages - Extended Component Tests', () => {
     it('should render usage heading', async () => {
       const { default: MyPage } = await import('../src/user/pages/MyPage')
       render(<MyPage />)
-      expect(screen.getByText('이달의 내 상세 사용 현황')).toBeInTheDocument()
+      // Usage is now in a tab - the tab label "사용 현황" should be visible
+      expect(screen.getByText('사용 현황')).toBeInTheDocument()
     })
 
     it('should render usage table with model names', async () => {
