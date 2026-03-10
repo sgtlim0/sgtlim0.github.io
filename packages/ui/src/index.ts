@@ -255,3 +255,9 @@ export { useMarkdownEditor, MARKDOWN_SYNTAXES } from './hooks/useMarkdownEditor'
 export type { MarkdownSyntax, UseMarkdownEditorReturn } from './hooks/useMarkdownEditor'
 export { default as MarkdownEditor, MarkdownPreview, TOOLBAR_BUTTONS } from './MarkdownEditor'
 export type { MarkdownEditorProps, EditorViewMode } from './MarkdownEditor'
+
+// DataGrid (advanced table with sort/filter/resize/pagination)
+export { useDataGrid } from './hooks/useDataGrid'
+export type { ColumnDef, DataGridOptions, UseDataGridReturn } from './hooks/useDataGrid'
+export { DataGrid } from './DataGrid'
+export type { DataGridProps } from './DataGrid'
