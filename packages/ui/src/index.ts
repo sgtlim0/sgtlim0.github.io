@@ -331,3 +331,9 @@ export { default as Playground } from './Playground'
 export type { PlaygroundProps } from './Playground'
 export { default as PropEditor } from './PropEditor'
 export type { PropEditorProps } from './PropEditor'
+
+// Retry / Error Recovery
+export { useRetry } from './hooks/useRetry'
+export type { UseRetryOptions, UseRetryReturn } from './hooks/useRetry'
+export { ErrorRecovery } from './ErrorRecovery'
+export type { ErrorRecoveryProps } from './ErrorRecovery'
