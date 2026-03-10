@@ -255,3 +255,11 @@ export { useMarkdownEditor, MARKDOWN_SYNTAXES } from './hooks/useMarkdownEditor'
 export type { MarkdownSyntax, UseMarkdownEditorReturn } from './hooks/useMarkdownEditor'
 export { default as MarkdownEditor, MarkdownPreview, TOOLBAR_BUTTONS } from './MarkdownEditor'
 export type { MarkdownEditorProps, EditorViewMode } from './MarkdownEditor'
+
+// Settings Panel
+export { useSettings } from './hooks/useSettings'
+export type { SettingField, UseSettingsReturn } from './hooks/useSettings'
+export { SettingsPanel } from './SettingsPanel'
+export type { SettingsPanelProps } from './SettingsPanel'
+export { SettingRow } from './SettingRow'
+export type { SettingRowProps } from './SettingRow'
