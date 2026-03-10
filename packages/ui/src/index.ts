@@ -225,3 +225,9 @@ export type { VersionHistoryProps } from './VersionHistory'
 // Health Monitor
 export { useHealthMonitor } from './hooks/useHealthMonitor'
 export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
+
+// Markdown Editor
+export { useMarkdownEditor, MARKDOWN_SYNTAXES } from './hooks/useMarkdownEditor'
+export type { MarkdownSyntax, UseMarkdownEditorReturn } from './hooks/useMarkdownEditor'
+export { default as MarkdownEditor, MarkdownPreview, TOOLBAR_BUTTONS } from './MarkdownEditor'
+export type { MarkdownEditorProps, EditorViewMode } from './MarkdownEditor'
