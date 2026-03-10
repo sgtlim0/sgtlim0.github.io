@@ -255,3 +255,8 @@ export { useMarkdownEditor, MARKDOWN_SYNTAXES } from './hooks/useMarkdownEditor'
 export type { MarkdownSyntax, UseMarkdownEditorReturn } from './hooks/useMarkdownEditor'
 export { default as MarkdownEditor, MarkdownPreview, TOOLBAR_BUTTONS } from './MarkdownEditor'
 export type { MarkdownEditorProps, EditorViewMode } from './MarkdownEditor'
+// Timeline
+export { useTimeline } from './hooks/useTimeline'
+export type { TimelineItemData, TimelineGroup, TimelineStatus, TimelineSortOrder, UseTimelineOptions, UseTimelineReturn } from './hooks/useTimeline'
+export { Timeline, TimelineMarker, formatTimestamp } from './Timeline'
+export type { TimelineItem, TimelineOrientation, TimelineProps, TimelineItemProps } from './Timeline'
