@@ -212,3 +212,12 @@ export type {
   WebhookManager,
   WebhookEventType,
 } from './webhookService'
+
+// Circuit Breaker
+export { createCircuitBreaker, CircuitBreakerError } from './circuitBreaker'
+export type {
+  CircuitState,
+  CircuitBreakerOptions,
+  CircuitBreakerStats,
+  CircuitBreaker,
+} from './circuitBreaker'

@@ -225,3 +225,7 @@ export type { VersionHistoryProps } from './VersionHistory'
 // Health Monitor
 export { useHealthMonitor } from './hooks/useHealthMonitor'
 export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
+
+// Circuit Breaker
+export { useCircuitBreaker } from './hooks/useCircuitBreaker'
+export type { UseCircuitBreakerReturn } from './hooks/useCircuitBreaker'
