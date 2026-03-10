@@ -389,6 +389,12 @@ export type { UploadFile, UseFileUploadOptions, UseFileUploadReturn } from './ho
 export { default as FileUploader, formatFileSize } from './FileUploader'
 export type { FileUploaderProps } from './FileUploader'
 
+// Switch / Toggle
+export { useSwitch } from './hooks/useSwitch'
+export type { UseSwitchOptions, UseSwitchReturn } from './hooks/useSwitch'
+export { default as Switch } from './Switch'
+export type { SwitchProps, SwitchSize, SwitchColor, SwitchLabelPosition } from './Switch'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
