@@ -191,3 +191,8 @@ export { useSelect } from './hooks/useSelect'
 export type { SelectOption, UseSelectConfig, UseSelectReturn } from './hooks/useSelect'
 export { Select } from './Select'
 export type { SelectProps } from './Select'
+// Stepper
+export { useStepper } from './hooks/useStepper'
+export type { StepConfig, UseStepperOptions, UseStepperReturn } from './hooks/useStepper'
+export { Stepper, StepperContent } from './Stepper'
+export type { StepperProps, StepperContentProps, StepperOrientation } from './Stepper'
