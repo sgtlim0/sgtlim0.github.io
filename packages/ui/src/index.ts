@@ -313,3 +313,11 @@ export type { TagInputProps } from './TagInput'
 // ProgressBar
 export { default as ProgressBar, clampPercent } from './ProgressBar'
 export type { ProgressBarProps } from './ProgressBar'
+
+// Playground (Interactive Props Editor)
+export { usePlayground } from './hooks/usePlayground'
+export type { PropDef, PropType, UsePlaygroundReturn } from './hooks/usePlayground'
+export { default as Playground } from './Playground'
+export type { PlaygroundProps } from './Playground'
+export { default as PropEditor } from './PropEditor'
+export type { PropEditorProps } from './PropEditor'
