@@ -212,3 +212,13 @@ export type { OfflineIndicatorProps } from './OfflineIndicator'
 // Webhook
 export { useWebhook } from './hooks/useWebhook'
 export type { UseWebhookReturn } from './hooks/useWebhook'
+
+// Content Version History
+export { useContentVersion } from './hooks/useContentVersion'
+export type { ContentVersion, UseContentVersionOptions, UseContentVersionReturn } from './hooks/useContentVersion'
+export { computeDiff, formatUnifiedDiff } from './utils/contentDiff'
+export type { DiffLine, DiffLineType, DiffResult } from './utils/contentDiff'
+export { DiffViewer } from './DiffViewer'
+export type { DiffViewerProps, DiffViewMode } from './DiffViewer'
+export { VersionHistory } from './VersionHistory'
+export type { VersionHistoryProps } from './VersionHistory'
