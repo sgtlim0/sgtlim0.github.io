@@ -389,6 +389,14 @@ export type { UploadFile, UseFileUploadOptions, UseFileUploadReturn } from './ho
 export { default as FileUploader, formatFileSize } from './FileUploader'
 export type { FileUploaderProps } from './FileUploader'
 
+// AlertDialog (confirm dialog)
+export { useAlertDialog } from './hooks/useAlertDialog'
+export type { AlertDialogVariant, AlertDialogOptions, UseAlertDialogReturn } from './hooks/useAlertDialog'
+export { AlertDialog } from './AlertDialog'
+export type { AlertDialogProps } from './AlertDialog'
+export { AlertDialogProvider, useConfirm } from './hooks/AlertDialogProvider'
+export type { AlertDialogProviderProps } from './hooks/AlertDialogProvider'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
