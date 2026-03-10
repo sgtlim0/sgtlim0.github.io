@@ -320,6 +320,12 @@ export type { UseRatingOptions, UseRatingReturn } from './hooks/useRating'
 export { default as Rating } from './Rating'
 export type { RatingProps, RatingSize } from './Rating'
 
+// Number Input
+export { useNumberInput } from './hooks/useNumberInput'
+export type { UseNumberInputOptions, UseNumberInputReturn } from './hooks/useNumberInput'
+export { default as NumberInput } from './NumberInput'
+export type { NumberInputProps, NumberInputSize } from './NumberInput'
+
 // Settings Panel
 export { useSettings } from './hooks/useSettings'
 export type { SettingField, UseSettingsReturn } from './hooks/useSettings'
