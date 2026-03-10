@@ -236,3 +236,18 @@ export type {
   CircuitBreakerStats,
   CircuitBreaker,
 } from './circuitBreaker'
+
+// Date Utilities
+export {
+  getDaysInMonth,
+  getFirstDayOfMonth,
+  formatDate,
+  isSameDay,
+  isSameMonth,
+  isDateInRange,
+  stripTime,
+  isBefore,
+  isAfter,
+  WEEKDAY_LABELS_KO,
+  MONTH_LABELS_KO,
+} from './dateUtils'
