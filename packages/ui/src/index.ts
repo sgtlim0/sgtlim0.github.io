@@ -400,6 +400,13 @@ export { useSwitch } from './hooks/useSwitch'
 export type { UseSwitchOptions, UseSwitchReturn } from './hooks/useSwitch'
 export { default as Switch } from './Switch'
 export type { SwitchProps, SwitchSize, SwitchColor, SwitchLabelPosition } from './Switch'
+// AlertDialog (confirm dialog)
+export { useAlertDialog } from './hooks/useAlertDialog'
+export type { AlertDialogVariant, AlertDialogOptions, UseAlertDialogReturn } from './hooks/useAlertDialog'
+export { AlertDialog } from './AlertDialog'
+export type { AlertDialogProps } from './AlertDialog'
+export { AlertDialogProvider, useConfirm } from './hooks/AlertDialogProvider'
+export type { AlertDialogProviderProps } from './hooks/AlertDialogProvider'
 
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
