@@ -358,6 +358,12 @@ export type { BenchmarkResult } from './utils/benchmark'
 export { useBenchmark } from './hooks/useBenchmark'
 export type { TimingResult, UseBenchmarkReturn } from './hooks/useBenchmark'
 
+// Carousel
+export { useCarousel } from './hooks/useCarousel'
+export type { UseCarouselOptions, UseCarouselReturn } from './hooks/useCarousel'
+export { default as Carousel } from './Carousel'
+export type { CarouselProps } from './Carousel'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
