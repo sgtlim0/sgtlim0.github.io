@@ -284,6 +284,12 @@ export { useDatePicker } from './hooks/useDatePicker'
 export type { DayInfo, UseDatePickerOptions, DateRange, UseDatePickerReturn } from './hooks/useDatePicker'
 export { DatePicker } from './DatePicker'
 export type { DatePickerProps } from './DatePicker'
+// Calendar
+export { useCalendar } from './hooks/useCalendar'
+export type { CalendarEvent, CalendarDay, UseCalendarOptions, UseCalendarReturn } from './hooks/useCalendar'
+export { Calendar } from './Calendar'
+export type { CalendarProps } from './Calendar'
+
 // DataGrid (advanced table with sort/filter/resize/pagination)
 export { useDataGrid } from './hooks/useDataGrid'
 export type { ColumnDef, DataGridOptions, UseDataGridReturn } from './hooks/useDataGrid'
