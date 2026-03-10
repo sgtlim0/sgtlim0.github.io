@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { Search, ChevronUp, ChevronDown, Star } from 'lucide-react';
 import type { LLMModel } from './types';
 import ProviderBadge from './ProviderBadge';
+import Pagination from '../Pagination';
 
 export interface ModelTableProps {
   models: LLMModel[];
@@ -227,31 +228,15 @@ export default function ModelTable({
         </table>
       </div>
 
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2">
-          <button
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 border border-lr-border rounded-lg bg-lr-bg text-lr-text-primary disabled:opacity-50 disabled:cursor-not-allowed hover:bg-lr-bg-section transition-colors"
-          >
-            이전
-          </button>
-          <span className="text-sm text-lr-text-secondary">
-            {currentPage} / {totalPages}
-          </span>
-          <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 border border-lr-border rounded-lg bg-lr-bg text-lr-text-primary disabled:opacity-50 disabled:cursor-not-allowed hover:bg-lr-bg-section transition-colors"
-          >
-            다음
-          </button>
-        </div>
-      )}
-
-      <div className="text-sm text-lr-text-muted text-center">
-        {sortedModels.length}개 모델 중 {paginatedModels.length}개 표시
-      </div>
+      <Pagination
+        totalItems={sortedModels.length}
+        pageSize={itemsPerPage}
+        initialPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        showPageSizeSelector={false}
+        prevLabel="이전"
+        nextLabel="다음"
+      />
     </div>
   );
 }

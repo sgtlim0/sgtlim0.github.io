@@ -743,7 +743,8 @@ describe('MyPage — branch coverage', () => {
 
     expect(screen.getByText('내 계정')).toBeInTheDocument()
     expect(screen.getByText('구독 정보')).toBeInTheDocument()
-    expect(screen.getByText('이달의 내 상세 사용 현황')).toBeInTheDocument()
+    // Usage is now in a tab - the tab label "사용 현황" should be visible
+    expect(screen.getByText('사용 현황')).toBeInTheDocument()
 
     // Check subscription mock data
     const emails = screen.getAllByText('wooggi@gmail.com')

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Search } from 'lucide-react';
 import UserCard from './UserCard';
+import Pagination from '../Pagination';
 
 const USERS = [
   { name: '김철수', userId: 'user01', department: 'AI혁신팀', totalConversations: 245, monthlyTokens: '125,000', status: 'active' as const },
@@ -13,19 +14,42 @@ const USERS = [
   { name: '한지민', userId: 'user06', department: '인사팀', totalConversations: 89, monthlyTokens: '45,100', status: 'active' as const },
 ];
 
+const PAGE_SIZE_OPTIONS = [6, 12, 24] as const;
+
 export default function AdminUserManagement() {
   const [query, setQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState<number>(PAGE_SIZE_OPTIONS[0]);
 
   const filtered = query
     ? USERS.filter((u) => u.name.includes(query) || u.userId.includes(query))
     : USERS;
+
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, currentPage, pageSize]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    setPageSize(size);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="flex flex-col gap-6 p-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text-primary">사용자 관리</h1>
-          <p className="text-sm text-text-secondary mt-1">총 {USERS.length}명의 사용자</p>
+          <p className="text-sm text-text-secondary mt-1">총 {filtered.length}명의 사용자</p>
         </div>
       </div>
 
@@ -35,16 +59,27 @@ export default function AdminUserManagement() {
           type="text"
           placeholder="사용자 이름 또는 ID 검색..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleSearchChange}
           className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-tertiary outline-none"
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filtered.map((user) => (
+        {paginatedUsers.map((user) => (
           <UserCard key={user.userId} {...user} />
         ))}
       </div>
+
+      <Pagination
+        totalItems={filtered.length}
+        pageSize={pageSize}
+        initialPage={currentPage}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+        pageSizeOptions={[...PAGE_SIZE_OPTIONS]}
+        prevLabel="이전"
+        nextLabel="다음"
+      />
     </div>
   );
 }

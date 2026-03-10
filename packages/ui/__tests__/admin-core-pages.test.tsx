@@ -275,6 +275,8 @@ describe('AdminSettings', () => {
 
   it('should toggle model setting off', () => {
     render(<AdminSettings />)
+    // Switch to "모델 설정" tab to find the switches
+    fireEvent.click(screen.getByText('모델 설정'))
     const switches = screen.getAllByRole('switch')
     expect(switches.length).toBe(5)
     expect(switches[0].getAttribute('aria-checked')).toBe('true')
@@ -284,6 +286,8 @@ describe('AdminSettings', () => {
 
   it('should toggle model setting back on', () => {
     render(<AdminSettings />)
+    // Switch to "모델 설정" tab to find the switches
+    fireEvent.click(screen.getByText('모델 설정'))
     const switches = screen.getAllByRole('switch')
     fireEvent.click(switches[0])
     fireEvent.click(switches[0])

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ThemeToggle } from '@hchat/ui';
+import { ThemeToggle, Avatar } from '@hchat/ui';
 import { useAuth } from '@hchat/ui/admin/auth';
 
 const navItems = [
@@ -74,6 +74,7 @@ export default function AdminNav() {
         <div className="flex items-center gap-3">
           {isAuthenticated && user && (
             <div className="hidden md:flex items-center gap-3 px-3 py-2 rounded-md bg-hmg-bg-section">
+              <Avatar name={user.name} size="sm" status="online" />
               <div className="flex flex-col items-end">
                 <span className="text-sm font-medium text-text-primary">{user.name}</span>
                 <span className="text-xs text-text-tertiary">{user.role}</span>

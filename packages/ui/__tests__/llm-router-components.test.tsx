@@ -396,13 +396,15 @@ describe('ModelTable', () => {
 
   it('shows model count text', () => {
     render(<ModelTable models={sampleModels} />)
-    expect(screen.getByText(/5\uAC1C \uBAA8\uB378 \uC911/)).toBeInTheDocument()
+    // Pagination component shows "X-Y of Z" format
+    expect(screen.getByTestId('pagination-info')).toBeInTheDocument()
   })
 
   it('does not show pagination for small sets', () => {
     render(<ModelTable models={sampleModels} />)
-    expect(screen.queryByText('\uC774\uC804')).not.toBeInTheDocument()
-    expect(screen.queryByText('\uB2E4\uC74C')).not.toBeInTheDocument()
+    // Pagination component still renders but prev/next are disabled
+    const prevBtn = screen.getByLabelText('이전')
+    expect(prevBtn).toBeDisabled()
   })
 
   it('shows pagination when models exceed page size', () => {
@@ -421,7 +423,7 @@ describe('ModelTable', () => {
     render(<ModelTable models={manyModels} />)
     expect(screen.getByText('\uC774\uC804')).toBeInTheDocument()
     expect(screen.getByText('\uB2E4\uC74C')).toBeInTheDocument()
-    expect(screen.getByText('1 / 2')).toBeInTheDocument()
+    expect(screen.getByText('1-20 of 25')).toBeInTheDocument()
   })
 
   it('navigates to next page', async () => {
@@ -442,7 +444,7 @@ describe('ModelTable', () => {
     await act(async () => {
       fireEvent.click(nextBtn)
     })
-    expect(screen.getByText('2 / 2')).toBeInTheDocument()
+    expect(screen.getByText('21-25 of 25')).toBeInTheDocument()
   })
 
   it('disables previous button on first page', () => {
@@ -505,7 +507,7 @@ describe('ModelTable', () => {
     await act(async () => {
       fireEvent.change(searchInput, { target: { value: 'Special' } })
     })
-    expect(screen.getByText(/5\uAC1C \uBAA8\uB378 \uC911/)).toBeInTheDocument()
+    expect(screen.getByText('1-5 of 5')).toBeInTheDocument()
   })
 })
 

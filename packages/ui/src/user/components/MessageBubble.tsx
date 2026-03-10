@@ -1,6 +1,7 @@
 import type { ChatMessage } from '../services/types'
 import CompressionBadge from './CompressionBadge'
 import SourceAttribution from './SourceAttribution'
+import CopyButton from '../../CopyButton'
 
 export interface MessageBubbleProps {
   message: ChatMessage
@@ -42,6 +43,11 @@ export default function MessageBubble({ message, isStreaming = false }: MessageB
             <SourceAttribution sources={message.sources} />
           )}
         </div>
+        {!isUser && !isStreaming && (
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 px-1">
+            <CopyButton text={message.content} className="text-[var(--user-text-muted)]" />
+          </div>
+        )}
         <div
           className={`text-xs text-[var(--user-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity px-2 ${
             isUser ? 'text-right' : 'text-left'

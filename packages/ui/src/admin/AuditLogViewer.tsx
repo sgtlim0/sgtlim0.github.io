@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Download, Search, ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react';
+import { Download, Search, ArrowUpDown } from 'lucide-react';
+import Pagination from '../Pagination';
 
 interface AuditLog {
   id: string;
@@ -252,41 +253,15 @@ export default function AuditLogViewer() {
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-1">
-          <button
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className="p-2 rounded-md hover:bg-hmg-bg-section transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            aria-label="Previous page"
-          >
-            <ChevronLeft className="w-5 h-5 text-text-secondary" />
-          </button>
-
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`min-w-[2.5rem] h-10 px-3 text-sm font-medium rounded-md transition-colors ${
-                currentPage === page
-                  ? 'bg-admin-teal text-white'
-                  : 'text-text-secondary hover:bg-hmg-bg-section'
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-
-          <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            className="p-2 rounded-md hover:bg-hmg-bg-section transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            aria-label="Next page"
-          >
-            <ChevronRight className="w-5 h-5 text-text-secondary" />
-          </button>
-        </div>
-      )}
+      <Pagination
+        totalItems={sorted.length}
+        pageSize={itemsPerPage}
+        initialPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        showPageSizeSelector={false}
+        prevLabel="이전"
+        nextLabel="다음"
+      />
     </div>
   );
 }

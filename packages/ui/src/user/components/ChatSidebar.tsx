@@ -3,6 +3,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Plus, MessageSquare, User, BookOpen, LogOut, Menu, X } from 'lucide-react';
 import type { Conversation } from '../services/types';
+import Avatar from '../../Avatar';
 
 export interface ChatSidebarProps {
   conversations: Conversation[];
@@ -85,11 +86,10 @@ function SidebarContent({
               aria-label={`대화 선택: ${conv.title}`}
               aria-current={isActive ? 'true' : undefined}
             >
-              <MessageSquare
-                className={[
-                  'w-4 h-4 mt-0.5 shrink-0',
-                  isActive ? 'text-user-primary' : 'text-user-text-muted',
-                ].join(' ')}
+              <Avatar
+                name={conv.title}
+                size="xs"
+                className="mt-0.5 shrink-0"
               />
               <div className="flex-1 min-w-0 md:hidden lg:block">
                 <p
