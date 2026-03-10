@@ -225,3 +225,11 @@ export type { VersionHistoryProps } from './VersionHistory'
 // Health Monitor
 export { useHealthMonitor } from './hooks/useHealthMonitor'
 export type { UseHealthMonitorOptions, UseHealthMonitorReturn, HealthEvent, HealthHistoryEntry, OverallHealth } from './hooks/useHealthMonitor'
+
+// Batch Select / Batch Operations
+export { useBatchSelect } from './hooks/useBatchSelect'
+export type { UseBatchSelectReturn } from './hooks/useBatchSelect'
+export { BatchActionBar } from './BatchActionBar'
+export type { BatchAction, BatchActionBarProps } from './BatchActionBar'
+export { SelectableList } from './SelectableList'
+export type { SelectableListProps } from './SelectableList'
