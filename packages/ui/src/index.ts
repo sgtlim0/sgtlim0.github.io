@@ -414,6 +414,12 @@ export type { AlertDialogProps } from './AlertDialog'
 export { AlertDialogProvider, useConfirm } from './hooks/AlertDialogProvider'
 export type { AlertDialogProviderProps } from './hooks/AlertDialogProvider'
 
+// Code Highlighter
+export { default as CodeHighlighter } from './CodeHighlighter'
+export type { CodeHighlighterProps } from './CodeHighlighter'
+export { tokenizeLine, resolveLanguage, TOKEN_CLASS_MAP } from './utils/codeTokenizer'
+export type { Token, TokenType, SupportedLanguage } from './utils/codeTokenizer'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
