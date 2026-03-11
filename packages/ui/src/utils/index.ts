@@ -158,6 +158,10 @@ export { default as FeatureFlagProvider, useFeatureFlag, useFeatureFlags, Featur
 export { parseKeyCombo, matchesKeyEvent, normalizeKeyCombo } from './keyboardUtils'
 export type { KeyCombo } from './keyboardUtils'
 
+// Shortcut Manager
+export { createShortcutManager, resetIdCounter } from './shortcutManager'
+export type { ShortcutEntry, ShortcutManager } from './shortcutManager'
+
 // Search Engine
 export {
   fuzzyMatch,
