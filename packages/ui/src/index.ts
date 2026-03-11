@@ -414,6 +414,12 @@ export type { AlertDialogProps } from './AlertDialog'
 export { AlertDialogProvider, useConfirm } from './hooks/AlertDialogProvider'
 export type { AlertDialogProviderProps } from './hooks/AlertDialogProvider'
 
+// Table of Contents
+export { useTableOfContents } from './hooks/useTableOfContents'
+export type { TocItem, UseTableOfContentsOptions, UseTableOfContentsReturn } from './hooks/useTableOfContents'
+export { default as TableOfContents } from './TableOfContents'
+export type { TableOfContentsProps } from './TableOfContents'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
