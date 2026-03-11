@@ -193,7 +193,7 @@ Chrome Extension (Manifest V3) built with Vite + React 19. Features: content scr
 Python FastAPI backend for LLM routing and AI services. Routers: chat, analyze, research. Requires Python environment with `requirements.txt`. Runs on port 8000. Docker-based deployment.
 
 ### Storybook (`apps/storybook/`)
-204 story files across categories. Includes 31+ interaction test files with play functions. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
+209 story files across categories. Includes 80 play-function interaction test files. Uses vite aliases in `.storybook/main.ts` for monorepo resolution.
 
 ### Dark Mode
 All apps use ThemeProvider from `@hchat/ui` with `.dark` class toggle on `<html>`. ROI tokens support dark mode via CSS variable overrides in `packages/tokens/styles/tokens.css`.
@@ -223,7 +223,7 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Vitest: 235 test files, 5,821 unit tests (89.24% stmts, 81.2% branches, 89.8% functions, 90.25% lines)
 - MSW: 42 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
 - Playwright E2E: 21 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience, cross-browser
-- Storybook: 204 story files with 31+ play-function interaction test files
+- Storybook: 209 story files with 80 play-function interaction test files
 - k6 Load: 6 scenarios (smoke, chat, stream, research, pages, spike)
 - Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.24% stmts, 81.2% branches)
 - Test location: `packages/ui/__tests__/` (235 test files)
