@@ -414,6 +414,12 @@ export type { AlertDialogProps } from './AlertDialog'
 export { AlertDialogProvider, useConfirm } from './hooks/AlertDialogProvider'
 export type { AlertDialogProviderProps } from './hooks/AlertDialogProvider'
 
+// Image Gallery
+export { useGallery } from './hooks/useGallery'
+export type { GalleryImage, UseGalleryReturn } from './hooks/useGallery'
+export { default as ImageGallery } from './ImageGallery'
+export type { ImageGalleryProps } from './ImageGallery'
+
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
 export type { GlobalProviderProps, GlobalProviderConfig } from './GlobalProvider'
