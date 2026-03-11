@@ -419,6 +419,11 @@ export { useTableOfContents } from './hooks/useTableOfContents'
 export type { TocItem, UseTableOfContentsOptions, UseTableOfContentsReturn } from './hooks/useTableOfContents'
 export { default as TableOfContents } from './TableOfContents'
 export type { TableOfContentsProps } from './TableOfContents'
+// Image Gallery
+export { useGallery } from './hooks/useGallery'
+export type { GalleryImage, UseGalleryReturn } from './hooks/useGallery'
+export { default as ImageGallery } from './ImageGallery'
+export type { ImageGalleryProps } from './ImageGallery'
 
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
