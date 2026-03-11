@@ -1,6 +1,6 @@
 # H Chat Wiki -- Project Summary
 
-> Last Updated: 2026-03-10 | 320+ commits | 97 phases completed | 100+ workers | 5,417 tests
+> Last Updated: 2026-03-11 | 438+ commits | 100 phases completed | 100+ workers | 5,821 tests
 
 ---
 
@@ -93,7 +93,7 @@
 | **Mobile** | 4 tabs | PWA mobile chat, swipe gestures, touch-optimized |
 | **Extension** | 4 modes | Chrome MV3, PII sanitization, blocklist, API proxy |
 | **AI Core** | 3 routers | FastAPI backend (chat, research, analyze), multi-LLM |
-| **Storybook** | 184 stories | UI component catalog with 26+ interaction test files |
+| **Storybook** | 204 stories | UI component catalog with 31+ interaction test files |
 
 ---
 
@@ -103,30 +103,30 @@
 |------|-------|
 | Apps | 10 |
 | Packages | 2 (tokens, ui) |
-| TS/TSX files | 1,164 (ui 450 + apps 714) |
+| TS/TSX files | 1,225 (ui 490 + apps 735) |
 | Python files | 13 |
-| Total LOC | ~130,000 |
+| Total LOC | ~135,000 |
 | UI components (TSX) | 190 |
 | Hook files | 69 (shared 63 + user 6) |
 | Service files | 48 |
 | Zod schema files | 9 (40+ types) |
 | Pages (page.tsx) | 55 |
 | CSS design tokens | 194 (light + dark) |
-| Unit test files | 226 |
-| Unit tests | 5,417 |
-| Statement coverage | 88.75% |
-| Branch coverage | 80.21% |
-| Function coverage | 89.34% |
-| Line coverage | 89.72% |
+| Unit test files | 235 |
+| Unit tests | 5,821 |
+| Statement coverage | 89.24% |
+| Branch coverage | 81.2% |
+| Function coverage | 89.8% |
+| Line coverage | 90.25% |
 | E2E test files | 21 |
-| Story files | 184 |
-| Interaction test files | 26+ |
+| Story files | 204 |
+| Interaction test files | 31+ |
 | MSW handlers | 42 endpoints, 8 domains |
 | CI workflows | 5 (ci, deploy, e2e, lighthouse, dependabot-auto-merge) |
-| Git commits | 320+ |
-| Phases completed | 97 |
+| Git commits | 438+ |
+| Phases completed | 100 |
 | Workers deployed | 100+ |
-| Docs | 40+ files |
+| Docs | 40+ files in docs/ |
 
 ---
 
@@ -134,20 +134,20 @@
 
 ```
 Unit (Vitest)              Integration (MSW)           E2E (Playwright)
-226 files, 5,417 tests     42 mock endpoints           21 files, 6 projects
-88.75% stmt coverage       8 API domains               admin, hmg, user,
+235 files, 5,821 tests     42 mock endpoints           21 files, 6 projects
+89.24% stmt coverage       8 API domains               admin, hmg, user,
 v8 + lcov + html           request validation           llm-router, wiki,
                            response shaping             dark-mode, cross-browser
 
 Storybook Interaction      Load (k6)                   Lighthouse CI
-26+ interaction test files 6 scenarios                 Weekly + manual
-184 total story files      20-50-100 VU                FCP<3s, LCP<4s
+31+ interaction test files 6 scenarios                 Weekly + manual
+204 total story files      20-50-100 VU                FCP<3s, LCP<4s
                            smoke/chat/stream/           CLS<0.1, TBT<500ms
                            research/pages/spike         a11y>=0.9
 ```
 
 **Coverage thresholds** (vitest.config.ts): statements 40%, branches 25%, functions 40%
-**Actual coverage**: 88.75% stmts, 80.21% branches, 89.34% functions, 89.72% lines
+**Actual coverage**: 89.24% stmts, 81.2% branches, 89.8% functions, 90.25% lines
 
 ---
 
@@ -208,8 +208,8 @@ API Client (packages/ui/src/client/):
 ```
 1. npm install                    # Install all workspace dependencies
 2. npm run dev:<app>              # Start dev server (wiki/hmg/admin/user/llm-router/desktop/mobile/storybook)
-3. npm test                       # Run 5,417 unit tests
-4. npm run test:coverage          # Coverage report (88.75% stmts)
+3. npm test                       # Run 5,821 unit tests
+4. npm run test:coverage          # Coverage report (89.24% stmts)
 5. npm run test:e2e               # Playwright E2E (21 files)
 6. npx turbo build                # Build all 9 buildable apps
 7. npm run docker:prod            # Start production Docker stack
@@ -247,6 +247,9 @@ CI Pipeline (GitHub Actions):
 | **93** | Cross-cutting infrastructure: EventBusProvider + useEventBus, useDedup (request deduplication), Playground + usePlayground (component sandbox), PropEditor |
 | **94** | Test expansion: 217 files / 5,207 tests, 184 story files, hooks coverage (useMarkdownEditor, useDatePicker, useColorPicker, useDataGrid, useTimeline, useSettings, useTree, useTagInput, useRating, useDrawer, useRenderProfiler) |
 | **95** | Final documentation audit: metrics verification, CLAUDE.md/README.md/PROJECT_SUMMARY.md update, FINAL_MILESTONE.md |
+| **96-98** | Test coverage expansion: 231->235 test files, 5,670->5,821 tests, coverage 89.04%->89.24% stmts |
+| **99** | Story files expansion to 204, interaction tests to 31+, component library to 490 files |
+| **100** | Final metrics audit and documentation sync (CLAUDE.md, README.md, PROJECT_SUMMARY.md) -- Phase 100 complete |
 
 ---
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI dashboard), User app, LLM Router app, Desktop app, Mobile PWA, Chrome Extension, AI Core backend, and shared Storybook.
+npm workspaces monorepo for H Chat -- Wiki, HMG site, Admin panel (with ROI dashboard), User app, LLM Router app, Desktop app, Mobile PWA, Chrome Extension, AI Core backend, and shared Storybook. Phase 100 complete.
 
 ## Monorepo Structure
 
@@ -12,7 +12,7 @@ npm workspaces monorepo for H Chat — Wiki, HMG site, Admin panel (with ROI das
 hchat-wiki/
 ├── packages/
 │   ├── tokens/          # @hchat/tokens — Design token CSS variables (light/dark)
-│   └── ui/              # @hchat/ui — Shared UI components (450 files)
+│   └── ui/              # @hchat/ui — Shared UI components (490 files)
 │       └── src/
 │           ├── admin/   # Admin components + services (84 files)
 │           ├── user/    # User components (Chat, SSE streaming, hooks)
@@ -64,8 +64,8 @@ npm run dev:llm-router   # LLM Router dev at localhost:3004
 npm run dev:desktop      # Desktop dev at localhost:5173
 npm run dev:mobile       # Mobile dev at localhost:3005
 npm run dev:storybook    # Storybook dev at localhost:6006
-npm test                 # Vitest: run all unit tests (5,670 tests)
-npm run test:coverage    # Coverage report (89.04% statements)
+npm test                 # Vitest: run all unit tests (5,821 tests)
+npm run test:coverage    # Coverage report (89.24% statements)
 npm run test:e2e         # Playwright E2E tests (21 files)
 npm run docker:prod      # Start production Docker stack
 ```
@@ -109,7 +109,7 @@ CSS variables for Wiki, HMG, Admin, and ROI themes (light + dark). Each app impo
 
 **Important**: Tailwind CSS 4 requires `@source "../../../packages/ui/src";` in app globals.css to scan cross-package utility classes. Glob patterns do not work — use directory paths only.
 
-### Component Library (`packages/ui/`, 450 files)
+### Component Library (`packages/ui/`, 490 files)
 
 **Shared** (50+ components):
 - `@hchat/ui` — Badge, ThemeProvider, ThemeToggle, FeatureCard, Skeleton, Toast, ErrorBoundary, EmptyState, LanguageToggle, FeatureFlagProvider, LogProvider, OptimizedImage, CommandPalette, HotkeyProvider, Playground, Modal, Drawer, Portal, Tooltip, Pagination, Select, Rating, Transition, ColorPicker, DatePicker, DiffViewer, DraggableList, DragHandle, DynamicForm, FormField, InfiniteList, VirtualList, MarkdownEditor, NotificationBanner, OfflineIndicator, ProgressBar, SearchOverlay, SelectableList, Stepper, Tabs, Tag, TagInput, TreeView, Timeline, Avatar, AvatarGroup, Breadcrumb, CopyButton, ExportButton, AnimatedList, BatchActionBar, BaseLayout, VersionHistory, ThemeCustomizer, DataGrid, ProfilerOverlay, PropEditor, ErrorPage, SettingRow, SettingsPanel, ToastContainer, ToastQueueProvider, withProfiler
@@ -220,13 +220,13 @@ Vercel projects connected via Git (auto-deploy on push to main).
 - Prettier + Husky + lint-staged for code quality
 
 ### Testing
-- Vitest: 231 test files, 5,670 unit tests (89.04% stmts, 80.86% branches, 89.63% functions, 90.02% lines)
+- Vitest: 235 test files, 5,821 unit tests (89.24% stmts, 81.2% branches, 89.8% functions, 90.25% lines)
 - MSW: 42 endpoint handlers across 8 domains (`packages/ui/src/mocks/`)
 - Playwright E2E: 21 test files across 6 projects (admin, hmg, user, llm-router, wiki, dark-mode) + error-paths, resilience, cross-browser
 - Storybook: 204 story files with 31+ play-function interaction test files
 - k6 Load: 6 scenarios (smoke, chat, stream, research, pages, spike)
-- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.04% stmts, 80.86% branches)
-- Test location: `packages/ui/__tests__/` (231 test files)
+- Coverage thresholds: statements 40%, branches 25%, functions 40% (actual: 89.24% stmts, 81.2% branches)
+- Test location: `packages/ui/__tests__/` (235 test files)
 
 ### Infrastructure
 - Docker Compose dev: `docker-compose.yml` (PostgreSQL 16 + Redis 7 + ai-core FastAPI)
