@@ -424,6 +424,11 @@ export { useGallery } from './hooks/useGallery'
 export type { GalleryImage, UseGalleryReturn } from './hooks/useGallery'
 export { default as ImageGallery } from './ImageGallery'
 export type { ImageGalleryProps } from './ImageGallery'
+// Code Highlighter
+export { default as CodeHighlighter } from './CodeHighlighter'
+export type { CodeHighlighterProps } from './CodeHighlighter'
+export { tokenizeLine, resolveLanguage, TOKEN_CLASS_MAP } from './utils/codeTokenizer'
+export type { Token, TokenType, SupportedLanguage } from './utils/codeTokenizer'
 
 // Global Provider (unified wrapper for all providers)
 export { GlobalProvider, useGlobalContext } from './GlobalProvider'
