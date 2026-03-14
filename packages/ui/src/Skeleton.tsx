@@ -1,24 +1,15 @@
-
-import React from 'react';
+import React from 'react'
 
 interface SkeletonPulseProps {
-  className?: string;
-  style?: React.CSSProperties;
+  className?: string
+  style?: React.CSSProperties
 }
 
 export function SkeletonPulse({ className = '', style }: SkeletonPulseProps) {
   return (
-    <div
-      className={`rounded ${className}`}
-      style={{
-        background: 'linear-gradient(90deg, var(--bg-card) 25%, var(--bg-hover) 50%, var(--bg-card) 75%)',
-        backgroundSize: '200% 100%',
-        animation: 'shimmer 1.5s infinite',
-        ...style,
-      }}
-    >
-      <style jsx>{`
-        @keyframes shimmer {
+    <>
+      <style>{`
+        @keyframes skeleton-shimmer {
           0% {
             background-position: 200% 0;
           }
@@ -27,13 +18,23 @@ export function SkeletonPulse({ className = '', style }: SkeletonPulseProps) {
           }
         }
       `}</style>
-    </div>
-  );
+      <div
+        className={`rounded ${className}`}
+        style={{
+          background:
+            'linear-gradient(90deg, var(--bg-card) 25%, var(--bg-hover) 50%, var(--bg-card) 75%)',
+          backgroundSize: '200% 100%',
+          animation: 'skeleton-shimmer 1.5s infinite',
+          ...style,
+        }}
+      />
+    </>
+  )
 }
 
 interface SkeletonTextProps {
-  lines?: number;
-  width?: string;
+  lines?: number
+  width?: string
 }
 
 export function SkeletonText({ lines = 1, width = '100%' }: SkeletonTextProps) {
@@ -49,11 +50,11 @@ export function SkeletonText({ lines = 1, width = '100%' }: SkeletonTextProps) {
         />
       ))}
     </div>
-  );
+  )
 }
 
 interface SkeletonCardProps {
-  lines?: number;
+  lines?: number
 }
 
 export function SkeletonCard({ lines = 3 }: SkeletonCardProps) {
@@ -68,12 +69,12 @@ export function SkeletonCard({ lines = 3 }: SkeletonCardProps) {
       <SkeletonPulse className="h-6 w-1/3" />
       <SkeletonText lines={lines} />
     </div>
-  );
+  )
 }
 
 interface SkeletonTableProps {
-  rows?: number;
-  cols?: number;
+  rows?: number
+  cols?: number
 }
 
 export function SkeletonTable({ rows = 5, cols = 4 }: SkeletonTableProps) {
@@ -94,18 +95,18 @@ export function SkeletonTable({ rows = 5, cols = 4 }: SkeletonTableProps) {
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 interface SkeletonChartProps {
-  height?: number;
+  height?: number
 }
 
 interface SkeletonImageProps {
-  width?: number;
-  height?: number;
-  aspectRatio?: string;
-  rounded?: boolean;
+  width?: number
+  height?: number
+  aspectRatio?: string
+  rounded?: boolean
 }
 
 export function SkeletonImage({
@@ -123,17 +124,14 @@ export function SkeletonImage({
         aspectRatio: height ? undefined : aspectRatio,
       }}
     />
-  );
+  )
 }
 
 export function SkeletonChart({ height = 300 }: SkeletonChartProps) {
   return (
     <div className="space-y-4">
       <SkeletonPulse className="h-6 w-1/4" />
-      <SkeletonPulse
-        className="rounded-lg"
-        style={{ height: `${height}px` }}
-      />
+      <SkeletonPulse className="rounded-lg" style={{ height: `${height}px` }} />
       <div className="flex justify-center gap-6 pt-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="flex items-center gap-2">
@@ -143,5 +141,5 @@ export function SkeletonChart({ height = 300 }: SkeletonChartProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

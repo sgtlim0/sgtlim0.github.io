@@ -8,9 +8,15 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "types": ["chrome"]
+    "types": ["chrome", "node"],
+    "paths": {
+      "@hchat/ui": ["../../packages/ui/src"],
+      "@hchat/ui/*": ["../../packages/ui/src/*"],
+      "@hchat/tokens": ["../../packages/tokens"],
+      "@hchat/tokens/*": ["../../packages/tokens/*"],
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
