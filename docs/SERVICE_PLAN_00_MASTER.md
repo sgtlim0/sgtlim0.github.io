@@ -1,7 +1,7 @@
 # H Chat AI Browser OS — 서비스 기획서
 
-> **현대오토에버 H Chat** | Chrome Extension 기반 엔터프라이즈 AI 브라우저 서비스
-> 작성일: 2026-03-14 | PM 총괄 | Worker A~D 병렬 작성 통합
+> **현대오토에버 H Chat** | **Chrome Extension 전용** 엔터프라이즈 AI 브라우저 서비스
+> v2 업데이트: 2026-03-14 | PWA/모바일/데스크톱 제거 → Chrome Extension Only
 > 기반 문서: 분석 2건 + 구현 설계 11건 + 개발 계획 6건 + 에코시스템 보정 4건
 
 ---
@@ -40,11 +40,13 @@ SERVICE_PLAN_00_MASTER.md (본 문서) ← PM 통합
 | 항목 | 내용 |
 |------|------|
 | **서비스명** | H Chat AI Browser OS |
-| **형태** | Chrome Extension + FastAPI Backend |
+| **형태** | **Chrome Extension (MV3) 전용** + FastAPI Backend |
+| **클라이언트** | **Chrome Extension Only** — Side Panel(주 UI), Popup(퀵 액션), Context Menu, Omnibox |
+| **배포** | Chrome Web Store (사내 비공개) + Google Admin Console 강제 설치 |
 | **타겟** | 현대차그룹 임직원 (5만+명) |
-| **핵심 가치** | 사내 시스템 AI 자동화, 데이터 주권 보장, 자율형 리서치 |
+| **핵심 가치** | 브라우저 내에서 사내 시스템 AI 자동화, 데이터 주권 보장, 자율형 리서치 |
 | **기술 기반** | 4-Layer Stack (Extension → Smart DOM → DataFrame → MARS) |
-| **차별점** | 사내 시스템 직접 접근 (Confluence/Jira/SAP), Zero Trust, 봇 탐지 우회 |
+| **차별점** | 설치 장벽 제로, 사내 시스템 직접 접근, 브라우징 컨텍스트 실시간 활용, Zero Trust |
 
 ### 핵심 수치
 
@@ -64,9 +66,11 @@ SERVICE_PLAN_00_MASTER.md (본 문서) ← PM 통합
 
 ```mermaid
 graph TB
-    subgraph "사용자 접점"
-        CHROME[Chrome Browser]
-        TEAMS[MS Teams]
+    subgraph "사용자 접점 (Chrome Extension Only)"
+        SP[Side Panel - 주 UI]
+        POP[Popup - 퀵 액션]
+        CTX[Context Menu - 우클릭]
+        OMNI[Omnibox - 주소창 AI]
     end
 
     subgraph "H Chat Extension (4-Layer)"
@@ -89,8 +93,7 @@ graph TB
         QDRANT[(Qdrant Vector)]
     end
 
-    CHROME --> L1
-    TEAMS --> API
+    SP & POP & CTX & OMNI --> L1
     L4 --> API
     API --> LLM
     API --> PG & REDIS & QDRANT
