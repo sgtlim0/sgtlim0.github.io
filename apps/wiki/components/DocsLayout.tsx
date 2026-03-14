@@ -1,32 +1,34 @@
-'use client';
+'use client'
 
-import { useMemo, useState, useEffect } from 'react';
-import type { PageData } from '@/lib/markdown';
-import { getHeadings } from '@/lib/headings';
-import { getBreadcrumbs, getPrevNext } from '@/lib/navigation';
-import { ProgressBar } from '@hchat/ui';
-import Badge from './Badge';
-import Breadcrumb from './Breadcrumb';
-import TableOfContents from './TableOfContents';
-import PageNavigation from './PageNavigation';
-import MarkdownRenderer from './MarkdownRenderer';
+import { useMemo, useState, useEffect } from 'react'
+import type { PageData } from '@/lib/markdown'
+import { getHeadings } from '@/lib/headings'
+import { getBreadcrumbs, getPrevNext } from '@/lib/navigation'
+import { ProgressBar } from '@hchat/ui'
+import Badge from './Badge'
+import Breadcrumb from './Breadcrumb'
+import TableOfContents from './TableOfContents'
+import PageNavigation from './PageNavigation'
+import MarkdownRenderer from './MarkdownRenderer'
 
 interface DocsLayoutProps {
-  page: PageData;
+  page: PageData
 }
 
 export default function DocsLayout({ page }: DocsLayoutProps) {
-  const breadcrumbs = useMemo(() => getBreadcrumbs(page.slug), [page.slug]);
-  const headings = useMemo(() => getHeadings(page.content), [page.content]);
-  const { prev, next } = useMemo(() => getPrevNext(page.slug), [page.slug]);
+  const breadcrumbs = useMemo(() => getBreadcrumbs(page.slug), [page.slug])
+  const headings = useMemo(() => getHeadings(page.content), [page.content])
+  const { prev, next } = useMemo(() => getPrevNext(page.slug), [page.slug])
 
   // Page loading progress indicator
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    setIsLoading(true);
-    const id = requestAnimationFrame(() => setIsLoading(false));
-    return () => cancelAnimationFrame(id);
-  }, [page.slug]);
+    const id = requestAnimationFrame(() => setIsLoading(false))
+    return () => {
+      cancelAnimationFrame(id)
+      setIsLoading(true)
+    }
+  }, [page.slug])
 
   return (
     <div className="flex h-full">
@@ -75,7 +77,10 @@ export default function DocsLayout({ page }: DocsLayoutProps) {
               {prev && (
                 <div className="mb-3">
                   <p className="text-[11px] font-medium text-text-tertiary">이전</p>
-                  <a href={prev.slug === 'home' ? '/' : `/${prev.slug}`} className="text-[13px] font-medium text-primary hover:underline">
+                  <a
+                    href={prev.slug === 'home' ? '/' : `/${prev.slug}`}
+                    className="text-[13px] font-medium text-primary hover:underline"
+                  >
                     &larr; {prev.title}
                   </a>
                 </div>
@@ -83,7 +88,10 @@ export default function DocsLayout({ page }: DocsLayoutProps) {
               {next && (
                 <div>
                   <p className="text-[11px] font-medium text-text-tertiary">다음</p>
-                  <a href={`/${next.slug}`} className="text-[13px] font-medium text-primary hover:underline">
+                  <a
+                    href={`/${next.slug}`}
+                    className="text-[13px] font-medium text-primary hover:underline"
+                  >
                     {next.title} &rarr;
                   </a>
                 </div>
@@ -93,5 +101,5 @@ export default function DocsLayout({ page }: DocsLayoutProps) {
         </aside>
       )}
     </div>
-  );
+  )
 }
