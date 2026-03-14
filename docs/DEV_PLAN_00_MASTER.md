@@ -146,15 +146,96 @@ gantt
 
 ---
 
-## 8. 상세 계획 문서 인덱스
+## 8. Worker 결과 통합 요약
 
-| # | 문서 | Worker | 내용 |
-|---|------|--------|------|
-| 01 | [DEV_PLAN_01_SPRINT_0.md](./DEV_PLAN_01_SPRINT_0.md) | A | Day 1~14 일별 태스크, Gantt, Go/No-Go |
-| 02 | [DEV_PLAN_02_PHASE_1_2.md](./DEV_PLAN_02_PHASE_1_2.md) | B | Sprint 1~8, 에픽/스토리, 의존성 |
-| 03 | [DEV_PLAN_03_PHASE_3_4.md](./DEV_PLAN_03_PHASE_3_4.md) | C | Sprint 9~14, 통합테스트, Canary |
-| 04 | [DEV_PLAN_04_TEST_CICD_TEAM.md](./DEV_PLAN_04_TEST_CICD_TEAM.md) | D | 테스트피라미드, CI/CD, RACI |
-| 00 | [DEV_PLAN_00_MASTER.md](./DEV_PLAN_00_MASTER.md) (본 문서) | PM | 마스터 플랜 통합 |
+### 8.1 Sprint 0 상세 (Worker A — 475줄)
+
+| 항목 | 수치 |
+|------|------|
+| 총 태스크 | **42개** (T01~T42) |
+| 총 공수 | ~125시간 |
+| 담당 분포 | FE 22건 / BE 5건 / Full-stack 15건 |
+| 체크포인트 | Day 3, 5, **7(중간데모)**, 10, 12, **14(최종데모)** |
+| Go/No-Go | Must 4개 + Should 4개 (6/8 이상 통과 시 Go) |
+| Scope 축소 | Level 1(1~2일) → Level 2(3~4일) → Level 3(5일+) 3단계 |
+
+**Day 7 중간 데모 (3분)**: Extension 활성화 → 뉴스 페이지 분석 → AI 요약 → 도메인 전환 테스트
+**Day 14 최종 데모 (5분)**: "See → Extract → Act" E2E — L1 Extension → L2 Smart DOM → L3 DataFrame → L4 MARS 자율 실행
+
+### 8.2 Phase 1-2 상세 (Worker B — 393줄)
+
+| Phase | 에픽 | 스토리 | SP | 핵심 |
+|-------|------|--------|-----|------|
+| Phase 1 (S1~S4) | 4개 | 15개 | 70 SP | 소버린 데이터, 3 Pillars, 에이전트 기본, 인프라 |
+| Phase 2 (S5~S8) | 4개 | 16개 | 83 SP | MARS 멀티에이전트, DataFrame, HITL, 커넥터 |
+| **합계** | **8개** | **31개** | **153 SP** | |
+
+**핵심 병렬화 포인트**: FE(Extension UI) / BE(에이전트 엔진) / Infra(Kafka+Qdrant) 동시 진행
+**고부하 리스크**: Sprint 6~7 (HITL + 커넥터 동시 개발) → 인력 재배치 필요
+
+### 8.3 Phase 3-4 상세 (Worker C — 407줄)
+
+| Phase | 에픽 | 스토리 | SP | 핵심 |
+|-------|------|--------|-----|------|
+| Phase 3 (S9~S12) | 4개 | 17개 | 112 SP | Multi-Model, Self-Healing, AutoResearch, 보안 |
+| Phase 4 (S13~S15) | 3개 | 11개 | 50 SP | 통합테스트, 보안심사, 프로덕션 |
+| **합계** | **7개** | **28개** | **162 SP** | |
+
+**Canary 배포**: 5% → 25% → 100% (3단계, 자동 롤백 조건 4가지)
+**보안 심사**: OWASP Top 10 + 에이전트 보안 6항목 + 데이터 주권 5항목 = **21개 체크리스트**
+**프로덕션 Runbook**: 배포 전(D-3~D-1) 8단계 → 배포 중(D-Day) 9단계 → 배포 후(D+1~D+7) 5단계, 롤백 목표 **10분 이내**
+
+### 8.4 테스트 + CI/CD + 팀 (Worker D — 352줄)
+
+**테스트 피라미드**:
+
+| 계층 | 목표 수 | 도구 |
+|------|--------|------|
+| Unit | 12,000+ | Vitest |
+| Integration | 1,800+ | Vitest + MSW |
+| E2E | 120+ 파일 | Playwright |
+| Performance | 30+ 시나리오 | k6 |
+| Security | 50+ 체크 | OWASP ZAP |
+| **총계** | **14,500+** | |
+
+**CI/CD**: 기존 5 + 신규 10 = **15개 워크플로우** (agent-test, healing-verify, canary-deploy, security-gate, chaos-test 등)
+**팀 구성**: **11명** (PM 1, FE 3, BE 3, ML/AI 2, Infra 1, QA 1) + 6회 교차 교육
+**Top 10 리스크**: 심각 1건(Browser OS 복잡도), 높음 3건(LLM 비용, 에이전트 안정성, 보안)
+**품질 게이트**: Phase 전환 시 10개 기준 (커버리지, 보안, 성능, Flaky 테스트율, 기술 부채)
+
+---
+
+## 9. 전체 수치 총괄
+
+| 항목 | 수치 |
+|------|------|
+| 총 기간 | **30주** |
+| 총 스프린트 | **15개** (Sprint 0 + S1~S14) |
+| 총 에픽 | **15개** |
+| 총 유저 스토리 | **59+개** |
+| Sprint 0 태스크 | **42개** (T01~T42) |
+| Phase 1-2 SP | **153 SP** |
+| Phase 3-4 SP | **162 SP** |
+| **총 스토리 포인트** | **315+ SP** |
+| 테스트 목표 | **14,500+개** |
+| CI/CD 워크플로우 | **15개** |
+| 팀 규모 | **11명** |
+| 총 예산 | **$522K** |
+| 연간 절감 | **$550K** |
+| 투자 회수 | **~12개월** |
+| 3년 ROI | **~270%** |
+
+---
+
+## 10. 상세 계획 문서 인덱스
+
+| # | 문서 | Worker | 크기 | 라인 | 핵심 내용 |
+|---|------|--------|------|------|---------|
+| 01 | [DEV_PLAN_01_SPRINT_0.md](./DEV_PLAN_01_SPRINT_0.md) | A | 23K | 475줄 | 42 태스크, Day별 Gantt, Go/No-Go |
+| 02 | [DEV_PLAN_02_PHASE_1_2.md](./DEV_PLAN_02_PHASE_1_2.md) | B | 19K | 393줄 | Sprint 1~8, 31 스토리, 153 SP |
+| 03 | [DEV_PLAN_03_PHASE_3_4.md](./DEV_PLAN_03_PHASE_3_4.md) | C | 20K | 407줄 | Sprint 9~15, 28 스토리, 162 SP, Runbook |
+| 04 | [DEV_PLAN_04_TEST_CICD_TEAM.md](./DEV_PLAN_04_TEST_CICD_TEAM.md) | D | 17K | 352줄 | 14,500 테스트, 15 CI/CD, 11명 RACI |
+| 00 | [DEV_PLAN_00_MASTER.md](./DEV_PLAN_00_MASTER.md) (본 문서) | PM | — | — | 마스터 플랜 통합 |
 
 ---
 
