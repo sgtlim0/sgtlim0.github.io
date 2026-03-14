@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App } from './App'
-import './globals.css'
+import { SidePanel } from './SidePanel'
+import '../popup/globals.css'
 
 const root = document.getElementById('root')
 if (root) {
   ReactDOM.createRoot(root).render(
     <React.StrictMode>
-      <App />
+      <SidePanel />
     </React.StrictMode>,
   )
 }
