@@ -199,15 +199,27 @@ graph TB
 | **사용자 스토리** | 파워 유저로서 추출 대상 DOM 영역을 트리에서 선택하여 정밀하게 데이터를 가져오고 싶다. |
 | **수용 기준** | (1) 트리 노드 클릭 시 페이지 해당 영역 하이라이트 (2) 다중 노드 선택 지원 (3) 선택 영역 템플릿 저장 (4) 1,000노드 이하 렌더링 1초 이내 |
 
-### F13. 오프라인 큐 및 동기화
+### F13. 오프라인 큐 및 동기화 (Extension Background SW 기반)
 
 | 항목 | 내용 |
 |------|------|
-| **Layer** | L1 |
+| **Layer** | L1 (Background Service Worker) |
 | **우선순위** | P2 |
-| **설명** | 네트워크 단절 시 사용자 요청을 IndexedDB에 큐잉하고, 연결 복구 시 자동으로 순차 처리한다. |
+| **Extension 컴포넌트** | Background Service Worker + IndexedDB + chrome.alarms |
+| **설명** | 네트워크 단절 시 Background Service Worker가 요청을 IndexedDB에 큐잉하고, chrome.alarms로 주기적 재시도하며 연결 복구 시 자동 순차 처리한다. |
 | **사용자 스토리** | 사용자로서 네트워크가 불안정한 환경에서도 요청이 유실되지 않고 나중에 처리되길 원한다. |
-| **수용 기준** | (1) 오프라인 큐 최대 100건 저장 (2) 연결 복구 후 10초 이내 동기화 시작 (3) 처리 결과 알림 표시 (4) 큐 상태 시각적 표시 |
+| **수용 기준** | (1) 오프라인 큐 최대 100건 IndexedDB 저장 (2) chrome.alarms 기반 30초 간격 재시도 (3) 연결 복구 후 10초 이내 동기화 시작 (4) Side Panel에 큐 상태 배지 표시 |
+
+### F16. Omnibox AI 호출
+
+| 항목 | 내용 |
+|------|------|
+| **Layer** | L1 (chrome.omnibox API) |
+| **우선순위** | P1 |
+| **Extension 컴포넌트** | Background Service Worker (chrome.omnibox) → Side Panel |
+| **설명** | 주소창에 "hchat 검색어"를 입력하면 즉시 AI에 질문하고, Side Panel이 자동 열리며 응답을 스트리밍한다. |
+| **사용자 스토리** | 사용자로서 주소창에서 바로 AI에게 질문하여 별도 UI를 열지 않고도 빠르게 답변을 받고 싶다. |
+| **수용 기준** | (1) "hchat " 입력 시 omnibox 활성화 (2) 추천 검색어 5개 표시 (3) Enter 시 Side Panel 자동 오픈 + 응답 스트리밍 (4) 최근 질문 5건 omnibox 히스토리 |
 
 ### F14. 감사 로그 대시보드
 
