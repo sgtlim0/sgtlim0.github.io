@@ -1,4 +1,8 @@
+import { getCsrfToken } from '../utils/csrf'
+
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+
+const MUTATING_METHODS: ReadonlySet<string> = new Set(['POST', 'PUT', 'DELETE', 'PATCH'])
 
 export interface ApiClientConfig {
   baseURL: string
@@ -31,9 +35,12 @@ export class ApiClient {
 
   async fetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const token = this.config.getToken?.()
+    const method = (options?.method ?? 'GET').toUpperCase()
+    const csrfToken = MUTATING_METHODS.has(method) ? getCsrfToken() : ''
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...((token ? { Authorization: `Bearer ${token}` } : {}) as Record<string, string>),
+      ...(csrfToken ? { 'X-CSRF-Token': csrfToken } : {}),
       ...((options?.headers as Record<string, string>) ?? {}),
     }
 

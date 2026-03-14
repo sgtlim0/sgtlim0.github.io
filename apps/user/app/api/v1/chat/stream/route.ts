@@ -7,8 +7,9 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 
-import { fetchAiCore } from '../../../lib/aiCore'
+import { fetchAiCore, getClientIp } from '../../../lib/aiCore'
 import { validateCsrfHeader } from '../../../lib/csrf'
+import { checkRateLimit, createRateLimitResponse } from '../../../lib/rateLimit'
 import { chatRequestSchema } from '../../../lib/validation'
 import { withVersionHeaders, API_VERSION } from '../../version'
 
@@ -17,6 +18,13 @@ export async function POST(request: NextRequest) {
   if (csrfError) return withVersionHeaders(csrfError)
 
   try {
+    const ip = getClientIp(request)
+    const rateLimitResult = checkRateLimit(ip, 'stream')
+
+    if (!rateLimitResult.allowed) {
+      return withVersionHeaders(createRateLimitResponse(rateLimitResult))
+    }
+
     const body = await request.json()
     const parsed = chatRequestSchema.safeParse(body)
 

@@ -7,8 +7,9 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 
-import { fetchAiCore } from '../../lib/aiCore'
+import { fetchAiCore, getClientIp } from '../../lib/aiCore'
 import { validateCsrfHeader } from '../../lib/csrf'
+import { checkRateLimit, createRateLimitResponse, addRateLimitHeaders } from '../../lib/rateLimit'
 import { analyzeRequestSchema } from '../../lib/validation'
 import { withVersionHeaders } from '../version'
 
@@ -17,6 +18,13 @@ export async function POST(request: NextRequest) {
   if (csrfError) return withVersionHeaders(csrfError)
 
   try {
+    const ip = getClientIp(request)
+    const rateLimitResult = checkRateLimit(ip, 'analyze')
+
+    if (!rateLimitResult.allowed) {
+      return withVersionHeaders(createRateLimitResponse(rateLimitResult))
+    }
+
     const body = await request.json()
     const parsed = analyzeRequestSchema.safeParse(body)
 
@@ -45,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await upstream.json()
-    return withVersionHeaders(NextResponse.json(data))
+    return withVersionHeaders(addRateLimitHeaders(NextResponse.json(data), rateLimitResult))
   } catch (error) {
     if (error instanceof SyntaxError) {
       return withVersionHeaders(
