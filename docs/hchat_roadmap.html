@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H Chat AI Browser OS — 기획 로드맵 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg: #04060f;
+  --bg1: #080d1c;
+  --bg2: #0c1228;
+  --surface: rgba(255,255,255,0.03);
+  --surface2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8eaf0;
+  --muted: #5a6480;
+  --muted2: #8892b0;
+  --blue: #3d7fff;
+  --blue2: #5a9aff;
+  --cyan: #00d4ff;
+  --teal: #00e5c0;
+  --green: #00c896;
+  --amber: #ffb347;
+  --orange: #ff7c45;
+  --red: #ff4560;
+  --purple: #a855f7;
+  --gold: #f0c040;
+  --s0: #ff4560;
+  --p1: #ff7c45;
+  --p2: #3d7fff;
+  --p3: #00c896;
+  --p4: #f0c040;
+  --font-display: 'Syne', 'Noto Sans KR', sans-serif;
+  --font-body: 'Noto Sans KR', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── GRID NOISE BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(61,127,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,127,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(4,6,15,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 56px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.nav-tabs { display: flex; gap: 2px; }
+.nav-tab {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  color: var(--muted2);
+  font-family: var(--font-display);
+  letter-spacing: 0.3px;
+  border: none; background: none;
+}
+.nav-tab:hover { color: var(--text); background: var(--surface2); }
+.nav-tab.active { color: var(--blue2); background: rgba(61,127,255,0.12); }
+.nav-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+/* ── VIEWS ── */
+.view { display: none; padding-top: 56px; min-height: 100vh; position: relative; z-index: 1; }
+.view.active { display: block; }
+
+/* ── HERO SECTION ── */
+.hero {
+  padding: 64px 48px 48px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(61,127,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--blue2);
+  border: 1px solid rgba(61,127,255,0.3);
+  background: rgba(61,127,255,0.08);
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+.hero h1 em { font-style: normal; color: var(--blue2); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted2);
+  max-width: 600px;
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+}
+.stat { border-left: 2px solid var(--border2); padding-left: 16px; }
+.stat-val {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+.stat-val.blue { color: var(--blue2); }
+.stat-val.green { color: var(--green); }
+.stat-val.amber { color: var(--amber); }
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: var(--font-mono); letter-spacing: 0.5px; }
+
+/* ── SECTION HEADERS ── */
+.section-wrap { padding: 48px; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.section-h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+.section-h2 em { font-style: normal; color: var(--blue2); }
+
+/* ── TIMELINE VIEW ── */
+.timeline-container { padding: 48px; }
+.tl-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 40px;
+}
+.tl-legend { display: flex; gap: 20px; }
+.tl-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted2); font-family: var(--font-mono); }
+.tl-legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* ── WEEKS RULER ── */
+.weeks-ruler {
+  position: relative;
+  margin-bottom: 8px;
+  height: 28px;
+  display: flex;
+}
+.week-label {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* ── GANTT ── */
+.gantt { position: relative; }
+.gantt-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.gantt-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-align: right;
+  white-space: nowrap;
+}
+.gantt-track { position: relative; height: 34px; }
+.gantt-bar {
+  position: absolute;
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity .2s, transform .1s;
+  font-family: var(--font-display);
+}
+.gantt-bar:hover { opacity: 0.85; transform: scaleY(1.05); }
+
+/* ── MILESTONE DIAMONDS ── */
+.milestone-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  height: 36px;
+  margin-bottom: 4px;
+}
+.ms-track { position: relative; height: 100%; }
+.ms-diamond {
+  position: absolute;
+  width: 14px; height: 14px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  top: 50%;
+  cursor: pointer;
+  border: 2px solid;
+  transition: all .2s;
+}
+.ms-diamond:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.3); }
+.ms-label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* ── VERTICAL GRID LINES ── */
+.gantt-grid {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
+
+/* ── PHASE CARDS ── */
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  padding: 48px;
+}
+.phase-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .25s;
+}
+.phase-card:hover { border-color: var(--border2); transform: translateY(-2px); background: var(--surface2); }
+.phase-card-top {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.phase-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.phase-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.phase-duration {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.phase-card-body { padding: 16px 20px; }
+.epic-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--muted2);
+}
+.epic-dot { width: 4px; height: 4px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+.phase-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.mini-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+}
+
+/* ── MILESTONE TIMELINE ── */
+.milestone-track {
+  position: relative;
+  padding: 48px;
+}
+.ms-line {
+  position: absolute;
+  top: 128px;
+  left: 48px; right: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--s0), var(--p1), var(--p2), var(--p3), var(--p4));
+}
+.ms-nodes { display: flex; justify-content: space-between; position: relative; margin-bottom: 80px; }
+.ms-node { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.ms-circle {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  background: var(--bg1);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.ms-info { text-align: center; }
+.ms-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.ms-when { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.ms-criteria {
+  font-size: 11px;
+  color: var(--muted2);
+  max-width: 160px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ── KPI SECTION ── */
+.kpi-section { padding: 48px; }
+.kpi-timeline { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.kpi-col {
+  flex: 1;
+  border-right: 1px solid var(--border);
+}
+.kpi-col:last-child { border-right: none; }
+.kpi-col-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+}
+.kpi-col-body { padding: 16px 20px; }
+.kpi-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.kpi-row:last-child { border-bottom: none; }
+.kpi-row-label { color: var(--muted2); }
+.kpi-row-val { font-family: var(--font-mono); font-weight: 500; }
+
+/* ── FEATURE MAP ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 48px;
+}
+.feature-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--surface);
+  transition: all .2s;
+}
+.feature-card:hover { border-color: var(--border2); background: var(--surface2); }
+.feature-id {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.feature-name { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.feature-layer { font-size: 10px; font-family: var(--font-mono); }
+.feature-priority {
+  display: inline-block;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 6px;
+}
+
+/* ── RISK MATRIX ── */
+.risk-section { padding: 48px; }
+.risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.risk-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--surface);
+  display: flex;
+  gap: 16px;
+}
+.risk-badge {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+.risk-content h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.risk-content p { font-size: 11px; color: var(--muted2); line-height: 1.5; }
+.risk-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.risk-pill {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+}
+
+/* ── BUDGET VIEW ── */
+.budget-section { padding: 48px; }
+.budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+.budget-bars { display: flex; flex-direction: column; gap: 10px; }
+.bbar-row { display: flex; align-items: center; gap: 12px; }
+.bbar-label { font-size: 12px; color: var(--muted2); width: 120px; text-align: right; font-family: var(--font-mono); }
+.bbar-track { flex: 1; height: 20px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.bbar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-family: var(--font-mono); font-weight: 600; color: white; transition: width 1s ease; }
+.bbar-amount { font-family: var(--font-mono); font-size: 11px; width: 60px; }
+
+/* ── ARR TABLE ── */
+.arr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.arr-table th {
+  background: rgba(61,127,255,0.1);
+  color: var(--blue2);
+  padding: 10px 16px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(61,127,255,0.2);
+}
+.arr-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.arr-table tr:hover td { background: var(--surface2); }
+.arr-table .highlight { color: var(--gold); font-weight: 700; }
+.arr-table .accent { color: var(--blue2); }
+
+/* ── TEAM VIEW ── */
+.team-section { padding: 48px; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.team-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--surface);
+}
+.team-role { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.team-count { font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--blue2); margin-bottom: 8px; }
+.team-skills { font-size: 11px; color: var(--muted2); line-height: 1.6; }
+.phase-ramp {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.phase-ramp-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  display: grid;
+  grid-template-columns: 160px repeat(5, 1fr);
+  gap: 8px;
+}
+.phase-ramp-row {
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 160px repeat(5, 1fr);
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+.phase-ramp-row:last-child { border-bottom: none; }
+.ramp-role { color: var(--muted2); }
+.ramp-cell { text-align: center; font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+.ramp-empty { color: var(--muted); }
+
+/* ── ANALYSIS VIEW ── */
+.analysis-section { padding: 48px; }
+.analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.analysis-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--surface);
+}
+.analysis-card h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.analysis-card h3 .icon { font-size: 16px; }
+.insight-item {
+  display: flex; gap: 10px; margin-bottom: 12px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.insight-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.insight-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--blue);
+  background: rgba(61,127,255,0.1);
+  border: 1px solid rgba(61,127,255,0.2);
+  width: 20px; height: 20px;
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.insight-text { font-size: 12px; color: var(--muted2); line-height: 1.6; }
+.insight-text strong { color: var(--text); }
+.warning { color: var(--amber); }
+.danger { color: var(--red); }
+.success { color: var(--green); }
+
+/* ── GTM VIEW ── */
+.gtm-section { padding: 48px; }
+.gtm-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 32px; }
+.gtm-stage { padding: 28px; border-right: 1px solid var(--border); }
+.gtm-stage:last-child { border-right: none; }
+.gtm-stage-num { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.gtm-stage-title { font-family: var(--font-display); font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+.gtm-stage-period { font-family: var(--font-mono); font-size: 11px; color: var(--muted2); margin-bottom: 16px; }
+.gtm-metric { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+.gtm-metric:last-child { border-bottom: none; }
+.gtm-metric-label { color: var(--muted2); }
+.gtm-metric-val { font-family: var(--font-mono); font-weight: 500; }
+
+/* ── MOAT ── */
+.moat-section { margin-top: 32px; }
+.moat-list { display: flex; flex-direction: column; gap: 8px; }
+.moat-item {
+  display: flex; align-items: center; gap: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  background: var(--surface);
+}
+.moat-tier {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.moat-name { font-size: 13px; font-weight: 600; flex: 1; }
+.moat-desc { font-size: 11px; color: var(--muted2); flex: 2; }
+.moat-strength {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* ── RESPONSIVE OVERSCROLL ── */
+.scroll-x { overflow-x: auto; padding-bottom: 8px; }
+.scroll-x::-webkit-scrollbar { height: 4px; }
+.scroll-x::-webkit-scrollbar-track { background: var(--surface); }
+.scroll-x::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── TOOLTIP ── */
+.tooltip {
+  position: fixed;
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity .15s;
+  max-width: 240px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.tooltip.show { opacity: 1; }
+.tooltip-title { font-weight: 700; margin-bottom: 4px; font-family: var(--font-display); }
+.tooltip-body { color: var(--muted2); line-height: 1.5; }
+
+/* ── SEPARATOR ── */
+hr.sep { border: none; border-top: 1px solid var(--border); margin: 0 48px 32px; }
+
+/* ── SCROLL FADE IN ── */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s; }
+.fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-title" id="tt-title"></div>
+  <div class="tooltip-body" id="tt-body"></div>
+</div>
+
+<!-- ════════════════════════════════════════════ NAV ════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <span class="dot"></span>
+    H Chat AI Browser OS
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showView('timeline')">타임라인</button>
+    <button class="nav-tab" onclick="showView('phases')">페이즈</button>
+    <button class="nav-tab" onclick="showView('milestones')">마일스톤</button>
+    <button class="nav-tab" onclick="showView('features')">기능맵</button>
+    <button class="nav-tab" onclick="showView('business')">비즈니스</button>
+    <button class="nav-tab" onclick="showView('team')">팀 구성</button>
+    <button class="nav-tab" onclick="showView('analysis')">심층분석</button>
+  </div>
+  <div class="nav-badge">v2.0 · 2026-03</div>
+</nav>
+
+<!-- ════════════════════════════════════ VIEW: TIMELINE ════════════════════════════════════════ -->
+<div class="view active" id="view-timeline">
+  <div class="hero">
+    <div class="hero-tag">▸ MASTER ROADMAP · 30 WEEKS · SPRINT 0 → GA</div>
+    <h1>H Chat <em>기획 로드맵</em><br>2026 마스터 플랜</h1>
+    <p class="hero-sub">Chrome Extension 전용 엔터프라이즈 AI 브라우저 플랫폼의 Sprint 0부터 GA까지의 완전한 실행 계획. 5단계·15 에픽·315+ SP·11인 팀 구성.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val blue">30주</div><div class="stat-label">TOTAL DURATION</div></div>
+      <div class="stat"><div class="stat-val">$645K</div><div class="stat-label">TOTAL INVESTMENT</div></div>
+      <div class="stat"><div class="stat-val green">$550K</div><div class="stat-label">ANNUAL SAVINGS</div></div>
+      <div class="stat"><div class="stat-val amber">$12.1M</div><div class="stat-label">ARR (24-MONTH)</div></div>
+      <div class="stat"><div class="stat-val">11명</div><div class="stat-label">TEAM SIZE</div></div>
+      <div class="stat"><div class="stat-val">14,500+</div><div class="stat-label">TEST TARGETS</div></div>
+    </div>
+  </div>
+
+  <div class="timeline-container">
+    <div class="tl-header fade-in">
+      <div>
+        <div class="section-title">GANTT CHART</div>
+        <div class="section-h2">30주 <em>전체 일정</em></div>
+      </div>
+      <div class="tl-legend">
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--s0)"></div>Sprint 0</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--p1)"></div>Phase 1</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--p2)"></div>Phase 2</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--p3)"></div>Phase 3</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--p4)"></div>Phase 4</div>
+      </div>
+    </div>
+
+    <div class="scroll-x fade-in">
+      <div id="gantt-wrapper" style="min-width:900px; position:relative;">
+        <!-- Built by JS -->
+      </div>
+    </div>
+
+    <!-- QUICK STATS BELOW GANTT -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px" class="fade-in">
+      <div style="border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--surface)">
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-bottom:6px">SPRINT 0</div>
+        <div style="font-size:18px;font-weight:800;font-family:var(--font-display);color:var(--s0)">2주</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:4px">42 태스크 · 기술 검증</div>
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-top:6px">Alpha 데모 (Day 14)</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--surface)">
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-bottom:6px">PHASE 1</div>
+        <div style="font-size:18px;font-weight:800;font-family:var(--font-display);color:var(--p1)">8주</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:4px">소버린 데이터 · Smart DOM</div>
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-top:6px">70 SP · S1~S4</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--surface)">
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-bottom:6px">PHASE 2</div>
+        <div style="font-size:18px;font-weight:800;font-family:var(--font-display);color:var(--p2)">8주</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:4px">MARS · HITL · DataFrame</div>
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-top:6px">83 SP · S5~S8</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--surface)">
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-bottom:6px">PHASE 3</div>
+        <div style="font-size:18px;font-weight:800;font-family:var(--font-display);color:var(--p3)">8주</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:4px">Multi-Model · Self-Healing</div>
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-top:6px">112 SP · S9~S12</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--surface)">
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-bottom:6px">PHASE 4</div>
+        <div style="font-size:18px;font-weight:800;font-family:var(--font-display);color:var(--p4)">4주</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:4px">통합 테스트 · GA</div>
+        <div style="font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-top:6px">50 SP · S13~S14</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: PHASES ════════════════════════════════════════ -->
+<div class="view" id="view-phases">
+  <div class="hero">
+    <div class="hero-tag">▸ 5 PHASES · 15 EPICS · 59+ USER STORIES</div>
+    <h1><em>페이즈별</em> 상세 계획</h1>
+    <p class="hero-sub">각 페이즈의 핵심 에픽, 산출물, Go/No-Go 기준을 확인합니다.</p>
+  </div>
+  <div class="phases-grid" id="phases-grid"><!-- JS --></div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: MILESTONES ════════════════════════════════════════ -->
+<div class="view" id="view-milestones">
+  <div class="hero">
+    <div class="hero-tag">▸ 5 MILESTONES · GO/NO-GO GATES</div>
+    <h1><em>마일스톤</em> & Go/No-Go</h1>
+    <p class="hero-sub">각 마일스톤의 판정 기준, 실패 대응, Canary 배포 전략을 확인합니다.</p>
+  </div>
+  <div class="milestone-track" id="ms-track"><!-- JS --></div>
+
+  <div class="section-wrap" style="margin-top:0">
+    <div class="section-title">MILESTONE DETAIL</div>
+    <div class="section-h2">판정 기준 <em>상세</em></div>
+    <div id="ms-detail-table"></div>
+  </div>
+
+  <div class="section-wrap" style="padding-top:0">
+    <div class="section-title">CANARY STRATEGY</div>
+    <div class="section-h2">배포 <em>전략</em></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div style="border:1px solid var(--border);border-radius:10px;padding:24px;background:var(--surface)">
+        <div style="font-family:var(--font-mono);font-size:28px;font-weight:700;color:var(--p2);margin-bottom:8px">5%</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">1단계 Canary</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">얼리 어답터 250명 선배포. 48시간 모니터링. 에러율 &lt;0.5%, p95 &lt;2s 확인 후 진행</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:24px;background:var(--surface)">
+        <div style="font-family:var(--font-mono);font-size:28px;font-weight:700;color:var(--p3);margin-bottom:8px">25%</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">2단계 확산</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">부서 단위 확산. 5일 스테이킹. 보안 감사 실시간 모니터링. NPS 설문 수집 시작</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:24px;background:var(--surface)">
+        <div style="font-family:var(--font-mono);font-size:28px;font-weight:700;color:var(--gold);margin-bottom:8px">100%</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">GA 전체 배포</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">Admin Console ExtensionInstallForcelist. SLA 99.9% 계약 발동. 전담 CSM 배정</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;border:1px solid rgba(255,196,0,0.2);border-radius:8px;padding:16px;background:rgba(255,196,0,0.05);font-size:12px;color:var(--muted2)">
+      <strong style="color:var(--amber)">자동 롤백 조건 (4가지):</strong> &nbsp;① 에러율 &gt;1% · ② p95 응답 &gt;5s · ③ 보안 인시던트 발생 · ④ 메모리 사용 &gt;150MB
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: FEATURES ════════════════════════════════════════ -->
+<div class="view" id="view-features">
+  <div class="hero">
+    <div class="hero-tag">▸ 16 CORE FEATURES · P0/P1/P2 PRIORITY</div>
+    <h1><em>핵심 기능</em> 맵</h1>
+    <p class="hero-sub">4-Layer 아키텍처 기반 16개 핵심 기능의 레이어·우선순위·의존 관계를 확인합니다.</p>
+  </div>
+
+  <div style="padding:24px 48px 0;display:flex;gap:12px;flex-wrap:wrap">
+    <button class="nav-tab active" onclick="filterFeatures('all', this)">전체</button>
+    <button class="nav-tab" onclick="filterFeatures('L1',this)">L1 Extension</button>
+    <button class="nav-tab" onclick="filterFeatures('L2',this)">L2 Smart DOM</button>
+    <button class="nav-tab" onclick="filterFeatures('L3',this)">L3 DataFrame</button>
+    <button class="nav-tab" onclick="filterFeatures('L4',this)">L4 MARS</button>
+    <button class="nav-tab" onclick="filterFeatures('CC',this)">Cross-cutting</button>
+  </div>
+
+  <div class="feature-grid" id="feature-grid"><!-- JS --></div>
+
+  <div style="padding:0 48px 48px">
+    <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface)">
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:12px">크리티컬 의존 경로</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:12px;color:var(--muted2)">
+        <div>
+          <div style="color:var(--blue2);font-family:var(--font-mono);font-size:11px;margin-bottom:6px">PRIMARY PATH</div>
+          <div style="font-family:var(--font-mono)">F01 → F04 → F06 → F07 → F08</div>
+          <div style="margin-top:4px">Side Panel → 스트리밍 → MARS → Multi-Model → Self-Healing</div>
+        </div>
+        <div>
+          <div style="color:var(--green);font-family:var(--font-mono);font-size:11px;margin-bottom:6px">DATA PATH</div>
+          <div style="font-family:var(--font-mono)">F02 → F05 → F07 → F09</div>
+          <div style="margin-top:4px">Smart DOM → DataFrame → Multi-Model → 에이전트 권한</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: BUSINESS ════════════════════════════════════════ -->
+<div class="view" id="view-business">
+  <div class="hero">
+    <div class="hero-tag">▸ GTM · ARR · ROI · MOAT</div>
+    <h1><em>비즈니스</em> 플랜</h1>
+    <p class="hero-sub">GTM 3단계 전략, ARR 성장 곡선, ROI 분석, 4중 경쟁 해자를 확인합니다.</p>
+  </div>
+
+  <div class="gtm-section">
+    <div class="section-title">GO-TO-MARKET</div>
+    <div class="section-h2">3단계 <em>확산 전략</em></div>
+    <div class="gtm-stages">
+      <div class="gtm-stage">
+        <div class="gtm-stage-num">STAGE 01</div>
+        <div class="gtm-stage-title" style="color:var(--blue2)">내부 파일럿</div>
+        <div class="gtm-stage-period">0 → 6개월</div>
+        <div class="gtm-metric"><span class="gtm-metric-label">배포 방식</span><span class="gtm-metric-val" style="color:var(--blue2)">CWS 비공개</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">타겟 사용자</span><span class="gtm-metric-val">500명</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">목표 NPS</span><span class="gtm-metric-val">40+</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">Extension 유지율</span><span class="gtm-metric-val">90%+</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">ARR</span><span class="gtm-metric-val">$312K</span></div>
+      </div>
+      <div class="gtm-stage">
+        <div class="gtm-stage-num">STAGE 02</div>
+        <div class="gtm-stage-title" style="color:var(--green)">그룹사 확산</div>
+        <div class="gtm-stage-period">6 → 18개월</div>
+        <div class="gtm-metric"><span class="gtm-metric-label">배포 방식</span><span class="gtm-metric-val" style="color:var(--green)">Admin Console 강제</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">계열사</span><span class="gtm-metric-val">16개사</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">Active 설치</span><span class="gtm-metric-val">15K+</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">설치율</span><span class="gtm-metric-val">95%+</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">ARR</span><span class="gtm-metric-val">$5.64M</span></div>
+      </div>
+      <div class="gtm-stage">
+        <div class="gtm-stage-num">STAGE 03</div>
+        <div class="gtm-stage-title" style="color:var(--amber)">외부 B2B</div>
+        <div class="gtm-stage-period">18 → 30개월</div>
+        <div class="gtm-metric"><span class="gtm-metric-label">배포 방식</span><span class="gtm-metric-val" style="color:var(--amber)">Chrome Cloud Mgmt</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">산업군</span><span class="gtm-metric-val">제조·금융·물류</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">좌석</span><span class="gtm-metric-val">50,000+</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">CWS 평점</span><span class="gtm-metric-val">4.5+</span></div>
+        <div class="gtm-metric"><span class="gtm-metric-label">ARR</span><span class="gtm-metric-val" style="color:var(--gold)">$12.1M</span></div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:32px">ARR GROWTH</div>
+    <div class="section-h2">재무 <em>예측</em></div>
+    <table class="arr-table" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:32px">
+      <thead>
+        <tr><th>시점</th><th>사용자 수</th><th>티어 B/P/E</th><th>월 매출</th><th>ARR</th><th>누적 절감</th><th>ROI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>6개월</td><td>2,000명</td><td>60/30/10</td><td>$26K</td><td class="accent">$312K</td><td>$138K</td><td style="color:var(--red)">-61%</td></tr>
+        <tr><td>12개월 (GA)</td><td>8,000명</td><td>40/40/20</td><td>$128K</td><td class="accent">$1.54M</td><td>$550K</td><td style="color:var(--amber)">Break-even</td></tr>
+        <tr><td>18개월</td><td>25,000명</td><td>30/40/30</td><td>$470K</td><td class="accent">$5.64M</td><td>$1,100K</td><td style="color:var(--green)">+48%</td></tr>
+        <tr><td>24개월</td><td>50,000명</td><td>25/40/35</td><td>$1.01M</td><td class="highlight">$12.1M</td><td>$1,650K</td><td style="color:var(--green)">+95%</td></tr>
+        <tr><td>36개월</td><td>80,000명</td><td>20/40/40</td><td>$1.8M</td><td class="highlight">$21.6M</td><td>$2,475K</td><td style="color:var(--gold)">+162%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">COMPETITIVE MOAT</div>
+    <div class="section-h2">4중 <em>경쟁 해자</em></div>
+    <div class="moat-list">
+      <div class="moat-item">
+        <div class="moat-tier" style="background:rgba(61,127,255,0.15);color:var(--blue2)">L4</div>
+        <div class="moat-name">브라우저 네이티브 통합</div>
+        <div class="moat-desc">설치 장벽 제로 · 브라우징 컨텍스트 실시간 접근 · Chrome 관리 정책 전사 배포</div>
+        <div class="moat-strength" style="color:var(--blue2)">구축 3개월</div>
+      </div>
+      <div class="moat-item">
+        <div class="moat-tier" style="background:rgba(0,200,150,0.15);color:var(--green)">L3</div>
+        <div class="moat-name">적응형 에이전트 생태계</div>
+        <div class="moat-desc">MARS 멀티에이전트 · 사용자 행동 기반 자율 최적화 · 커스텀 에이전트 마켓</div>
+        <div class="moat-strength" style="color:var(--green)">극히 높음 · 18개월+</div>
+      </div>
+      <div class="moat-item">
+        <div class="moat-tier" style="background:rgba(255,196,71,0.15);color:var(--amber)">L2</div>
+        <div class="moat-name">사내 시스템 딥통합</div>
+        <div class="moat-desc">Confluence/Jira/SAP 직접 DOM 접근 · 사내 SSO/RBAC 연동 · 별도 API 구축 불필요</div>
+        <div class="moat-strength" style="color:var(--amber)">매우 높음 · 12개월</div>
+      </div>
+      <div class="moat-item">
+        <div class="moat-tier" style="background:rgba(255,69,96,0.15);color:var(--red)">L1</div>
+        <div class="moat-name">데이터 주권 · Zero Trust</div>
+        <div class="moat-desc">온프레미스/VPC 배포 · 데이터 국내 상주 · 감사 로그 불변성 · 한국 AI 기본법 대응</div>
+        <div class="moat-strength" style="color:var(--red)">높음 · 6개월</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: TEAM ════════════════════════════════════════ -->
+<div class="view" id="view-team">
+  <div class="hero">
+    <div class="hero-tag">▸ 11 MEMBERS · RACI · PHASE ALLOCATION</div>
+    <h1><em>팀 구성</em> & 역할</h1>
+    <p class="hero-sub">11명 전담 팀의 역할 정의, 스킬셋, 페이즈별 참여도를 확인합니다.</p>
+  </div>
+  <div class="team-section">
+    <div class="section-title">TEAM STRUCTURE</div>
+    <div class="section-h2">역할별 <em>구성</em></div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-role">PM</div>
+        <div class="team-count">1명</div>
+        <div class="team-skills">스프린트 관리 · 이해관계자 소통 · Go/No-Go 판정 · 에픽 우선순위 조정</div>
+      </div>
+      <div class="team-card">
+        <div class="team-role">FE 엔지니어</div>
+        <div class="team-count">3명</div>
+        <div class="team-skills">React 19 + TypeScript · Chrome MV3 Extension · Side Panel / Popup / Context Menu · Tailwind CSS · Vitest</div>
+      </div>
+      <div class="team-card">
+        <div class="team-role">BE 엔지니어</div>
+        <div class="team-count">3명</div>
+        <div class="team-skills">Python 3.12 + FastAPI · LangGraph + CrewAI · PostgreSQL + pgvector · Kafka + Flink · Redis Streams</div>
+      </div>
+      <div class="team-card">
+        <div class="team-role">ML / AI</div>
+        <div class="team-count">2명</div>
+        <div class="team-skills">임베딩 + RAG 파이프라인 · LLM 라우팅 최적화 · RQFP 알고리즘 · Self-Healing 진단 엔진 · pgvector</div>
+      </div>
+      <div class="team-card">
+        <div class="team-role">Infra / DevOps</div>
+        <div class="team-count">1명</div>
+        <div class="team-skills">GitHub Actions CI/CD · Docker Compose · OpenTelemetry · Grafana · HashiCorp Vault · OPA</div>
+      </div>
+      <div class="team-card">
+        <div class="team-role">QA</div>
+        <div class="team-count">1명</div>
+        <div class="team-skills">Playwright E2E · k6 부하 테스트 · OWASP ZAP · 14,500+ 테스트 목표 · Canary 검증</div>
+      </div>
+      <div class="team-card" style="border-color:rgba(61,127,255,0.3)">
+        <div class="team-role" style="color:var(--blue2)">합계</div>
+        <div class="team-count">11명</div>
+        <div class="team-skills" style="color:var(--muted2)">전담 팀 · Sprint 0부터 GA까지<br>+ 2명 유지보수 (GA 이후)</div>
+      </div>
+      <div class="team-card" style="border-color:rgba(0,200,150,0.3)">
+        <div class="team-role" style="color:var(--green)">인건비</div>
+        <div class="team-count" style="color:var(--green)">$450K</div>
+        <div class="team-skills" style="color:var(--muted2)">총 예산의 70%<br>30주 기준</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:32px">PHASE ALLOCATION</div>
+    <div class="section-h2">페이즈별 <em>참여도</em></div>
+    <div class="phase-ramp">
+      <div class="phase-ramp-header" style="background:var(--surface2)">
+        <span>역할</span>
+        <span style="color:var(--s0);text-align:center">Sprint 0<br><small style="font-size:10px;font-weight:400;color:var(--muted)">2W</small></span>
+        <span style="color:var(--p1);text-align:center">Phase 1<br><small style="font-size:10px;font-weight:400;color:var(--muted)">8W</small></span>
+        <span style="color:var(--p2);text-align:center">Phase 2<br><small style="font-size:10px;font-weight:400;color:var(--muted)">8W</small></span>
+        <span style="color:var(--p3);text-align:center">Phase 3<br><small style="font-size:10px;font-weight:400;color:var(--muted)">8W</small></span>
+        <span style="color:var(--p4);text-align:center">Phase 4<br><small style="font-size:10px;font-weight:400;color:var(--muted)">4W</small></span>
+      </div>
+      <div id="ramp-rows"><!-- JS --></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: ANALYSIS ════════════════════════════════════════ -->
+<div class="view" id="view-analysis">
+  <div class="hero">
+    <div class="hero-tag">▸ DEEP ANALYSIS · RISKS · INSIGHTS · RECOMMENDATIONS</div>
+    <h1><em>심층 분석</em> & 권고</h1>
+    <p class="hero-sub">기획서 5건(SERVICE_PLAN_00~04) 및 28개 슬라이드 분석 기반 전략적 인사이트와 실행 권고사항.</p>
+  </div>
+
+  <div class="analysis-section">
+    <div class="section-title">STRATEGIC INSIGHTS</div>
+    <div class="section-h2">핵심 <em>발견사항</em></div>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h3><span class="icon">✦</span> 전략적 강점</h3>
+        <div class="insight-item">
+          <div class="insight-num">1</div>
+          <div class="insight-text"><strong>Chrome Extension Only 단일화</strong>는 옳은 결정. 설치 장벽 제로 + Content Script 직접 DOM 접근 + 사용자 세션 공유라는 3가지 이점을 경쟁사는 구조적으로 따라올 수 없음.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">2</div>
+          <div class="insight-text"><strong>4-Layer 수직 통합</strong>이 경쟁사와의 가장 큰 차별점. Perplexity/Arc/eesel 모두 이 중 1-2개 레이어만 보유. 전 레이어 통합은 18개월+ 진입 장벽.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">3</div>
+          <div class="insight-text"><strong>Zero Trust + 한국 AI 기본법 대응</strong>이 엔터프라이즈 구매 결정의 핵심. 기업 68%가 데이터 보안을 최대 장벽으로 꼽는 시장에서 구조적 해결책 보유.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">4</div>
+          <div class="insight-text"><strong>rtrvr.ai 81.39% 성공률 $0.12/작업</strong> 벤치마크는 Smart DOM 전략의 기술적 타당성을 외부에서 검증. Skyvern 대비 25배 비용 우위.</div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h3><span class="icon">⚠</span> 핵심 리스크</h3>
+        <div class="insight-item">
+          <div class="insight-num">1</div>
+          <div class="insight-text"><strong class="danger">LLM API 비용 과소 추정 (CRITICAL)</strong> MARS 7단계 × 일 100건 = 일당 최대 $140. $45K 예산이 약 320일 만에 소진. Fast Ops(Grok $50/1k tok) 우선 라우팅 전략 즉시 필요.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">2</div>
+          <div class="insight-text"><strong class="warning">SPA/Shadow DOM 처리 미검증</strong> SAP Fiori, Confluence React 앱은 동적 DOM이라 Content Script 접근이 막힐 수 있음. Sprint 0 Day 1에 PoC 필수.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">3</div>
+          <div class="insight-text"><strong class="warning">hchat-pwa와의 관계 미정의</strong> 5건 기획서에서 Extension이 PWA를 대체하는지 병렬 운영인지 불명확. Sprint 0 착수 전 확정 필요.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">4</div>
+          <div class="insight-text"><strong>ARR $12.1M (24개월) 낙관적</strong> 외부 B2B 포함 수치. 현대차그룹 내부만으로는 $5.64M(18개월)이 현실적. 외부 확장은 36개월+ 보수적 계획 권장.</div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h3><span class="icon">◈</span> Extension 개발 주의사항</h3>
+        <div class="insight-item">
+          <div class="insight-num">1</div>
+          <div class="insight-text"><strong>waitForDOMStable() 단일 resolve 보장</strong> 경쟁 Extension(Prism) 분석에서 다중 resolve 레이스 컨디션(CRIT-01)이 가장 빈번한 데이터 부패 원인. AbortController 패턴 필수.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">2</div>
+          <div class="insight-text"><strong>API 키 Two-phase 삭제</strong> 신규 키 검증 성공 후에만 기존 키 삭제. 프로바이더 전환 중 사용자 잠금(CRIT-05) 방지.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">3</div>
+          <div class="insight-text"><strong>getBoundingClientRect() 배치 읽기</strong> RQFP 알고리즘의 DOM 순회 시 강제 reflow 방지(HIGH-03). 먼저 모든 크기 읽기 후 처리.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">4</div>
+          <div class="insight-text"><strong>LLMQueue SSE 스트림 명시적 abort</strong> 탭 닫힘·새 요청 발생 시 이전 스트림 취소(HIGH-08). 메모리/소켓 누수 차단.</div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h3><span class="icon">→</span> 즉시 실행 권고</h3>
+        <div class="insight-item">
+          <div class="insight-num">1</div>
+          <div class="insight-text"><strong class="danger">긴급: MARS 비용 시뮬레이션</strong> Sprint 0 착수 전 7단계 × 모델별 비용 × 예상 일일 요청 수 계산. Rate Limiter 정책 확정 후 $45K 예산 충분성 검증.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">2</div>
+          <div class="insight-text"><strong class="danger">긴급: SAP Fiori DOM PoC</strong> Sprint 0 Day 1에 Shadow DOM + iFrame 혼합 구조 접근 가능 여부 확인. 결과에 따라 L1 설계 방향 결정.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">3</div>
+          <div class="insight-text"><strong class="success">즉시: Citation System 병행</strong> Browser OS와 독립적으로 기존 PWA에 추가 가능. 3일 공수로 AI 신뢰도 대폭 향상. Atlassian 통합도 4일 추가.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-num">4</div>
+          <div class="insight-text"><strong>중요: Multi-tenant 설계 MVP 반영</strong> 계열사 간 데이터 격리를 Extension Content Script 도메인 정책 수준에서 Sprint 0부터 구현. 나중에 추가하면 리팩토링 비용 3배.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <div class="section-title">RISK MATRIX</div>
+      <div class="section-h2">리스크 <em>매트릭스</em></div>
+      <div class="risk-grid" id="risk-grid"><!-- JS --></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════ DATA ════════════════════════
+const PHASES = [
+  {
+    key:'s0', label:'Sprint 0', dur:'2주', color:'var(--s0)',
+    start:0, end:2,
+    goal:'Browser OS 14일 MVP · 기술 검증',
+    epics:['Chrome Extension MV3 스캐폴드','Content Script + DOM 추출','FastAPI ai-core 기본 엔드포인트','Side Panel 기본 UI','Smart DOM + Readability.js','DataFrame Engine 기초','MARS 파이프라인 PoC'],
+    sp:'~125h', milestone:'M0: Alpha 데모 (Day 14)',
+    badges:['42 태스크','3 역할','Day 7 중간 데모']
+  },
+  {
+    key:'p1', label:'Phase 1', dur:'8주', color:'var(--p1)',
+    start:2, end:10,
+    goal:'소버린 데이터 기반 · 3 Pillars · 단일 에이전트',
+    epics:['E01: Hybrid Extension + Stealth','E02: Smart DOM 고도화','E03: 소버린 데이터 파이프라인 (Kafka+Qdrant)','E04: RAG 통합 (Embedding+Retrieval)','E05: 단일 에이전트 오케스트레이션','Playwright CDP Fallback','Blocklist + PII 마스킹 v2'],
+    sp:'70 SP', milestone:'M1: Alpha (Week 10)',
+    badges:['S1~S4','15 스토리','Kafka+Qdrant']
+  },
+  {
+    key:'p2', label:'Phase 2', dur:'8주', color:'var(--p2)',
+    start:10, end:18,
+    goal:'MARS 멀티에이전트 · HITL · DataFrame 프로덕션',
+    epics:['E06: MARS 멀티에이전트 5종','E07: Human-in-the-Loop (Teams 연동)','E08: 데이터 커넥터 (Confluence/Jira/SAP)','E09: DataFrame 프로덕션','E10: Omnibox + Context Menu','Zero Trust L1~L4 권한 모델','WebSocket + SSE 안정화'],
+    sp:'83 SP', milestone:'M2: Beta (Week 18)',
+    badges:['S5~S8','16 스토리','5종 에이전트']
+  },
+  {
+    key:'p3', label:'Phase 3', dur:'8주', color:'var(--p3)',
+    start:18, end:26,
+    goal:'Multi-Model · Self-Healing · AutoResearch · 보안',
+    epics:['E11: Dynamic Multi-Model Orchestrator','E12: Self-Healing 루프 (AST+OTel)','E13: AutoResearcher 에이전트','E14: 보안 거버넌스 (OPA+Vault)','E15: Kill Switch + 감사 대시보드','Cross-tenant 데이터 격리','성능 최적화 (k6 부하 테스트)'],
+    sp:'112 SP', milestone:'M3: P3 완료 (Week 26)',
+    badges:['S9~S12','17 스토리','Self-Healing']
+  },
+  {
+    key:'p4', label:'Phase 4', dur:'4주', color:'var(--p4)',
+    start:26, end:30,
+    goal:'통합 테스트 · 보안 심사 · Canary · GA',
+    epics:['E16: 통합 E2E 테스트 (Playwright)','E17: 보안 심사 (OWASP 21체크)','E18: Canary 5%→25%→100%','E19: SLA 모니터링 (Grafana)','E20: 롤백 Runbook 검증','Chrome Web Store 배포','GA 릴리스 + CSM 배정'],
+    sp:'50 SP', milestone:'M4: GA (Week 30)',
+    badges:['S13~S14','11 스토리','14,500+ 테스트']
+  }
+];
+
+const FEATURES = [
+  {id:'F01',name:'Side Panel Agent UI',layer:'L1',priority:'P0',phase:'S0',desc:'Chrome Side Panel API 기반 상시 에이전트 UI. 0.3초 이내 로드.'},
+  {id:'F02',name:'Smart DOM 추출',layer:'L2',priority:'P0',phase:'S0',desc:'Readability.js + RQFP로 노이즈 60-70% 제거. 추출 정확도 90%+.'},
+  {id:'F03',name:'컨텍스트 메뉴 분석',layer:'L1+L2',priority:'P0',phase:'S0',desc:'텍스트/이미지 선택 후 우클릭으로 즉시 분석·번역·요약.'},
+  {id:'F04',name:'SSE 스트리밍 응답',layer:'L1',priority:'P0',phase:'S0',desc:'TTFT 500ms 이내. 실시간 타이핑 효과. 자동 재연결 3회.'},
+  {id:'F05',name:'DataFrame 변환기',layer:'L3',priority:'P0',phase:'P1',desc:'HTML Table/List/Card → JSON/CSV/XLSX. 변환 성공률 95%+.'},
+  {id:'F06',name:'MARS 멀티에이전트',layer:'L4',priority:'P1',phase:'P2',desc:'Planner→Search→Web→Data→Analysis→Report 6단계 자율 파이프라인.'},
+  {id:'F07',name:'Dynamic Multi-Model',layer:'CC',priority:'P1',phase:'P2',desc:'Task Classifier → 5종 모델 자동 선택. Fallback 체인. 비용 30% 절감.'},
+  {id:'F08',name:'Self-Healing 루프',layer:'CC',priority:'P1',phase:'P3',desc:'Signal→Diagnosis→Sandbox→Deploy 4단계. 복구 시간 55-70% 단축.'},
+  {id:'F09',name:'에이전트 권한 모델',layer:'CC',priority:'P0',phase:'P1',desc:'L1~L4 Observer/Interactor/Operator/Admin. JWT session_hash 바인딩.'},
+  {id:'F10',name:'PII 마스킹 파이프라인',layer:'CC',priority:'P0',phase:'S0',desc:'11개 패턴(기존 7+신규 4). DOM 추출 전 자동 적용. 누락률 0%.'},
+  {id:'F11',name:'Omnibox 주소창 AI',layer:'L1',priority:'P2',phase:'P2',desc:'"h " 입력 후 자연어 명령. Side Panel 즉시 실행.'},
+  {id:'F12',name:'HITL 승인 게이트',layer:'CC',priority:'P1',phase:'P2',desc:'L3 이상 위험 작업 시 사용자 명시적 확인. Teams 알림 연동.'},
+  {id:'F13',name:'Playwright CDP Fallback',layer:'L1',priority:'P1',phase:'P1',desc:'Content Script 접근 불가 시 자동 전환. PDF·chrome:// 대응.'},
+  {id:'F14',name:'사내 시스템 커넥터',layer:'L1',priority:'P1',phase:'P2',desc:'Confluence CQL · Jira JQL · SAP Fiori DOM 직접 접근.'},
+  {id:'F15',name:'AutoResearcher 에이전트',layer:'L4',priority:'P2',phase:'P3',desc:'Karpathy AutoResearch 패턴. 가설→실행→평가→개선/롤백 루프.'},
+  {id:'F16',name:'시맨틱 DOM 시각화',layer:'L2',priority:'P2',phase:'P3',desc:'RQFP 점수 히트맵 오버레이. 추출 결과 품질 실시간 표시.'},
+];
+
+const MILESTONES = [
+  {id:'M0',label:'Alpha',week:'Day 14',color:'var(--s0)',
+   criteria:['Smart DOM 작동 확인','단일 에이전트 보고서 생성','DOM 파싱 정확도 95%+','PII 마스킹 누락 0건','Day 7 중간 데모 통과'],
+   nogo:'기술 스택 재검토 → 2주 추가'},
+  {id:'M1',label:'CWS 게시',week:'Week 10',color:'var(--p1)',
+   criteria:['NPS 35+','응답 정확도 80%+','Chrome Web Store 게시 완료','Extension 설치 유지율 90%+','보안 취약점 CRITICAL 0건'],
+   nogo:'집중 개선 스프린트 2주 추가'},
+  {id:'M2',label:'Beta',week:'Week 18',color:'var(--p2)',
+   criteria:['DAU/MAU 55%+','자동화율 25%+','보안 감사 통과','5종 에이전트 가동','HITL Teams 연동'],
+   nogo:'GA 4주 연기'},
+  {id:'M3',label:'P3 완료',week:'Week 26',color:'var(--p3)',
+   criteria:['Multi-Model 동적 라우팅','Self-Healing 복구율 55%+','Kill Switch 구현','보안 거버넌스 21개 체크리스트','부하 테스트 p95 <2s'],
+   nogo:'소프트 런치 → 기능 축소 GA'},
+  {id:'M4',label:'GA',week:'Week 30',color:'var(--p4)',
+   criteria:['SLA 99.9%','NPS 45+','Canary 100% 완료','OWASP Top 10 통과','롤백 RTO <10분'],
+   nogo:'단계적 확산 (5%→25% 유지)'},
+];
+
+const RISKS = [
+  {title:'LLM API 비용 급등',level:'CRITICAL',prob:'높음',impact:'높음',
+   mitigation:'MARS 요청당 비용 캡($2) · Fast Ops(Grok) 우선 라우팅 · Mock LLM 개발 환경 · 일일 사용량 알림',
+   color:'var(--red)',bg:'rgba(255,69,96,0.1)'},
+  {title:'SPA/Shadow DOM 처리 실패',level:'HIGH',prob:'높음',impact:'중간',
+   mitigation:'Sprint 0 Day 1 SAP Fiori PoC · Playwright CDP 자동 폴백 · waitForDOMStable 단일 resolve 보장',
+   color:'var(--orange)',bg:'rgba(255,124,69,0.1)'},
+  {title:'데이터 유출 / 보안 인시던트',level:'HIGH',prob:'낮음',impact:'매우 높음',
+   mitigation:'Zero Trust + 소버린 AI · PII 11패턴 마스킹 · Blocklist 26개 · 불변 감사 로그',
+   color:'var(--orange)',bg:'rgba(255,124,69,0.1)'},
+  {title:'AI 환각 → 잘못된 자동화',level:'HIGH',prob:'중간',impact:'높음',
+   mitigation:'Human-in-the-Loop L3+ 강제 승인 · 에이전트 행동 감사 로그 · Kill Switch 즉시 중지',
+   color:'var(--orange)',bg:'rgba(255,124,69,0.1)'},
+  {title:'계열사 간 데이터 격리 실패',level:'MEDIUM',prob:'낮음',impact:'높음',
+   mitigation:'도메인별 Content Script 활성화 정책 · JWT tenant 클레임 · MVP부터 multi-tenant 설계',
+   color:'var(--amber)',bg:'rgba(255,179,71,0.1)'},
+  {title:'Chrome Extension 정책 변경',level:'MEDIUM',prob:'낮음',impact:'높음',
+   mitigation:'MV3 최신 스펙 준수 · Background SW 로직 최소화 · Edge 호환 준비',
+   color:'var(--amber)',bg:'rgba(255,179,71,0.1)'},
+  {title:'핵심 인력 이탈',level:'MEDIUM',prob:'중간',impact:'높음',
+   mitigation:'RSU 인센티브 프로그램 · Bus Factor 3+ 유지 · 지식 문서화 · 교차 교육 6회',
+   color:'var(--amber)',bg:'rgba(255,179,71,0.1)'},
+  {title:'사용자 채택 저조',level:'LOW',prob:'낮음',impact:'중간',
+   mitigation:'ExtensionInstallForcelist 강제 설치 · 챔피언 20명 프로그램 · 온보딩 30초 설계',
+   color:'var(--blue2)',bg:'rgba(90,154,255,0.1)'},
+];
+
+const TEAM_RAMP = [
+  {role:'PM (1)', s0:'●', p1:'●', p2:'●', p3:'●', p4:'●'},
+  {role:'FE (3)', s0:'●●●', p1:'●●●', p2:'●●●', p3:'●●', p4:'●●●'},
+  {role:'BE (3)', s0:'●●', p1:'●●●', p2:'●●●', p3:'●●●', p4:'●●'},
+  {role:'ML/AI (2)', s0:'○', p1:'●●', p2:'●●', p3:'●●', p4:'●'},
+  {role:'Infra (1)', s0:'●', p1:'●', p2:'●', p3:'●', p4:'●'},
+  {role:'QA (1)', s0:'○', p1:'●', p2:'●', p3:'●', p4:'●'},
+];
+
+// ════════════════════════ GANTT ════════════════════════
+function buildGantt() {
+  const TOTAL_WEEKS = 30;
+  const TRACK_W = 1200;
+  const LABEL_W = 120;
+  const GAP = 12;
+  const WEEK_W = TRACK_W / TOTAL_WEEKS;
+  const wrapper = document.getElementById('gantt-wrapper');
+  wrapper.style.width = (LABEL_W + GAP + TRACK_W + 20) + 'px';
+
+  const gantt = document.createElement('div');
+  gantt.className = 'gantt';
+
+  // Week ruler
+  const ruler = document.createElement('div');
+  ruler.className = 'weeks-ruler';
+  ruler.style.marginLeft = (LABEL_W + GAP) + 'px';
+  ruler.style.width = TRACK_W + 'px';
+  for (let w = 0; w <= TOTAL_WEEKS; w += 2) {
+    const lbl = document.createElement('div');
+    lbl.className = 'week-label';
+    lbl.style.left = (w / TOTAL_WEEKS * 100) + '%';
+    lbl.textContent = w === 0 ? 'W0' : 'W' + w;
+    ruler.appendChild(lbl);
+  }
+  gantt.appendChild(ruler);
+
+  // Rows
+  const phaseRows = [
+    {label:'Sprint 0', start:0, end:2, color:'var(--s0)', text:'14일 MVP', sp:''},
+    {label:'Phase 1', start:2, end:10, color:'var(--p1)', text:'소버린 데이터 · Smart DOM · 단일 에이전트', sp:'70 SP'},
+    {label:'Phase 2', start:10, end:18, color:'var(--p2)', text:'MARS 멀티에이전트 · HITL · DataFrame', sp:'83 SP'},
+    {label:'Phase 3', start:18, end:26, color:'var(--p3)', text:'Multi-Model · Self-Healing · AutoResearch', sp:'112 SP'},
+    {label:'Phase 4', start:26, end:30, color:'var(--p4)', text:'통합 테스트 · Canary · GA', sp:'50 SP'},
+  ];
+
+  const featureRows = [
+    {label:'FE 작업', items:[
+      {start:0,end:4,color:'rgba(255,69,96,0.5)',text:'Extension 기반'},
+      {start:4,end:10,color:'rgba(255,124,69,0.5)',text:'Smart DOM + UI'},
+      {start:10,end:18,color:'rgba(61,127,255,0.5)',text:'MARS UI + 커넥터'},
+      {start:18,end:26,color:'rgba(0,200,150,0.5)',text:'Multi-Model + 대시보드'},
+      {start:26,end:30,color:'rgba(240,192,64,0.5)',text:'GA Polish'},
+    ]},
+    {label:'BE 작업', items:[
+      {start:0,end:3,color:'rgba(255,69,96,0.4)',text:'API 설계'},
+      {start:3,end:10,color:'rgba(255,124,69,0.4)',text:'Kafka + Qdrant + RAG'},
+      {start:10,end:18,color:'rgba(61,127,255,0.4)',text:'MARS 엔진 + 커넥터'},
+      {start:18,end:26,color:'rgba(0,200,150,0.4)',text:'Orchestrator + Healing'},
+      {start:26,end:30,color:'rgba(240,192,64,0.4)',text:'부하 최적화'},
+    ]},
+    {label:'ML/AI', items:[
+      {start:4,end:10,color:'rgba(168,85,247,0.4)',text:'임베딩 + RQFP'},
+      {start:10,end:18,color:'rgba(168,85,247,0.5)',text:'에이전트 학습'},
+      {start:18,end:26,color:'rgba(168,85,247,0.6)',text:'Self-Healing 진단'},
+      {start:26,end:30,color:'rgba(168,85,247,0.4)',text:'모델 최적화'},
+    ]},
+  ];
+
+  // Phase bars
+  phaseRows.forEach(row => {
+    const div = document.createElement('div');
+    div.className = 'gantt-row';
+    div.innerHTML = `<div class="gantt-label" style="color:${row.color}">${row.label}</div>`;
+    const track = document.createElement('div');
+    track.className = 'gantt-track';
+
+    // Grid lines
+    for (let w = 0; w <= TOTAL_WEEKS; w += 2) {
+      const gl = document.createElement('div');
+      gl.className = 'gantt-grid';
+      gl.style.left = (w / TOTAL_WEEKS * 100) + '%';
+      track.appendChild(gl);
+    }
+
+    const bar = document.createElement('div');
+    bar.className = 'gantt-bar';
+    bar.style.left = (row.start / TOTAL_WEEKS * 100) + '%';
+    bar.style.width = ((row.end - row.start) / TOTAL_WEEKS * 100) + '%';
+    bar.style.background = `linear-gradient(90deg, ${row.color}dd, ${row.color}88)`;
+    bar.innerHTML = `<span style="font-size:11px">${row.text}</span>${row.sp ? `<span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;opacity:.7">${row.sp}</span>` : ''}`;
+    bar.dataset.tooltip = row.label;
+    bar.dataset.ttbody = row.text;
+    track.appendChild(bar);
+    div.appendChild(track);
+    gantt.appendChild(div);
+  });
+
+  // Feature rows
+  featureRows.forEach(row => {
+    const div = document.createElement('div');
+    div.className = 'gantt-row';
+    div.innerHTML = `<div class="gantt-label" style="color:var(--muted);font-size:10px">${row.label}</div>`;
+    const track = document.createElement('div');
+    track.className = 'gantt-track';
+    row.items.forEach(item => {
+      const bar = document.createElement('div');
+      bar.className = 'gantt-bar';
+      bar.style.left = (item.start / TOTAL_WEEKS * 100) + '%';
+      bar.style.width = ((item.end - item.start) / TOTAL_WEEKS * 100) + '%';
+      bar.style.background = item.color;
+      bar.style.fontSize = '10px';
+      bar.textContent = item.text;
+      track.appendChild(bar);
+    });
+    div.appendChild(track);
+    gantt.appendChild(div);
+  });
+
+  // Milestones row
+  const msDiv = document.createElement('div');
+  msDiv.className = 'milestone-row';
+  msDiv.innerHTML = `<div class="gantt-label" style="color:var(--muted);font-size:10px">마일스톤</div>`;
+  const msTrack = document.createElement('div');
+  msTrack.className = 'ms-track';
+  const milestoneWeeks = [{w:2,label:'M0',color:'var(--s0)'},{w:10,label:'M1',color:'var(--p1)'},{w:18,label:'M2',color:'var(--p2)'},{w:26,label:'M3',color:'var(--p3)'},{w:30,label:'M4',color:'var(--p4)'}];
+  milestoneWeeks.forEach(m => {
+    const d = document.createElement('div');
+    d.className = 'ms-diamond';
+    d.style.left = (m.w / TOTAL_WEEKS * 100) + '%';
+    d.style.borderColor = m.color;
+    d.style.background = m.color + '22';
+    const lbl = document.createElement('div');
+    lbl.className = 'ms-label';
+    lbl.style.left = (m.w / TOTAL_WEEKS * 100) + '%';
+    lbl.style.color = m.color;
+    lbl.style.marginLeft = '12px';
+    lbl.textContent = m.label;
+    msTrack.appendChild(d);
+    msTrack.appendChild(lbl);
+  });
+  msDiv.appendChild(msTrack);
+  gantt.appendChild(msDiv);
+
+  wrapper.appendChild(gantt);
+}
+
+// ════════════════════════ PHASES GRID ════════════════════════
+function buildPhases() {
+  const grid = document.getElementById('phases-grid');
+  PHASES.forEach(ph => {
+    const card = document.createElement('div');
+    card.className = 'phase-card';
+    card.innerHTML = `
+      <div class="phase-card-top" style="border-top:3px solid ${ph.color}">
+        <div class="phase-num" style="color:${ph.color}">${ph.label.toUpperCase()} · ${ph.dur}</div>
+        <div class="phase-name">${ph.label}</div>
+        <div class="phase-duration" style="color:var(--muted2)">${ph.goal}</div>
+      </div>
+      <div class="phase-card-body">
+        ${ph.epics.map(e => `<div class="epic-item"><div class="epic-dot" style="background:${ph.color}"></div>${e}</div>`).join('')}
+      </div>
+      <div class="phase-footer">
+        <span class="mini-badge" style="border-color:${ph.color};color:${ph.color}">${ph.sp}</span>
+        ${ph.badges.map(b => `<span class="mini-badge">${b}</span>`).join('')}
+      </div>
+      <div style="padding:12px 20px;background:rgba(255,255,255,0.02);border-top:1px solid var(--border);font-size:11px;color:${ph.color};font-family:var(--font-mono)">${ph.milestone}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ════════════════════════ MILESTONES ════════════════════════
+function buildMilestones() {
+  const track = document.getElementById('ms-track');
+  track.innerHTML = `
+    <div class="section-title" style="margin-bottom:8px">MILESTONE TIMELINE</div>
+    <div class="section-h2" style="margin-bottom:40px">30주 <em>게이트</em></div>
+    <div class="ms-line"></div>
+    <div class="ms-nodes">
+      ${MILESTONES.map(m => `
+        <div class="ms-node">
+          <div class="ms-circle" style="border-color:${m.color};color:${m.color}">${m.id}</div>
+          <div class="ms-info">
+            <div class="ms-title" style="color:${m.color}">${m.label}</div>
+            <div class="ms-when">${m.week}</div>
+            <div class="ms-criteria">${m.criteria.slice(0,3).join('<br>')}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  const detail = document.getElementById('ms-detail-table');
+  detail.innerHTML = `
+    <table class="arr-table" style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <thead><tr><th>마일스톤</th><th>시점</th><th>판정 기준</th><th>No-Go 대응</th></tr></thead>
+      <tbody>
+        ${MILESTONES.map(m => `
+          <tr>
+            <td style="color:${m.color};font-weight:700">${m.id}: ${m.label}</td>
+            <td>${m.week}</td>
+            <td style="font-size:11px">${m.criteria.join(' · ')}</td>
+            <td style="color:var(--amber);font-size:11px">${m.nogo}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+// ════════════════════════ FEATURES ════════════════════════
+function buildFeatures() {
+  renderFeatures('all');
+}
+
+function renderFeatures(filter) {
+  const grid = document.getElementById('feature-grid');
+  const filtered = filter === 'all' ? FEATURES : FEATURES.filter(f => f.layer.includes(filter));
+  grid.innerHTML = filtered.map(f => {
+    const pColor = {P0:'var(--red)',P1:'var(--amber)',P2:'var(--blue2)'}[f.priority];
+    const lColor = {L1:'var(--blue2)',L2:'var(--green)',L3:'var(--orange)',L4:'var(--red)',CC:'var(--purple)'}[f.layer.split('+')[0]] || 'var(--muted2)';
+    return `
+      <div class="feature-card">
+        <div class="feature-id">${f.id} · ${f.phase}</div>
+        <div class="feature-name">${f.name}</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:6px">${f.desc}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="feature-priority" style="background:${pColor}22;color:${pColor};border:1px solid ${pColor}44">${f.priority}</span>
+          <span class="feature-layer" style="color:${lColor}">${f.layer}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterFeatures(filter, btn) {
+  document.querySelectorAll('#view-features .nav-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFeatures(filter);
+}
+
+// ════════════════════════ RISKS ════════════════════════
+function buildRisks() {
+  const grid = document.getElementById('risk-grid');
+  grid.innerHTML = RISKS.map(r => `
+    <div class="risk-card" style="border-color:${r.color}44">
+      <div class="risk-badge" style="background:${r.bg};color:${r.color}">${r.level.slice(0,3)}</div>
+      <div class="risk-content">
+        <h4>${r.title}</h4>
+        <p>${r.mitigation}</p>
+        <div class="risk-meta">
+          <span class="risk-pill">발생 확률: ${r.prob}</span>
+          <span class="risk-pill">영향: ${r.impact}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════ TEAM ════════════════════════
+function buildTeam() {
+  const rows = document.getElementById('ramp-rows');
+  rows.innerHTML = TEAM_RAMP.map(row => `
+    <div class="phase-ramp-row">
+      <span class="ramp-role">${row.role}</span>
+      ${[row.s0, row.p1, row.p2, row.p3, row.p4].map((v,i) => {
+        const colors = ['var(--s0)','var(--p1)','var(--p2)','var(--p3)','var(--p4)'];
+        const c = v === '○' ? 'var(--muted)' : colors[i];
+        return `<span class="ramp-cell" style="color:${c}">${v}</span>`;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+// ════════════════════════ TOOLTIP ════════════════════════
+const tooltip = document.getElementById('tooltip');
+const ttTitle = document.getElementById('tt-title');
+const ttBody = document.getElementById('tt-body');
+
+document.addEventListener('mouseover', e => {
+  const bar = e.target.closest('[data-tooltip]');
+  if (bar) {
+    ttTitle.textContent = bar.dataset.tooltip || '';
+    ttBody.textContent = bar.dataset.ttbody || '';
+    tooltip.classList.add('show');
+  }
+});
+document.addEventListener('mouseout', e => {
+  if (!e.target.closest('[data-tooltip]')) tooltip.classList.remove('show');
+});
+document.addEventListener('mousemove', e => {
+  tooltip.style.left = (e.clientX + 16) + 'px';
+  tooltip.style.top = (e.clientY - 8) + 'px';
+});
+
+// ════════════════════════ VIEW SWITCHING ════════════════════════
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + id)?.classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ════════════════════════ SCROLL ANIMATIONS ════════════════════════
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+// ════════════════════════ INIT ════════════════════════
+buildGantt();
+buildPhases();
+buildMilestones();
+buildFeatures();
+buildRisks();
+buildTeam();
+
+// Re-observe after build
+setTimeout(() => {
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+}, 100);
+</script>
+</body>
+</html>

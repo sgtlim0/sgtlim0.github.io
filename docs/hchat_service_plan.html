@@ -1,0 +1,4014 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H Chat Master Dashboard 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --bg: #04060f;
+  --bg1: #080d1c;
+  --bg2: #0c1228;
+  --surface: rgba(255,255,255,0.03);
+  --surface2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8eaf0;
+  --muted: #5a6480;
+  --muted2: #8892b0;
+  --blue: #3d7fff;
+  --blue2: #5a9aff;
+  --cyan: #00d4ff;
+  --teal: #00e5c0;
+  --green: #00c896;
+  --amber: #ffb347;
+  --orange: #ff7c45;
+  --red: #ff4560;
+  --purple: #a855f7;
+  --gold: #f0c040;
+  --font-display: 'Syne', 'Noto Sans KR', sans-serif;
+  --font-body: 'Noto Sans KR', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grid noise background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(61,127,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,127,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: rgba(4,6,15,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 1000;
+  gap: 0;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 32px;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+}
+
+.nav-logo .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(61,127,255,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(61,127,255,0); }
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border: none;
+  background: none;
+  position: relative;
+  user-select: none;
+}
+
+.nav-tab:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+.nav-tab.active {
+  color: var(--blue2);
+  background: rgba(61,127,255,0.1);
+}
+
+.nav-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 1px;
+}
+
+.nav-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--red);
+  background: rgba(255,69,96,0.1);
+  border: 1px solid rgba(255,69,96,0.2);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main {
+  padding-top: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+.view {
+  display: none;
+  padding: 0 0 80px;
+}
+
+.view.active {
+  display: block;
+}
+
+/* ============================================================
+   CONFIDENTIAL WATERMARK
+   ============================================================ */
+.watermark {
+  position: fixed;
+  top: 72px;
+  left: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--red);
+  opacity: 0.55;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  z-index: 999;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 80px 24px 48px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(61,127,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--blue2);
+  background: rgba(61,127,255,0.08);
+  border: 1px solid rgba(61,127,255,0.15);
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 50%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero .subtitle {
+  font-size: 16px;
+  color: var(--muted2);
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat .number {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.hero-stat .label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   SECTION LAYOUT
+   ============================================================ */
+.section-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  margin-bottom: 56px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.section-h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.section-h2 .accent {
+  color: var(--blue2);
+}
+
+/* ============================================================
+   GRID LAYOUTS
+   ============================================================ */
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.four-col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.flex-row {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.flex-1 {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .four-col { grid-template-columns: repeat(2, 1fr); }
+  .three-col { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .four-col, .three-col, .two-col { grid-template-columns: 1fr; }
+  .flex-row { flex-direction: column; }
+  .hero-stats { gap: 24px; }
+}
+
+/* ============================================================
+   CARDS — GLASSMORPHISM
+   ============================================================ */
+.card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--border2);
+}
+
+.card-top-accent {
+  border-top: 2px solid var(--blue);
+}
+.card-top-accent.teal { border-top-color: var(--teal); }
+.card-top-accent.amber { border-top-color: var(--amber); }
+.card-top-accent.red { border-top-color: var(--red); }
+.card-top-accent.green { border-top-color: var(--green); }
+.card-top-accent.purple { border-top-color: var(--purple); }
+
+/* ============================================================
+   KPI CARDS
+   ============================================================ */
+.kpi-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: center;
+  transition: border-color 0.2s ease;
+}
+
+.kpi-card:hover {
+  border-color: var(--border2);
+}
+
+.kpi-card .number {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.kpi-card .label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* ============================================================
+   STAT INLINE
+   ============================================================ */
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-val {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   PHASE CARDS
+   ============================================================ */
+.phase-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.phase-card:hover {
+  border-color: var(--border2);
+}
+
+.phase-card-top {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phase-card-body {
+  padding: 16px 20px;
+}
+
+.phase-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ============================================================
+   FEATURE CARDS
+   ============================================================ */
+.feature-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--border2);
+}
+
+.feature-id {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.feature-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.feature-layer {
+  font-size: 11px;
+  color: var(--muted2);
+}
+
+.feature-priority {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   RISK CARDS
+   ============================================================ */
+.risk-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  transition: border-color 0.2s ease;
+}
+
+.risk-card:hover {
+  border-color: var(--border2);
+}
+
+.risk-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.risk-badge.high {
+  color: var(--red);
+  background: rgba(255,69,96,0.1);
+  border: 1px solid rgba(255,69,96,0.2);
+}
+
+.risk-badge.medium {
+  color: var(--amber);
+  background: rgba(255,179,71,0.1);
+  border: 1px solid rgba(255,179,71,0.2);
+}
+
+.risk-badge.low {
+  color: var(--green);
+  background: rgba(0,200,150,0.1);
+  border: 1px solid rgba(0,200,150,0.2);
+}
+
+.risk-content {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.risk-meta {
+  font-size: 12px;
+  color: var(--muted2);
+}
+
+.risk-pill {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  margin-top: 8px;
+}
+
+/* ============================================================
+   TEAM CARDS
+   ============================================================ */
+.team-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s ease;
+}
+
+.team-card:hover {
+  border-color: var(--border2);
+}
+
+.team-role {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.team-count {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--blue2);
+  margin-bottom: 8px;
+}
+
+.team-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ============================================================
+   ANALYSIS CARDS
+   ============================================================ */
+.analysis-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.insight-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.insight-item:last-child {
+  border-bottom: none;
+}
+
+.insight-num {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--blue);
+  min-width: 28px;
+}
+
+.insight-text {
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border2);
+}
+
+td {
+  font-size: 13px;
+  color: var(--text);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:hover td {
+  background: var(--surface);
+}
+
+.arr-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.arr-table th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border2);
+}
+
+.arr-table th:first-child {
+  text-align: left;
+}
+
+.arr-table td {
+  font-size: 13px;
+  color: var(--text);
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+.arr-table td:first-child {
+  text-align: left;
+  color: var(--muted2);
+}
+
+/* ============================================================
+   BARS
+   ============================================================ */
+.bar {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+  background: var(--blue);
+}
+
+.bar-fill.blue { background: var(--blue); }
+.bar-fill.teal { background: var(--teal); }
+.bar-fill.amber { background: var(--amber); }
+.bar-fill.red { background: var(--red); }
+.bar-fill.purple { background: var(--purple); }
+.bar-fill.green { background: var(--green); }
+.bar-fill.cyan { background: var(--cyan); }
+
+/* Budget Bars */
+.bbar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.bbar-label {
+  font-size: 12px;
+  color: var(--muted2);
+  min-width: 120px;
+  text-align: right;
+}
+
+.bbar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bbar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+  background: var(--blue);
+}
+
+.bbar-fill.teal { background: var(--teal); }
+.bbar-fill.amber { background: var(--amber); }
+.bbar-fill.red { background: var(--red); }
+.bbar-fill.purple { background: var(--purple); }
+.bbar-fill.green { background: var(--green); }
+
+.bbar-amount {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text);
+  min-width: 80px;
+}
+
+/* ============================================================
+   TAGS / BADGES
+   ============================================================ */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--surface2);
+  color: var(--muted2);
+  border: 1px solid var(--border);
+}
+
+.tag-blue {
+  color: var(--blue2);
+  background: rgba(61,127,255,0.1);
+  border-color: rgba(61,127,255,0.2);
+}
+
+.tag-green {
+  color: var(--green);
+  background: rgba(0,200,150,0.1);
+  border-color: rgba(0,200,150,0.2);
+}
+
+.tag-teal {
+  color: var(--teal);
+  background: rgba(0,229,192,0.1);
+  border-color: rgba(0,229,192,0.2);
+}
+
+.tag-amber {
+  color: var(--amber);
+  background: rgba(255,179,71,0.1);
+  border-color: rgba(255,179,71,0.2);
+}
+
+.tag-red {
+  color: var(--red);
+  background: rgba(255,69,96,0.1);
+  border-color: rgba(255,69,96,0.2);
+}
+
+.tag-purple {
+  color: var(--purple);
+  background: rgba(168,85,247,0.1);
+  border-color: rgba(168,85,247,0.2);
+}
+
+.tag-cyan {
+  color: var(--cyan);
+  background: rgba(0,212,255,0.1);
+  border-color: rgba(0,212,255,0.2);
+}
+
+.mini-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--surface2);
+  color: var(--muted2);
+}
+
+/* ============================================================
+   GANTT / TIMELINE
+   ============================================================ */
+.gantt {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  overflow-x: auto;
+  position: relative;
+}
+
+.gantt-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  min-height: 32px;
+}
+
+.gantt-label {
+  font-size: 12px;
+  color: var(--muted2);
+  min-width: 160px;
+  padding-right: 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.gantt-track {
+  flex: 1;
+  height: 24px;
+  position: relative;
+  min-width: 600px;
+}
+
+.gantt-bar {
+  position: absolute;
+  height: 20px;
+  border-radius: 4px;
+  top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.gantt-bar:hover {
+  opacity: 0.85;
+}
+
+.gantt-grid {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed var(--border);
+  pointer-events: none;
+}
+
+.weeks-ruler {
+  display: flex;
+  margin-left: 160px;
+  margin-bottom: 8px;
+  min-width: 600px;
+}
+
+.week-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  text-align: center;
+  flex: 1;
+}
+
+/* Milestones */
+.milestone-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ms-track {
+  flex: 1;
+  position: relative;
+  height: 20px;
+  min-width: 600px;
+}
+
+.ms-diamond {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg) translateY(-50%);
+  top: 50%;
+  border-radius: 2px;
+}
+
+.ms-label {
+  position: absolute;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--muted2);
+  white-space: nowrap;
+  top: -14px;
+}
+
+/* ============================================================
+   LAYER STACK
+   ============================================================ */
+.layer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.layer-item:hover {
+  border-color: var(--border2);
+}
+
+.layer-num {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  min-width: 32px;
+  text-align: center;
+}
+
+.layer-text {
+  font-size: 12px;
+  color: var(--muted2);
+  line-height: 1.4;
+}
+
+.layer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+/* ============================================================
+   MOAT
+   ============================================================ */
+.moat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.moat-layer {
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  border-left: 3px solid var(--blue);
+  transition: border-color 0.2s ease;
+}
+
+.moat-layer:hover {
+  border-color: var(--border2);
+  border-left-color: var(--blue2);
+}
+
+/* ============================================================
+   PHASE RAMP (Team Ramp Table)
+   ============================================================ */
+.phase-ramp {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.phase-ramp-header {
+  display: flex;
+  border-bottom: 1px solid var(--border2);
+}
+
+.phase-ramp-header > * {
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.phase-ramp-row {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+
+.phase-ramp-row:last-child {
+  border-bottom: none;
+}
+
+.ramp-role {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--muted2);
+  min-width: 140px;
+}
+
+.ramp-cell {
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  text-align: center;
+  flex: 1;
+}
+
+/* ============================================================
+   KPI TIMELINE
+   ============================================================ */
+.kpi-timeline {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.kpi-col {
+  flex: 1;
+  border-right: 1px solid var(--border);
+}
+
+.kpi-col:last-child {
+  border-right: none;
+}
+
+.kpi-col-header {
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.kpi-col-body {
+  padding: 8px 0;
+}
+
+.kpi-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 16px;
+  font-size: 12px;
+}
+
+.kpi-row span:first-child {
+  color: var(--muted2);
+}
+
+.kpi-row span:last-child {
+  font-family: var(--font-mono);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ============================================================
+   BUDGET GRID
+   ============================================================ */
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.budget-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ============================================================
+   METRIC GRID / METRIC CARDS
+   ============================================================ */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.metric-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  transition: border-color 0.2s ease;
+}
+
+.metric-card:hover {
+  border-color: var(--border2);
+}
+
+.metric-number {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.metric-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   DIAGRAM (Monospace pre)
+   ============================================================ */
+.diagram {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted2);
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ============================================================
+   TEXT UTILITIES
+   ============================================================ */
+.accent {
+  color: var(--blue2);
+}
+
+.highlight {
+  color: var(--teal);
+}
+
+.small {
+  font-size: 12px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted2);
+  font-weight: 300;
+}
+
+.warning {
+  color: var(--amber);
+}
+
+/* ============================================================
+   WIKI-SPECIFIC
+   ============================================================ */
+.wiki-map {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.wiki-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.wiki-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+
+.wiki-category {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.wiki-stat {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--surface2);
+  color: var(--muted2);
+  border: 1px solid var(--border);
+}
+
+.doc-tree {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 2;
+  color: var(--muted2);
+  padding: 16px 20px;
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.doc-tree .tree-branch {
+  color: var(--border2);
+}
+
+.doc-tree .tree-file {
+  color: var(--blue2);
+}
+
+.doc-tree .tree-folder {
+  color: var(--amber);
+}
+
+/* ============================================================
+   SLIDES-SPECIFIC
+   ============================================================ */
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.slide-thumb {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  font-size: 12px;
+  color: var(--muted2);
+  text-align: center;
+}
+
+.slide-thumb:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+
+.slide-thumb.active {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px var(--blue);
+}
+
+.slide-viewer {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.slide-nav button {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.slide-nav button:hover {
+  background: var(--surface);
+  border-color: var(--border2);
+}
+
+.slide-nav .slide-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted2);
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+  .nav, .watermark { display: none !important; }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  body::before { display: none !important; }
+
+  .view {
+    display: block !important;
+    page-break-before: always;
+  }
+
+  .view:first-child {
+    page-break-before: auto;
+  }
+
+  .card, .kpi-card, .phase-card, .feature-card, .risk-card,
+  .team-card, .analysis-card, .gantt, .metric-card, .wiki-card {
+    break-inside: avoid;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0,0,0,0.03) !important;
+    border-color: rgba(0,0,0,0.15) !important;
+    color: black !important;
+  }
+
+  .hero h1, .section-h2, .kpi-card .number, .metric-number,
+  .stat-val, .team-count, .hero-stat .number {
+    color: black !important;
+    -webkit-text-fill-color: black !important;
+    background: none !important;
+  }
+
+  .tag, .mini-badge, .risk-badge, .hero-tag, .nav-badge {
+    border-color: rgba(0,0,0,0.2) !important;
+    color: black !important;
+  }
+
+  td, th, .gantt-label, .bbar-label, .ramp-role,
+  .muted, .muted2, .subtitle, .insight-text, .risk-meta {
+    color: #333 !important;
+  }
+}
+
+.phases-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+@media (max-width: 1024px) { .phases-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .phases-grid { grid-template-columns: 1fr; } }
+:root { --s0: #ff4560; --p1: #ff7c45; --p2: #3d7fff; --p3: #00c896; --p4: #f0c040; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 1024px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .team-grid { grid-template-columns: 1fr; } }
+.team-section { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.milestone-track { position: relative; padding: 24px 0; }
+.ms-line { position: absolute; top: 54px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--s0), var(--p1), var(--p2), var(--p3), var(--p4)); }
+.ms-nodes { display: flex; justify-content: space-between; position: relative; }
+.ms-node { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.ms-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 12px; position: relative; z-index: 1; }
+.ms-info { text-align: center; }
+.ms-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.ms-when { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-bottom: 6px; }
+.ms-criteria { font-size: 11px; color: var(--muted2); max-width: 140px; margin: 0 auto; line-height: 1.4; }
+.ramp-empty { color: var(--muted) !important; opacity: 0.5; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="nav">
+  <div class="nav-logo">
+    <span class="dot"></span>
+    H Chat
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-tab="view-overview">Overview</button>
+    <button class="nav-tab" data-tab="view-product">Product</button>
+    <button class="nav-tab" data-tab="view-timeline">Timeline</button>
+    <button class="nav-tab" data-tab="view-business">Business</button>
+    <button class="nav-tab" data-tab="view-team">Team</button>
+    <button class="nav-tab" data-tab="view-wiki">Wiki</button>
+    <button class="nav-tab" data-tab="view-analysis">Analysis</button>
+    <button class="nav-tab" data-tab="view-slides">Slides</button>
+  </div>
+  <span class="nav-badge">CONFIDENTIAL</span>
+</nav>
+
+<!-- ============================================================
+     CONFIDENTIAL WATERMARK
+     ============================================================ -->
+<div class="watermark">CONFIDENTIAL &mdash; INTERNAL USE ONLY</div>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main class="main">
+
+  <!-- ========== OVERVIEW TAB ========== -->
+  <div id="view-overview" class="view active">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">MASTER DASHBOARD 2026</div>
+      <h1>H Chat <em>AI Browser OS</em></h1>
+      <p class="subtitle">현대차그룹 생성형 AI 서비스 &mdash; 통합 전략 대시보드</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="number">v4.5</div>
+          <div class="label">현재 버전</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">16</div>
+          <div class="label">핵심 기능</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">30wk</div>
+          <div class="label">타임라인</div>
+        </div>
+        <div class="hero-stat">
+          <div class="number">&#8361;4.2B</div>
+          <div class="label">목표 ARR</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: Overview — Executive Dashboard                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+
+<!-- ── Section 1: Key Metrics ── -->
+<div class="section-wrap">
+  <div class="section-title">Key Metrics</div>
+  <div class="four-col">
+    <div class="kpi-card card-top-accent teal">
+      <div class="number">v4.5</div>
+      <div class="label">현재 버전</div>
+      <div class="small" style="color:var(--muted2); margin-top:6px;">2024.06 → 2026.03 (22개월)</div>
+    </div>
+    <div class="kpi-card card-top-accent blue">
+      <div class="number">107</div>
+      <div class="label">소스 파일</div>
+      <div class="small" style="color:var(--muted2); margin-top:6px;">21,500+ Lines of Code</div>
+    </div>
+    <div class="kpi-card card-top-accent green">
+      <div class="number">649</div>
+      <div class="label">테스트 케이스</div>
+      <div class="small" style="color:var(--muted2); margin-top:6px;">단위 + 통합 + E2E</div>
+    </div>
+    <div class="kpi-card card-top-accent purple">
+      <div class="number">9</div>
+      <div class="label">AI 모델 지원</div>
+      <div class="small" style="color:var(--muted2); margin-top:6px;">3 프로바이더 (AWS, OpenAI, Google)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 2: Extension 전략 요약 ── -->
+<div class="section-wrap">
+  <div class="section-title">Extension 전략 요약</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="section-h2" style="color:var(--cyan);">Chrome Extension 전략</div>
+      <table style="width:100%; margin-top:12px;">
+        <tr><td style="color:var(--muted2); width:40%;">아키텍처</td><td>Manifest V3, Content Script + Side Panel</td></tr>
+        <tr><td style="color:var(--muted2);">코드 규모</td><td><span class="accent">107 files</span>, 21,500+ LOC, TypeScript</td></tr>
+        <tr><td style="color:var(--muted2);">Host Permission</td><td><span class="tag tag-green">Optional</span> (user-triggered)</td></tr>
+        <tr><td style="color:var(--muted2);">민감 사이트 차단</td><td><span class="tag tag-red">20 도메인</span> + <span class="tag tag-amber">6 패턴</span></td></tr>
+        <tr><td style="color:var(--muted2);">PII 세정</td><td>이메일, 전화, 주민번호, 계좌번호 자동 마스킹</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="section-h2" style="color:var(--teal);">v4.5 현황</div>
+      <table style="width:100%; margin-top:12px;">
+        <tr><td style="color:var(--muted2); width:40%;">핵심 기능</td><td><span class="highlight">16</span> 기능 (Chat, Tools, Browser, Settings)</td></tr>
+        <tr><td style="color:var(--muted2);">도구</td><td><span class="highlight">7</span> 도구 (YouTube, PDF, Web Search, OCR, Translation, Deep Research, Panel)</td></tr>
+        <tr><td style="color:var(--muted2);">AI 페르소나</td><td><span class="highlight">6</span> 종</td></tr>
+        <tr><td style="color:var(--muted2);">프로바이더</td><td><span class="highlight">3</span> (AWS Bedrock SigV4, OpenAI, Google Gemini)</td></tr>
+        <tr><td style="color:var(--muted2);">모델</td><td><span class="highlight">9</span> (Claude 3.5 Sonnet, GPT-4o, Gemini 2.0 Flash 등)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 3: 핵심 수치 대시보드 ── -->
+<div class="section-wrap">
+  <div class="section-title">핵심 수치 대시보드</div>
+  <div class="metric-grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="metric-card">
+      <div class="metric-number" style="color:var(--blue2);">16</div>
+      <div class="metric-label">기능</div>
+      <div class="metric-sub">Chat 6 + Tools 7 + Browser 3</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number" style="color:var(--teal);">45</div>
+      <div class="metric-label">라이브러리</div>
+      <div class="metric-sub">NPM Dependencies</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number" style="color:var(--gold);">&#8361;4.2B</div>
+      <div class="metric-label">목표 ARR</div>
+      <div class="metric-sub">2028년 매출 목표</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number" style="color:var(--green);">30주</div>
+      <div class="metric-label">전체 타임라인</div>
+      <div class="metric-sub">4 Phase, 22 Sprint</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 4: Strategic Pillars ── -->
+<div class="section-wrap">
+  <div class="section-title">Strategic Pillars</div>
+  <div class="three-col">
+    <div class="card card-top-accent teal">
+      <div class="section-h2" style="color:var(--teal);">생산성 혁신</div>
+      <div style="margin-top:10px; font-size:13px; color:var(--muted2); line-height:1.7;">
+        업무 시간 <span class="highlight">30% 절감</span> 목표<br>
+        AI 어시스턴트 일상화<br>
+        MARS 에이전트로 보고서 자동 생성<br>
+        Smart DOM으로 노이즈 60-70% 제거<br>
+        DataFrame 엔진으로 데이터 변환 자동화
+      </div>
+      <div style="margin-top:12px;">
+        <span class="tag tag-teal">MARS</span>
+        <span class="tag tag-teal">Smart DOM</span>
+        <span class="tag tag-teal">DataFrame</span>
+      </div>
+    </div>
+    <div class="card card-top-accent amber">
+      <div class="section-h2" style="color:var(--amber);">보안 우선</div>
+      <div style="margin-top:10px; font-size:13px; color:var(--muted2); line-height:1.7;">
+        PII 자동 세정 (7종 패턴 탐지)<br>
+        민감사이트 <span class="highlight">20+6</span> 차단<br>
+        AWS Bedrock SigV4 인증<br>
+        토큰 사용량 실시간 추적<br>
+        Zero Trust 아키텍처
+      </div>
+      <div style="margin-top:12px;">
+        <span class="tag tag-amber">Zero Trust</span>
+        <span class="tag tag-amber">PII</span>
+        <span class="tag tag-amber">SigV4</span>
+      </div>
+    </div>
+    <div class="card card-top-accent purple">
+      <div class="section-h2" style="color:var(--purple);">확장 가능</div>
+      <div style="margin-top:10px; font-size:13px; color:var(--muted2); line-height:1.7;">
+        Chrome Extension 최우선 출시<br>
+        → Desktop 앱 확장<br>
+        → Mobile PWA 확장<br>
+        Workflow Marketplace 구축<br>
+        부서별 맞춤 에이전트 배포
+      </div>
+      <div style="margin-top:12px;">
+        <span class="tag tag-purple">Extension</span>
+        <span class="tag tag-purple">Desktop</span>
+        <span class="tag tag-purple">Mobile</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- ========== PRODUCT TAB ========== -->
+  <div id="view-product" class="view">
+    <!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: Product — Architecture & Feature Breakdown      -->
+<!-- ══════════════════════════════════════════════════════ -->
+
+<!-- ── Section 1: 4-Layer Architecture ── -->
+<div class="section-wrap">
+  <div class="section-title">4-Layer Architecture</div>
+  <div class="layer-stack">
+    <div class="layer-item" style="border-left: 3px solid var(--purple);">
+      <div class="layer-num" style="color:var(--purple);">L4</div>
+      <div class="layer-text">
+        <div class="layer-title">AI Core — MARS Research Pipeline</div>
+        <span class="tag tag-purple">LLM Router</span>
+        <span class="tag tag-purple">Multi-Provider</span>
+        <span class="tag tag-purple">SSE Streaming</span>
+        <span class="tag tag-purple">Agent Loop</span>
+        <span class="tag tag-purple">Planner</span>
+        <span class="tag tag-purple">Search Agent</span>
+        <span class="tag tag-purple">Report Agent</span>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left: 3px solid var(--amber);">
+      <div class="layer-num" style="color:var(--amber);">L3</div>
+      <div class="layer-text">
+        <div class="layer-title">Tools — DataFrame Engine</div>
+        <span class="tag tag-amber">YouTube</span>
+        <span class="tag tag-amber">PDF</span>
+        <span class="tag tag-amber">Web Search+RAG</span>
+        <span class="tag tag-amber">OCR</span>
+        <span class="tag tag-amber">Translation</span>
+        <span class="tag tag-amber">Deep Research</span>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left: 3px solid var(--teal);">
+      <div class="layer-num" style="color:var(--teal);">L2</div>
+      <div class="layer-text">
+        <div class="layer-title">Browser Integration — Smart DOM</div>
+        <span class="tag tag-teal">Search Card</span>
+        <span class="tag tag-teal">Shadow DOM</span>
+        <span class="tag tag-teal">Writing Assistant</span>
+        <span class="tag tag-teal">Smart Bookmarks</span>
+        <span class="tag tag-teal">Readability.js</span>
+        <span class="tag tag-teal">RQFP Engine</span>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left: 3px solid var(--blue2);">
+      <div class="layer-num" style="color:var(--blue2);">L1</div>
+      <div class="layer-text">
+        <div class="layer-title">Extension Shell — Hybrid Runtime</div>
+        <span class="tag tag-blue">Manifest V3</span>
+        <span class="tag tag-blue">Content Script</span>
+        <span class="tag tag-blue">Side Panel</span>
+        <span class="tag tag-blue">Storage API</span>
+        <span class="tag tag-blue">Omnibox</span>
+        <span class="tag tag-blue">Context Menu</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 2: 16 Features Map ── -->
+<div class="section-wrap">
+  <div class="section-title">16 Features Map</div>
+
+  <!-- Chat (6) -->
+  <div class="section-h2" style="margin-bottom:12px;">
+    <span style="color:var(--cyan);">Chat</span> <span class="small" style="color:var(--muted2);">(6 features)</span>
+  </div>
+  <div class="three-col" style="margin-bottom:24px;">
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--cyan);">F01</div>
+      <div class="feature-name">AI Chat</div>
+      <div class="feature-layer"><span class="tag tag-blue">L1</span> <span class="tag tag-green">P0</span></div>
+      <div class="feature-priority">스트리밍, 비전, 에이전트, 페르소나</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--cyan);">F02</div>
+      <div class="feature-name">Group Chat</div>
+      <div class="feature-layer"><span class="tag tag-blue">L1</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">병렬 비교 (2-4 모델 동시)</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--cyan);">F03</div>
+      <div class="feature-name">Debate</div>
+      <div class="feature-layer"><span class="tag tag-purple">L4</span> <span class="tag tag-amber">P2</span></div>
+      <div class="feature-priority">3라운드 토론 (찬성/반대/심판)</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--cyan);">F04</div>
+      <div class="feature-name">Agent</div>
+      <div class="feature-layer"><span class="tag tag-purple">L4</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">10단계 자율 실행, 8도구</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--cyan);">F05</div>
+      <div class="feature-name">History</div>
+      <div class="feature-layer"><span class="tag tag-blue">L1</span> <span class="tag tag-green">P0</span></div>
+      <div class="feature-priority">200개 대화, 태그, 검색</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--cyan);">F06</div>
+      <div class="feature-name">Prompts</div>
+      <div class="feature-layer"><span class="tag tag-blue">L1</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">8 내장, 슬래시 커맨드, 변수</div>
+    </div>
+  </div>
+
+  <!-- Tools (7) -->
+  <div class="section-h2" style="margin-bottom:12px;">
+    <span style="color:var(--amber);">Tools</span> <span class="small" style="color:var(--muted2);">(7 features)</span>
+  </div>
+  <div class="four-col" style="margin-bottom:24px;">
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F07</div>
+      <div class="feature-name">Tool Panel</div>
+      <div class="feature-layer"><span class="tag tag-blue">L1</span> <span class="tag tag-green">P0</span></div>
+      <div class="feature-priority">7도구 통합 패널</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F08</div>
+      <div class="feature-name">YouTube</div>
+      <div class="feature-layer"><span class="tag tag-amber">L3</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">자막 추출, 댓글 분석, AI 리포트</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F09</div>
+      <div class="feature-name">PDF</div>
+      <div class="feature-layer"><span class="tag tag-amber">L3</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">Q&A, pdfjs 기반</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F10</div>
+      <div class="feature-name">Web Search+RAG</div>
+      <div class="feature-layer"><span class="tag tag-amber">L3</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">DuckDuckGo + Google CSE</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F11</div>
+      <div class="feature-name">OCR</div>
+      <div class="feature-layer"><span class="tag tag-amber">L3</span> <span class="tag tag-amber">P2</span></div>
+      <div class="feature-priority">이미지 텍스트 인식</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F12</div>
+      <div class="feature-name">Translation</div>
+      <div class="feature-layer"><span class="tag tag-amber">L3</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">다국어 번역</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--amber);">F13</div>
+      <div class="feature-name">Deep Research</div>
+      <div class="feature-layer"><span class="tag tag-purple">L4</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">심층 연구 에이전트</div>
+    </div>
+  </div>
+
+  <!-- Browser (3) -->
+  <div class="section-h2" style="margin-bottom:12px;">
+    <span style="color:var(--teal);">Browser</span> <span class="small" style="color:var(--muted2);">(3 features)</span>
+  </div>
+  <div class="three-col">
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--teal);">F14</div>
+      <div class="feature-name">Search Card</div>
+      <div class="feature-layer"><span class="tag tag-teal">L2</span> <span class="tag tag-green">P1</span></div>
+      <div class="feature-priority">Google/Bing/Naver, Shadow DOM 격리</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--teal);">F15</div>
+      <div class="feature-name">Writing Assistant</div>
+      <div class="feature-layer"><span class="tag tag-teal">L2</span> <span class="tag tag-amber">P2</span></div>
+      <div class="feature-priority">7가지 텍스트 변환</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-id" style="color:var(--teal);">F16</div>
+      <div class="feature-name">Smart Bookmarks</div>
+      <div class="feature-layer"><span class="tag tag-teal">L2</span> <span class="tag tag-amber">P2</span></div>
+      <div class="feature-priority">5색 분류, XPath 기반</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 3: AI Models & Pricing ── -->
+<div class="section-wrap">
+  <div class="section-title">AI Models &amp; Pricing</div>
+  <div class="card" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:10px 12px; border-bottom:1px solid var(--border2); color:var(--muted2); font-weight:500;">Provider</th>
+          <th style="text-align:left; padding:10px 12px; border-bottom:1px solid var(--border2); color:var(--muted2); font-weight:500;">Model</th>
+          <th style="text-align:right; padding:10px 12px; border-bottom:1px solid var(--border2); color:var(--muted2); font-weight:500;">Input $/M</th>
+          <th style="text-align:right; padding:10px 12px; border-bottom:1px solid var(--border2); color:var(--muted2); font-weight:500;">Output $/M</th>
+          <th style="text-align:right; padding:10px 12px; border-bottom:1px solid var(--border2); color:var(--muted2); font-weight:500;">Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-purple">AWS Bedrock</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">Claude 3.5 Sonnet</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$3.00</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--amber);">$15.00</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">200K</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-purple">AWS Bedrock</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">Claude 3.5 Haiku</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.25</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--amber);">$1.25</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">200K</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-purple">AWS Bedrock</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">Claude 3 Opus</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$15.00</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--red);">$75.00</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">200K</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-green">OpenAI</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">GPT-4o</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$2.50</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--amber);">$10.00</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">128K</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-green">OpenAI</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">GPT-4o mini</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.15</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.60</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">128K</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-green">OpenAI</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">o1-mini</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$3.00</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--amber);">$12.00</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">128K</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-blue">Google</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">Gemini 2.0 Flash</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.10</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.40</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">1M</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><span class="tag tag-blue">Google</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">Gemini 1.5 Pro</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$1.25</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--amber);">$5.00</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">2M</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;"><span class="tag tag-blue">Google</span></td>
+          <td style="padding:10px 12px; font-family:var(--font-mono); font-size:12px;">Gemini 1.5 Flash</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.075</td>
+          <td style="padding:10px 12px; text-align:right; color:var(--green);">$0.30</td>
+          <td style="padding:10px 12px; text-align:right; font-family:var(--font-mono);">1M</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── Section 4: Extension 주의사항 ── -->
+<div class="section-wrap">
+  <div class="section-title">Extension 주의사항</div>
+  <div class="two-col">
+    <div class="card card-top-accent red">
+      <div class="section-h2" style="color:var(--red);">보안 아키텍처</div>
+      <div style="margin-top:12px; font-size:13px; line-height:1.8;">
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-green" style="flex-shrink:0;">Optional</span>
+          <span>Host Permissions (사용자 요청 시에만 권한 부여)</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-red" style="flex-shrink:0;">차단</span>
+          <span>민감 사이트: 은행, 증권, 정부, 사내 시스템 (20 도메인 + 6 패턴)</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-amber" style="flex-shrink:0;">PII</span>
+          <span>자동 세정: 이메일, 전화번호, 주민등록번호, 카드번호</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <span class="tag tag-purple" style="flex-shrink:0;">CSP</span>
+          <span>Content Security Policy 엄격 적용</span>
+        </div>
+      </div>
+    </div>
+    <div class="card card-top-accent amber">
+      <div class="section-h2" style="color:var(--amber);">기술 제약</div>
+      <div style="margin-top:12px; font-size:13px; line-height:1.8;">
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-blue" style="flex-shrink:0;">MV3</span>
+          <span>Service Worker (Background → Event-driven)</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-amber" style="flex-shrink:0;">5min</span>
+          <span>비활성 시 종료 → 상태 복원 필요</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-teal" style="flex-shrink:0;">격리</span>
+          <span>Content Script Shadow DOM 격리</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <span class="tag tag-purple" style="flex-shrink:0;">102KB</span>
+          <span>Storage API 제한 (QUOTA_BYTES: 102,400)</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <span class="tag tag-red" style="flex-shrink:0;">DNR</span>
+          <span>Network Request 제어 제한 (declarativeNetRequest)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- ========== TIMELINE TAB ========== -->
+  <div id="view-timeline" class="view">
+    <!-- ===== TIMELINE TAB ===== -->
+
+<!-- Section 1: Phase Overview Header -->
+<div class="section-wrap">
+  <p class="section-title">TIMELINE</p>
+  <h2 class="section-h2">30-Week <em>Execution Plan</em></h2>
+  <p class="subtitle">2026 Q2 → Q4, 5 Phases, 5 Milestones</p>
+</div>
+
+<!-- Section 2: 5 Phase Cards -->
+<div class="section-wrap">
+  <div class="phases-grid">
+    <!-- Phase 0 -->
+    <div class="phase-card">
+      <div class="phase-card-top" style="background:var(--s0)">
+        <strong>Phase 0</strong> Foundation
+        <span class="small">W1–4 · 4주</span>
+      </div>
+      <div class="phase-card-body">
+        <p><strong>Epics</strong></p>
+        <p>인프라 구축, CI/CD 파이프라인, 디자인 시스템, 보안 기반</p>
+        <div class="phase-footer">
+          <span class="tag tag-red">Terraform</span>
+          <span class="tag tag-red">GitHub Actions</span>
+          <span class="tag tag-red">Figma→Code</span>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 1 -->
+    <div class="phase-card">
+      <div class="phase-card-top" style="background:var(--p1)">
+        <strong>Phase 1</strong> Core MVP
+        <span class="small">W5–12 · 8주</span>
+      </div>
+      <div class="phase-card-body">
+        <p><strong>Epics</strong></p>
+        <p>AI Chat 엔진, Tool Panel, Side Panel UI, LLM Router</p>
+        <div class="phase-footer">
+          <span class="tag tag-amber">Chrome MV3</span>
+          <span class="tag tag-amber">Streaming</span>
+          <span class="tag tag-amber">Multi-model</span>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 2 -->
+    <div class="phase-card">
+      <div class="phase-card-top" style="background:var(--p2)">
+        <strong>Phase 2</strong> Extension
+        <span class="small">W13–20 · 8주</span>
+      </div>
+      <div class="phase-card-body">
+        <p><strong>Epics</strong></p>
+        <p>Browser Integration, Search Card, Writing Assistant, Smart Bookmarks</p>
+        <div class="phase-footer">
+          <span class="tag tag-blue">Shadow DOM</span>
+          <span class="tag tag-blue">Content Script</span>
+          <span class="tag tag-blue">XPath</span>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 3 -->
+    <div class="phase-card">
+      <div class="phase-card-top" style="background:var(--p3)">
+        <strong>Phase 3</strong> Scale
+        <span class="small">W21–26 · 6주</span>
+      </div>
+      <div class="phase-card-body">
+        <p><strong>Epics</strong></p>
+        <p>성능 최적화, Analytics, A/B 테스트, 사용자 피드백 루프</p>
+        <div class="phase-footer">
+          <span class="tag tag-green">Lighthouse</span>
+          <span class="tag tag-green">PostHog</span>
+          <span class="tag tag-green">Feature Flags</span>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 4 -->
+    <div class="phase-card">
+      <div class="phase-card-top" style="background:var(--p4)">
+        <strong>Phase 4</strong> Launch
+        <span class="small">W27–30 · 4주</span>
+      </div>
+      <div class="phase-card-body">
+        <p><strong>Epics</strong></p>
+        <p>Chrome Web Store, 사내 배포, 교육, SLA</p>
+        <div class="phase-footer">
+          <span class="tag tag-amber">CWS Review</span>
+          <span class="tag tag-amber">Canary 10%</span>
+          <span class="tag tag-amber">Full GA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 3: Gantt Chart -->
+<div class="section-wrap">
+  <h2 class="section-h2">Gantt Chart</h2>
+  <div class="gantt">
+    <div class="weeks-ruler">
+      <span class="week-label" style="left:0%">W1</span>
+      <span class="week-label" style="left:13.3%">W5</span>
+      <span class="week-label" style="left:30%">W10</span>
+      <span class="week-label" style="left:46.7%">W15</span>
+      <span class="week-label" style="left:63.3%">W20</span>
+      <span class="week-label" style="left:80%">W25</span>
+      <span class="week-label" style="left:96.7%">W30</span>
+    </div>
+    <div class="gantt-grid">
+      <!-- Foundation W1-4 -->
+      <div class="gantt-row">
+        <span class="gantt-label">Foundation</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:0%;width:13.3%;background:var(--s0)">W1–4</div>
+        </div>
+      </div>
+      <!-- Core MVP W5-12 -->
+      <div class="gantt-row">
+        <span class="gantt-label">Core MVP</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:13.3%;width:26.7%;background:var(--p1)">W5–12</div>
+        </div>
+      </div>
+      <!-- Extension W13-20 -->
+      <div class="gantt-row">
+        <span class="gantt-label">Extension</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:40%;width:26.7%;background:var(--p2)">W13–20</div>
+        </div>
+      </div>
+      <!-- Scale W21-26 -->
+      <div class="gantt-row">
+        <span class="gantt-label">Scale</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:66.7%;width:20%;background:var(--p3)">W21–26</div>
+        </div>
+      </div>
+      <!-- Launch W27-30 -->
+      <div class="gantt-row">
+        <span class="gantt-label">Launch</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:86.7%;width:13.3%;background:var(--p4)">W27–30</div>
+        </div>
+      </div>
+      <!-- QA W3-30 -->
+      <div class="gantt-row">
+        <span class="gantt-label">QA</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:6.7%;width:90%;background:#888;opacity:0.5">W3–30</div>
+        </div>
+      </div>
+    </div>
+    <!-- Milestone diamonds -->
+    <div class="milestone-row">
+      <span class="gantt-label"></span>
+      <div class="ms-track">
+        <span class="ms-diamond" style="left:13.3%" title="M1: Go/No-Go">&#9670;</span>
+        <span class="ms-diamond" style="left:40%" title="M2: MVP Beta">&#9670;</span>
+        <span class="ms-diamond" style="left:66.7%" title="M3: Extension GA">&#9670;</span>
+        <span class="ms-diamond" style="left:86.7%" title="M4: Scale Complete">&#9670;</span>
+        <span class="ms-diamond" style="left:100%" title="M5: Full GA">&#9670;</span>
+      </div>
+    </div>
+    <div class="milestone-row">
+      <span class="gantt-label"></span>
+      <div class="ms-track">
+        <span class="ms-label" style="left:13.3%">M1</span>
+        <span class="ms-label" style="left:40%">M2</span>
+        <span class="ms-label" style="left:66.7%">M3</span>
+        <span class="ms-label" style="left:86.7%">M4</span>
+        <span class="ms-label" style="left:100%">M5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 4: 5 Milestones -->
+<div class="section-wrap">
+  <h2 class="section-h2">Milestones</h2>
+  <div class="milestone-track">
+    <div class="ms-line"></div>
+    <div class="ms-nodes">
+      <!-- M1 -->
+      <div class="ms-node">
+        <div class="ms-circle" style="background:var(--s0)">M1</div>
+        <div class="ms-info">
+          <p class="ms-title">Go / No-Go</p>
+          <p class="ms-when">W4</p>
+          <p class="ms-criteria">Infra 100%, CI Green, Security Audit Pass</p>
+        </div>
+      </div>
+      <!-- M2 -->
+      <div class="ms-node">
+        <div class="ms-circle" style="background:var(--p1)">M2</div>
+        <div class="ms-info">
+          <p class="ms-title">MVP Beta</p>
+          <p class="ms-when">W12</p>
+          <p class="ms-criteria">Core Chat + 3 Tools, 내부 100명 파일럿</p>
+        </div>
+      </div>
+      <!-- M3 -->
+      <div class="ms-node">
+        <div class="ms-circle" style="background:var(--p2)">M3</div>
+        <div class="ms-info">
+          <p class="ms-title">Extension GA</p>
+          <p class="ms-when">W20</p>
+          <p class="ms-criteria">CWS 게시, Browser 3기능, Canary 10%</p>
+        </div>
+      </div>
+      <!-- M4 -->
+      <div class="ms-node">
+        <div class="ms-circle" style="background:var(--p3)">M4</div>
+        <div class="ms-info">
+          <p class="ms-title">Scale Complete</p>
+          <p class="ms-when">W26</p>
+          <p class="ms-criteria">성능 P95&lt;200ms, DAU 5,000+, NPS&gt;40</p>
+        </div>
+      </div>
+      <!-- M5 -->
+      <div class="ms-node">
+        <div class="ms-circle" style="background:var(--p4)">M5</div>
+        <div class="ms-info">
+          <p class="ms-title">Full GA</p>
+          <p class="ms-when">W30</p>
+          <p class="ms-criteria">전사 배포, SLA 99.5%, ARR 트래킹</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 5: Phase KPI Table -->
+<div class="section-wrap">
+  <h2 class="section-h2">Phase KPI Targets</h2>
+  <div class="kpi-timeline">
+    <!-- Phase 0 -->
+    <div class="kpi-col">
+      <div class="kpi-col-header" style="background:var(--s0)">Phase 0<br><span class="small">Foundation</span></div>
+      <div class="kpi-col-body">
+        <div class="kpi-row"><span class="kpi-row-label">DAU</span><span class="kpi-row-val">—</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">API Latency P95</span><span class="kpi-row-val">—</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Error Rate</span><span class="kpi-row-val">—</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">NPS</span><span class="kpi-row-val">—</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Test Coverage</span><span class="kpi-row-val accent">80%</span></div>
+      </div>
+    </div>
+    <!-- Phase 1 -->
+    <div class="kpi-col">
+      <div class="kpi-col-header" style="background:var(--p1)">Phase 1<br><span class="small">Core MVP</span></div>
+      <div class="kpi-col-body">
+        <div class="kpi-row"><span class="kpi-row-label">DAU</span><span class="kpi-row-val">100</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">API Latency P95</span><span class="kpi-row-val">&lt;500ms</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Error Rate</span><span class="kpi-row-val">&lt;5%</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">NPS</span><span class="kpi-row-val">—</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Test Coverage</span><span class="kpi-row-val accent">85%</span></div>
+      </div>
+    </div>
+    <!-- Phase 2 -->
+    <div class="kpi-col">
+      <div class="kpi-col-header" style="background:var(--p2)">Phase 2<br><span class="small">Extension</span></div>
+      <div class="kpi-col-body">
+        <div class="kpi-row"><span class="kpi-row-label">DAU</span><span class="kpi-row-val">1,000</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">API Latency P95</span><span class="kpi-row-val">&lt;300ms</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Error Rate</span><span class="kpi-row-val">&lt;2%</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">NPS</span><span class="kpi-row-val">30</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Test Coverage</span><span class="kpi-row-val accent">88%</span></div>
+      </div>
+    </div>
+    <!-- Phase 3 -->
+    <div class="kpi-col">
+      <div class="kpi-col-header" style="background:var(--p3)">Phase 3<br><span class="small">Scale</span></div>
+      <div class="kpi-col-body">
+        <div class="kpi-row"><span class="kpi-row-label">DAU</span><span class="kpi-row-val">5,000</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">API Latency P95</span><span class="kpi-row-val">&lt;200ms</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Error Rate</span><span class="kpi-row-val">&lt;1%</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">NPS</span><span class="kpi-row-val">40</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Test Coverage</span><span class="kpi-row-val accent">90%</span></div>
+      </div>
+    </div>
+    <!-- Phase 4 -->
+    <div class="kpi-col">
+      <div class="kpi-col-header" style="background:var(--p4)">Phase 4<br><span class="small">Launch</span></div>
+      <div class="kpi-col-body">
+        <div class="kpi-row"><span class="kpi-row-label">DAU</span><span class="kpi-row-val highlight">10,000+</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">API Latency P95</span><span class="kpi-row-val highlight">&lt;150ms</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Error Rate</span><span class="kpi-row-val highlight">&lt;0.5%</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">NPS</span><span class="kpi-row-val highlight">50+</span></div>
+        <div class="kpi-row"><span class="kpi-row-label">Test Coverage</span><span class="kpi-row-val highlight">92%+</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- ========== BUSINESS TAB ========== -->
+  <div id="view-business" class="view">
+    <!-- ===== BUSINESS TAB ===== -->
+
+<!-- Section 1: Business Model Canvas -->
+<div class="section-wrap">
+  <p class="section-title">BUSINESS</p>
+  <h2 class="section-h2">Business Model <em>Canvas</em></h2>
+</div>
+
+<div class="section-wrap">
+  <div class="three-col">
+    <!-- Row 1 -->
+    <div class="card">
+      <p class="subtitle">Key Partners</p>
+      <p>AWS (Bedrock), Google (Gemini), OpenAI, 현대차그룹 IT 인프라팀</p>
+    </div>
+    <div class="card">
+      <p class="subtitle">Key Activities</p>
+      <p>LLM Router 개발, Extension 유지보수, 보안 감사, 사용자 교육</p>
+    </div>
+    <div class="card">
+      <p class="subtitle">Key Resources</p>
+      <p>AI 엔지니어 11명, AWS 인프라, Chrome Extension 플랫폼</p>
+    </div>
+    <!-- Row 2 -->
+    <div class="card card-top-accent">
+      <p class="subtitle">Value Propositions</p>
+      <p>업무 생산성 <strong class="accent">30% 향상</strong>, 멀티모델 비교, 보안 준수, 사내 특화</p>
+    </div>
+    <div class="card">
+      <p class="subtitle">Customer Relationships</p>
+      <p>Self-serve + 내부 교육 + 헬프데스크 + FAQ 20+</p>
+    </div>
+    <div class="card">
+      <p class="subtitle">Channels</p>
+      <p>Chrome Web Store (Unlisted), 사내 포털, 이메일 알림</p>
+    </div>
+    <!-- Row 3 -->
+    <div class="card">
+      <p class="subtitle">Customer Segments</p>
+      <p>임직원 <strong>10만+</strong>, 연구소 (R&amp;D), 디자인, 마케팅, 법무</p>
+    </div>
+    <div class="card">
+      <p class="subtitle">Cost Structure</p>
+      <p>MARS 비용 + 인건비 + 인프라 + 라이선스</p>
+    </div>
+    <div class="card">
+      <p class="subtitle">Revenue Streams</p>
+      <p>내부 비용 절감 (shadow IT 제거), 생산성 향상 ROI</p>
+    </div>
+  </div>
+</div>
+
+<!-- Section 2: 3-Tier Pricing Model -->
+<div class="section-wrap">
+  <h2 class="section-h2">3-Tier <em>Pricing Model</em></h2>
+  <table class="arr-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>Target</th>
+        <th>Features</th>
+        <th>Monthly</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-green">Basic</span></td>
+        <td>일반 직원</td>
+        <td>Chat, 기본 도구 3종, 월 1,000 토큰</td>
+        <td class="accent">₩0 (내부배포)</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-blue">Pro</span></td>
+        <td>파워 유저</td>
+        <td>전체 16기능, 무제한 토큰, Agent</td>
+        <td class="accent">₩15,000/user</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-amber">Enterprise</span></td>
+        <td>부서/법인</td>
+        <td>커스텀 모델, SSO, 감사 로그, SLA</td>
+        <td class="accent">₩50,000/user</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Section 3: ARR Projection -->
+<div class="section-wrap">
+  <h2 class="section-h2">ARR Projection <em>(Dual Scenario)</em></h2>
+  <table class="arr-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Conservative</th>
+        <th>Optimistic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2026 H2</td>
+        <td>₩200M</td>
+        <td class="highlight">₩400M</td>
+      </tr>
+      <tr>
+        <td>2027</td>
+        <td>₩800M</td>
+        <td class="highlight">₩1.5B</td>
+      </tr>
+      <tr>
+        <td>2028</td>
+        <td>₩2.0B</td>
+        <td class="highlight">₩4.2B</td>
+      </tr>
+      <tr>
+        <td>2029</td>
+        <td>₩3.5B</td>
+        <td class="highlight">₩7.0B</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Section 4: MARS Cost Breakdown -->
+<div class="section-wrap">
+  <h2 class="section-h2">MARS Cost <em>Breakdown</em></h2>
+  <div class="budget-grid">
+    <div class="budget-bars">
+      <div class="bbar-row">
+        <span class="bbar-label">AWS Bedrock</span>
+        <div class="bbar-track"><div class="bbar-fill blue" style="width:40%"></div></div>
+        <span class="bbar-amount">₩180M/yr <span class="small">(40%)</span></span>
+      </div>
+      <div class="bbar-row">
+        <span class="bbar-label">OpenAI API</span>
+        <div class="bbar-track"><div class="bbar-fill teal" style="width:20%"></div></div>
+        <span class="bbar-amount">₩90M/yr <span class="small">(20%)</span></span>
+      </div>
+      <div class="bbar-row">
+        <span class="bbar-label">Google Gemini</span>
+        <div class="bbar-track"><div class="bbar-fill amber" style="width:10%"></div></div>
+        <span class="bbar-amount">₩45M/yr <span class="small">(10%)</span></span>
+      </div>
+      <div class="bbar-row">
+        <span class="bbar-label">Infrastructure</span>
+        <div class="bbar-track"><div class="bbar-fill purple" style="width:15%"></div></div>
+        <span class="bbar-amount">₩67.5M/yr <span class="small">(15%)</span></span>
+      </div>
+      <div class="bbar-row">
+        <span class="bbar-label">Licenses</span>
+        <div class="bbar-track"><div class="bbar-fill red" style="width:5%"></div></div>
+        <span class="bbar-amount">₩22.5M/yr <span class="small">(5%)</span></span>
+      </div>
+      <div class="bbar-row">
+        <span class="bbar-label">Operation</span>
+        <div class="bbar-track"><div class="bbar-fill amber" style="width:10%"></div></div>
+        <span class="bbar-amount">₩45M/yr <span class="small">(10%)</span></span>
+      </div>
+    </div>
+    <p style="text-align:right;margin-top:12px"><strong>Total: <span class="highlight">₩450M/yr</span></strong></p>
+  </div>
+</div>
+
+<!-- Section 5: GTM Strategy -->
+<div class="section-wrap">
+  <h2 class="section-h2">Go-to-Market <em>Strategy</em></h2>
+  <div class="two-col">
+    <!-- Left: Launch Phases -->
+    <div class="card">
+      <p class="subtitle">Launch Phases</p>
+      <div class="layer-stack">
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--s0)">1</span>
+          <div class="layer-text">
+            <p class="layer-title">Internal Alpha (W8)</p>
+            <p>개발팀 20명</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p1)">2</span>
+          <div class="layer-text">
+            <p class="layer-title">Closed Beta (W12)</p>
+            <p>IT부서 100명</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p2)">3</span>
+          <div class="layer-text">
+            <p class="layer-title">Open Beta (W20)</p>
+            <p>자원자 1,000명</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p3)">4</span>
+          <div class="layer-text">
+            <p class="layer-title">Canary GA (W26)</p>
+            <p>전사 10%</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p4)">5</span>
+          <div class="layer-text">
+            <p class="layer-title">Full GA (W30)</p>
+            <p>전사 배포</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right: Growth Levers -->
+    <div class="card">
+      <p class="subtitle">Growth Levers</p>
+      <div class="layer-stack">
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p2)">&#9670;</span>
+          <div class="layer-text">
+            <p class="layer-title">Chrome Web Store</p>
+            <p>Unlisted for Enterprise</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p2)">&#9670;</span>
+          <div class="layer-text">
+            <p class="layer-title">사내 교육 프로그램</p>
+            <p>월 2회 웨비나</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p2)">&#9670;</span>
+          <div class="layer-text">
+            <p class="layer-title">부서별 챔피언 프로그램</p>
+            <p>핵심 사용자 육성</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p2)">&#9670;</span>
+          <div class="layer-text">
+            <p class="layer-title">NPS 기반 개선 루프</p>
+            <p>사용자 피드백 반영</p>
+          </div>
+        </div>
+        <div class="layer-item">
+          <span class="layer-num" style="background:var(--p2)">&#9670;</span>
+          <div class="layer-text">
+            <p class="layer-title">Executive 스폰서십</p>
+            <p>경영진 후원</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 6: Competitive Moat -->
+<div class="section-wrap">
+  <h2 class="section-h2">Competitive <em>Moat</em></h2>
+  <div class="moat">
+    <div class="moat-layer" style="--moat-color:var(--p2)">
+      <span class="subtitle">1. 사내 데이터 통합</span>
+      <span class="small">그룹웨어, ERP, 사내 문서</span>
+      <div class="moat-layer" style="--moat-color:var(--s0)">
+        <span class="subtitle">2. 보안 규제 준수</span>
+        <span class="small">PII 세정, 감사 로그, SigV4</span>
+        <div class="moat-layer" style="--moat-color:var(--p3)">
+          <span class="subtitle">3. 멀티모델 최적화</span>
+          <span class="small">9모델 자동 라우팅</span>
+          <div class="moat-layer" style="--moat-color:var(--p1)">
+            <span class="subtitle">4. 사용자 습관</span>
+            <span class="small">일일 워크플로우 통합</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- ========== TEAM TAB ========== -->
+  <div id="view-team" class="view">
+    <!-- ========== TEAM TAB ========== -->
+
+<!-- Section 1: Team Overview -->
+<div class="section-wrap">
+  <p class="section-title">TEAM</p>
+  <h2 class="section-h2">11명 <em>핵심 인력</em> 구조</h2>
+  <p class="subtitle">30주 집중 개발 — 풀타임 + 파트타임 혼합 팀</p>
+
+  <div class="four-col" style="margin-top:1.5rem;">
+    <div class="kpi-card">
+      <div class="number" style="color:var(--blue2)">11</div>
+      <div class="label">전체 인원</div>
+    </div>
+    <div class="kpi-card">
+      <div class="number" style="color:var(--teal)">4</div>
+      <div class="label">롤 그룹</div>
+    </div>
+    <div class="kpi-card">
+      <div class="number" style="color:var(--amber)">30<small style="font-size:.5em">wk</small></div>
+      <div class="label">프로젝트 기간</div>
+    </div>
+    <div class="kpi-card">
+      <div class="number" style="color:var(--green)">2<small style="font-size:.5em">wk</small></div>
+      <div class="label">스프린트 주기</div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 2: Team Structure -->
+<div class="section-wrap">
+  <h3 style="margin-bottom:1.2rem; color:var(--text);">Team Structure</h3>
+  <div class="team-grid">
+
+    <div class="team-card card-top-accent teal">
+      <div class="team-section">Engineering</div>
+      <div class="team-count">5<span class="small">명</span></div>
+      <div class="team-role">
+        Tech Lead <span class="tag tag-blue">1</span>
+        Frontend <span class="tag tag-blue">2</span>
+        Backend <span class="tag tag-blue">1</span>
+        DevOps <span class="tag tag-blue">1</span>
+      </div>
+      <div class="team-skills">
+        <span class="tag tag-teal">TypeScript</span>
+        <span class="tag tag-teal">React 19</span>
+        <span class="tag tag-teal">Chrome Extension MV3</span>
+        <span class="tag tag-teal">Python</span>
+        <span class="tag tag-teal">FastAPI</span>
+        <span class="tag tag-teal">AWS</span>
+        <span class="tag tag-teal">Docker</span>
+        <span class="tag tag-teal">CI/CD</span>
+      </div>
+    </div>
+
+    <div class="team-card card-top-accent purple">
+      <div class="team-section">AI / ML</div>
+      <div class="team-count">3<span class="small">명</span></div>
+      <div class="team-role">
+        AI Lead <span class="tag tag-purple">1</span>
+        ML Engineer <span class="tag tag-purple">1</span>
+        Prompt Engineer <span class="tag tag-purple">1</span>
+      </div>
+      <div class="team-skills">
+        <span class="tag tag-purple">LLM 파인튜닝</span>
+        <span class="tag tag-purple">RAG</span>
+        <span class="tag tag-purple">Prompt Engineering</span>
+        <span class="tag tag-purple">Bedrock</span>
+        <span class="tag tag-purple">OpenAI API</span>
+        <span class="tag tag-purple">벤치마킹</span>
+      </div>
+    </div>
+
+    <div class="team-card card-top-accent amber">
+      <div class="team-section">Product</div>
+      <div class="team-count">2<span class="small">명</span></div>
+      <div class="team-role">
+        PM <span class="tag tag-amber">1</span>
+        UX Designer <span class="tag tag-amber">1</span>
+      </div>
+      <div class="team-skills">
+        <span class="tag tag-amber">서비스 기획</span>
+        <span class="tag tag-amber">사용자 리서치</span>
+        <span class="tag tag-amber">Figma</span>
+        <span class="tag tag-amber">A/B 테스트</span>
+        <span class="tag tag-amber">데이터 분석</span>
+      </div>
+    </div>
+
+    <div class="team-card card-top-accent red">
+      <div class="team-section">QA / Security</div>
+      <div class="team-count">1<span class="small">명</span></div>
+      <div class="team-role">
+        QA+보안 리드 <span class="tag tag-red">1</span>
+      </div>
+      <div class="team-skills">
+        <span class="tag tag-red">Playwright E2E</span>
+        <span class="tag tag-red">보안 감사</span>
+        <span class="tag tag-red">ISMS</span>
+        <span class="tag tag-red">침투 테스트</span>
+        <span class="tag tag-red">DLP</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Section 3: Skill Matrix -->
+<div class="section-wrap">
+  <h3 style="margin-bottom:1.2rem; color:var(--text);">Skill Matrix</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Skill</th>
+        <th>Lead</th>
+        <th>Depth</th>
+        <th>Coverage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>TypeScript / React</td>
+        <td>Tech Lead</td>
+        <td><span class="tag tag-blue">Expert</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill blue" style="width:27%"></div></div>
+          <span class="small">3 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Chrome Extension</td>
+        <td>Tech Lead</td>
+        <td><span class="tag tag-blue">Expert</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill teal" style="width:18%"></div></div>
+          <span class="small">2 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Python / FastAPI</td>
+        <td>Backend</td>
+        <td><span class="tag tag-blue">Expert</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill teal" style="width:18%"></div></div>
+          <span class="small">2 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>LLM / RAG</td>
+        <td>AI Lead</td>
+        <td><span class="tag tag-blue">Expert</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill purple" style="width:27%"></div></div>
+          <span class="small">3 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>AWS / Bedrock</td>
+        <td>DevOps</td>
+        <td><span class="tag tag-green">Advanced</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill amber" style="width:18%"></div></div>
+          <span class="small">2 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>UX / Design</td>
+        <td>UX Designer</td>
+        <td><span class="tag tag-blue">Expert</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill amber" style="width:9%"></div></div>
+          <span class="small">1 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Security / ISMS</td>
+        <td>QA Lead</td>
+        <td><span class="tag tag-green">Advanced</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill red" style="width:9%"></div></div>
+          <span class="small">1 / 11</span>
+        </td>
+      </tr>
+      <tr>
+        <td>CI/CD / Docker</td>
+        <td>DevOps</td>
+        <td><span class="tag tag-blue">Expert</span></td>
+        <td>
+          <div class="bar"><div class="bar-fill blue" style="width:9%"></div></div>
+          <span class="small">1 / 11</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Section 4: Bus Factor Analysis -->
+<div class="section-wrap">
+  <h3 style="margin-bottom:1.2rem; color:var(--text);">Bus Factor Analysis</h3>
+  <div class="two-col">
+
+    <div>
+      <h4 style="color:var(--red); margin-bottom:.8rem;">위험 영역 (Bus Factor = 1)</h4>
+
+      <div class="card card-top-accent red" style="margin-bottom:.6rem;">
+        <strong>Chrome Extension 전문</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">Tech Lead 1명만 보유 — MV3 전문 지식 집중</p>
+      </div>
+      <div class="card card-top-accent red" style="margin-bottom:.6rem;">
+        <strong>보안 / ISMS</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">QA Lead 1명만 보유 — 보안 감사 및 침투 테스트</p>
+      </div>
+      <div class="card card-top-accent red" style="margin-bottom:.6rem;">
+        <strong>UX 디자인</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">Designer 1명만 보유 — Figma, 사용자 리서치</p>
+      </div>
+      <div class="card card-top-accent red" style="margin-bottom:.6rem;">
+        <strong>DevOps / 인프라</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">DevOps 1명만 보유 — AWS, Docker, CI/CD</p>
+      </div>
+    </div>
+
+    <div>
+      <h4 style="color:var(--green); margin-bottom:.8rem;">완화 전략</h4>
+
+      <div class="card" style="margin-bottom:.6rem;">
+        <strong style="color:var(--teal);">크로스 트레이닝</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">주 2시간 페어 프로그래밍 — 핵심 스킬 분산</p>
+      </div>
+      <div class="card" style="margin-bottom:.6rem;">
+        <strong style="color:var(--teal);">문서화</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">Wiki 28페이지 + 코드 리뷰 필수 — 지식 전파</p>
+      </div>
+      <div class="card" style="margin-bottom:.6rem;">
+        <strong style="color:var(--teal);">온콜 로테이션</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">2주 단위 — 다중 역할 이해 촉진</p>
+      </div>
+      <div class="card" style="margin-bottom:.6rem;">
+        <strong style="color:var(--teal);">외부 지원</strong>
+        <p class="small" style="margin-top:.3rem; color:var(--muted);">보안 컨설팅 계약 — 전문 영역 백업</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Section 5: Phase Ramp Plan -->
+<div class="section-wrap">
+  <h3 style="margin-bottom:1.2rem; color:var(--text);">Phase Ramp Plan</h3>
+  <div class="phase-ramp">
+    <div class="phase-ramp-header">
+      <div class="ramp-role">Role</div>
+      <div class="ramp-cell">P0<br><span class="small">W1-4</span></div>
+      <div class="ramp-cell">P1<br><span class="small">W5-12</span></div>
+      <div class="ramp-cell">P2<br><span class="small">W13-20</span></div>
+      <div class="ramp-cell">P3<br><span class="small">W21-26</span></div>
+      <div class="ramp-cell">P4<br><span class="small">W27-30</span></div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">Tech Lead</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">Frontend</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell" style="color:var(--blue2); font-weight:700;">2</div>
+      <div class="ramp-cell" style="color:var(--blue2); font-weight:700;">2</div>
+      <div class="ramp-cell" style="color:var(--blue2); font-weight:700;">2</div>
+      <div class="ramp-cell">1</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">Backend</div>
+      <div class="ramp-cell ramp-empty">0</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">DevOps</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">AI Lead</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">ML Engineer</div>
+      <div class="ramp-cell ramp-empty">0</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">Prompt Eng.</div>
+      <div class="ramp-cell ramp-empty">0</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+      <div class="ramp-cell ramp-empty">0</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">PM</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">UX Designer</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+    </div>
+    <div class="phase-ramp-row">
+      <div class="ramp-role">QA / Security</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+      <div class="ramp-cell" style="color:var(--muted);">0.5</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+      <div class="ramp-cell">1</div>
+    </div>
+    <div class="phase-ramp-row" style="font-weight:700; border-top:2px solid var(--border);">
+      <div class="ramp-role" style="font-weight:700;">Total</div>
+      <div class="ramp-cell" style="color:var(--amber);">6.5</div>
+      <div class="ramp-cell" style="color:var(--green);">10.5</div>
+      <div class="ramp-cell" style="color:var(--green);">10.5</div>
+      <div class="ramp-cell" style="color:var(--teal);">10</div>
+      <div class="ramp-cell" style="color:var(--amber);">7.5</div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 6: Sprint Cadence -->
+<div class="section-wrap">
+  <h3 style="margin-bottom:1.2rem; color:var(--text);">Sprint Cadence</h3>
+  <div class="card" style="max-width:640px;">
+    <div style="display:grid; grid-template-columns:auto 1fr; gap:.5rem 1.2rem;">
+      <span class="tag tag-blue">주기</span>
+      <span>2주 스프린트 (총 15 스프린트)</span>
+      <span class="tag tag-green">Planning</span>
+      <span>월요일 Planning, 금요일 Demo</span>
+      <span class="tag tag-amber">Retro</span>
+      <span>격주 Retro + 기술 부채 스프린트</span>
+      <span class="tag tag-teal">Daily</span>
+      <span>일일 스탠드업 15분</span>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- ========== WIKI TAB ========== -->
+  <div id="view-wiki" class="view">
+    <!-- WIKI TAB -->
+<div class="section-wrap">
+  <p class="section-title">WIKI DOCUMENTATION</p>
+  <h2 class="section-h2">28페이지 <em>심층 분석</em></h2>
+  <p class="subtitle">https://sgtlim0.github.io/ — H Chat Chrome Extension 전체 문서</p>
+
+  <div class="four-col" style="margin-top:1.5rem">
+    <div class="card card-top-accent teal" style="text-align:center">
+      <div style="font-size:2.4rem;font-weight:800;color:var(--teal)">28</div>
+      <div class="small">Wiki 페이지</div>
+    </div>
+    <div class="card card-top-accent blue" style="text-align:center">
+      <div style="font-size:2.4rem;font-weight:800;color:var(--blue2)">5</div>
+      <div class="small">카테고리</div>
+    </div>
+    <div class="card card-top-accent amber" style="text-align:center">
+      <div style="font-size:2.4rem;font-weight:800;color:var(--amber)">107</div>
+      <div class="small">소스 파일</div>
+    </div>
+    <div class="card card-top-accent purple" style="text-align:center">
+      <div style="font-size:2.4rem;font-weight:800;color:var(--purple)">21,500+</div>
+      <div class="small">Lines of Code</div>
+    </div>
+  </div>
+</div>
+
+<!-- Document Map by Category -->
+<div class="section-wrap">
+  <p class="section-title">DOCUMENT MAP</p>
+  <h2 class="section-h2">카테고리별 <em>문서 지도</em></h2>
+
+  <!-- Chat -->
+  <div class="wiki-category" style="border-left:3px solid var(--blue2);padding-left:1rem;margin-bottom:2rem">
+    <h3 style="color:var(--blue2);margin-bottom:.75rem">Chat <span class="tag tag-blue">6 pages</span></h3>
+    <div class="three-col">
+      <div class="wiki-card">
+        <strong>AI Chat</strong>
+        <p class="small">스트리밍 응답, 비전(이미지), 에이전트 모드, 6 페르소나</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Group Chat</strong>
+        <p class="small">2-4 모델 병렬 비교, 실시간 스트리밍</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Debate</strong>
+        <p class="small">3라운드 구조화 토론, 찬성/반대/심판 AI</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Agent</strong>
+        <p class="small">10단계 자율 실행, 8도구 (검색/코드/파일 등)</p>
+      </div>
+      <div class="wiki-card">
+        <strong>History</strong>
+        <p class="small">200개 대화 저장, 태그, 전문 검색</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Prompts</strong>
+        <p class="small">8 내장 프롬프트, 슬래시 커맨드, 변수 치환</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools -->
+  <div class="wiki-category" style="border-left:3px solid var(--teal);padding-left:1rem;margin-bottom:2rem">
+    <h3 style="color:var(--teal);margin-bottom:.75rem">Tools <span class="tag tag-teal">7 pages</span></h3>
+    <div class="three-col">
+      <div class="wiki-card">
+        <strong>Tool Panel</strong>
+        <p class="small">7도구 통합 관리, 토글 활성화</p>
+      </div>
+      <div class="wiki-card">
+        <strong>YouTube</strong>
+        <p class="small">자막 추출, 댓글 분석, AI 요약 리포트</p>
+      </div>
+      <div class="wiki-card">
+        <strong>PDF</strong>
+        <p class="small">문서 Q&A, pdfjs 기반 렌더링</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Web Search+RAG</strong>
+        <p class="small">DuckDuckGo + Google CSE, RAG 파이프라인</p>
+      </div>
+      <div class="wiki-card">
+        <strong>OCR</strong>
+        <p class="small">이미지→텍스트 변환</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Translation</strong>
+        <p class="small">다국어 번역 (한/영/중/일)</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Deep Research</strong>
+        <p class="small">멀티소스 심층 연구 에이전트</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Browser -->
+  <div class="wiki-category" style="border-left:3px solid var(--green);padding-left:1rem;margin-bottom:2rem">
+    <h3 style="color:var(--green);margin-bottom:.75rem">Browser <span class="tag tag-green">3 pages</span></h3>
+    <div class="three-col">
+      <div class="wiki-card">
+        <strong>Search Card</strong>
+        <p class="small">Google/Bing/Naver 검색결과 카드, Shadow DOM 격리</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Writing Assistant</strong>
+        <p class="small">7가지 텍스트 변환 (요약/번역/교정/톤변환 등)</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Smart Bookmarks</strong>
+        <p class="small">5색 분류, XPath 기반 요소 추출</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="wiki-category" style="border-left:3px solid var(--amber);padding-left:1rem;margin-bottom:2rem">
+    <h3 style="color:var(--amber);margin-bottom:.75rem">Settings <span class="tag tag-amber">3 pages</span></h3>
+    <div class="three-col">
+      <div class="wiki-card">
+        <strong>Providers</strong>
+        <p class="small">3사 설정 (AWS Bedrock SigV4, OpenAI, Gemini)</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Models</strong>
+        <p class="small">9모델 상세, 가격표, 컨텍스트 윈도우</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Usage Tracking</strong>
+        <p class="small">토큰 사용량, 비용 대시보드, 일별/모델별</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Other -->
+  <div class="wiki-category" style="border-left:3px solid var(--purple);padding-left:1rem;margin-bottom:2rem">
+    <h3 style="color:var(--purple);margin-bottom:.75rem">Other <span class="tag tag-purple">2 pages</span></h3>
+    <div class="two-col">
+      <div class="wiki-card">
+        <strong>FAQ</strong>
+        <p class="small">20+ Q&A, 설치/사용/보안</p>
+      </div>
+      <div class="wiki-card">
+        <strong>Changelog</strong>
+        <p class="small">v1→v4.5 (2024.06→2026.03), 주요 릴리스</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Technical Specifications -->
+<div class="section-wrap">
+  <p class="section-title">TECHNICAL SPECS</p>
+  <h2 class="section-h2">기술 <em>사양</em></h2>
+
+  <div class="two-col">
+    <div class="card">
+      <h3 style="margin-bottom:.75rem">Extension Architecture</h3>
+      <table style="width:100%">
+        <tbody>
+          <tr><td><span class="tag tag-blue">Core</span></td><td>Manifest V3 (Service Worker)</td></tr>
+          <tr><td><span class="tag tag-blue">UI</span></td><td>Content Script (Shadow DOM 격리)</td></tr>
+          <tr><td><span class="tag tag-blue">Panel</span></td><td>Side Panel API</td></tr>
+          <tr><td><span class="tag tag-blue">Storage</span></td><td>Chrome Storage (Sync + Local)</td></tr>
+          <tr><td><span class="tag tag-blue">Permissions</span></td><td>Optional Host Permissions</td></tr>
+          <tr><td><span class="tag tag-blue">Network</span></td><td>declarativeNetRequest</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:.75rem">Tech Stack</h3>
+      <table style="width:100%">
+        <tbody>
+          <tr><td><span class="tag tag-teal">Lang</span></td><td>TypeScript + React 19</td></tr>
+          <tr><td><span class="tag tag-teal">Build</span></td><td>Vite 7</td></tr>
+          <tr><td><span class="tag tag-teal">Deps</span></td><td>45 NPM 라이브러리</td></tr>
+          <tr><td><span class="tag tag-teal">PDF</span></td><td>pdfjs-dist, youtube-transcript</td></tr>
+          <tr><td><span class="tag tag-teal">Convert</span></td><td>TurndownService (HTML→Markdown)</td></tr>
+          <tr><td><span class="tag tag-teal">Parse</span></td><td>Cheerio (서버사이드 파싱)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Codebase Stats -->
+<div class="section-wrap">
+  <p class="section-title">CODEBASE METRICS</p>
+  <h2 class="section-h2">코드베이스 <em>통계</em></h2>
+
+  <div class="four-col">
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--blue2)">107</div>
+      <div class="small">소스 파일</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--teal)">21,500+</div>
+      <div class="small">코드 라인</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--green)">649</div>
+      <div class="small">테스트 케이스</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--amber)">45</div>
+      <div class="small">NPM 의존성</div>
+    </div>
+  </div>
+  <div class="four-col" style="margin-top:1rem">
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--purple)">9</div>
+      <div class="small">AI 모델</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--red)">3</div>
+      <div class="small">프로바이더</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--cyan)">16</div>
+      <div class="small">기능</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--gold)">22개월</div>
+      <div class="small">개발 기간</div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- ========== ANALYSIS TAB ========== -->
+  <div id="view-analysis" class="view">
+    <!-- ANALYSIS TAB -->
+<div class="section-wrap">
+  <p class="section-title">ANALYSIS</p>
+  <h2 class="section-h2">심층 분석 & <em>실행 권고</em></h2>
+</div>
+
+<!-- 10 Risks -->
+<div class="section-wrap">
+  <p class="section-title">RISK ASSESSMENT</p>
+  <h2 class="section-h2">10대 <em>리스크</em> 분석</h2>
+
+  <div class="two-col" style="gap:1rem">
+    <!-- Risk 1 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>1. Chrome Policy Risk</strong>
+        <span class="risk-badge" style="background:var(--red);color:#fff">CRITICAL</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">MV3 정책 변경, API 제한 강화</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 30%</span>
+        <span class="small" style="color:var(--muted)">대응: MV3 완전 준수, 폴리필 레이어</span>
+      </div>
+    </div>
+
+    <!-- Risk 2 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>2. API Cost Overrun</strong>
+        <span class="risk-badge" style="background:var(--amber);color:#000">HIGH</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">사용량 급증 시 MARS 비용 초과</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 40%</span>
+        <span class="small" style="color:var(--muted)">대응: 토큰 버짓, 캐싱, 경량 모델 우선</span>
+      </div>
+    </div>
+
+    <!-- Risk 3 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>3. Data Leakage</strong>
+        <span class="risk-badge" style="background:var(--red);color:#fff">CRITICAL</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">PII 유출 사고</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 15%</span>
+        <span class="small" style="color:var(--muted)">대응: 자동 세정, DLP 연동, 감사 로그</span>
+      </div>
+    </div>
+
+    <!-- Risk 4 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>4. Low Adoption</strong>
+        <span class="risk-badge" style="background:var(--teal);color:#fff">MEDIUM</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">사용자 저항, 학습 곡선</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 35%</span>
+        <span class="small" style="color:var(--muted)">대응: 온보딩 UX, 챔피언 프로그램</span>
+      </div>
+    </div>
+
+    <!-- Risk 5 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>5. Model Quality</strong>
+        <span class="risk-badge" style="background:var(--teal);color:#fff">MEDIUM</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">한국어 품질 불균일</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 25%</span>
+        <span class="small" style="color:var(--muted)">대응: 모델별 벤치마크, 자동 라우팅</span>
+      </div>
+    </div>
+
+    <!-- Risk 6 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>6. Performance</strong>
+        <span class="risk-badge" style="background:var(--amber);color:#000">HIGH</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">Extension 무거움, 페이지 로딩 지연</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 30%</span>
+        <span class="small" style="color:var(--muted)">대응: Lazy Loading, Code Split, Web Worker</span>
+      </div>
+    </div>
+
+    <!-- Risk 7 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>7. Vendor Lock-in</strong>
+        <span class="risk-badge" style="background:var(--blue2);color:#fff">LOW</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">특정 LLM 의존</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 20%</span>
+        <span class="small" style="color:var(--muted)">대응: 멀티프로바이더, 추상화 레이어</span>
+      </div>
+    </div>
+
+    <!-- Risk 8 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>8. Compliance</strong>
+        <span class="risk-badge" style="background:var(--amber);color:#000">HIGH</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">정보보안 감사 불합격</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 25%</span>
+        <span class="small" style="color:var(--muted)">대응: 사전 보안 감사, ISMS 체크리스트</span>
+      </div>
+    </div>
+
+    <!-- Risk 9 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>9. Team Burnout</strong>
+        <span class="risk-badge" style="background:var(--teal);color:#fff">MEDIUM</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">11명 소규모 팀, 30주 집중</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 35%</span>
+        <span class="small" style="color:var(--muted)">대응: 스프린트 주기, 강제 휴식</span>
+      </div>
+    </div>
+
+    <!-- Risk 10 -->
+    <div class="risk-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>10. Scope Creep</strong>
+        <span class="risk-badge" style="background:var(--amber);color:#000">HIGH</span>
+      </div>
+      <div class="risk-content">
+        <p class="small">기능 요청 폭주</p>
+      </div>
+      <div class="risk-meta">
+        <span class="risk-pill">확률 45%</span>
+        <span class="small" style="color:var(--muted)">대응: Phase Gate, Go/No-Go, 엄격한 백로그</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5사 경쟁 분석 -->
+<div class="section-wrap">
+  <p class="section-title">COMPETITIVE LANDSCAPE</p>
+  <h2 class="section-h2">5사 <em>경쟁</em> 분석</h2>
+
+  <div class="card" style="overflow-x:auto">
+    <table style="width:100%;min-width:700px">
+      <thead>
+        <tr>
+          <th>Competitor</th>
+          <th>Type</th>
+          <th>Strength</th>
+          <th>Weakness</th>
+          <th>H Chat 차별점</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ChatGPT</strong></td>
+          <td><span class="tag tag-blue">범용 AI</span></td>
+          <td>브랜드, GPT-4o</td>
+          <td>기업 보안 부족</td>
+          <td><span class="accent">사내 보안, 멀티모델</span></td>
+        </tr>
+        <tr>
+          <td><strong>Copilot</strong></td>
+          <td><span class="tag tag-teal">MS 통합</span></td>
+          <td>Office 연동</td>
+          <td>Extension 제한</td>
+          <td><span class="accent">브라우저 네이티브</span></td>
+        </tr>
+        <tr>
+          <td><strong>Gemini</strong></td>
+          <td><span class="tag tag-green">Google 생태계</span></td>
+          <td>검색 통합</td>
+          <td>기업 커스텀 부족</td>
+          <td><span class="accent">사내 데이터 연동</span></td>
+        </tr>
+        <tr>
+          <td><strong>Perplexity</strong></td>
+          <td><span class="tag tag-purple">검색 AI</span></td>
+          <td>실시간 검색</td>
+          <td>도구 부족</td>
+          <td><span class="accent">7도구 + RAG</span></td>
+        </tr>
+        <tr>
+          <td><strong>사내 기존</strong></td>
+          <td><span class="tag tag-amber">레거시</span></td>
+          <td>기존 인프라</td>
+          <td>UX 열악</td>
+          <td><span class="accent">최신 UX, AI 네이티브</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 즉시 실행 4항 -->
+<div class="section-wrap">
+  <p class="section-title">IMMEDIATE ACTIONS</p>
+  <h2 class="section-h2">즉시 실행 <em>4항</em></h2>
+
+  <div class="four-col">
+    <div class="card card-top-accent red">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>보안 감사 착수</strong>
+        <span class="tag tag-red">W1</span>
+      </div>
+      <ul class="small" style="padding-left:1.2rem;margin:0">
+        <li>ISMS 체크리스트</li>
+        <li>PII 세정 검증</li>
+        <li>침투 테스트</li>
+      </ul>
+    </div>
+    <div class="card card-top-accent amber">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>비용 베이스라인</strong>
+        <span class="tag tag-amber">W2</span>
+      </div>
+      <ul class="small" style="padding-left:1.2rem;margin:0">
+        <li>MARS 모델별 단가 확정</li>
+        <li>월간 예산 알림</li>
+      </ul>
+    </div>
+    <div class="card card-top-accent teal">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>교육 콘텐츠</strong>
+        <span class="tag tag-teal">W3</span>
+      </div>
+      <ul class="small" style="padding-left:1.2rem;margin:0">
+        <li>동영상 5편</li>
+        <li>FAQ 20+항목</li>
+        <li>슬랙 채널 개설</li>
+      </ul>
+    </div>
+    <div class="card card-top-accent green">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <strong>파일럿 모집</strong>
+        <span class="tag tag-green">W4</span>
+      </div>
+      <ul class="small" style="padding-left:1.2rem;margin:0">
+        <li>IT부서 100명</li>
+        <li>사용 지표 계측 시작</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 보안 체크리스트 -->
+<div class="section-wrap">
+  <p class="section-title">SECURITY POSTURE</p>
+  <h2 class="section-h2">보안 <em>체크리스트</em></h2>
+
+  <div class="two-col">
+    <div class="card">
+      <h3 style="color:var(--green);margin-bottom:.75rem">구현 완료</h3>
+      <div style="display:flex;flex-direction:column;gap:.5rem">
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--green);color:#fff;font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%">&#10003;</span>
+          <span class="insight-text">PII 자동 세정 (이메일, 전화, 주민번호)</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--green);color:#fff;font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%">&#10003;</span>
+          <span class="insight-text">민감 사이트 차단 (20 도메인 + 6 패턴)</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--green);color:#fff;font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%">&#10003;</span>
+          <span class="insight-text">Optional Host Permissions</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--green);color:#fff;font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%">&#10003;</span>
+          <span class="insight-text">Content Security Policy</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--green);color:#fff;font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%">&#10003;</span>
+          <span class="insight-text">토큰 사용량 추적</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--amber);margin-bottom:.75rem">추가 필요</h3>
+      <div style="display:flex;flex-direction:column;gap:.5rem">
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--surface2);color:var(--muted);font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border)">&#9744;</span>
+          <span class="insight-text">DLP (Data Loss Prevention) 연동</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--surface2);color:var(--muted);font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border)">&#9744;</span>
+          <span class="insight-text">SIEM 로그 연동</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--surface2);color:var(--muted);font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border)">&#9744;</span>
+          <span class="insight-text">정보보안 감사 통과</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--surface2);color:var(--muted);font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border)">&#9744;</span>
+          <span class="insight-text">SOC 2 Type II 인증</span>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num" style="background:var(--surface2);color:var(--muted);font-size:.85rem;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border)">&#9744;</span>
+          <span class="insight-text">제로 트러스트 네트워크 통합</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 성공 기준 -->
+<div class="section-wrap">
+  <p class="section-title">SUCCESS CRITERIA</p>
+  <h2 class="section-h2">성공 기준 <em>KPI 타임라인</em></h2>
+
+  <div class="three-col">
+    <div class="card card-top-accent teal">
+      <h3 style="color:var(--teal);margin-bottom:.25rem">6개월</h3>
+      <p class="small" style="color:var(--muted);margin-bottom:.75rem">W1-26</p>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div>
+          <div class="small" style="color:var(--muted)">DAU</div>
+          <div style="font-size:1.3rem;font-weight:700">5,000+</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">NPS</div>
+          <div style="font-size:1.3rem;font-weight:700">&gt; 40</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">API 에러</div>
+          <div style="font-size:1.3rem;font-weight:700">&lt; 1%</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">P95 Latency</div>
+          <div style="font-size:1.3rem;font-weight:700">&lt; 200ms</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-top-accent amber">
+      <h3 style="color:var(--amber);margin-bottom:.25rem">12개월</h3>
+      <p class="small" style="color:var(--muted);margin-bottom:.75rem">Growth Phase</p>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div>
+          <div class="small" style="color:var(--muted)">DAU</div>
+          <div style="font-size:1.3rem;font-weight:700">20,000+</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">NPS</div>
+          <div style="font-size:1.3rem;font-weight:700">&gt; 50</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">부서 커버리지</div>
+          <div style="font-size:1.3rem;font-weight:700">&gt; 80%</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">ARR</div>
+          <div style="font-size:1.3rem;font-weight:700">&#8361;800M+</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-top-accent purple">
+      <h3 style="color:var(--purple);margin-bottom:.25rem">24개월</h3>
+      <p class="small" style="color:var(--muted);margin-bottom:.75rem">Scale Phase</p>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div>
+          <div class="small" style="color:var(--muted)">DAU</div>
+          <div style="font-size:1.3rem;font-weight:700">50,000+</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">NPS</div>
+          <div style="font-size:1.3rem;font-weight:700">&gt; 60</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">글로벌 확장</div>
+          <div style="font-size:1.3rem;font-weight:700">2+ 법인</div>
+        </div>
+        <div>
+          <div class="small" style="color:var(--muted)">ARR</div>
+          <div style="font-size:1.3rem;font-weight:700">&#8361;4.2B</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- ========== SLIDES TAB ========== -->
+  <div id="view-slides" class="view">
+    <!-- ========== SLIDES TAB ========== -->
+
+<!-- Section 1: Header -->
+<div class="section-wrap">
+  <p class="section-title">PRESENTATION</p>
+  <h2 class="section-h2">서비스 기획서 <em>32 Slides</em></h2>
+  <p class="subtitle">H Chat AI Browser OS — 전체 서비스 기획 프레젠테이션</p>
+</div>
+
+<!-- Section 2: Slide Thumbnail Grid -->
+<div class="section-wrap">
+
+  <!-- Part 0: Executive Summary -->
+  <h3 style="margin-bottom:1rem; color:var(--muted2);">Part 0 — Executive Summary</h3>
+  <div class="slide-grid">
+
+    <div class="slide-thumb" style="border-top:3px solid var(--muted2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#01</span>
+        <span class="tag" style="background:var(--muted2); color:#fff; font-size:.65rem;">Part 0</span>
+      </div>
+      <strong>Title Slide</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">H Chat AI Browser OS, 현대차그룹 생성형 AI 서비스 기획서</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--muted2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#02</span>
+        <span class="tag" style="background:var(--muted2); color:#fff; font-size:.65rem;">Part 0</span>
+      </div>
+      <strong>Why Now?</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">업무 환경 변화, AI 생산성 혁명, 기존 툴 한계</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--muted2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#03</span>
+        <span class="tag" style="background:var(--muted2); color:#fff; font-size:.65rem;">Part 0</span>
+      </div>
+      <strong>One-Pager</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">핵심 지표 4개, 전체 서비스 한눈에</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--muted2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#04</span>
+        <span class="tag" style="background:var(--muted2); color:#fff; font-size:.65rem;">Part 0</span>
+      </div>
+      <strong>4-Layer Architecture</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">L1 Extension → L4 AI Core</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--muted2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#05</span>
+        <span class="tag" style="background:var(--muted2); color:#fff; font-size:.65rem;">Part 0</span>
+      </div>
+      <strong>Prerequisites</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">5가지 전제 조건 및 성공 요인</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--muted2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#06</span>
+        <span class="tag" style="background:var(--muted2); color:#fff; font-size:.65rem;">Part 0</span>
+      </div>
+      <strong>Vision → Action</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">비전에서 실행까지, 로드맵 요약</p>
+    </div>
+
+  </div>
+
+  <!-- Part 1: Product -->
+  <h3 style="margin-top:2rem; margin-bottom:1rem; color:var(--blue2);">Part 1 — Product</h3>
+  <div class="slide-grid">
+
+    <div class="slide-thumb" style="border-top:3px solid var(--blue2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#07</span>
+        <span class="tag tag-blue" style="font-size:.65rem;">Part 1</span>
+      </div>
+      <strong>Extension Overview</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Chrome Extension 전략, MV3</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--blue2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#08</span>
+        <span class="tag tag-blue" style="font-size:.65rem;">Part 1</span>
+      </div>
+      <strong>16 Features</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">기능 전체 맵</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--blue2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#09</span>
+        <span class="tag tag-blue" style="font-size:.65rem;">Part 1</span>
+      </div>
+      <strong>Chat 6</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">AI Chat, Group Chat, Debate, Agent, History, Prompts</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--blue2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#10</span>
+        <span class="tag tag-blue" style="font-size:.65rem;">Part 1</span>
+      </div>
+      <strong>Tools 7</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">YouTube, PDF, Web Search, OCR, Translation, Deep Research, Panel</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--blue2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#11</span>
+        <span class="tag tag-blue" style="font-size:.65rem;">Part 1</span>
+      </div>
+      <strong>Browser 3</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Search Card, Writing Assistant, Smart Bookmarks</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--blue2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#12</span>
+        <span class="tag tag-blue" style="font-size:.65rem;">Part 1</span>
+      </div>
+      <strong>AI Models</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">9모델, 3프로바이더, 가격표</p>
+    </div>
+
+  </div>
+
+  <!-- Part 2: Business -->
+  <h3 style="margin-top:2rem; margin-bottom:1rem; color:var(--teal);">Part 2 — Business</h3>
+  <div class="slide-grid">
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#13</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>BMC</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Business Model Canvas 9블록</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#14</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>3-Tier Pricing</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Basic, Pro, Enterprise</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#15</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>GTM Strategy</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Go-to-Market 5단계</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#16</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>ARR Projection</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">이중 시나리오, 4년 전망</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#17</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>MARS Cost</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">연간 비용 구조</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#18</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>Competitive Analysis</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">5사 비교</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#19</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>Competitive Moat</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">4겹 방어 해자</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--teal);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#20</span>
+        <span class="tag tag-teal" style="font-size:.65rem;">Part 2</span>
+      </div>
+      <strong>KPI Framework</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">핵심 성과 지표</p>
+    </div>
+
+  </div>
+
+  <!-- Part 3: Execution -->
+  <h3 style="margin-top:2rem; margin-bottom:1rem; color:var(--amber);">Part 3 — Execution</h3>
+  <div class="slide-grid">
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#21</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>30-Week Timeline</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">5 Phase 간트 차트</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#22</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Phase 0</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Foundation (W1-4)</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#23</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Phase 1</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Core MVP (W5-12)</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#24</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Phase 2</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Extension (W13-20)</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#25</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Phase 3</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Scale (W21-26)</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#26</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Phase 4</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">Launch (W27-30)</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#27</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Milestones</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">5 Go/No-Go 게이트</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--amber);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#28</span>
+        <span class="tag tag-amber" style="font-size:.65rem;">Part 3</span>
+      </div>
+      <strong>Risk Matrix</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">10대 리스크</p>
+    </div>
+
+  </div>
+
+  <!-- Part 4: Operations -->
+  <h3 style="margin-top:2rem; margin-bottom:1rem; color:var(--red);">Part 4 — Operations</h3>
+  <div class="slide-grid">
+
+    <div class="slide-thumb" style="border-top:3px solid var(--red);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#29</span>
+        <span class="tag tag-red" style="font-size:.65rem;">Part 4</span>
+      </div>
+      <strong>Team Structure</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">11명, 4그룹</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--red);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#30</span>
+        <span class="tag tag-red" style="font-size:.65rem;">Part 4</span>
+      </div>
+      <strong>Sprint Cadence</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">15 스프린트, 2주 주기</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--red);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#31</span>
+        <span class="tag tag-red" style="font-size:.65rem;">Part 4</span>
+      </div>
+      <strong>Security</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">보안 체크리스트, ISMS</p>
+    </div>
+
+    <div class="slide-thumb" style="border-top:3px solid var(--red);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem;">
+        <span style="font-family:monospace; font-size:.75rem; color:var(--muted);">#32</span>
+        <span class="tag tag-red" style="font-size:.65rem;">Part 4</span>
+      </div>
+      <strong>CTA</strong>
+      <p class="small" style="color:var(--muted); margin-top:.3rem;">"AI는 미래가 아닙니다. 오늘입니다." Next Steps</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Section 3: Legend -->
+<div class="section-wrap">
+  <h3 style="margin-bottom:1rem; color:var(--text);">Legend</h3>
+  <div class="flex-row" style="gap:1.2rem; flex-wrap:wrap;">
+    <span class="tag" style="background:var(--muted2); color:#fff;">Part 0 — Executive Summary</span>
+    <span class="tag tag-blue">Part 1 — Product</span>
+    <span class="tag tag-teal">Part 2 — Business</span>
+    <span class="tag tag-amber">Part 3 — Execution</span>
+    <span class="tag tag-red">Part 4 — Operations</span>
+  </div>
+  <p class="small" style="margin-top:1rem; color:var(--muted);">전체 프레젠테이션은 <strong>hchat_service_plan_presentation.html</strong>에서 확인할 수 있습니다.</p>
+</div>
+  </div>
+
+</main>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  var tabs = document.querySelectorAll('.nav-tab');
+  var views = document.querySelectorAll('.view');
+  var tabOrder = [
+    'view-overview', 'view-product', 'view-timeline', 'view-business',
+    'view-team', 'view-wiki', 'view-analysis', 'view-slides'
+  ];
+  var currentIndex = 0;
+
+  function switchTab(tabId) {
+    var idx = tabOrder.indexOf(tabId);
+    if (idx === -1) return;
+    currentIndex = idx;
+
+    tabs.forEach(function(t) { t.classList.remove('active'); });
+    views.forEach(function(v) { v.classList.remove('active'); });
+
+    var activeTab = document.querySelector('.nav-tab[data-tab="' + tabId + '"]');
+    var activeView = document.getElementById(tabId);
+
+    if (activeTab) activeTab.classList.add('active');
+    if (activeView) activeView.classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Click handlers
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      switchTab(this.getAttribute('data-tab'));
+    });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      var next = (currentIndex + 1) % tabOrder.length;
+      switchTab(tabOrder[next]);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      var prev = (currentIndex - 1 + tabOrder.length) % tabOrder.length;
+      switchTab(tabOrder[prev]);
+    }
+  });
+
+  // Initialize: activate Overview
+  switchTab('view-overview');
+})();
+</script>
+
+</body>
+</html>
