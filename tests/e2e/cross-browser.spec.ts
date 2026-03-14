@@ -79,10 +79,10 @@ test.describe('Cross-browser: Dark Mode Toggle', () => {
 
   test('User dark mode toggle works', async ({ page }) => {
     await page.goto('https://hchat-user.vercel.app/')
-    await page.waitForLoadState('domcontentloaded')
+    await page.waitForLoadState('networkidle')
 
     const themeToggle = page.locator('button[aria-label*="모드"]').first()
-    const isVisible = await themeToggle.isVisible().catch(() => false)
+    const isVisible = await themeToggle.isVisible({ timeout: 10000 }).catch(() => false)
     if (!isVisible) {
       test.skip()
       return
@@ -92,7 +92,7 @@ test.describe('Cross-browser: Dark Mode Toggle', () => {
     const classBefore = await htmlElement.getAttribute('class') ?? ''
 
     await themeToggle.click()
-    await page.waitForTimeout(500)
+    await page.waitForTimeout(1000)
 
     const classAfter = await htmlElement.getAttribute('class') ?? ''
     expect(classBefore).not.toEqual(classAfter)
