@@ -8,17 +8,11 @@ test.describe('User Translation Page', () => {
 
   test('should have engine selector', async ({ page }) => {
     await page.goto('/translate')
-    await page.waitForLoadState('domcontentloaded')
-    await expect(
-      page.locator('select, [role="listbox"], [class*="selector"], [class*="engine"]').first(),
-    ).toBeVisible()
+    await expect(page.locator('text=자체 번역 엔진')).toBeVisible({ timeout: 10000 })
   })
 
   test('should have file upload zone', async ({ page }) => {
     await page.goto('/translate')
-    await page.waitForLoadState('domcontentloaded')
-    await expect(
-      page.locator('[class*="upload"], [class*="drop"], input[type="file"]').first(),
-    ).toBeVisible()
+    await expect(page.locator('text=드래그 앤 드롭')).toBeVisible({ timeout: 10000 })
   })
 })

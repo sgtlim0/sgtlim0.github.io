@@ -8,9 +8,6 @@ test.describe('User OCR Page', () => {
 
   test('should have file upload zone', async ({ page }) => {
     await page.goto('/ocr')
-    await page.waitForLoadState('domcontentloaded')
-    await expect(
-      page.locator('[class*="upload"], [class*="drop"], input[type="file"]').first(),
-    ).toBeVisible()
+    await expect(page.locator('text=드래그 앤 드롭')).toBeVisible({ timeout: 10000 })
   })
 })

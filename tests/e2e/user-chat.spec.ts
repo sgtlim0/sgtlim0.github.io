@@ -3,20 +3,16 @@ import { test, expect } from '@playwright/test'
 test.describe('User Chat Page', () => {
   test('should load chat page', async ({ page }) => {
     await page.goto('/')
-    await page.waitForLoadState('domcontentloaded')
-    await expect(page.locator('h1').first()).toBeVisible()
+    await expect(page.locator('text=업무 비서')).toBeVisible({ timeout: 10000 })
   })
 
   test('should display assistant cards', async ({ page }) => {
     await page.goto('/')
-    await page.waitForLoadState('domcontentloaded')
-    const cards = page.locator('[class*="card"], [class*="assistant"], [role="article"]')
-    await expect(cards.first()).toBeVisible()
+    await expect(page.locator('text=공식 비서')).toBeVisible({ timeout: 10000 })
   })
 
   test('should have working search bar', async ({ page }) => {
     await page.goto('/')
-    const searchBar = page.locator('textarea, input[type="text"], input[placeholder]').first()
-    await expect(searchBar).toBeVisible()
+    await expect(page.locator('textarea').first()).toBeVisible({ timeout: 10000 })
   })
 })

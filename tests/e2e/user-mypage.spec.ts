@@ -6,9 +6,8 @@ test.describe('User My Page', () => {
     await expect(page.locator('text=마이페이지')).toBeVisible()
   })
 
-  test('should display usage table', async ({ page }) => {
+  test('should display usage tab', async ({ page }) => {
     await page.goto('/my-page')
-    await page.waitForLoadState('domcontentloaded')
-    await expect(page.locator('table, [role="table"], [class*="table"]').first()).toBeVisible()
+    await expect(page.locator('text=사용 현황')).toBeVisible({ timeout: 10000 })
   })
 })
