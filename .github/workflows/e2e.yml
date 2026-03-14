@@ -64,7 +64,7 @@ jobs:
         run: npx playwright test --project=admin --project=hmg --project=wiki --project=user
         continue-on-error: false
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report
@@ -115,7 +115,7 @@ jobs:
       - name: Run cross-browser E2E tests (${{ matrix.browser }})
         run: npx playwright test --project=${{ matrix.browser }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report-${{ matrix.browser }}
