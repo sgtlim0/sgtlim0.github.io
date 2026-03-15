@@ -1,0 +1,301 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0a0e14"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d7fff"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#0099cc"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00e5c0"/>
+      <stop offset="100%" stop-color="#00b89c"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb347"/>
+      <stop offset="100%" stop-color="#e6952e"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="investLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b6b"/>
+      <stop offset="100%" stop-color="#ff8787"/>
+    </linearGradient>
+    <linearGradient id="savingsLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00e5c0"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="600" y="38" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="bold">H Chat AI Browser OS — 비즈니스 대시보드</text>
+  <line x1="350" y1="48" x2="850" y2="48" stroke="#30363d" stroke-width="1"/>
+
+  <!-- ============================================ -->
+  <!-- Section 1: Investment Overview (top-left)    -->
+  <!-- ============================================ -->
+  <rect x="20" y="60" width="560" height="290" rx="10" fill="#161b22" filter="url(#cardShadow)"/>
+  <text x="40" y="90" fill="#e6edf3" font-size="15" font-weight="bold">투자 개요</text>
+  <text x="40" y="112" fill="#8b949e" font-size="12">총 투자액</text>
+  <text x="40" y="136" fill="#3d7fff" font-size="28" font-weight="bold">$645.5K</text>
+
+  <!-- Donut Chart -->
+  <g transform="translate(200,230)">
+    <!-- 인건비 88.8% = 319.68deg -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#1e2530" stroke-width="28"/>
+    <!-- 인건비 segment: 0 to 319.68 deg -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#3d7fff" stroke-width="28"
+            stroke-dasharray="251.3 502.7" stroke-dashoffset="0"
+            transform="rotate(-90)"/>
+    <!-- LLM 5.6% = 20.16 deg => arc 14.07 -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#a855f7" stroke-width="28"
+            stroke-dasharray="14.1 488.6" stroke-dashoffset="-251.3"
+            transform="rotate(-90)"/>
+    <!-- 인프라 4% = 14.4 deg => arc 10.05 -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#00e5c0" stroke-width="28"
+            stroke-dasharray="10.1 492.6" stroke-dashoffset="-265.4"
+            transform="rotate(-90)"/>
+    <!-- 도구 1.5% = 5.4 deg => arc 3.77 -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#ffb347" stroke-width="28"
+            stroke-dasharray="3.8 498.9" stroke-dashoffset="-275.5"
+            transform="rotate(-90)"/>
+    <!-- Center text -->
+    <text x="0" y="-5" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="bold">$645.5K</text>
+    <text x="0" y="14" text-anchor="middle" fill="#8b949e" font-size="10">총 투자</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(340,160)">
+    <rect x="0" y="0" width="10" height="10" rx="2" fill="#3d7fff"/>
+    <text x="16" y="10" fill="#e6edf3" font-size="12">인건비 88.8%</text>
+    <text x="170" y="10" fill="#8b949e" font-size="12">$573.5K</text>
+
+    <rect x="0" y="28" width="10" height="10" rx="2" fill="#a855f7"/>
+    <text x="16" y="38" fill="#e6edf3" font-size="12">LLM API 5.6%</text>
+    <text x="170" y="38" fill="#8b949e" font-size="12">$36.0K</text>
+
+    <rect x="0" y="56" width="10" height="10" rx="2" fill="#00e5c0"/>
+    <text x="16" y="66" fill="#e6edf3" font-size="12">인프라 4.0%</text>
+    <text x="170" y="66" fill="#8b949e" font-size="12">$26.0K</text>
+
+    <rect x="0" y="84" width="10" height="10" rx="2" fill="#ffb347"/>
+    <text x="16" y="94" fill="#e6edf3" font-size="12">도구/라이선스 1.5%</text>
+    <text x="170" y="94" fill="#8b949e" font-size="12">$10.0K</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- Section 2: ARR Growth (top-right)            -->
+  <!-- ============================================ -->
+  <rect x="600" y="60" width="580" height="290" rx="10" fill="#161b22" filter="url(#cardShadow)"/>
+  <text x="620" y="90" fill="#e6edf3" font-size="15" font-weight="bold">ARR 성장 전망</text>
+  <text x="620" y="112" fill="#8b949e" font-size="12">연간 반복 매출 (24개월)</text>
+
+  <!-- Grid lines -->
+  <g stroke="#21262d" stroke-width="0.5">
+    <line x1="680" y1="140" x2="1140" y2="140"/>
+    <line x1="680" y1="175" x2="1140" y2="175"/>
+    <line x1="680" y1="210" x2="1140" y2="210"/>
+    <line x1="680" y1="245" x2="1140" y2="245"/>
+    <line x1="680" y1="280" x2="1140" y2="280"/>
+    <line x1="680" y1="315" x2="1140" y2="315"/>
+  </g>
+  <!-- Y-axis labels -->
+  <text x="670" y="144" text-anchor="end" fill="#484f58" font-size="9">$12M</text>
+  <text x="670" y="179" text-anchor="end" fill="#484f58" font-size="9">$10M</text>
+  <text x="670" y="214" text-anchor="end" fill="#484f58" font-size="9">$8M</text>
+  <text x="670" y="249" text-anchor="end" fill="#484f58" font-size="9">$6M</text>
+  <text x="670" y="284" text-anchor="end" fill="#484f58" font-size="9">$4M</text>
+  <text x="670" y="319" text-anchor="end" fill="#484f58" font-size="9">$2M</text>
+
+  <!-- Baseline -->
+  <line x1="680" y1="330" x2="1140" y2="330" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Bar: 6M $312K => height ~5px (very small relative to 12M) -->
+  <rect x="720" y="325" width="70" height="5" rx="3" fill="url(#cyanGrad)"/>
+  <text x="755" y="320" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="bold">$312K</text>
+  <text x="755" y="343" text-anchor="middle" fill="#8b949e" font-size="10">6개월</text>
+  <text x="755" y="338" text-anchor="middle" fill="#484f58" font-size="8"/>
+
+  <!-- Bar: 12M $1.54M => height ~24px -->
+  <rect x="830" y="306" width="70" height="24" rx="3" fill="url(#blueGrad)"/>
+  <text x="865" y="300" text-anchor="middle" fill="#3d7fff" font-size="11" font-weight="bold">$1.54M</text>
+  <text x="865" y="343" text-anchor="middle" fill="#8b949e" font-size="10">12개월</text>
+
+  <!-- Bar: 18M $5.64M => height ~89px -->
+  <rect x="940" y="241" width="70" height="89" rx="3" fill="url(#purpleGrad)"/>
+  <text x="975" y="235" text-anchor="middle" fill="#a855f7" font-size="11" font-weight="bold">$5.64M</text>
+  <text x="975" y="343" text-anchor="middle" fill="#8b949e" font-size="10">18개월</text>
+
+  <!-- Bar: 24M $12.1M => height ~190px -->
+  <rect x="1050" y="140" width="70" height="190" rx="3" fill="url(#tealGrad)"/>
+  <text x="1085" y="134" text-anchor="middle" fill="#00e5c0" font-size="11" font-weight="bold">$12.1M</text>
+  <text x="1085" y="343" text-anchor="middle" fill="#8b949e" font-size="10">24개월</text>
+
+  <!-- Phase labels -->
+  <rect x="725" y="296" width="60" height="16" rx="8" fill="#0d1117" stroke="#00d4ff" stroke-width="0.5"/>
+  <text x="755" y="307" text-anchor="middle" fill="#00d4ff" font-size="8">Beta</text>
+  <rect x="835" y="276" width="60" height="16" rx="8" fill="#0d1117" stroke="#3d7fff" stroke-width="0.5"/>
+  <text x="865" y="287" text-anchor="middle" fill="#3d7fff" font-size="8">GA</text>
+  <rect x="945" y="213" width="60" height="16" rx="8" fill="#0d1117" stroke="#a855f7" stroke-width="0.5"/>
+  <text x="975" y="224" text-anchor="middle" fill="#a855f7" font-size="8">Scale</text>
+  <rect x="1055" y="113" width="60" height="16" rx="8" fill="#0d1117" stroke="#00e5c0" stroke-width="0.5"/>
+  <text x="1085" y="124" text-anchor="middle" fill="#00e5c0" font-size="8">Expand</text>
+
+  <!-- ============================================ -->
+  <!-- Center: Key Metrics Banner                   -->
+  <!-- ============================================ -->
+  <rect x="20" y="365" width="1160" height="60" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" filter="url(#cardShadow)"/>
+  <g text-anchor="middle">
+    <!-- Metric 1 -->
+    <text x="160" y="388" fill="#8b949e" font-size="10">손익분기</text>
+    <text x="160" y="410" fill="#00d4ff" font-size="17" font-weight="bold">12-14개월</text>
+    <!-- Divider -->
+    <line x1="310" y1="375" x2="310" y2="415" stroke="#30363d" stroke-width="1"/>
+    <!-- Metric 2 -->
+    <text x="450" y="388" fill="#8b949e" font-size="10">3년 ROI</text>
+    <text x="450" y="410" fill="#00e5c0" font-size="17" font-weight="bold">220-270%</text>
+    <!-- Divider -->
+    <line x1="600" y1="375" x2="600" y2="415" stroke="#30363d" stroke-width="1"/>
+    <!-- Metric 3 -->
+    <text x="740" y="388" fill="#8b949e" font-size="10">타겟 사용자</text>
+    <text x="740" y="410" fill="#3d7fff" font-size="17" font-weight="bold">50,000명</text>
+    <!-- Divider -->
+    <line x1="890" y1="375" x2="890" y2="415" stroke="#30363d" stroke-width="1"/>
+    <!-- Metric 4 -->
+    <text x="1040" y="388" fill="#8b949e" font-size="10">MARS 비용</text>
+    <text x="1040" y="410" fill="#ffb347" font-size="17" font-weight="bold">$0.27/세션</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- Section 3: ROI Timeline (bottom-left)        -->
+  <!-- ============================================ -->
+  <rect x="20" y="440" width="560" height="340" rx="10" fill="#161b22" filter="url(#cardShadow)"/>
+  <text x="40" y="470" fill="#e6edf3" font-size="15" font-weight="bold">ROI 타임라인</text>
+  <text x="40" y="490" fill="#8b949e" font-size="12">손익분기점: 12-14개월</text>
+
+  <!-- Chart area -->
+  <!-- Grid -->
+  <g stroke="#21262d" stroke-width="0.5">
+    <line x1="80" y1="520" x2="540" y2="520"/>
+    <line x1="80" y1="560" x2="540" y2="560"/>
+    <line x1="80" y1="600" x2="540" y2="600"/>
+    <line x1="80" y1="640" x2="540" y2="640"/>
+    <line x1="80" y1="680" x2="540" y2="680"/>
+  </g>
+  <!-- Y-axis labels -->
+  <text x="72" y="524" text-anchor="end" fill="#484f58" font-size="9">$2.0M</text>
+  <text x="72" y="564" text-anchor="end" fill="#484f58" font-size="9">$1.5M</text>
+  <text x="72" y="604" text-anchor="end" fill="#484f58" font-size="9">$1.0M</text>
+  <text x="72" y="644" text-anchor="end" fill="#484f58" font-size="9">$0.5M</text>
+  <text x="72" y="684" text-anchor="end" fill="#484f58" font-size="9">$0</text>
+
+  <!-- X-axis -->
+  <line x1="80" y1="685" x2="540" y2="685" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="700" text-anchor="middle" fill="#484f58" font-size="9">0</text>
+  <text x="195" y="700" text-anchor="middle" fill="#484f58" font-size="9">12개월</text>
+  <text x="310" y="700" text-anchor="middle" fill="#484f58" font-size="9">24개월</text>
+  <text x="425" y="700" text-anchor="middle" fill="#484f58" font-size="9">36개월</text>
+
+  <!-- Investment line (cumulative cost - grows then flattens) -->
+  <polyline points="80,685 120,668 160,652 195,640 230,633 270,628 310,624 350,621 390,619 425,617 460,616 500,615 540,614"
+            fill="none" stroke="url(#investLine)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Savings line (cumulative savings - starts slow, crosses investment ~12-14mo) -->
+  <polyline points="80,685 120,680 160,672 195,640 230,610 270,575 310,540 350,520 390,520 425,520 460,518 500,516 540,514"
+            fill="none" stroke="url(#savingsLine)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Break-even point indicator -->
+  <circle cx="195" cy="640" r="5" fill="#0d1117" stroke="#ffb347" stroke-width="2"/>
+  <text x="195" y="630" text-anchor="middle" fill="#ffb347" font-size="9" font-weight="bold">BEP</text>
+
+  <!-- Legend -->
+  <line x1="100" y1="720" x2="125" y2="720" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="130" y="724" fill="#8b949e" font-size="10">누적 투자</text>
+  <line x1="220" y1="720" x2="245" y2="720" stroke="#00e5c0" stroke-width="2"/>
+  <text x="250" y="724" fill="#8b949e" font-size="10">누적 절감</text>
+
+  <!-- ROI Scenarios -->
+  <g transform="translate(340,510)">
+    <text x="0" y="0" fill="#e6edf3" font-size="12" font-weight="bold">3년 ROI 시나리오</text>
+    <!-- 낙관 -->
+    <rect x="0" y="14" width="180" height="42" rx="6" fill="#0d1117" stroke="#00e5c0" stroke-width="0.5"/>
+    <text x="10" y="30" fill="#00e5c0" font-size="11" font-weight="bold">낙관</text>
+    <text x="100" y="30" fill="#e6edf3" font-size="11" text-anchor="middle">270%+</text>
+    <text x="160" y="30" fill="#484f58" font-size="9" text-anchor="end">20%</text>
+    <rect x="10" y="38" width="120" height="4" rx="2" fill="#21262d"/>
+    <rect x="10" y="38" width="108" height="4" rx="2" fill="#00e5c0" opacity="0.7"/>
+    <!-- 기본 -->
+    <rect x="0" y="62" width="180" height="42" rx="6" fill="#0d1117" stroke="#3d7fff" stroke-width="0.5"/>
+    <text x="10" y="78" fill="#3d7fff" font-size="11" font-weight="bold">기본</text>
+    <text x="100" y="78" fill="#e6edf3" font-size="11" text-anchor="middle">220%</text>
+    <text x="160" y="78" fill="#484f58" font-size="9" text-anchor="end">50%</text>
+    <rect x="10" y="86" width="120" height="4" rx="2" fill="#21262d"/>
+    <rect x="10" y="86" width="88" height="4" rx="2" fill="#3d7fff" opacity="0.7"/>
+    <!-- 보수 -->
+    <rect x="0" y="110" width="180" height="42" rx="6" fill="#0d1117" stroke="#ffb347" stroke-width="0.5"/>
+    <text x="10" y="126" fill="#ffb347" font-size="11" font-weight="bold">보수</text>
+    <text x="100" y="126" fill="#e6edf3" font-size="11" text-anchor="middle">120%</text>
+    <text x="160" y="126" fill="#484f58" font-size="9" text-anchor="end">25%</text>
+    <rect x="10" y="134" width="120" height="4" rx="2" fill="#21262d"/>
+    <rect x="10" y="134" width="53" height="4" rx="2" fill="#ffb347" opacity="0.7"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- Section 4: Cost Savings (bottom-right)       -->
+  <!-- ============================================ -->
+  <rect x="600" y="440" width="580" height="340" rx="10" fill="#161b22" filter="url(#cardShadow)"/>
+  <text x="620" y="470" fill="#e6edf3" font-size="15" font-weight="bold">연간 비용 절감</text>
+  <text x="620" y="492" fill="#8b949e" font-size="12">총 절감액</text>
+  <text x="748" y="492" fill="#00e5c0" font-size="12" font-weight="bold">$550K/년</text>
+
+  <!-- Bar 1: 웹 리서치 자동화 $200K (87%) -->
+  <text x="640" y="530" fill="#e6edf3" font-size="12">웹 리서치 자동화</text>
+  <text x="1140" y="530" text-anchor="end" fill="#00d4ff" font-size="12" font-weight="bold">$200K</text>
+  <rect x="640" y="538" width="500" height="18" rx="4" fill="#21262d"/>
+  <rect x="640" y="538" width="435" height="18" rx="4" fill="url(#cyanGrad)" opacity="0.85"/>
+  <text x="648" y="552" fill="#0d1117" font-size="10" font-weight="bold">87% 절감</text>
+
+  <!-- Bar 2: IT 헬프데스크 $150K (89%) -->
+  <text x="640" y="582" fill="#e6edf3" font-size="12">IT 헬프데스크</text>
+  <text x="1140" y="582" text-anchor="end" fill="#3d7fff" font-size="12" font-weight="bold">$150K</text>
+  <rect x="640" y="590" width="500" height="18" rx="4" fill="#21262d"/>
+  <rect x="640" y="590" width="445" height="18" rx="4" fill="url(#blueGrad)" opacity="0.85"/>
+  <text x="648" y="604" fill="#0d1117" font-size="10" font-weight="bold">89% 절감</text>
+
+  <!-- Bar 3: 인시던트 대응 $100K (83%) -->
+  <text x="640" y="634" fill="#e6edf3" font-size="12">인시던트 대응</text>
+  <text x="1140" y="634" text-anchor="end" fill="#a855f7" font-size="12" font-weight="bold">$100K</text>
+  <rect x="640" y="642" width="500" height="18" rx="4" fill="#21262d"/>
+  <rect x="640" y="642" width="415" height="18" rx="4" fill="url(#purpleGrad)" opacity="0.85"/>
+  <text x="648" y="656" fill="#0d1117" font-size="10" font-weight="bold">83% 절감</text>
+
+  <!-- Bar 4: 데이터 입력 $100K (95%) -->
+  <text x="640" y="686" fill="#e6edf3" font-size="12">데이터 입력</text>
+  <text x="1140" y="686" text-anchor="end" fill="#00e5c0" font-size="12" font-weight="bold">$100K</text>
+  <rect x="640" y="694" width="500" height="18" rx="4" fill="#21262d"/>
+  <rect x="640" y="694" width="475" height="18" rx="4" fill="url(#tealGrad)" opacity="0.85"/>
+  <text x="648" y="708" fill="#0d1117" font-size="10" font-weight="bold">95% 절감</text>
+
+  <!-- Total bar -->
+  <line x1="640" y1="728" x2="1140" y2="728" stroke="#30363d" stroke-width="1"/>
+  <text x="640" y="748" fill="#8b949e" font-size="11">합계</text>
+  <text x="1140" y="748" text-anchor="end" fill="#00e5c0" font-size="14" font-weight="bold">$550K/년</text>
+  <rect x="640" y="754" width="500" height="8" rx="4" fill="#21262d"/>
+  <rect x="640" y="754" width="500" height="8" rx="4" fill="url(#tealGrad)" opacity="0.4"/>
+
+  <!-- Footer -->
+  <text x="600" y="792" text-anchor="middle" fill="#30363d" font-size="9">H Chat AI Browser OS | Business Dashboard | 2025</text>
+</svg>

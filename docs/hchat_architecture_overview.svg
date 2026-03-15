@@ -1,0 +1,391 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="l4Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="l3Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="l2Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00e5c0"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="l1Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3d7fff"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb347"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="shadowSm" x="-2%" y="-2%" width="104%" height="108%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <!-- Arrow marker -->
+    <marker id="arrowDown" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L5,10 L10,0" fill="none" stroke="#8b949e" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrowRight" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#8b949e" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrowUp" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,10 L5,0 L10,10" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)" rx="0"/>
+
+  <!-- Title -->
+  <text x="40" y="38" fill="#e6edf3" font-size="20" font-weight="700">H Chat AI Browser OS</text>
+  <text x="40" y="58" fill="#8b949e" font-size="12">4-Layer Architecture Overview</text>
+  <text x="40" y="74" fill="#484f58" font-size="10">Spec-Driven Design v3.0</text>
+
+  <!-- ============================================ -->
+  <!-- L4: MARS Agent Factory                       -->
+  <!-- ============================================ -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="92" width="830" height="140" rx="10" fill="#161b22" stroke="#a855f740" stroke-width="1"/>
+    <!-- Header bar -->
+    <rect x="40" y="92" width="830" height="30" rx="10" fill="url(#l4Grad)" opacity="0.9"/>
+    <rect x="40" y="107" width="830" height="15" fill="url(#l4Grad)" opacity="0.9"/>
+    <text x="56" y="112" fill="#fff" font-size="13" font-weight="700">L4: MARS Agent Factory</text>
+    <text x="310" y="112" fill="#f0e0ff" font-size="11">-- Multi-Agent Research System (Cost: $0.27/session)</text>
+
+    <!-- Agent pipeline boxes -->
+    <g transform="translate(60, 135)">
+      <rect width="110" height="56" rx="6" fill="#1c1230" stroke="#a855f780" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="55" y="20" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Planner</text>
+      <text x="55" y="35" fill="#8b949e" font-size="9" text-anchor="middle">Claude Haiku</text>
+      <text x="55" y="48" fill="#484f58" font-size="8" text-anchor="middle">Task Decomposition</text>
+    </g>
+    <g transform="translate(190, 135)">
+      <rect width="110" height="56" rx="6" fill="#1c1230" stroke="#a855f780" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="55" y="20" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Search</text>
+      <text x="55" y="35" fill="#8b949e" font-size="9" text-anchor="middle">Grok 3</text>
+      <text x="55" y="48" fill="#484f58" font-size="8" text-anchor="middle">Real-time Search</text>
+    </g>
+    <g transform="translate(320, 135)">
+      <rect width="110" height="56" rx="6" fill="#1c1230" stroke="#a855f780" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="55" y="20" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Web</text>
+      <text x="55" y="35" fill="#8b949e" font-size="9" text-anchor="middle">Extension L1-L3</text>
+      <text x="55" y="48" fill="#484f58" font-size="8" text-anchor="middle">Page Crawling</text>
+    </g>
+    <g transform="translate(450, 135)">
+      <rect width="110" height="56" rx="6" fill="#1c1230" stroke="#a855f780" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="55" y="20" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Data</text>
+      <text x="55" y="35" fill="#8b949e" font-size="9" text-anchor="middle">GPT-4o mini</text>
+      <text x="55" y="48" fill="#484f58" font-size="8" text-anchor="middle">Structuring</text>
+    </g>
+    <g transform="translate(580, 135)">
+      <rect width="110" height="56" rx="6" fill="#1c1230" stroke="#a855f780" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="55" y="20" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Analysis</text>
+      <text x="55" y="35" fill="#8b949e" font-size="9" text-anchor="middle">Claude Sonnet</text>
+      <text x="55" y="48" fill="#484f58" font-size="8" text-anchor="middle">Deep Analysis</text>
+    </g>
+    <g transform="translate(710, 135)">
+      <rect width="110" height="56" rx="6" fill="#1c1230" stroke="#a855f780" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="55" y="20" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Report</text>
+      <text x="55" y="35" fill="#8b949e" font-size="9" text-anchor="middle">Gemini Flash</text>
+      <text x="55" y="48" fill="#484f58" font-size="8" text-anchor="middle">Final Synthesis</text>
+    </g>
+    <!-- Pipeline arrows -->
+    <line x1="172" y1="163" x2="188" y2="163" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+    <line x1="302" y1="163" x2="318" y2="163" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+    <line x1="432" y1="163" x2="448" y2="163" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+    <line x1="562" y1="163" x2="578" y2="163" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+    <line x1="692" y1="163" x2="708" y2="163" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- L3: DataFrame Engine                         -->
+  <!-- ============================================ -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="248" width="830" height="120" rx="10" fill="#161b22" stroke="#00d4ff40" stroke-width="1"/>
+    <rect x="40" y="248" width="830" height="30" rx="10" fill="url(#l3Grad)" opacity="0.85"/>
+    <rect x="40" y="263" width="830" height="15" fill="url(#l3Grad)" opacity="0.85"/>
+    <text x="56" y="268" fill="#fff" font-size="13" font-weight="700">L3: DataFrame Engine</text>
+    <text x="280" y="268" fill="#e0f8ff" font-size="11">-- HTML to JSON/CSV/Excel Conversion</text>
+
+    <g transform="translate(60, 290)">
+      <rect width="170" height="50" rx="6" fill="#0a1929" stroke="#00d4ff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="85" y="20" fill="#38bdf8" font-size="10" font-weight="600" text-anchor="middle">HtmlTableDetector</text>
+      <text x="85" y="36" fill="#8b949e" font-size="9" text-anchor="middle">Table/List Detection</text>
+    </g>
+    <g transform="translate(252, 290)">
+      <rect width="170" height="50" rx="6" fill="#0a1929" stroke="#00d4ff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="85" y="20" fill="#38bdf8" font-size="10" font-weight="600" text-anchor="middle">DataFrameConverter</text>
+      <text x="85" y="36" fill="#8b949e" font-size="9" text-anchor="middle">Structured Transform</text>
+    </g>
+    <g transform="translate(444, 290)">
+      <rect width="170" height="50" rx="6" fill="#0a1929" stroke="#00d4ff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="85" y="20" fill="#38bdf8" font-size="10" font-weight="600" text-anchor="middle">SchemaInferrer</text>
+      <text x="85" y="36" fill="#8b949e" font-size="9" text-anchor="middle">Type Inference</text>
+    </g>
+    <g transform="translate(636, 290)">
+      <rect width="170" height="50" rx="6" fill="#0a1929" stroke="#00d4ff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="85" y="20" fill="#38bdf8" font-size="10" font-weight="600" text-anchor="middle">DataFrameWorker</text>
+      <text x="85" y="36" fill="#8b949e" font-size="9" text-anchor="middle">Web Worker Export</text>
+    </g>
+    <!-- Pipeline arrows -->
+    <line x1="232" y1="315" x2="250" y2="315" stroke="#00d4ff" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+    <line x1="424" y1="315" x2="442" y2="315" stroke="#00d4ff" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+    <line x1="616" y1="315" x2="634" y2="315" stroke="#00d4ff" stroke-width="1.2" marker-end="url(#arrowRight)"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- L2: Smart DOM                                -->
+  <!-- ============================================ -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="384" width="830" height="130" rx="10" fill="#161b22" stroke="#00e5c040" stroke-width="1"/>
+    <rect x="40" y="384" width="830" height="30" rx="10" fill="url(#l2Grad)" opacity="0.85"/>
+    <rect x="40" y="399" width="830" height="15" fill="url(#l2Grad)" opacity="0.85"/>
+    <text x="56" y="404" fill="#fff" font-size="13" font-weight="700">L2: Smart DOM</text>
+    <text x="210" y="404" fill="#e0fff8" font-size="11">-- Readability.js Integration ($0.12/task, noise 60-70% removal)</text>
+
+    <g transform="translate(60, 428)">
+      <rect width="145" height="58" rx="6" fill="#0a1f1a" stroke="#00e5c060" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="72" y="18" fill="#34d399" font-size="9.5" font-weight="600" text-anchor="middle">SmartDomExtractor</text>
+      <text x="72" y="34" fill="#8b949e" font-size="8.5" text-anchor="middle">DOM Parsing</text>
+      <text x="72" y="48" fill="#484f58" font-size="8" text-anchor="middle">Readability.js</text>
+    </g>
+    <g transform="translate(220, 428)">
+      <rect width="145" height="58" rx="6" fill="#0a1f1a" stroke="#00e5c060" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="72" y="18" fill="#34d399" font-size="9.5" font-weight="600" text-anchor="middle">RqfpEngine</text>
+      <text x="72" y="34" fill="#8b949e" font-size="8.5" text-anchor="middle">Quality Scoring</text>
+      <text x="72" y="48" fill="#484f58" font-size="8" text-anchor="middle">RQFP Metrics</text>
+    </g>
+    <g transform="translate(380, 428)">
+      <rect width="145" height="58" rx="6" fill="#0a1f1a" stroke="#00e5c060" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="72" y="18" fill="#34d399" font-size="9.5" font-weight="600" text-anchor="middle">ShadowDomTraverser</text>
+      <text x="72" y="34" fill="#8b949e" font-size="8.5" text-anchor="middle">Shadow DOM</text>
+      <text x="72" y="48" fill="#484f58" font-size="8" text-anchor="middle">Custom Elements</text>
+    </g>
+    <g transform="translate(540, 428)">
+      <rect width="145" height="58" rx="6" fill="#0a1f1a" stroke="#00e5c060" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="72" y="18" fill="#34d399" font-size="9.5" font-weight="600" text-anchor="middle">SapFioriAdapter</text>
+      <text x="72" y="34" fill="#8b949e" font-size="8.5" text-anchor="middle">SAP Fiori</text>
+      <text x="72" y="48" fill="#484f58" font-size="8" text-anchor="middle">Enterprise DOM</text>
+    </g>
+    <g transform="translate(700, 428)">
+      <rect width="145" height="58" rx="6" fill="#0a1f1a" stroke="#00e5c060" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="72" y="18" fill="#34d399" font-size="9.5" font-weight="600" text-anchor="middle">MutationStabilizer</text>
+      <text x="72" y="34" fill="#8b949e" font-size="8.5" text-anchor="middle">SPA Stability</text>
+      <text x="72" y="48" fill="#484f58" font-size="8" text-anchor="middle">MutationObserver</text>
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- L1: Hybrid Extension                         -->
+  <!-- ============================================ -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="530" width="830" height="130" rx="10" fill="#161b22" stroke="#3d7fff40" stroke-width="1"/>
+    <rect x="40" y="530" width="830" height="30" rx="10" fill="url(#l1Grad)" opacity="0.85"/>
+    <rect x="40" y="545" width="830" height="15" fill="url(#l1Grad)" opacity="0.85"/>
+    <text x="56" y="550" fill="#fff" font-size="13" font-weight="700">L1: Hybrid Extension</text>
+    <text x="260" y="550" fill="#e0f0ff" font-size="11">-- Chrome MV3 Runtime</text>
+
+    <g transform="translate(60, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Side Panel</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Main UI</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Chat Interface</text>
+    </g>
+    <g transform="translate(162, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Popup</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Quick Access</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Toolbar Menu</text>
+    </g>
+    <g transform="translate(264, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Context Menu</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Right-Click</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Actions</text>
+    </g>
+    <g transform="translate(366, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Omnibox</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Address Bar</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Quick Query</text>
+    </g>
+    <g transform="translate(468, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">SW</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Service Worker</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Background</text>
+    </g>
+    <g transform="translate(570, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Content Script</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Page Inject</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">DOM Access</text>
+    </g>
+    <g transform="translate(672, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Offscreen</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">Hidden Doc</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Heavy Ops</text>
+    </g>
+    <g transform="translate(774, 574)">
+      <rect width="92" height="58" rx="6" fill="#0a1528" stroke="#3d7fff60" stroke-width="1" filter="url(#shadowSm)"/>
+      <text x="46" y="18" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">CDP</text>
+      <text x="46" y="34" fill="#8b949e" font-size="8" text-anchor="middle">DevTools</text>
+      <text x="46" y="48" fill="#484f58" font-size="7.5" text-anchor="middle">Protocol</text>
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- Cross-cutting (right column)                 -->
+  <!-- ============================================ -->
+  <g filter="url(#shadow)">
+    <rect x="890" y="92" width="270" height="568" rx="10" fill="#161b22" stroke="#ffb34740" stroke-width="1"/>
+    <rect x="890" y="92" width="270" height="30" rx="10" fill="url(#crossGrad)" opacity="0.85"/>
+    <rect x="890" y="107" width="270" height="15" fill="url(#crossGrad)" opacity="0.85"/>
+    <text x="906" y="112" fill="#fff" font-size="12" font-weight="700">Cross-cutting Concerns</text>
+
+    <!-- Dynamic Multi-Model Orchestrator -->
+    <g transform="translate(905, 132)">
+      <rect width="240" height="160" rx="8" fill="#1a1508" stroke="#ffb34750" stroke-width="1"/>
+      <text x="120" y="18" fill="#ffb347" font-size="11" font-weight="700" text-anchor="middle">Dynamic Multi-Model</text>
+      <text x="120" y="32" fill="#ffb347" font-size="11" font-weight="700" text-anchor="middle">Orchestrator</text>
+
+      <!-- Provider badges -->
+      <rect x="10" y="44" width="105" height="22" rx="4" fill="#a855f720" stroke="#a855f760" stroke-width="0.8"/>
+      <text x="62" y="59" fill="#c084fc" font-size="9" text-anchor="middle">Anthropic (Claude)</text>
+      <rect x="125" y="44" width="105" height="22" rx="4" fill="#34d39920" stroke="#34d39960" stroke-width="0.8"/>
+      <text x="177" y="59" fill="#34d399" font-size="9" text-anchor="middle">OpenAI (GPT)</text>
+
+      <rect x="10" y="72" width="105" height="22" rx="4" fill="#60a5fa20" stroke="#60a5fa60" stroke-width="0.8"/>
+      <text x="62" y="87" fill="#60a5fa" font-size="9" text-anchor="middle">Google (Gemini)</text>
+      <rect x="125" y="72" width="105" height="22" rx="4" fill="#f4717120" stroke="#f4717160" stroke-width="0.8"/>
+      <text x="177" y="87" fill="#f47171" font-size="9" text-anchor="middle">xAI (Grok)</text>
+
+      <rect x="10" y="100" width="220" height="22" rx="4" fill="#8b949e15" stroke="#8b949e40" stroke-width="0.8"/>
+      <text x="120" y="115" fill="#8b949e" font-size="9" text-anchor="middle">Local Models (Ollama / LM Studio)</text>
+
+      <text x="120" y="142" fill="#484f58" font-size="8" text-anchor="middle">Cost-aware routing / Fallback chains</text>
+      <text x="120" y="154" fill="#484f58" font-size="8" text-anchor="middle">5 providers, latency-based selection</text>
+    </g>
+
+    <!-- Self-Healing System -->
+    <g transform="translate(905, 304)">
+      <rect width="240" height="120" rx="8" fill="#1a1508" stroke="#ffb34750" stroke-width="1"/>
+      <text x="120" y="20" fill="#ffb347" font-size="11" font-weight="700" text-anchor="middle">Self-Healing System</text>
+
+      <rect x="10" y="34" width="220" height="28" rx="5" fill="#f4717115" stroke="#f4717140" stroke-width="0.8"/>
+      <text x="120" y="53" fill="#f47171" font-size="9.5" text-anchor="middle">3-Strike Circuit Breaker</text>
+
+      <rect x="10" y="68" width="220" height="28" rx="5" fill="#ffb34715" stroke="#ffb34740" stroke-width="0.8"/>
+      <text x="120" y="87" fill="#fbbf24" font-size="9.5" text-anchor="middle">300s Cooldown + Auto Recovery</text>
+
+      <text x="120" y="110" fill="#484f58" font-size="8" text-anchor="middle">CLOSED -> OPEN -> HALF-OPEN -> CLOSED</text>
+    </g>
+
+    <!-- Zero Trust Governance -->
+    <g transform="translate(905, 436)">
+      <rect width="240" height="150" rx="8" fill="#1a1508" stroke="#ffb34750" stroke-width="1"/>
+      <text x="120" y="20" fill="#ffb347" font-size="11" font-weight="700" text-anchor="middle">Zero Trust Governance</text>
+
+      <rect x="10" y="34" width="220" height="24" rx="5" fill="#f4717115" stroke="#f4717140" stroke-width="0.8"/>
+      <text x="120" y="51" fill="#f47171" font-size="9" text-anchor="middle">PII Detection (11 patterns)</text>
+
+      <rect x="10" y="64" width="220" height="24" rx="5" fill="#ffb34715" stroke="#ffb34740" stroke-width="0.8"/>
+      <text x="120" y="81" fill="#fbbf24" font-size="9" text-anchor="middle">Domain Blocklist (20 + 6 regex)</text>
+
+      <rect x="10" y="94" width="220" height="24" rx="5" fill="#34d39915" stroke="#34d39940" stroke-width="0.8"/>
+      <text x="120" y="111" fill="#34d399" font-size="9" text-anchor="middle">SHA-256 Audit Log</text>
+
+      <rect x="10" y="124" width="105" height="20" rx="4" fill="#60a5fa15" stroke="#60a5fa40" stroke-width="0.8"/>
+      <text x="62" y="138" fill="#60a5fa" font-size="8.5" text-anchor="middle">OPA Policy</text>
+      <rect x="125" y="124" width="105" height="20" rx="4" fill="#60a5fa15" stroke="#60a5fa40" stroke-width="0.8"/>
+      <text x="177" y="138" fill="#60a5fa" font-size="8.5" text-anchor="middle">HashiCorp Vault</text>
+    </g>
+
+    <!-- Vertical connection lines -->
+    <line x1="1025" y1="292" x2="1025" y2="304" stroke="#ffb34740" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="1025" y1="424" x2="1025" y2="436" stroke="#ffb34740" stroke-width="1" stroke-dasharray="3,3"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- Data Flow Arrows (left side, vertical)       -->
+  <!-- ============================================ -->
+
+  <!-- User icon -->
+  <g transform="translate(10, 700)">
+    <circle cx="14" cy="10" r="7" fill="none" stroke="#8b949e" stroke-width="1.2"/>
+    <path d="M0,30 Q14,20 28,30" fill="none" stroke="#8b949e" stroke-width="1.2"/>
+    <text x="14" y="46" fill="#8b949e" font-size="8" text-anchor="middle">User</text>
+  </g>
+
+  <!-- User -> L1 -->
+  <path d="M24,695 L24,630 L38,630" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRight)"/>
+
+  <!-- L1 -> L2 (upward flow) -->
+  <path d="M455,530 L455,516" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowUp)"/>
+  <text x="462" y="525" fill="#484f58" font-size="8">DOM</text>
+
+  <!-- L2 -> L3 -->
+  <path d="M455,384 L455,370" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowUp)"/>
+  <text x="462" y="380" fill="#484f58" font-size="8">HTML</text>
+
+  <!-- L3 -> L4 -->
+  <path d="M455,248 L455,234" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowUp)"/>
+  <text x="462" y="244" fill="#484f58" font-size="8">DataFrame</text>
+
+  <!-- L4 -> Output -->
+  <g transform="translate(380, 680)">
+    <rect width="150" height="34" rx="8" fill="#a855f720" stroke="#a855f760" stroke-width="1" filter="url(#shadowSm)"/>
+    <text x="75" y="14" fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle">Research Report</text>
+    <text x="75" y="28" fill="#8b949e" font-size="8" text-anchor="middle">Structured Output</text>
+  </g>
+  <path d="M820,163 L845,163 L845,697 L532,697" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRight)"/>
+
+  <!-- Cross-cutting connection arrows (from right panel to layers) -->
+  <line x1="890" y1="210" x2="872" y2="210" stroke="#ffb34730" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="890" y1="364" x2="872" y2="364" stroke="#ffb34730" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="890" y1="460" x2="872" y2="460" stroke="#ffb34730" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="890" y1="595" x2="872" y2="595" stroke="#ffb34730" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ============================================ -->
+  <!-- Legend                                       -->
+  <!-- ============================================ -->
+  <g transform="translate(40, 680)">
+    <rect width="320" height="90" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1" filter="url(#shadowSm)"/>
+    <text x="16" y="18" fill="#e6edf3" font-size="10" font-weight="600">Legend</text>
+
+    <rect x="16" y="28" width="12" height="8" rx="2" fill="#a855f7"/>
+    <text x="34" y="36" fill="#8b949e" font-size="9">L4 MARS Agent Factory</text>
+
+    <rect x="16" y="42" width="12" height="8" rx="2" fill="#00d4ff"/>
+    <text x="34" y="50" fill="#8b949e" font-size="9">L3 DataFrame Engine</text>
+
+    <rect x="16" y="56" width="12" height="8" rx="2" fill="#00e5c0"/>
+    <text x="34" y="64" fill="#8b949e" font-size="9">L2 Smart DOM</text>
+
+    <rect x="16" y="70" width="12" height="8" rx="2" fill="#3d7fff"/>
+    <text x="34" y="78" fill="#8b949e" font-size="9">L1 Hybrid Extension</text>
+
+    <rect x="170" y="28" width="12" height="8" rx="2" fill="#ffb347"/>
+    <text x="188" y="36" fill="#8b949e" font-size="9">Cross-cutting</text>
+
+    <line x1="170" y1="48" x2="194" y2="48" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="200" y="52" fill="#8b949e" font-size="9">Data Flow</text>
+
+    <line x1="170" y1="62" x2="194" y2="62" stroke="#ffb34730" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="200" y="66" fill="#8b949e" font-size="9">Integration</text>
+
+    <text x="170" y="80" fill="#484f58" font-size="8">H Chat Wiki -- Phase 101</text>
+  </g>
+</svg>
