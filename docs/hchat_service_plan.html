@@ -1514,6 +1514,8 @@ tr:hover td {
     <button class="nav-tab" data-tab="view-wiki">Wiki</button>
     <button class="nav-tab" data-tab="view-analysis">Analysis</button>
     <button class="nav-tab" data-tab="view-slides">Slides</button>
+    <button class="nav-tab" data-tab="view-browser-os">AI Browser OS</button>
+    <button class="nav-tab" data-tab="view-planning-detail">종합 기획 상세</button>
   </div>
   <span class="nav-badge">CONFIDENTIAL</span>
 </nav>
@@ -3949,6 +3951,1348 @@ tr:hover td {
 </div>
   </div>
 
+  <!-- ========== AI BROWSER OS TAB ========== -->
+  <div id="view-browser-os" class="view">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: AI Browser OS — Chrome Extension 전략 종합       -->
+<!-- ══════════════════════════════════════════════════════ -->
+
+<!-- ── Section 1: Executive Summary ── -->
+<div class="section-wrap">
+  <p class="section-title">AI BROWSER OS</p>
+  <h2 class="section-h2">Executive <em>Summary</em></h2>
+  <p class="subtitle">Chrome Extension 기반 엔터프라이즈 AI 에이전트 — "The Browser is the New OS"</p>
+
+  <div class="metric-grid" style="grid-template-columns: repeat(4, 1fr); margin-top:24px;">
+    <div class="metric-card" style="border-top:2px solid var(--blue);">
+      <div class="metric-number" style="color:var(--blue2);">$645K</div>
+      <div class="metric-label">총 투자</div>
+      <div class="metric-sub">30주 개발 비용</div>
+    </div>
+    <div class="metric-card" style="border-top:2px solid var(--teal);">
+      <div class="metric-number" style="color:var(--teal);">12mo</div>
+      <div class="metric-label">Break-even</div>
+      <div class="metric-sub">투자 회수 시점</div>
+    </div>
+    <div class="metric-card" style="border-top:2px solid var(--green);">
+      <div class="metric-number" style="color:var(--green);">$12.1M</div>
+      <div class="metric-label">ARR 목표</div>
+      <div class="metric-sub">24개월 기준</div>
+    </div>
+    <div class="metric-card" style="border-top:2px solid var(--gold);">
+      <div class="metric-number" style="color:var(--gold);">270%</div>
+      <div class="metric-label">3년 ROI</div>
+      <div class="metric-sub">누적 투자 대비 수익</div>
+    </div>
+  </div>
+  <div class="metric-grid" style="grid-template-columns: repeat(4, 1fr); margin-top:12px;">
+    <div class="metric-card" style="border-top:2px solid var(--cyan);">
+      <div class="metric-number" style="color:var(--cyan);">87%</div>
+      <div class="metric-label">시간 단축</div>
+      <div class="metric-sub">정보 탐색 23분 &rarr; 3분</div>
+    </div>
+    <div class="metric-card" style="border-top:2px solid var(--purple);">
+      <div class="metric-number" style="color:var(--purple);">50K</div>
+      <div class="metric-label">타겟 사용자</div>
+      <div class="metric-sub">현대차그룹 임직원</div>
+    </div>
+    <div class="metric-card" style="border-top:2px solid var(--amber);">
+      <div class="metric-number" style="color:var(--amber);">$550K</div>
+      <div class="metric-label">연간 절감</div>
+      <div class="metric-sub">4대 업무 효율화 합산</div>
+    </div>
+    <div class="metric-card" style="border-top:2px solid var(--red);">
+      <div class="metric-number" style="color:var(--red);">99.9%</div>
+      <div class="metric-label">SLA</div>
+      <div class="metric-sub">서비스 가용성</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 2: Chrome Extension Only 전략 ── -->
+<div class="section-wrap">
+  <div class="section-title">Chrome Extension Only 전략</div>
+  <p class="subtitle" style="margin-bottom:20px;">기존 앱/PWA 대비 Chrome Extension의 3가지 결정적 우위</p>
+  <div class="three-col">
+    <div class="card card-top-accent teal">
+      <div class="section-h2" style="color:var(--teal); font-size:18px;">설치 장벽 제로</div>
+      <div style="margin-top:12px; font-size:13px; color:var(--muted2); line-height:1.7;">
+        ExtensionInstallForcelist로 <span class="highlight">5만+ 임직원 자동 배포</span>.<br>
+        앱스토어/URL 접속 불필요.<br>
+        관리자 1회 설정으로 전사 배포 완료.
+      </div>
+      <div style="margin-top:12px;">
+        <span class="tag tag-teal">Forcelist</span>
+        <span class="tag tag-teal">GPO</span>
+        <span class="tag tag-teal">95%+ 설치율</span>
+      </div>
+    </div>
+    <div class="card card-top-accent">
+      <div class="section-h2" style="color:var(--blue2); font-size:18px;">컨텍스트 네이티브</div>
+      <div style="margin-top:12px; font-size:13px; color:var(--muted2); line-height:1.7;">
+        Content Script로 현재 탭 <span class="accent">DOM 직접 접근</span>.<br>
+        Confluence/Jira/SAP 컨텍스트 자동 인식.<br>
+        탭 전환 및 복사/붙여넣기 불필요.
+      </div>
+      <div style="margin-top:12px;">
+        <span class="tag tag-blue">Content Script</span>
+        <span class="tag tag-blue">Side Panel</span>
+        <span class="tag tag-blue">DOM</span>
+      </div>
+    </div>
+    <div class="card card-top-accent amber">
+      <div class="section-h2" style="color:var(--amber); font-size:18px;">엔터프라이즈 관리</div>
+      <div style="margin-top:12px; font-size:13px; color:var(--muted2); line-height:1.7;">
+        Chrome Admin Console <span class="warning">중앙 통합 관리</span>.<br>
+        Group Policy로 배포/제거 방지 설정.<br>
+        CWS 자동 업데이트 보장.
+      </div>
+      <div style="margin-top:12px;">
+        <span class="tag tag-amber">Admin Console</span>
+        <span class="tag tag-amber">CWS</span>
+        <span class="tag tag-amber">Auto-Update</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Extension vs App/PWA 비교 -->
+  <div class="card" style="overflow-x:auto; margin-top:20px;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:10px 12px;">비교 요소</th>
+          <th style="text-align:left; padding:10px 12px;">기존 접근 (앱/PWA)</th>
+          <th style="text-align:left; padding:10px 12px;">Chrome Extension (H Chat)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:10px 12px; color:var(--muted2);">설치</td><td style="padding:10px 12px;">별도 다운로드 / URL 접속</td><td style="padding:10px 12px;"><span class="accent">관리자 강제 배포 (GPO) &mdash; 클릭 불필요</span></td></tr>
+        <tr><td style="padding:10px 12px; color:var(--muted2);">컨텍스트</td><td style="padding:10px 12px;">앱 전환 필요, 복사/붙여넣기</td><td style="padding:10px 12px;"><span class="accent">현재 페이지 DOM 직접 읽기</span></td></tr>
+        <tr><td style="padding:10px 12px; color:var(--muted2);">접근성</td><td style="padding:10px 12px;">별도 창/탭 필요</td><td style="padding:10px 12px;"><span class="accent">모든 탭에서 즉시 호출</span></td></tr>
+        <tr><td style="padding:10px 12px; color:var(--muted2);">관리</td><td style="padding:10px 12px;">MDM 별도 구성</td><td style="padding:10px 12px;"><span class="accent">Chrome 정책으로 통합 관리</span></td></tr>
+        <tr><td style="padding:10px 12px; color:var(--muted2);">업데이트</td><td style="padding:10px 12px;">수동 / 스토어 업데이트</td><td style="padding:10px 12px;"><span class="accent">CWS 자동 업데이트 &mdash; 무중단</span></td></tr>
+        <tr><td style="padding:10px 12px; color:var(--muted2);">제거 방지</td><td style="padding:10px 12px;">불가</td><td style="padding:10px 12px;"><span class="accent">ExtensionInstallForcelist 정책</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── Section 3: 4-Layer 기술 스택 ── -->
+<div class="section-wrap">
+  <div class="section-title">4-Layer 지능형 기술 스택</div>
+  <p class="subtitle" style="margin-bottom:20px;">Hybrid Extension &rarr; Smart DOM &rarr; DataFrame &rarr; MARS</p>
+  <div class="layer-stack">
+    <div class="layer-item" style="border-left: 3px solid var(--purple);">
+      <div class="layer-num" style="color:var(--purple);">L4</div>
+      <div class="layer-text">
+        <div class="layer-title">MARS Research Pipeline</div>
+        LangGraph + CrewAI 기반 6종 에이전트 자율 연구 파이프라인<br>
+        <span style="font-size:11px; color:var(--muted);">Planner &rarr; Search &rarr; Web &rarr; Data &rarr; Analysis &rarr; Report &middot; <strong style="color:var(--amber);">$0.27/세션</strong></span>
+        <div style="margin-top:8px;">
+          <span class="tag tag-purple">LangGraph</span>
+          <span class="tag tag-purple">CrewAI</span>
+          <span class="tag tag-purple">6 Agents</span>
+          <span class="tag tag-purple">&lt;120s</span>
+        </div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left: 3px solid var(--amber);">
+      <div class="layer-num" style="color:var(--amber);">L3</div>
+      <div class="layer-text">
+        <div class="layer-title">DataFrame Engine</div>
+        HTML 테이블 &rarr; JSON/CSV/XLSX 자동 변환<br>
+        <span style="font-size:11px; color:var(--muted);">테이블 감지율 95% &middot; 1,000행 3초 이내 &middot; Web Worker 병렬</span>
+        <div style="margin-top:8px;">
+          <span class="tag tag-amber">SheetJS</span>
+          <span class="tag tag-amber">Web Worker</span>
+          <span class="tag tag-amber">95% 감지율</span>
+        </div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left: 3px solid var(--teal);">
+      <div class="layer-num" style="color:var(--teal);">L2</div>
+      <div class="layer-text">
+        <div class="layer-title">Smart DOM</div>
+        Readability.js + RQFP로 웹 노이즈 60~70% 제거<br>
+        <span style="font-size:11px; color:var(--muted);">추출 정확도 90%+ &middot; 2초 이내 &middot; Shadow DOM/SAP Fiori &middot; <strong style="color:var(--green);">$0.12/작업</strong></span>
+        <div style="margin-top:8px;">
+          <span class="tag tag-teal">Readability.js</span>
+          <span class="tag tag-teal">RQFP</span>
+          <span class="tag tag-teal">MutationObserver</span>
+        </div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left: 3px solid var(--blue2);">
+      <div class="layer-num" style="color:var(--blue2);">L1</div>
+      <div class="layer-text">
+        <div class="layer-title">Hybrid Extension</div>
+        Background SW + Content Script + Side Panel<br>
+        <span style="font-size:11px; color:var(--muted);">봇 탐지 우회 &middot; 세션 충실도 &middot; Omnibox 통합 &middot; Chrome MV3</span>
+        <div style="margin-top:8px;">
+          <span class="tag tag-blue">MV3</span>
+          <span class="tag tag-blue">Service Worker</span>
+          <span class="tag tag-blue">Side Panel</span>
+          <span class="tag tag-blue">Omnibox</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+    <span class="tag tag-cyan">Dynamic Multi-Model</span>
+    <span class="tag tag-green">Human-in-the-Loop</span>
+    <span class="tag tag-amber">Self-Healing</span>
+    <span class="tag tag-red">Zero Trust Security</span>
+  </div>
+</div>
+
+<!-- ── Section 4: 핵심 기능 16개 테이블 ── -->
+<div class="section-wrap">
+  <div class="section-title">핵심 기능 16개</div>
+  <p class="subtitle" style="margin-bottom:20px;">P0 Foundation &middot; P1 Core Value &middot; P2 Enhancement</p>
+
+  <div class="card" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:10px 12px;">Priority</th>
+          <th style="text-align:left; padding:10px 12px;">ID</th>
+          <th style="text-align:left; padding:10px 12px;">기능</th>
+          <th style="text-align:left; padding:10px 12px;">설명</th>
+          <th style="text-align:center; padding:10px 12px;">Layer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- P0 -->
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-red">P0</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F01</td><td style="padding:10px 12px;"><strong>Side Panel Agent UI</strong></td><td style="padding:10px 12px; color:var(--muted2);">주 채팅 인터페이스</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-red">P0</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F02</td><td style="padding:10px 12px;"><strong>Smart DOM 추출</strong></td><td style="padding:10px 12px; color:var(--muted2);">웹 페이지 노이즈 제거 및 구조화</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-teal">L2</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-red">P0</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F03</td><td style="padding:10px 12px;"><strong>컨텍스트 메뉴 분석</strong></td><td style="padding:10px 12px; color:var(--muted2);">우클릭 즉시 분석</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-red">P0</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F04</td><td style="padding:10px 12px;"><strong>SSE 스트리밍 응답</strong></td><td style="padding:10px 12px; color:var(--muted2);">실시간 응답 스트리밍</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <tr style="border-bottom:2px solid var(--border2);"><td style="padding:10px 12px;"><span class="tag tag-red">P0</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F09</td><td style="padding:10px 12px;"><strong>PII 마스킹 &amp; 보안</strong></td><td style="padding:10px 12px; color:var(--muted2);">개인정보 탐지 및 마스킹</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <!-- P1 -->
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F05</td><td style="padding:10px 12px;"><strong>DataFrame 자동 변환</strong></td><td style="padding:10px 12px; color:var(--muted2);">HTML 테이블 &rarr; JSON/CSV/XLSX</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">L3</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F06</td><td style="padding:10px 12px;"><strong>Dynamic Multi-Model</strong></td><td style="padding:10px 12px; color:var(--muted2);">작업별 최적 모델 자동 선택</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-purple">L4</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F07</td><td style="padding:10px 12px;"><strong>MARS 리서치</strong></td><td style="padding:10px 12px; color:var(--muted2);">6종 에이전트 자율 연구 파이프라인</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-purple">L4</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F08</td><td style="padding:10px 12px;"><strong>에이전틱 브라우징 RPA</strong></td><td style="padding:10px 12px; color:var(--muted2);">브라우저 자동화</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-teal">L2</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F10</td><td style="padding:10px 12px;"><strong>HITL 승인 체계</strong></td><td style="padding:10px 12px; color:var(--muted2);">Human-in-the-Loop 승인</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-purple">L4</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F14</td><td style="padding:10px 12px;"><strong>감사 로그 대시보드</strong></td><td style="padding:10px 12px; color:var(--muted2);">감사 추적</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F15</td><td style="padding:10px 12px;"><strong>봇 탐지 우회</strong></td><td style="padding:10px 12px; color:var(--muted2);">Stealth 모드</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <tr style="border-bottom:2px solid var(--border2);"><td style="padding:10px 12px;"><span class="tag tag-amber">P1</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F16</td><td style="padding:10px 12px;"><strong>Omnibox 통합</strong></td><td style="padding:10px 12px; color:var(--muted2);">주소창 키워드 검색</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+        <!-- P2 -->
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-green">P2</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F11</td><td style="padding:10px 12px;"><strong>Self-Healing 자가 복구</strong></td><td style="padding:10px 12px; color:var(--muted2);">장애 자동 복구</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-purple">L4</span></td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 12px;"><span class="tag tag-green">P2</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F12</td><td style="padding:10px 12px;"><strong>시맨틱 DOM 시각화</strong></td><td style="padding:10px 12px; color:var(--muted2);">DOM 구조 시각화</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-teal">L2</span></td></tr>
+        <tr><td style="padding:10px 12px;"><span class="tag tag-green">P2</span></td><td style="padding:10px 12px; font-family:var(--font-mono);">F13</td><td style="padding:10px 12px;"><strong>오프라인 큐</strong></td><td style="padding:10px 12px; color:var(--muted2);">네트워크 단절 대응</td><td style="padding:10px 12px; text-align:center;"><span class="tag tag-blue">L1</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:12px; color:var(--muted);">Critical Path: F01 &rarr; F04 &rarr; F06 &rarr; F07, F02 &rarr; F05 &rarr; F07</p>
+</div>
+
+<!-- ── Section 5: Zero Trust 6계층 보안 ── -->
+<div class="section-wrap">
+  <div class="section-title">Zero Trust 6계층 보안 아키텍처</div>
+  <p class="subtitle" style="margin-bottom:20px;">PII 11패턴 &middot; 블록리스트 20+6 &middot; 탐지율 99.9%+</p>
+  <div class="layer-stack">
+    <div class="layer-item" style="border-left:3px solid var(--red);">
+      <div class="layer-num" style="color:var(--red);">L6</div>
+      <div class="layer-text">
+        <div class="layer-title">Audit</div>
+        불변 감사 로그 + SHA-256 해시 체인 + OpenTelemetry
+        <div style="margin-top:6px;"><span class="tag tag-red">SHA-256</span> <span class="tag tag-red">OpenTelemetry</span> <span class="tag tag-red">Immutable Log</span></div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left:3px solid var(--amber);">
+      <div class="layer-num" style="color:var(--amber);">L5</div>
+      <div class="layer-text">
+        <div class="layer-title">Data Protection</div>
+        PII 11패턴 마스킹 + AES-256-GCM 암호화
+        <div style="margin-top:6px;"><span class="tag tag-amber">PII 11패턴</span> <span class="tag tag-amber">AES-256-GCM</span> <span class="tag tag-amber">Zod 검증</span></div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left:3px solid var(--purple);">
+      <div class="layer-num" style="color:var(--purple);">L4</div>
+      <div class="layer-text">
+        <div class="layer-title">Authorization</div>
+        OPA Policy Engine + RBAC 역할 기반 접근 제어
+        <div style="margin-top:6px;"><span class="tag tag-purple">OPA 0.63</span> <span class="tag tag-purple">RBAC</span> <span class="tag tag-purple">Policy Engine</span></div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left:3px solid var(--green);">
+      <div class="layer-num" style="color:var(--green);">L3</div>
+      <div class="layer-text">
+        <div class="layer-title">Authentication</div>
+        HMAC-SHA256 JWT + TOTP 2FA 이중 인증
+        <div style="margin-top:6px;"><span class="tag tag-green">JWT</span> <span class="tag tag-green">TOTP 2FA</span> <span class="tag tag-green">HMAC-SHA256</span></div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left:3px solid var(--teal);">
+      <div class="layer-num" style="color:var(--teal);">L2</div>
+      <div class="layer-text">
+        <div class="layer-title">Edge Security</div>
+        WAF + TLS 1.3 + CORS Allowlist 적용
+        <div style="margin-top:6px;"><span class="tag tag-teal">WAF</span> <span class="tag tag-teal">TLS 1.3</span> <span class="tag tag-teal">CORS</span></div>
+      </div>
+    </div>
+    <div class="layer-item" style="border-left:3px solid var(--blue2);">
+      <div class="layer-num" style="color:var(--blue2);">L1</div>
+      <div class="layer-text">
+        <div class="layer-title">Extension CSP</div>
+        script-src 'self' 선언, eval 차단, 외부 스크립트 완전 차단
+        <div style="margin-top:6px;"><span class="tag tag-blue">CSP</span> <span class="tag tag-blue">No eval</span> <span class="tag tag-blue">Blocklist 20+6</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 6: 3-Tier 가격 비교 카드 ── -->
+<div class="section-wrap">
+  <div class="section-title">3-Tier 가격 정책</div>
+  <p class="subtitle" style="margin-bottom:20px;">LTV/CAC 48x &middot; Payback &lt; 1개월 &middot; Gross Margin 65% &middot; NRR 120%+</p>
+  <div class="three-col">
+    <div class="card" style="border-top:3px solid var(--green); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--green); margin-bottom:8px;">BASIC</div>
+      <div style="font-family:var(--font-display); font-size:42px; font-weight:800; color:var(--text); line-height:1;">$8<span style="font-size:16px; font-weight:400; color:var(--muted);">/월</span></div>
+      <div style="font-size:12px; color:var(--muted); margin:8px 0 16px;">개인/소규모팀</div>
+      <div style="text-align:left; font-size:12px; color:var(--muted2); line-height:2;">
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">일일 쿼리: <strong style="color:var(--text);">50회/일</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">모델: <strong style="color:var(--text);">GPT-4o-mini, Haiku</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">배포: <strong style="color:var(--text);">CWS 수동 설치</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">SLA: <strong style="color:var(--text);">99.5%</strong></div>
+        <div style="padding:4px 0;">지원: <strong style="color:var(--text);">커뮤니티</strong></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue); text-align:center; transform:scale(1.03); position:relative;">
+      <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--blue); color:#fff; font-size:10px; font-weight:700; padding:3px 14px; border-radius:10px; letter-spacing:1px;">POPULAR</div>
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--blue2); margin-bottom:8px;">PRO</div>
+      <div style="font-family:var(--font-display); font-size:42px; font-weight:800; color:var(--text); line-height:1;">$18<span style="font-size:16px; font-weight:400; color:var(--muted);">/월</span></div>
+      <div style="font-size:12px; color:var(--muted); margin:8px 0 16px;">부서 단위 도입</div>
+      <div style="text-align:left; font-size:12px; color:var(--muted2); line-height:2;">
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">일일 쿼리: <strong style="color:var(--text);">200회/일</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">모델: <strong style="color:var(--text);">+ GPT-4o, Sonnet</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">배포: <strong style="color:var(--text);">Admin Console 관리</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">SLA: <strong style="color:var(--text);">99.9%</strong></div>
+        <div style="padding:4px 0;">지원: <strong style="color:var(--text);">이메일 24h</strong></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--amber); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--amber); margin-bottom:8px;">ENTERPRISE</div>
+      <div style="font-family:var(--font-display); font-size:42px; font-weight:800; color:var(--text); line-height:1;">$30<span style="font-size:16px; font-weight:400; color:var(--muted);">/월</span></div>
+      <div style="font-size:12px; color:var(--muted); margin:8px 0 16px;">그룹사/대기업 (1,000석+)</div>
+      <div style="text-align:left; font-size:12px; color:var(--muted2); line-height:2;">
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">일일 쿼리: <strong style="color:var(--text);">무제한</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">모델: <strong style="color:var(--text);">+ Opus, o3, 전체 19개</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">배포: <strong style="color:var(--text);">Forcelist 강제 배포</strong></div>
+        <div style="border-bottom:1px solid var(--border); padding:4px 0;">SLA: <strong style="color:var(--text);">99.95%</strong></div>
+        <div style="padding:4px 0;">지원: <strong style="color:var(--text);">전담 CSM 4h</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 7: Go-To-Market 3단계 ── -->
+<div class="section-wrap">
+  <div class="section-title">Go-To-Market 3단계</div>
+  <p class="subtitle" style="margin-bottom:20px;">파일럿 &rarr; 그룹 확산 &rarr; 외부 확장</p>
+  <div class="three-col">
+    <div class="card card-top-accent teal">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div>
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--teal);">STAGE 1</div>
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700;">파일럿</div>
+        </div>
+        <span class="tag tag-teal">0~6개월</span>
+      </div>
+      <div style="font-size:13px; color:var(--muted2); line-height:1.8;">
+        <strong style="color:var(--text);">대상:</strong> 오토에버 500명<br>
+        <strong style="color:var(--text);">배포:</strong> CWS 비공개<br>
+        <strong style="color:var(--text);">목표:</strong> DAU 55%+, NPS 40+<br>
+        <strong style="color:var(--text);">ARR:</strong> <span class="highlight">$312K</span>
+      </div>
+      <div style="margin-top:12px; font-size:11px; color:var(--muted);">
+        얼리 어답터 발굴 &rarr; 챔피언 5명 육성 &rarr; 유기적 확산
+      </div>
+    </div>
+    <div class="card card-top-accent">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div>
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--blue2);">STAGE 2</div>
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700;">그룹 확산</div>
+        </div>
+        <span class="tag tag-blue">6~18개월</span>
+      </div>
+      <div style="font-size:13px; color:var(--muted2); line-height:1.8;">
+        <strong style="color:var(--text);">대상:</strong> 16개 계열사 25,000석<br>
+        <strong style="color:var(--text);">배포:</strong> Forcelist 전환<br>
+        <strong style="color:var(--text);">목표:</strong> DAU 60%+, NPS 45+<br>
+        <strong style="color:var(--text);">ARR:</strong> <span class="accent">$5.64M</span>
+      </div>
+      <div style="margin-top:12px; font-size:11px; color:var(--muted);">
+        Forcelist 일괄 배포 + 부서별 온보딩 + 성공 사례 전파
+      </div>
+    </div>
+    <div class="card card-top-accent amber">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div>
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--amber);">STAGE 3</div>
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700;">외부 확장</div>
+        </div>
+        <span class="tag tag-amber">18~30개월</span>
+      </div>
+      <div style="font-size:13px; color:var(--muted2); line-height:1.8;">
+        <strong style="color:var(--text);">대상:</strong> 외부 대기업 50,000+석<br>
+        <strong style="color:var(--text);">배포:</strong> 엔터프라이즈 계약<br>
+        <strong style="color:var(--text);">목표:</strong> NRR 120%+<br>
+        <strong style="color:var(--text);">ARR:</strong> <span class="warning">$10M+</span>
+      </div>
+      <div style="margin-top:12px; font-size:11px; color:var(--muted);">
+        성공 사례 기반 영업 + 산업 특화 에이전트 애드온
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 8: 비용 절감 $550K ── -->
+<div class="section-wrap">
+  <div class="section-title">연간 비용 절감 $550K</div>
+  <p class="subtitle" style="margin-bottom:20px;">4대 업무 효율화 + 헬프데스크 자동화 &middot; 60%+ 자동화율 &middot; 270% 3년 ROI</p>
+
+  <div class="card" style="padding:28px;">
+    <!-- 정보 탐색 87% -->
+    <div class="bbar-row" style="margin-bottom:16px;">
+      <span class="bbar-label" style="min-width:150px;">정보 탐색<br><span class="small" style="color:var(--muted);">23분 &rarr; 3분</span></span>
+      <div class="bbar-track" style="height:12px;">
+        <div class="bbar-fill" style="width:87%; background:var(--blue);"></div>
+      </div>
+      <span class="bbar-amount" style="min-width:60px; font-weight:700; color:var(--blue2);">87%</span>
+    </div>
+    <!-- 보고서 작성 85% -->
+    <div class="bbar-row" style="margin-bottom:16px;">
+      <span class="bbar-label" style="min-width:150px;">보고서 작성<br><span class="small" style="color:var(--muted);">5h &rarr; 30분</span></span>
+      <div class="bbar-track" style="height:12px;">
+        <div class="bbar-fill teal" style="width:85%;"></div>
+      </div>
+      <span class="bbar-amount" style="min-width:60px; font-weight:700; color:var(--teal);">85%</span>
+    </div>
+    <!-- 데이터 수집 95% -->
+    <div class="bbar-row" style="margin-bottom:16px;">
+      <span class="bbar-label" style="min-width:150px;">데이터 수집<br><span class="small" style="color:var(--muted);">4h &rarr; 10분</span></span>
+      <div class="bbar-track" style="height:12px;">
+        <div class="bbar-fill green" style="width:95%;"></div>
+      </div>
+      <span class="bbar-amount" style="min-width:60px; font-weight:700; color:var(--green);">95%</span>
+    </div>
+    <!-- 티켓 분류 90% -->
+    <div class="bbar-row" style="margin-bottom:16px;">
+      <span class="bbar-label" style="min-width:150px;">티켓 분류<br><span class="small" style="color:var(--muted);">50분 &rarr; 5분</span></span>
+      <div class="bbar-track" style="height:12px;">
+        <div class="bbar-fill amber" style="width:90%;"></div>
+      </div>
+      <span class="bbar-amount" style="min-width:60px; font-weight:700; color:var(--amber);">90%</span>
+    </div>
+    <!-- 헬프데스크 80% -->
+    <div class="bbar-row">
+      <span class="bbar-label" style="min-width:150px;">헬프데스크 처리<br><span class="small" style="color:var(--muted);">자동화</span></span>
+      <div class="bbar-track" style="height:12px;">
+        <div class="bbar-fill purple" style="width:80%;"></div>
+      </div>
+      <span class="bbar-amount" style="min-width:60px; font-weight:700; color:var(--purple);">80%</span>
+    </div>
+
+    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--green);">$550K</div>
+          <div class="small" style="color:var(--muted);">연간 절감</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--teal);">60%+</div>
+          <div class="small" style="color:var(--muted);">자동화율</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--blue2);">50K+</div>
+          <div class="small" style="color:var(--muted);">타겟 사용자</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--gold);">270%</div>
+          <div class="small" style="color:var(--muted);">3년 ROI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 9: 리스크 & TODO ── -->
+<div class="section-wrap">
+  <div class="section-title">리스크 매트릭스 &amp; 선행과제</div>
+  <div class="two-col">
+
+    <!-- Left: 리스크 매트릭스 -->
+    <div>
+      <h3 style="color:var(--red); margin-bottom:16px;">10대 리스크 매트릭스</h3>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>LLM API 비용 급등</strong>
+            <div><span class="risk-badge high">높음/중간</span></div>
+          </div>
+          <div class="risk-meta">멀티모델 라우팅, 경량 모델 전환, 캐싱 60%&darr;</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>데이터 유출 / 보안</strong>
+            <div><span class="risk-badge high">매우높음/낮음</span></div>
+          </div>
+          <div class="risk-meta">소버린AI, Zero Trust, Blocklist, PII 마스킹</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>SPA/Shadow DOM</strong>
+            <div><span class="risk-badge high">높음/높음</span></div>
+          </div>
+          <div class="risk-meta">waitForDOMStable(), MutationObserver, SAP PoC 선행</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>AI 환각</strong>
+            <div><span class="risk-badge high">높음/높음</span></div>
+          </div>
+          <div class="risk-meta">Citation 필수, HITL, 정확도 92%+ KPI</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>경쟁사 진입 (Copilot)</strong>
+            <div><span class="risk-badge medium">중간/높음</span></div>
+          </div>
+          <div class="risk-meta">사내 딥통합(경쟁사 불가), 데이터 주권 해자</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>Chrome 정책 변경</strong>
+            <div><span class="risk-badge medium">중간/보통</span></div>
+          </div>
+          <div class="risk-meta">MV3 최신 준수, Edge 호환 준비</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>핵심 인력 이탈</strong>
+            <div><span class="risk-badge medium">높음/중간</span></div>
+          </div>
+          <div class="risk-meta">RSU, Bus Factor 3+, 지식 문서화</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>사용자 채택 저조</strong>
+            <div><span class="risk-badge low">중간/낮음</span></div>
+          </div>
+          <div class="risk-meta">강제 설치로 장벽 제거, 챔피언 프로그램</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>MARS 비용 초과</strong>
+            <div><span class="risk-badge medium">중간/중간</span></div>
+          </div>
+          <div class="risk-meta">$0.27 세션 검증, 동적 모델 다운그레이드</div>
+        </div>
+        <div class="risk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+            <strong>Multi-tenant 격리</strong>
+            <div><span class="risk-badge medium">높음/중간</span></div>
+          </div>
+          <div class="risk-meta">Row-Level Security, 계열사별 OPA 정책</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: 선행과제 4항 -->
+    <div>
+      <h3 style="color:var(--amber); margin-bottom:16px;">Sprint 0 착수 전 선행과제 4항</h3>
+      <p class="small" style="color:var(--red); margin-bottom:16px;">Sprint 0 (14일) 착수 전 4항 완료 필수 &mdash; 미완 시 Sprint 0 연기</p>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card card-top-accent red">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="color:var(--text);">1. SAP Fiori PoC</strong>
+            <span class="tag tag-red">2일</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            SAP Fiori에서 Content Script DOM 접근 검증.<br>
+            Shadow DOM 탐색, waitForDOMStable() 구현 확인.<br>
+            실패 시 플랜 B (대안 접근 방식) 문서화.
+          </div>
+        </div>
+        <div class="card card-top-accent amber">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="color:var(--text);">2. MARS 비용 시뮬레이션</strong>
+            <span class="tag tag-amber">1일</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            6종 에이전트 1회 리서치 세션 $0.27 검증.<br>
+            월 $45K 예산 &rarr; 167K 세션 &rarr; 사용자당 일 3.3회.<br>
+            비용 급등 시 Haiku 다운그레이드 시나리오 준비.
+          </div>
+        </div>
+        <div class="card card-top-accent purple">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="color:var(--text);">3. hchat-pwa 관계 정의</strong>
+            <span class="tag tag-purple">협의</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            <strong>A:</strong> 병행 (Extension=데스크톱, PWA=모바일)<br>
+            <strong>B:</strong> Extension Only (PWA 중단)<br>
+            <strong>C:</strong> Extension 우선, PWA를 경량 뷰어로 전환<br>
+            경영진 의사결정 필요.
+          </div>
+        </div>
+        <div class="card card-top-accent teal">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="color:var(--text);">4. Multi-tenant 아키텍처</strong>
+            <span class="tag tag-teal">설계</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            16개 계열사 동시 서비스 위한 격리 설계.<br>
+            Row-Level Security + OPA Policy Engine.<br>
+            계열사별 LLM 모델 할당 &middot; 비용 분리.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+
+  <!-- ========== 종합 기획 상세 TAB ========== -->
+  <div id="view-planning-detail" class="view">
+
+<!-- ====================================================================== -->
+<!-- TAB: 종합 기획 상세 -- Comprehensive Planning Deep-Dive               -->
+<!-- ====================================================================== -->
+
+<!-- ── Section 1: RQFP 엔진 상세 ── -->
+<div class="section-wrap">
+  <p class="section-title">RQFP ENGINE</p>
+  <h2 class="section-h2">L2 Smart DOM &mdash; <span class="accent">RQFP 엔진 상세</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">Score = Relevance &times; 0.4 + Quality &times; 0.4 + Freshness &times; 0.2 &nbsp;&middot;&nbsp; 임계값 0.35</p>
+
+  <!-- Formula card -->
+  <div class="card" style="margin-bottom:20px; padding:20px 28px; border-left:3px solid var(--teal);">
+    <div style="font-family:var(--font-mono); font-size:18px; font-weight:700; color:var(--teal); letter-spacing:0.5px;">
+      Score = R &times; 0.4 &nbsp;+&nbsp; Q &times; 0.4 &nbsp;+&nbsp; F &times; 0.2
+    </div>
+    <div style="margin-top:8px; font-size:12px; color:var(--muted2);">
+      <strong style="color:var(--text);">R</strong> Relevance (페이지-쿼리 유사도) &nbsp;&middot;&nbsp;
+      <strong style="color:var(--text);">Q</strong> Quality (구조 품질) &nbsp;&middot;&nbsp;
+      <strong style="color:var(--text);">F</strong> Freshness (최신성)
+    </div>
+    <div style="margin-top:6px; font-size:11px; color:var(--muted);">임계값 <strong style="color:var(--amber);">0.35</strong> 이상 통과 &rarr; SemanticTree 변환</div>
+  </div>
+
+  <!-- 5 module cards -->
+  <div class="three-col" style="grid-template-columns: repeat(5, 1fr);">
+    <div class="card card-top-accent teal" style="text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--teal); margin-bottom:6px;">ENTRY POINT</div>
+      <div style="font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);">SmartDomExtractor</div>
+      <div style="font-size:12px; color:var(--muted2); margin-top:8px; line-height:1.5;">RQFP 파이프라인 진입점<br>HTML &rarr; SemanticTree</div>
+      <div style="margin-top:10px;"><span class="tag tag-teal">~300줄</span></div>
+    </div>
+    <div class="card card-top-accent" style="text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--blue2); margin-bottom:6px;">SCORING</div>
+      <div style="font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);">RqfpEngine</div>
+      <div style="font-size:12px; color:var(--muted2); margin-top:8px; line-height:1.5;">가중 평균 스코어링<br>R&middot;Q&middot;F 3축 계산</div>
+      <div style="margin-top:10px;"><span class="tag tag-blue">~350줄</span></div>
+    </div>
+    <div class="card card-top-accent purple" style="text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--purple); margin-bottom:6px;">SHADOW DOM</div>
+      <div style="font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);">ShadowDomTraverser</div>
+      <div style="font-size:12px; color:var(--muted2); margin-top:8px; line-height:1.5;">Open/Closed Shadow DOM<br>재귀 탐색, Slot 처리</div>
+      <div style="margin-top:10px;"><span class="tag tag-purple">~250줄</span></div>
+    </div>
+    <div class="card card-top-accent amber" style="text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--amber); margin-bottom:6px;">SAP ADAPTER</div>
+      <div style="font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);">SapFioriAdapter</div>
+      <div style="font-size:12px; color:var(--muted2); margin-top:8px; line-height:1.5;">sap-ui-content 어댑터<br>Fiori DOM 패턴 5개 식별</div>
+      <div style="margin-top:10px;"><span class="tag tag-amber">~350줄</span></div>
+    </div>
+    <div class="card card-top-accent green" style="text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--green); margin-bottom:6px;">STABILIZER</div>
+      <div style="font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);">MutationStabilizer</div>
+      <div style="font-size:12px; color:var(--muted2); margin-top:8px; line-height:1.5;">SPA 라우팅 감지<br>변경 수렴 100ms 대기</div>
+      <div style="margin-top:10px;"><span class="tag tag-green">~250줄</span></div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:12px; color:var(--muted);">합계 ~1,500줄 &nbsp;&middot;&nbsp; 추출 정확도 90%+ &nbsp;&middot;&nbsp; 2초 이내 &nbsp;&middot;&nbsp; $0.12/작업</p>
+</div>
+
+<!-- ── Section 2: MARS 6단계 파이프라인 비용 ── -->
+<div class="section-wrap">
+  <p class="section-title">MARS PIPELINE</p>
+  <h2 class="section-h2">L4 MARS &mdash; <span class="accent">6단계 파이프라인 비용</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">LangGraph StateGraph &middot; 6종 에이전트 &middot; $0.27/세션 &middot; 최대 120초 &middot; HITL Gate</p>
+
+  <div class="three-col" style="grid-template-columns: repeat(6, 1fr);">
+    <!-- Agent 1: Planner -->
+    <div class="card" style="border-top:3px solid var(--purple); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--purple); margin-bottom:4px;">STEP 1</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:800; color:var(--text);">Planner</div>
+      <div style="margin-top:8px; font-size:11px; color:var(--muted2); line-height:1.5;">사용자 목표<br>&rarr; 연구 계획 JSON</div>
+      <div style="margin-top:10px;">
+        <span class="tag tag-purple" style="font-size:9px;">Opus 4.6</span>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--purple); margin-top:10px;">$0.02</div>
+    </div>
+    <!-- Agent 2: Search -->
+    <div class="card" style="border-top:3px solid var(--cyan); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--cyan); margin-bottom:4px;">STEP 2</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:800; color:var(--text);">Search</div>
+      <div style="margin-top:8px; font-size:11px; color:var(--muted2); line-height:1.5;">검색 쿼리<br>&rarr; URL+snippet</div>
+      <div style="margin-top:10px;">
+        <span class="tag tag-cyan" style="font-size:9px;">Haiku</span>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--cyan); margin-top:10px;">$0.01</div>
+    </div>
+    <!-- Agent 3: Web -->
+    <div class="card" style="border-top:3px solid var(--teal); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--teal); margin-bottom:4px;">STEP 3</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:800; color:var(--text);">Web</div>
+      <div style="margin-top:8px; font-size:11px; color:var(--muted2); line-height:1.5;">페이지 방문<br>&rarr; SemanticTree</div>
+      <div style="margin-top:10px;">
+        <span class="tag tag-teal" style="font-size:9px;">Haiku</span>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--teal); margin-top:10px;">$0.02</div>
+    </div>
+    <!-- Agent 4: Data -->
+    <div class="card" style="border-top:3px solid var(--amber); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--amber); margin-bottom:4px;">STEP 4</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:800; color:var(--text);">Data</div>
+      <div style="margin-top:8px; font-size:11px; color:var(--muted2); line-height:1.5;">DataFrame 추출<br>(L3 연계)</div>
+      <div style="margin-top:10px;">
+        <span class="tag tag-amber" style="font-size:9px;">Sonnet</span>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--amber); margin-top:10px;">$0.03</div>
+    </div>
+    <!-- Agent 5: Analysis -->
+    <div class="card" style="border-top:3px solid var(--red); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--red); margin-bottom:4px;">STEP 5</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:800; color:var(--text);">Analysis</div>
+      <div style="margin-top:8px; font-size:11px; color:var(--muted2); line-height:1.5;">데이터 분석<br>&rarr; InsightReport</div>
+      <div style="margin-top:10px;">
+        <span class="tag tag-red" style="font-size:9px;">Opus 4.6</span>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--red); margin-top:10px;">$0.15</div>
+    </div>
+    <!-- Agent 6: Report -->
+    <div class="card" style="border-top:3px solid var(--blue); text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--blue); margin-bottom:4px;">STEP 6</div>
+      <div style="font-family:var(--font-display); font-size:16px; font-weight:800; color:var(--text);">Report</div>
+      <div style="margin-top:8px; font-size:11px; color:var(--muted2); line-height:1.5;">최종 마크다운<br>보고서 생성</div>
+      <div style="margin-top:10px;">
+        <span class="tag tag-blue" style="font-size:9px;">Sonnet</span>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--blue); margin-top:10px;">$0.04</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; padding:16px 24px;">
+    <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:center;">
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--green);">$0.27</div>
+        <div class="small" style="color:var(--muted);">세션당 합계</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--amber);">120s</div>
+        <div class="small" style="color:var(--muted);">최대 소요 시간</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--red);">55%</div>
+        <div class="small" style="color:var(--muted);">Analysis 비용 비중</div>
+      </div>
+    </div>
+    <div style="font-size:12px; color:var(--muted2); line-height:1.6; max-width:320px;">
+      <strong style="color:var(--amber);">HITL Gate:</strong> Analysis 단계 전 사용자 확인<br>
+      <strong style="color:var(--teal);">State:</strong> LangGraph StateGraph 상태 관리<br>
+      <strong style="color:var(--muted);">월 $45K &rarr; 167K 세션 &rarr; 사용자당 일 3.3회</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 3: Dynamic Multi-Model + Self-Healing ── -->
+<div class="section-wrap">
+  <p class="section-title">MULTI-MODEL &amp; SELF-HEALING</p>
+  <h2 class="section-h2">Dynamic Multi-Model + <span class="accent">Self-Healing</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">작업별 최적 LLM 자동 할당 &middot; 장애 자동 복구</p>
+
+  <div class="two-col">
+    <!-- Left: Dynamic Multi-Model -->
+    <div>
+      <h3 style="color:var(--cyan); margin-bottom:12px;">Dynamic Multi-Model Orchestrator</h3>
+
+      <!-- Scoring formula -->
+      <div class="card" style="margin-bottom:16px; padding:16px 20px; border-left:3px solid var(--cyan);">
+        <div style="font-family:var(--font-mono); font-size:16px; font-weight:700; color:var(--cyan);">
+          q &times; 0.4 + l &times; 0.3 + c &times; 0.2 + a &times; 0.1
+        </div>
+        <div style="margin-top:6px; font-size:11px; color:var(--muted2);">
+          <strong style="color:var(--text);">q</strong> Quality &nbsp;&middot;&nbsp;
+          <strong style="color:var(--text);">l</strong> Latency &nbsp;&middot;&nbsp;
+          <strong style="color:var(--text);">c</strong> Cost &nbsp;&middot;&nbsp;
+          <strong style="color:var(--text);">a</strong> Availability
+        </div>
+      </div>
+
+      <!-- 5 model cards -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--purple);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">Claude Opus 4.6</div>
+            <div style="font-size:11px; color:var(--muted2);">복잡 추론/분석</div>
+          </div>
+          <span class="tag tag-purple">Heavy</span>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--blue);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">GPT-5.2</div>
+            <div style="font-size:11px; color:var(--muted2);">장문 생성/보고</div>
+          </div>
+          <span class="tag tag-blue">Generation</span>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--teal);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">Gemini 2.5 Pro</div>
+            <div style="font-size:11px; color:var(--muted2);">리서치/검색</div>
+          </div>
+          <span class="tag tag-teal">Research</span>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--green);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">Grok 3</div>
+            <div style="font-size:11px; color:var(--muted2);">경량/번역</div>
+          </div>
+          <span class="tag tag-green">Light</span>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--amber);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">Nano Banana</div>
+            <div style="font-size:11px; color:var(--muted2);">이미지/비전</div>
+          </div>
+          <span class="tag tag-amber">Vision</span>
+        </div>
+      </div>
+      <div style="margin-top:10px; font-size:11px; color:var(--muted);">Circuit Breaker: 30% 오류율 트리거 &middot; Rate Limiter 토큰 버킷</div>
+    </div>
+
+    <!-- Right: Self-Healing -->
+    <div>
+      <h3 style="color:var(--red); margin-bottom:12px;">Self-Healing System</h3>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+
+        <div class="card card-top-accent red" style="padding:16px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="color:var(--text); font-size:14px;">3-Strike Rule</strong>
+            <span class="tag tag-red">MAX_HEAL=3</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            최대 3회 자동 복구 시도.<br>3회 초과 시 OPEN 상태 전환 (3,600초 유지).
+          </div>
+        </div>
+
+        <div class="card card-top-accent amber" style="padding:16px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="color:var(--text); font-size:14px;">지수 백오프</strong>
+            <span class="tag tag-amber">Exponential</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            쿨다운: 5분 &rarr; 15분 &rarr; 45분<br>점진적 대기로 시스템 안정화.
+          </div>
+        </div>
+
+        <div class="card card-top-accent purple" style="padding:16px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="color:var(--text); font-size:14px;">AST + LLM 진단</strong>
+            <span class="tag tag-purple">85~90%</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            구문 오류 자동 수정 85~90% 성공률.<br>AST 분석 + LLM 기반 패치 생성.
+          </div>
+        </div>
+
+        <div class="card card-top-accent teal" style="padding:16px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="color:var(--text); font-size:14px;">Unified Diff</strong>
+            <span class="tag tag-teal">55~70%</span>
+          </div>
+          <div style="font-size:12px; color:var(--muted2); line-height:1.6;">
+            패치 적용으로 복구 시간 55~70% 단축.<br>SPEC-SH: OPEN 3,600초 동작 확인 테스트.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 4: GAP 분석 테이블 ── -->
+<div class="section-wrap">
+  <p class="section-title">GAP ANALYSIS</p>
+  <h2 class="section-h2">GAP 분석 &mdash; <span class="accent">14개 영역, 신규 19개 모듈</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">기존 모노레포 12개 모듈 재활용 &rarr; 개발 기간 30% 단축</p>
+
+  <div class="card" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:center; padding:10px 12px; width:40px;">#</th>
+          <th style="text-align:left; padding:10px 12px;">영역</th>
+          <th style="text-align:left; padding:10px 12px;">현재 상태</th>
+          <th style="text-align:left; padding:10px 12px;">목표</th>
+          <th style="text-align:center; padding:10px 12px;">GAP 크기</th>
+          <th style="text-align:center; padding:10px 12px;">우선순위</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">1</td>
+          <td style="padding:10px 12px;"><strong>L2 Smart DOM</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">기본 sanitize</td>
+          <td style="padding:10px 12px; color:var(--muted2);">Readability.js + RQFP + Shadow DOM</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-red">대</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-red">P0</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">2</td>
+          <td style="padding:10px 12px;"><strong>L3 DataFrame</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">SheetJS Excel</td>
+          <td style="padding:10px 12px; color:var(--muted2);">HTML 테이블 자동감지 &rarr; JSON</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-red">대</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-red">P0</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">3</td>
+          <td style="padding:10px 12px;"><strong>PII Scrubbing</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">7패턴</td>
+          <td style="padding:10px 12px; color:var(--muted2);">11패턴 + 99.9% 탐지율</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">중</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-red">P0</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">4</td>
+          <td style="padding:10px 12px;"><strong>L4 MARS Agent</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">단일 API</td>
+          <td style="padding:10px 12px; color:var(--muted2);">LangGraph 6단계 + HITL Gate</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-red">대</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">P1</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">5</td>
+          <td style="padding:10px 12px;"><strong>Multi-Model</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">3 프로바이더</td>
+          <td style="padding:10px 12px; color:var(--muted2);">5+ 프로바이더 Dynamic 라우팅</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">중</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">P1</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">6</td>
+          <td style="padding:10px 12px;"><strong>감사 로그</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">토큰 추적</td>
+          <td style="padding:10px 12px; color:var(--muted2);">L1~L4 불변 감사 (SHA-256 체인)</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">중</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">P1</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">7</td>
+          <td style="padding:10px 12px;"><strong>Self-Healing</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">useCircuitBreaker</td>
+          <td style="padding:10px 12px; color:var(--muted2);">AI DOM 변경 감지 + 자동 복구</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-amber">중</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-green">P2</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">8</td>
+          <td style="padding:10px 12px;"><strong>블록리스트</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">20도메인 + 6패턴</td>
+          <td style="padding:10px 12px; color:var(--muted2);">동일 &mdash; 충족</td>
+          <td style="padding:10px 12px; text-align:center;"><span class="tag tag-green">충족</span></td>
+          <td style="padding:10px 12px; text-align:center;"><span style="color:var(--muted);">&mdash;</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; padding:16px 24px;">
+    <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:center;">
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--blue2);">19</div>
+        <div class="small" style="color:var(--muted);">신규 모듈</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--teal);">~6,100</div>
+        <div class="small" style="color:var(--muted);">줄 (Lines)</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--green);">12</div>
+        <div class="small" style="color:var(--muted);">기존 재활용</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--amber);">30%</div>
+        <div class="small" style="color:var(--muted);">기간 단축</div>
+      </div>
+    </div>
+    <div style="font-size:12px; color:var(--muted2); line-height:1.6; max-width:320px;">
+      기존 테스트 5,997개 + 신규 3,350개<br>
+      <strong style="color:var(--text);">= 9,350+ 목표</strong> (커버리지 85%+)
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 5: Sprint 0 Go/No-Go 7항 ── -->
+<div class="section-wrap">
+  <p class="section-title">SPRINT 0 GATE</p>
+  <h2 class="section-h2">Sprint 0 &mdash; <span class="accent">Go/No-Go 7항</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">2주 / $37.4K / 42 태스크 &middot; 7개 기술 불확실성 14일 내 검증</p>
+
+  <div class="card" style="overflow-x:auto; margin-bottom:20px;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:center; padding:10px 12px; width:36px;">#</th>
+          <th style="text-align:left; padding:10px 12px;">판정 항목</th>
+          <th style="text-align:left; padding:10px 12px;">Go 기준</th>
+          <th style="text-align:left; padding:10px 12px;">No-Go 대응</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">1</td>
+          <td style="padding:10px 12px;"><strong>Readability.js 정확도</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">주요 사이트 5개 중 4+ 성공</td>
+          <td style="padding:10px 12px; color:var(--muted2);">대안 라이브러리 평가 (Turndown)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">2</td>
+          <td style="padding:10px 12px;"><strong>SAP Fiori DOM 접근</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">sap-ui-content 추출 가능</td>
+          <td style="padding:10px 12px; color:var(--muted2);">SAP API 직접 연동 전환</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">3</td>
+          <td style="padding:10px 12px;"><strong>PII 11패턴 검출</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">Precision 95%+, Recall 90%+</td>
+          <td style="padding:10px 12px; color:var(--muted2);">패턴 축소 + ML 기반 보완</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">4</td>
+          <td style="padding:10px 12px;"><strong>MARS 비용 검증</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">$0.30/세션 이하 시뮬레이션</td>
+          <td style="padding:10px 12px; color:var(--muted2);">모델 다운그레이드 + 캐싱</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">5</td>
+          <td style="padding:10px 12px;"><strong>PRISM CI Gate</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">22개 항목 중 Critical 0건</td>
+          <td style="padding:10px 12px; color:var(--muted2);">아키텍처 수정 후 재심사</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">6</td>
+          <td style="padding:10px 12px;"><strong>MV3 Side Panel</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">기본 UI + Content Script 통신 정상</td>
+          <td style="padding:10px 12px; color:var(--muted2);">Popup 폴백 전략</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono);">7</td>
+          <td style="padding:10px 12px;"><strong>성능 기준</strong></td>
+          <td style="padding:10px 12px; color:var(--muted2);">DOM 추출 &lt;2초, 메모리 &lt;100MB</td>
+          <td style="padding:10px 12px; color:var(--muted2);">Worker 오프로딩</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 전환 기준 -->
+  <h3 style="color:var(--teal); margin-bottom:12px;">Phase 전환 기준</h3>
+  <div class="card" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:10px 12px;">전환</th>
+          <th style="text-align:center; padding:10px 12px;">커버리지</th>
+          <th style="text-align:center; padding:10px 12px;">에러율</th>
+          <th style="text-align:left; padding:10px 12px;">추가 조건</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><strong>Sprint 0 &rarr; P1</strong></td>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono); color:var(--teal);">60%+</td>
+          <td style="padding:10px 12px; text-align:center; color:var(--muted);">&mdash;</td>
+          <td style="padding:10px 12px; color:var(--muted2);">Go/No-Go 7개 통과</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;"><strong>P1 &rarr; P2</strong></td>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono); color:var(--blue2);">70%+</td>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono); color:var(--amber);">&lt;2%</td>
+          <td style="padding:10px 12px; color:var(--muted2);">PII 11패턴 검증</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;"><strong>P2 &rarr; P3</strong></td>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono); color:var(--green);">80%+</td>
+          <td style="padding:10px 12px; text-align:center; font-family:var(--font-mono); color:var(--green);">&lt;1%</td>
+          <td style="padding:10px 12px; color:var(--muted2);">MARS $0.27 확인</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── Section 6: 13인 팀 구성 + 단위 경제 ── -->
+<div class="section-wrap">
+  <p class="section-title">TEAM &amp; UNIT ECONOMICS</p>
+  <h2 class="section-h2">13인 팀 구성 + <span class="accent">단위 경제</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">$645.5K / 30주 / 15 스프린트 &middot; LTV/CAC 48x</p>
+
+  <div class="two-col">
+    <!-- Left: 팀 구성 -->
+    <div>
+      <h3 style="color:var(--blue2); margin-bottom:12px;">팀 구성 (13명)</h3>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--red);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">PM</div>
+            <div style="font-size:11px; color:var(--muted2);">프로젝트 관리</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--red);">1</div>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--blue);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">FE 엔지니어</div>
+            <div style="font-size:11px; color:var(--muted2);">Extension UI, Side Panel, Content Script</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--blue2);">3</div>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--teal);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">BE 엔지니어</div>
+            <div style="font-size:11px; color:var(--muted2);">FastAPI, PostgreSQL, Redis</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--teal);">3</div>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--purple);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">ML/AI 엔지니어</div>
+            <div style="font-size:11px; color:var(--muted2);">MARS, Multi-Model, PII</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--purple);">2</div>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--amber);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">Infra/DevOps</div>
+            <div style="font-size:11px; color:var(--muted2);">Docker, CI/CD, Monitoring</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--amber);">1</div>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--green);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">QA 엔지니어</div>
+            <div style="font-size:11px; color:var(--muted2);">9,350+ 테스트, 자동화 95%+</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--green);">1</div>
+        </div>
+        <div class="card" style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-left:3px solid var(--muted);">
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--text);">유지보수</div>
+            <div style="font-size:11px; color:var(--muted2);">기존 모노레포 운영</div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--muted2);">2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: 단위 경제 -->
+    <div>
+      <h3 style="color:var(--green); margin-bottom:12px;">단위 경제 (Unit Economics)</h3>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card" style="padding:20px; text-align:center; border-top:3px solid var(--teal);">
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--teal); margin-bottom:4px;">CAC</div>
+          <div style="font-family:var(--font-display); font-size:36px; font-weight:800; color:var(--text);">$15</div>
+          <div style="font-size:12px; color:var(--muted2); margin-top:4px;">고객 획득 비용 (Forcelist 효과)</div>
+        </div>
+        <div class="card" style="padding:20px; text-align:center; border-top:3px solid var(--green);">
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--green); margin-bottom:4px;">LTV</div>
+          <div style="font-family:var(--font-display); font-size:36px; font-weight:800; color:var(--text);">$720</div>
+          <div style="font-size:12px; color:var(--muted2); margin-top:4px;">고객 생애 가치 (36개월 기준)</div>
+        </div>
+        <div class="card" style="padding:20px; text-align:center; border-top:3px solid var(--gold);">
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--gold); margin-bottom:4px;">LTV / CAC</div>
+          <div style="font-family:var(--font-display); font-size:36px; font-weight:800; color:var(--gold);">48x</div>
+          <div style="font-size:12px; color:var(--muted2); margin-top:4px;">업계 평균 3-5x 대비 <strong style="color:var(--green);">10배+</strong></div>
+        </div>
+        <div class="two-col" style="gap:12px;">
+          <div class="card" style="padding:16px; text-align:center; border-top:3px solid var(--blue);">
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--blue2); margin-bottom:4px;">MARGIN</div>
+            <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--text);">65%</div>
+            <div style="font-size:11px; color:var(--muted2); margin-top:2px;">Gross Margin</div>
+          </div>
+          <div class="card" style="padding:16px; text-align:center; border-top:3px solid var(--purple);">
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; color:var(--purple); margin-bottom:4px;">PAYBACK</div>
+            <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--text);">&lt;1mo</div>
+            <div style="font-size:11px; color:var(--muted2); margin-top:2px;">Forcelist 즉시 사용</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 7: 신규 모듈 19개 개발 추적 ── -->
+<div class="section-wrap">
+  <p class="section-title">MODULE TRACKER</p>
+  <h2 class="section-h2">신규 모듈 19개 &mdash; <span class="accent">개발 추적</span></h2>
+  <p class="subtitle" style="margin-bottom:20px;">총 ~6,100줄 &middot; 4개 그룹 &middot; 기존 12개 모듈 재활용 &rarr; 30% 단축</p>
+
+  <div class="two-col">
+    <!-- Left column -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+
+      <!-- Group 1: L2 Smart DOM -->
+      <div class="card" style="border-left:3px solid var(--teal);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="font-family:var(--font-display); font-size:16px; font-weight:700; color:var(--teal);">L2 Smart DOM</div>
+          <span class="tag tag-teal">5 모듈 &middot; ~1,500줄</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">SmartDomExtractor</span>
+            <span class="mini-badge">~300줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">RqfpEngine</span>
+            <span class="mini-badge">~350줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">ShadowDomTraverser</span>
+            <span class="mini-badge">~250줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">SapFioriAdapter</span>
+            <span class="mini-badge">~350줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0;">
+            <span style="font-size:13px; color:var(--text);">MutationStabilizer</span>
+            <span class="mini-badge">~250줄</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group 2: L3 DataFrame -->
+      <div class="card" style="border-left:3px solid var(--amber);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="font-family:var(--font-display); font-size:16px; font-weight:700; color:var(--amber);">L3 DataFrame</div>
+          <span class="tag tag-amber">3 모듈 &middot; ~800줄</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">DataFrameEngine</span>
+            <span class="mini-badge">~400줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">TableDetector</span>
+            <span class="mini-badge">~200줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0;">
+            <span style="font-size:13px; color:var(--text);">ColumnTypeInferrer</span>
+            <span class="mini-badge">~200줄</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+
+      <!-- Group 3: L4 MARS Agent -->
+      <div class="card" style="border-left:3px solid var(--purple);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="font-family:var(--font-display); font-size:16px; font-weight:700; color:var(--purple);">L4 MARS Agent</div>
+          <span class="tag tag-purple">7 모듈 &middot; ~2,000줄</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">AgentOrchestrator</span>
+            <span class="mini-badge">~400줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">PlannerAgent</span>
+            <span class="mini-badge">~300줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">SearchAgent</span>
+            <span class="mini-badge">~250줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">WebAgent</span>
+            <span class="mini-badge">~300줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">DataAgent</span>
+            <span class="mini-badge">~250줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">AnalysisAgent</span>
+            <span class="mini-badge">~300줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0;">
+            <span style="font-size:13px; color:var(--text);">ReportAgent</span>
+            <span class="mini-badge">~200줄</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group 4: Cross-cutting -->
+      <div class="card" style="border-left:3px solid var(--cyan);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="font-family:var(--font-display); font-size:16px; font-weight:700; color:var(--cyan);">Cross-cutting</div>
+          <span class="tag tag-cyan">4 모듈 &middot; ~1,800줄</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">DynamicModelRouter</span>
+            <span class="mini-badge">~400줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">SelfHealingEngine</span>
+            <span class="mini-badge">~500줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:13px; color:var(--text);">AuditLogger (SHA-256)</span>
+            <span class="mini-badge">~300줄</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0;">
+            <span style="font-size:13px; color:var(--text);">PIIScrubber (11패턴)</span>
+            <span class="mini-badge">~300줄</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Summary bar -->
+  <div class="card" style="margin-top:16px; padding:16px 24px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <span class="tag tag-teal">L2: 5 모듈 ~1,500줄</span>
+        <span class="tag tag-amber">L3: 3 모듈 ~800줄</span>
+        <span class="tag tag-purple">L4: 7 모듈 ~2,000줄</span>
+        <span class="tag tag-cyan">Cross: 4 모듈 ~1,800줄</span>
+      </div>
+      <div style="font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--text);">
+        = <span style="color:var(--green);">19 모듈</span> / <span style="color:var(--blue2);">~6,100줄</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
 </main>
 
 <!-- ============================================================
@@ -3962,7 +5306,8 @@ tr:hover td {
   var views = document.querySelectorAll('.view');
   var tabOrder = [
     'view-overview', 'view-product', 'view-timeline', 'view-business',
-    'view-team', 'view-wiki', 'view-analysis', 'view-slides'
+    'view-team', 'view-wiki', 'view-analysis', 'view-slides', 'view-browser-os',
+    'view-planning-detail'
   ];
   var currentIndex = 0;
 

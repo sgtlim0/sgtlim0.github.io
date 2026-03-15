@@ -602,6 +602,236 @@ nav {
 .danger { color: var(--red); }
 .success { color: var(--green); }
 
+/* ── AI BROWSER OS VIEW ── */
+.abos-timeline-track {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.abos-phase {
+  flex: 1;
+  padding: 20px 16px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.abos-phase:last-child { border-right: none; }
+.abos-phase-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.abos-phase-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+.abos-phase-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+.abos-phase-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted2);
+}
+.abos-phase-cost {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: auto;
+}
+.abos-ms-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.abos-ms-node {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.abos-ms-dot {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--bg1);
+  z-index: 1;
+  margin-bottom: 8px;
+}
+.abos-ms-info {
+  text-align: center;
+}
+.abos-ms-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.abos-ms-when {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+}
+.abos-ms-arrow {
+  font-size: 18px;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin: 0 -4px;
+  margin-bottom: 28px;
+}
+.abos-success-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.abos-success-table th {
+  background: rgba(61,127,255,0.1);
+  color: var(--blue2);
+  padding: 10px 16px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(61,127,255,0.2);
+}
+.abos-success-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.abos-success-table tr:hover td { background: var(--surface2); }
+.abos-todo-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.abos-todo-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--surface);
+  display: flex;
+  gap: 14px;
+}
+.abos-todo-num {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.abos-todo-content h4 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.abos-todo-content p {
+  font-size: 11px;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+.abos-todo-meta {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  display: inline-block;
+}
+.abos-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.abos-kpi-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+.abos-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.abos-kpi-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.abos-kpi-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.abos-kpi-target {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted2);
+}
+.abos-risk-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.abos-risk-table th {
+  background: rgba(255,69,96,0.08);
+  color: var(--red);
+  padding: 10px 16px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255,69,96,0.15);
+}
+.abos-risk-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted2);
+  font-size: 12px;
+}
+.abos-risk-table tr:hover td { background: var(--surface2); }
+.abos-risk-level {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+  display: inline-block;
+}
+
 /* ── GTM VIEW ── */
 .gtm-section { padding: 48px; }
 .gtm-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 32px; }
@@ -699,8 +929,10 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0 48px 32px;
     <button class="nav-tab" onclick="showView('business')">비즈니스</button>
     <button class="nav-tab" onclick="showView('team')">팀 구성</button>
     <button class="nav-tab" onclick="showView('analysis')">심층분석</button>
+    <button class="nav-tab" onclick="showView('browseros')">AI Browser OS</button>
+    <button class="nav-tab" onclick="showView('planning')">종합 기획 상세</button>
   </div>
-  <div class="nav-badge">v2.0 · 2026-03</div>
+  <div class="nav-badge">v2.2 · 2026-03</div>
 </nav>
 
 <!-- ════════════════════════════════════ VIEW: TIMELINE ════════════════════════════════════════ -->
@@ -1125,6 +1357,1000 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0 48px 32px;
   </div>
 </div>
 
+<!-- ════════════════════════════════════ VIEW: AI BROWSER OS ════════════════════════════════════════ -->
+<div class="view" id="view-browseros">
+  <div class="hero">
+    <div class="hero-tag">▸ 30-WEEK ROADMAP · $645K · 5 MILESTONES · 10 RISKS</div>
+    <h1><em>AI Browser OS</em><br>실행 계획</h1>
+    <p class="hero-sub">Chrome Extension 기반 엔터프라이즈 AI 플랫폼의 30주 개발 로드맵, 마일스톤 Go/No-Go 게이트, 성공 기준, 선행과제, KPI 대시보드 및 리스크 매트릭스를 종합합니다.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val blue">30주</div><div class="stat-label">TOTAL DURATION</div></div>
+      <div class="stat"><div class="stat-val">$645K</div><div class="stat-label">TOTAL INVESTMENT</div></div>
+      <div class="stat"><div class="stat-val green">270%</div><div class="stat-label">3-YEAR ROI</div></div>
+      <div class="stat"><div class="stat-val amber">$12.1M</div><div class="stat-label">ARR (24-MONTH)</div></div>
+      <div class="stat"><div class="stat-val">50K</div><div class="stat-label">TARGET SEATS</div></div>
+      <div class="stat"><div class="stat-val">99.9%</div><div class="stat-label">SLA TARGET</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: 30-WEEK ROADMAP TIMELINE -->
+  <div class="section-wrap">
+    <div class="section-title">DEVELOPMENT ROADMAP</div>
+    <div class="section-h2">30주 <em>개발 로드맵</em> 타임라인</div>
+
+    <div class="abos-timeline-track fade-in">
+      <div class="abos-phase">
+        <div class="abos-phase-bar" style="background:var(--s0)"></div>
+        <div class="abos-phase-label" style="color:var(--s0)">SPRINT 0</div>
+        <div class="abos-phase-name">기술검증</div>
+        <div class="abos-phase-meta">2주 · 42 태스크</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-top:8px">
+          Chrome MV3 스캐폴드<br>
+          Smart DOM PoC<br>
+          7개 Go/No-Go 판정
+        </div>
+        <div class="abos-phase-cost" style="color:var(--s0)">$37.4K</div>
+      </div>
+      <div class="abos-phase">
+        <div class="abos-phase-bar" style="background:var(--p1)"></div>
+        <div class="abos-phase-label" style="color:var(--p1)">PHASE 1</div>
+        <div class="abos-phase-name">기반 구축</div>
+        <div class="abos-phase-meta">8주 · 70 SP · S1~S4</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-top:8px">
+          소버린 데이터 파이프라인<br>
+          Smart DOM 프로덕션<br>
+          RLS + 감사로그 + CDP
+        </div>
+        <div class="abos-phase-cost" style="color:var(--p1)">$186.8K</div>
+      </div>
+      <div class="abos-phase">
+        <div class="abos-phase-bar" style="background:var(--p2)"></div>
+        <div class="abos-phase-label" style="color:var(--p2)">PHASE 2</div>
+        <div class="abos-phase-name">핵심 기능</div>
+        <div class="abos-phase-meta">8주 · 83 SP · S5~S8</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-top:8px">
+          MARS 6단계 에이전트<br>
+          DataFrame 프로덕션<br>
+          Dynamic Multi-Model
+        </div>
+        <div class="abos-phase-cost" style="color:var(--p2)">$150.7K</div>
+      </div>
+      <div class="abos-phase">
+        <div class="abos-phase-bar" style="background:var(--p3)"></div>
+        <div class="abos-phase-label" style="color:var(--p3)">PHASE 3</div>
+        <div class="abos-phase-name">통합 최적화</div>
+        <div class="abos-phase-meta">8주 · 112 SP · S9~S12</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-top:8px">
+          Multi-tenant 격리<br>
+          Self-Healing 루프<br>
+          성능 최적화 + 보안
+        </div>
+        <div class="abos-phase-cost" style="color:var(--p3)">$134.2K</div>
+      </div>
+      <div class="abos-phase">
+        <div class="abos-phase-bar" style="background:var(--p4)"></div>
+        <div class="abos-phase-label" style="color:var(--p4)">PHASE 4</div>
+        <div class="abos-phase-name">GA 릴리스</div>
+        <div class="abos-phase-meta">4주 · 50 SP · S13~S14</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-top:8px">
+          Canary 5%/25%/100%<br>
+          OWASP 21 체크리스트<br>
+          SLA 99.9% + GA 출시
+        </div>
+        <div class="abos-phase-cost" style="color:var(--p4)">$136.4K</div>
+      </div>
+    </div>
+
+    <!-- Budget breakdown bar -->
+    <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface)" class="fade-in">
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:16px">투자 내역 ($645.5K)</div>
+      <div style="display:flex;gap:0;height:28px;border-radius:6px;overflow:hidden;margin-bottom:12px">
+        <div style="width:88.8%;background:linear-gradient(90deg,var(--blue),var(--blue2));display:flex;align-items:center;padding-left:10px;font-size:10px;font-family:var(--font-mono);font-weight:600;color:white">인건비 $573.5K (88.8%)</div>
+        <div style="width:5.6%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:var(--font-mono);color:white"></div>
+        <div style="width:4%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:var(--font-mono);color:white"></div>
+        <div style="width:1.6%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:var(--font-mono);color:white"></div>
+      </div>
+      <div style="display:flex;gap:20px;font-size:11px;color:var(--muted2)">
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:2px;background:var(--blue2)"></span>인건비 $573.5K</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:2px;background:var(--purple)"></span>LLM API $36K</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:2px;background:var(--teal)"></span>인프라 $26K</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:2px;background:var(--amber)"></span>도구 $10K</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 2: MILESTONES & GO/NO-GO -->
+  <div class="section-wrap">
+    <div class="section-title">MILESTONES & GO/NO-GO</div>
+    <div class="section-h2">마일스톤 & <em>Go/No-Go</em> 게이트</div>
+
+    <div class="abos-ms-flow fade-in">
+      <div class="abos-ms-node">
+        <div class="abos-ms-dot" style="border-color:var(--s0);color:var(--s0)">M0</div>
+        <div class="abos-ms-info">
+          <div class="abos-ms-title" style="color:var(--s0)">MVP</div>
+          <div class="abos-ms-when">Day 14</div>
+        </div>
+      </div>
+      <div class="abos-ms-arrow">&#8594;</div>
+      <div class="abos-ms-node">
+        <div class="abos-ms-dot" style="border-color:var(--p1);color:var(--p1)">M1</div>
+        <div class="abos-ms-info">
+          <div class="abos-ms-title" style="color:var(--p1)">Alpha</div>
+          <div class="abos-ms-when">Week 10</div>
+        </div>
+      </div>
+      <div class="abos-ms-arrow">&#8594;</div>
+      <div class="abos-ms-node">
+        <div class="abos-ms-dot" style="border-color:var(--p2);color:var(--p2)">M2</div>
+        <div class="abos-ms-info">
+          <div class="abos-ms-title" style="color:var(--p2)">Beta</div>
+          <div class="abos-ms-when">Week 18</div>
+        </div>
+      </div>
+      <div class="abos-ms-arrow">&#8594;</div>
+      <div class="abos-ms-node">
+        <div class="abos-ms-dot" style="border-color:var(--p3);color:var(--p3)">M3</div>
+        <div class="abos-ms-info">
+          <div class="abos-ms-title" style="color:var(--p3)">P3 Complete</div>
+          <div class="abos-ms-when">Week 26</div>
+        </div>
+      </div>
+      <div class="abos-ms-arrow">&#8594;</div>
+      <div class="abos-ms-node">
+        <div class="abos-ms-dot" style="border-color:var(--p4);color:var(--p4)">M4</div>
+        <div class="abos-ms-info">
+          <div class="abos-ms-title" style="color:var(--p4)">GA</div>
+          <div class="abos-ms-when">Week 30</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="arr-table fade-in" style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <thead>
+        <tr><th>마일스톤</th><th>시점</th><th>Go 기준</th><th>No-Go 대응</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--s0);font-weight:700">M0 MVP</td>
+          <td>Day 14</td>
+          <td style="font-size:11px">Smart DOM 작동 + 단일 에이전트 데모 + 유스케이스 3개 시연</td>
+          <td style="color:var(--amber);font-size:11px">기술스택 재검토</td>
+        </tr>
+        <tr>
+          <td style="color:var(--p1);font-weight:700">M1 Alpha</td>
+          <td>Week 10</td>
+          <td style="font-size:11px">NPS 35+ / 정확도 80%+ / CWS 게시 완료</td>
+          <td style="color:var(--amber);font-size:11px">2주 집중 개선 스프린트</td>
+        </tr>
+        <tr>
+          <td style="color:var(--p2);font-weight:700">M2 Beta</td>
+          <td>Week 18</td>
+          <td style="font-size:11px">DAU 55% / 자동화 25%+ / 보안 감사 통과</td>
+          <td style="color:var(--amber);font-size:11px">GA 4주 연기</td>
+        </tr>
+        <tr>
+          <td style="color:var(--p3);font-weight:700">M3 P3 완료</td>
+          <td>Week 26</td>
+          <td style="font-size:11px">Multi-Model 라우팅 / Self-Healing 55%+ / Kill Switch</td>
+          <td style="color:var(--amber);font-size:11px">소프트 런치 (기능 축소 GA)</td>
+        </tr>
+        <tr>
+          <td style="color:var(--p4);font-weight:700">M4 GA</td>
+          <td>Week 30</td>
+          <td style="font-size:11px">SLA 99.9% / 부하 테스트 통과 / NPS 45+ / OWASP Top 10</td>
+          <td style="color:var(--amber);font-size:11px">단계적 확산 (5%/25% 유지)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px;border:1px solid rgba(61,127,255,0.2);border-radius:8px;padding:16px;background:rgba(61,127,255,0.05);font-size:12px;color:var(--muted2)" class="fade-in">
+      <strong style="color:var(--blue2)">Canary 배포 전략:</strong> &nbsp;5% (얼리 어답터 250명, 48h) &#8594; 25% (부서 단위, 5일) &#8594; 100% (Forcelist GA)&nbsp; | &nbsp;<strong style="color:var(--amber)">자동 롤백:</strong> 에러율 &gt;1% / p95 &gt;5s / 보안 인시던트 / 메모리 &gt;150MB
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 3: SUCCESS CRITERIA TABLE -->
+  <div class="section-wrap">
+    <div class="section-title">SUCCESS CRITERIA</div>
+    <div class="section-h2">성공 기준 <em>6/12/24개월</em></div>
+
+    <table class="abos-success-table fade-in" style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <thead>
+        <tr><th>기준</th><th style="text-align:center">6개월 (Beta)</th><th style="text-align:center">12개월 (GA)</th><th style="text-align:center">24개월 (Scale)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--text);font-weight:600">좌석 수</td>
+          <td style="text-align:center">2,000</td>
+          <td style="text-align:center">8,000</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">50,000</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">DAU/MAU</td>
+          <td style="text-align:center">55%</td>
+          <td style="text-align:center">65%</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">70%+</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">NPS</td>
+          <td style="text-align:center">40</td>
+          <td style="text-align:center">50</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">55+</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">자동화율</td>
+          <td style="text-align:center">30%</td>
+          <td style="text-align:center">50%</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">60%+</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">ARR</td>
+          <td style="text-align:center;color:var(--blue2)">$312K</td>
+          <td style="text-align:center;color:var(--blue2)">$1.54M</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">$12.1M</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">비용절감 (누적)</td>
+          <td style="text-align:center">$138K</td>
+          <td style="text-align:center">$550K</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">$1,650K</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">도입 계열사</td>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center">5+</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">16+</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text);font-weight:600">Active Extension</td>
+          <td style="text-align:center">1,100</td>
+          <td style="text-align:center">5,200</td>
+          <td style="text-align:center;color:var(--gold);font-weight:700">35,000+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px" class="fade-in">
+      <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">BREAK-EVEN</div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--blue2)">12개월</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">3-YEAR ROI</div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--green)">270%</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">ANNUAL SAVINGS</div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--amber)">$550K</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">LTV/CAC</div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--purple)">48x</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 4: TODO PREREQUISITES -->
+  <div class="section-wrap">
+    <div class="section-title">PREREQUISITES</div>
+    <div class="section-h2">TODO <em>선행과제</em> 4항</div>
+    <div style="margin-bottom:16px;border:1px solid rgba(255,69,96,0.2);border-radius:8px;padding:12px 16px;background:rgba(255,69,96,0.05);font-size:12px;color:var(--muted2)" class="fade-in">
+      <strong style="color:var(--red)">BLOCKING:</strong> Sprint 0 (14일) 착수 전 4항 완료 필수 -- 미완 시 Sprint 0 연기
+    </div>
+
+    <div class="abos-todo-list fade-in">
+      <div class="abos-todo-card" style="border-color:rgba(255,69,96,0.3)">
+        <div class="abos-todo-num" style="background:rgba(255,69,96,0.1);color:var(--red)">1</div>
+        <div class="abos-todo-content">
+          <h4 style="color:var(--red)">SAP Fiori PoC</h4>
+          <p>SAP Fiori에서 Content Script DOM 접근 검증. Shadow DOM 탐색 + waitForDOMStable() 구현 확인. 실패 시 플랜 B (Playwright CDP Fallback) 문서화.</p>
+          <span class="abos-todo-meta" style="border-color:rgba(255,69,96,0.3);color:var(--red)">2일 소요 | CRITICAL</span>
+        </div>
+      </div>
+      <div class="abos-todo-card" style="border-color:rgba(255,124,69,0.3)">
+        <div class="abos-todo-num" style="background:rgba(255,124,69,0.1);color:var(--orange)">2</div>
+        <div class="abos-todo-content">
+          <h4 style="color:var(--orange)">MARS 비용 시뮬레이션</h4>
+          <p>6종 에이전트 1회 리서치 세션 $0.27 실측 검증. 월 $45K 예산 내 167K 세션 가능 여부. 비용 급등 시 Haiku 다운그레이드 시나리오 준비.</p>
+          <span class="abos-todo-meta" style="border-color:rgba(255,124,69,0.3);color:var(--orange)">1일 소요 | HIGH</span>
+        </div>
+      </div>
+      <div class="abos-todo-card" style="border-color:rgba(61,127,255,0.3)">
+        <div class="abos-todo-num" style="background:rgba(61,127,255,0.1);color:var(--blue2)">3</div>
+        <div class="abos-todo-content">
+          <h4 style="color:var(--blue2)">hchat-pwa 관계 정의</h4>
+          <p>A: 병행 (Extension=데스크톱, PWA=모바일), B: Extension Only (PWA 중단), C: Extension 우선 + PWA 경량 뷰어. 경영진 의사결정 필요.</p>
+          <span class="abos-todo-meta" style="border-color:rgba(61,127,255,0.3);color:var(--blue2)">경영진 협의 | HIGH</span>
+        </div>
+      </div>
+      <div class="abos-todo-card" style="border-color:rgba(0,200,150,0.3)">
+        <div class="abos-todo-num" style="background:rgba(0,200,150,0.1);color:var(--green)">4</div>
+        <div class="abos-todo-content">
+          <h4 style="color:var(--green)">Multi-tenant 아키텍처</h4>
+          <p>16개 계열사 동시 서비스 위한 격리 설계. Row-Level Security + OPA Policy Engine. 계열사별 LLM 모델 할당 및 비용 분리 모델.</p>
+          <span class="abos-todo-meta" style="border-color:rgba(0,200,150,0.3);color:var(--green)">설계 | MEDIUM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 5: KPI DASHBOARD -->
+  <div class="section-wrap">
+    <div class="section-title">KPI DASHBOARD</div>
+    <div class="section-h2">핵심 <em>KPI</em> 대시보드</div>
+
+    <div class="abos-kpi-grid fade-in">
+      <div class="abos-kpi-card" style="border-top:3px solid var(--blue2)">
+        <div class="abos-kpi-label">DAU / MAU</div>
+        <div class="abos-kpi-value" style="color:var(--blue2)">65%+</div>
+        <div class="abos-kpi-target">일간 활성 사용자 비율</div>
+      </div>
+      <div class="abos-kpi-card" style="border-top:3px solid var(--green)">
+        <div class="abos-kpi-label">NPS</div>
+        <div class="abos-kpi-value" style="color:var(--green)">50+</div>
+        <div class="abos-kpi-target">순추천고객지수</div>
+      </div>
+      <div class="abos-kpi-card" style="border-top:3px solid var(--amber)">
+        <div class="abos-kpi-label">SLA</div>
+        <div class="abos-kpi-value" style="color:var(--amber)">99.9%</div>
+        <div class="abos-kpi-target">서비스 가용성 (연간 &lt;8.76h 다운)</div>
+      </div>
+      <div class="abos-kpi-card" style="border-top:3px solid var(--purple)">
+        <div class="abos-kpi-label">INSTALL RETENTION</div>
+        <div class="abos-kpi-value" style="color:var(--purple)">95%+</div>
+        <div class="abos-kpi-target">Extension 설치 유지율 (Forcelist)</div>
+      </div>
+      <div class="abos-kpi-card" style="border-top:3px solid var(--cyan)">
+        <div class="abos-kpi-label">AUTOMATION RATE</div>
+        <div class="abos-kpi-value" style="color:var(--cyan)">50%+</div>
+        <div class="abos-kpi-target">업무 자동화율</div>
+      </div>
+      <div class="abos-kpi-card" style="border-top:3px solid var(--gold)">
+        <div class="abos-kpi-label">CWS RATING</div>
+        <div class="abos-kpi-value" style="color:var(--gold)">4.5+</div>
+        <div class="abos-kpi-target">Chrome Web Store 평점</div>
+      </div>
+    </div>
+
+    <!-- Extended KPI table -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="fade-in">
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:14px 20px;border-bottom:1px solid var(--border);background:var(--surface2);font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--blue2)">Extension 특화 KPI</div>
+        <div style="padding:14px 20px">
+          <div class="kpi-row"><span class="kpi-row-label">일일 Active Extension</span><span class="kpi-row-val" style="color:var(--blue2)">5,200+</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">Side Panel 로드</span><span class="kpi-row-val">&lt; 800ms</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">Popup 로드</span><span class="kpi-row-val">&lt; 300ms</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">Content Script 주입</span><span class="kpi-row-val">&lt; 100ms</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">번들 크기</span><span class="kpi-row-val">&lt; 5MB</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">메모리 사용</span><span class="kpi-row-val">&lt; 100MB</span></div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:14px 20px;border-bottom:1px solid var(--border);background:var(--surface2);font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--green)">기술 / 운영 KPI</div>
+        <div style="padding:14px 20px">
+          <div class="kpi-row"><span class="kpi-row-label">응답 정확도</span><span class="kpi-row-val" style="color:var(--green)">92%+</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">에러율</span><span class="kpi-row-val">&lt; 0.5%</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">TTFT (첫 토큰)</span><span class="kpi-row-val">&lt; 800ms</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">스트리밍</span><span class="kpi-row-val">&gt; 30 tok/sec</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">배포 빈도</span><span class="kpi-row-val">주 2회+</span></div>
+          <div class="kpi-row"><span class="kpi-row-label">테스트 커버리지</span><span class="kpi-row-val">85%+</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 6: RISK MATRIX -->
+  <div class="section-wrap">
+    <div class="section-title">RISK MATRIX</div>
+    <div class="section-h2">리스크 <em>매트릭스</em> Top 10</div>
+
+    <div class="scroll-x fade-in">
+      <table class="abos-risk-table" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;min-width:900px">
+        <thead>
+          <tr><th style="width:30px">#</th><th>리스크</th><th style="text-align:center">영향</th><th style="text-align:center">확률</th><th>대응 전략</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">1</td>
+            <td style="font-weight:600;color:var(--text)">LLM API 비용 급등</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td>멀티모델 라우팅 + 경량 모델 전환 + 캐싱 60% 절감 + 요청당 비용 캡 $2</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">2</td>
+            <td style="font-weight:600;color:var(--text)">SPA/Shadow DOM 접근 실패</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td>Sprint 0 SAP Fiori PoC + waitForDOMStable() + MutationObserver + CDP Fallback</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">3</td>
+            <td style="font-weight:600;color:var(--text)">AI 환각 (Hallucination)</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td>Citation 필수 + HITL L3+ 강제 승인 + 정확도 92%+ KPI + Kill Switch</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">4</td>
+            <td style="font-weight:600;color:var(--text)">데이터 유출 / 보안 인시던트</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">매우높음</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(61,127,255,0.15);color:var(--blue2)">낮음</span></td>
+            <td>Zero Trust 6계층 + PII 11패턴 마스킹 + Blocklist 26개 + 불변 감사 로그</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">5</td>
+            <td style="font-weight:600;color:var(--text)">핵심 인력 이탈</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td>RSU 인센티브 + Bus Factor 3+ 유지 + 지식 문서화 + 교차 교육 6회</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">6</td>
+            <td style="font-weight:600;color:var(--text)">경쟁사 진입 (Copilot 등)</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td>사내 딥통합 (경쟁사 불가) + 데이터 주권 해자 + 4중 경쟁 해자 전략</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--amber)">7</td>
+            <td style="font-weight:600;color:var(--text)">MARS 비용 초과</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td>$0.27 세션 한도 검증 + 동적 모델 다운그레이드 + Rate Limiter 정책</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--amber)">8</td>
+            <td style="font-weight:600;color:var(--text)">Multi-tenant 격리 실패</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">높음</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td>Row-Level Security + OPA 정책 + JWT tenant 클레임 + MVP부터 설계</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--amber)">9</td>
+            <td style="font-weight:600;color:var(--text)">Chrome Extension 정책 변경</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">보통</span></td>
+            <td>MV3 최신 스펙 준수 + Background SW 로직 최소화 + Edge 호환 준비</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--blue2)">10</td>
+            <td style="font-weight:600;color:var(--text)">사용자 채택 저조</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중간</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(61,127,255,0.15);color:var(--blue2)">낮음</span></td>
+            <td>Forcelist 강제 설치 + 챔피언 20명 프로그램 + 온보딩 30초 설계</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Risk summary -->
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px" class="fade-in">
+      <div style="border:1px solid rgba(255,69,96,0.2);border-radius:8px;padding:14px;background:rgba(255,69,96,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">CRITICAL</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--red)">1</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">LLM 비용</div>
+      </div>
+      <div style="border:1px solid rgba(255,124,69,0.2);border-radius:8px;padding:14px;background:rgba(255,124,69,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">HIGH</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--orange)">5</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">DOM/AI/보안/인력/경쟁</div>
+      </div>
+      <div style="border:1px solid rgba(255,179,71,0.2);border-radius:8px;padding:14px;background:rgba(255,179,71,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">MEDIUM</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--amber)">3</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">MARS/격리/정책</div>
+      </div>
+      <div style="border:1px solid rgba(61,127,255,0.2);border-radius:8px;padding:14px;background:rgba(61,127,255,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">LOW</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--blue2)">1</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">채택</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ VIEW: PLANNING DETAIL ════════════════════════════════════════ -->
+<div class="view" id="view-planning">
+  <div class="hero">
+    <div class="hero-tag">▸ RQFP · MARS · GAP · SPRINT 0 · TEAM · SELF-HEALING</div>
+    <h1><em>종합 기획</em> 상세</h1>
+    <p class="hero-sub">종합 기획서(33슬라이드) 심층분석에서 도출한 RQFP Smart DOM 엔진, MARS 6단계 비용 구조, GAP 분석 14개 영역, Sprint 0 Go/No-Go 7항, 13인 팀 + 단위 경제, Self-Healing 시스템 상세를 정리합니다.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val blue">19개</div><div class="stat-label">NEW MODULES</div></div>
+      <div class="stat"><div class="stat-val">~6,100줄</div><div class="stat-label">NEW CODE</div></div>
+      <div class="stat"><div class="stat-val green">12개</div><div class="stat-label">REUSED MODULES</div></div>
+      <div class="stat"><div class="stat-val amber">30%</div><div class="stat-label">DEV TIME SAVED</div></div>
+      <div class="stat"><div class="stat-val">9,350+</div><div class="stat-label">TEST TARGET</div></div>
+      <div class="stat"><div class="stat-val">48x</div><div class="stat-label">LTV / CAC</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: RQFP Smart DOM Engine -->
+  <div class="section-wrap">
+    <div class="section-title">L2 SMART DOM ENGINE</div>
+    <div class="section-h2">RQFP <em>스코어링 엔진</em></div>
+
+    <div style="border:1px solid rgba(61,127,255,0.3);border-radius:10px;padding:24px;background:rgba(61,127,255,0.05);margin-bottom:24px" class="fade-in">
+      <div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--blue2);margin-bottom:12px">RQFP 가중 평균 공식</div>
+      <div style="font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px">Score = R x 0.4 + Q x 0.4 + F x 0.2</div>
+      <div style="display:flex;gap:24px;margin-top:16px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;background:rgba(61,127,255,0.15);color:var(--blue2);padding:4px 10px;border-radius:4px">R x 0.4</span>
+          <span style="font-size:12px;color:var(--muted2)">Relevance (관련성)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;background:rgba(0,200,150,0.15);color:var(--green);padding:4px 10px;border-radius:4px">Q x 0.4</span>
+          <span style="font-size:12px;color:var(--muted2)">Quality (품질)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;background:rgba(255,179,71,0.15);color:var(--amber);padding:4px 10px;border-radius:4px">F x 0.2</span>
+          <span style="font-size:12px;color:var(--muted2)">Freshness (신선도)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;background:rgba(255,69,96,0.15);color:var(--red);padding:4px 10px;border-radius:4px">임계값 0.35</span>
+          <span style="font-size:12px;color:var(--muted2)">이상 통과</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px" class="fade-in">
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--blue2)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">MODULE 01</div>
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px">SmartDomExtractor</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:8px">RQFP 파이프라인 진입점. HTML 입력 -> SemanticTree 출력</div>
+        <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--blue2)">~300줄</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--green)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">MODULE 02</div>
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px">RqfpEngine</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:8px">가중 평균 스코어링. R/Q/F 3개 축 계산</div>
+        <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--green)">~350줄</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--purple)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">MODULE 03</div>
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px">ShadowDomTraverser</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:8px">Open/Closed Shadow DOM 재귀 탐색, Slot content 처리</div>
+        <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--purple)">~250줄</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--amber)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">MODULE 04</div>
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px">SapFioriAdapter</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:8px">sap-ui-content 어댑터. Fiori DOM 패턴 5개 식별</div>
+        <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--amber)">~350줄</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--cyan)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:6px">MODULE 05</div>
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px">MutationStabilizer</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:8px">SPA 라우팅 감지. 변경 수렴 100ms 대기</div>
+        <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--cyan)">~250줄</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:14px 20px;background:var(--surface);display:flex;justify-content:space-between;align-items:center" class="fade-in">
+      <span style="font-size:12px;color:var(--muted2)">L2 Smart DOM 합계</span>
+      <span style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--text)">5개 모듈 / ~1,500줄</span>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 2: MARS 6-Stage Agent Cost -->
+  <div class="section-wrap">
+    <div class="section-title">L4 MARS AGENT FACTORY</div>
+    <div class="section-h2">6단계 에이전트 <em>비용 구조</em></div>
+
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px" class="fade-in">
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--s0);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STEP 1</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">Planner</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">사용자 목표 -><br>연구 계획 JSON</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--purple);margin-bottom:4px">Claude Opus 4.6</div>
+        <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--s0)">$0.02</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--blue2);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STEP 2</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">Search</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">검색 쿼리 -><br>URL+snippet 목록</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);margin-bottom:4px">Claude Haiku</div>
+        <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--blue2)">$0.01</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--green);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STEP 3</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">Web</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">페이지 방문 -><br>SemanticTree</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);margin-bottom:4px">Claude Haiku</div>
+        <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--green)">$0.02</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--amber);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STEP 4</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">Data</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">DataFrame 추출<br>(L3 연계)</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--teal);margin-bottom:4px">Claude Sonnet</div>
+        <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--amber)">$0.03</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--red);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STEP 5</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">Analysis</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">데이터 분석 -><br>InsightReport</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--purple);margin-bottom:4px">Claude Opus 4.6</div>
+        <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--red)">$0.15</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);border-top:3px solid var(--p4);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STEP 6</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">Report</div>
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">최종 마크다운<br>보고서 생성</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--teal);margin-bottom:4px">Claude Sonnet</div>
+        <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--p4)">$0.04</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px" class="fade-in">
+      <div style="border:1px solid rgba(0,200,150,0.3);border-radius:8px;padding:14px;background:rgba(0,200,150,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">TOTAL / SESSION</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--green)">$0.27</div>
+      </div>
+      <div style="border:1px solid rgba(61,127,255,0.3);border-radius:8px;padding:14px;background:rgba(61,127,255,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">MAX LATENCY</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--blue2)">120초</div>
+      </div>
+      <div style="border:1px solid rgba(255,179,71,0.3);border-radius:8px;padding:14px;background:rgba(255,179,71,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">HITL GATE</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--amber)">Step 5</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">Analysis 전 사용자 확인</div>
+      </div>
+      <div style="border:1px solid rgba(168,85,247,0.3);border-radius:8px;padding:14px;background:rgba(168,85,247,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">STATE MANAGER</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--purple)">LangGraph</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">StateGraph 상태 관리</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;border:1px solid rgba(255,69,96,0.2);border-radius:8px;padding:14px 16px;background:rgba(255,69,96,0.05);font-size:12px;color:var(--muted2)" class="fade-in">
+      <strong style="color:var(--red)">비용 집중도:</strong> Analysis 에이전트($0.15)가 세션 비용의 <strong style="color:var(--text)">55%</strong> 차지. Opus 4.6 -> Sonnet 다운그레이드 시 품질 영향 검증 필요. 경쟁사 대비 $0.27 vs <strong style="color:var(--text)">$1.00</strong> (73% 절감)
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 3: GAP Analysis 14 Areas -->
+  <div class="section-wrap">
+    <div class="section-title">GAP ANALYSIS</div>
+    <div class="section-h2">14개 영역 <em>GAP 분석</em></div>
+
+    <div class="scroll-x fade-in">
+      <table class="arr-table" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;min-width:900px">
+        <thead>
+          <tr><th style="width:30px">#</th><th>영역</th><th>현재 상태</th><th>목표</th><th style="text-align:center">GAP</th><th style="text-align:center">우선순위</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">1</td>
+            <td style="font-weight:600;color:var(--text)">L2 Smart DOM</td>
+            <td>기본 sanitize</td>
+            <td>Readability.js + RQFP + Shadow DOM</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">대</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">P0</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">2</td>
+            <td style="font-weight:600;color:var(--text)">L3 DataFrame</td>
+            <td>SheetJS Excel</td>
+            <td>HTML 테이블 자동감지 -> JSON</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">대</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">P0</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">3</td>
+            <td style="font-weight:600;color:var(--text)">PII Scrubbing</td>
+            <td>7패턴</td>
+            <td>11패턴 + 99.9% 탐지율</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">P0</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">4</td>
+            <td style="font-weight:600;color:var(--text)">L4 MARS Agent</td>
+            <td>단일 API</td>
+            <td>LangGraph 6단계 + HITL Gate</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,69,96,0.15);color:var(--red)">대</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,124,69,0.15);color:var(--orange)">P1</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">5</td>
+            <td style="font-weight:600;color:var(--text)">Multi-Model</td>
+            <td>3 프로바이더</td>
+            <td>5+ 프로바이더 Dynamic 라우팅</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,124,69,0.15);color:var(--orange)">P1</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">6</td>
+            <td style="font-weight:600;color:var(--text)">감사 로그</td>
+            <td>토큰 추적</td>
+            <td>L1~L4 불변 감사 (SHA-256 체인)</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,124,69,0.15);color:var(--orange)">P1</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--amber)">7</td>
+            <td style="font-weight:600;color:var(--text)">Self-Healing</td>
+            <td>useCircuitBreaker</td>
+            <td>AI DOM 변경 감지 + 자동 복구</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(255,179,71,0.15);color:var(--amber)">중</span></td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(61,127,255,0.15);color:var(--blue2)">P2</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--green)">8</td>
+            <td style="font-weight:600;color:var(--text)">블록리스트</td>
+            <td>20도메인 + 6패턴</td>
+            <td style="color:var(--green);font-weight:600">동일 -- 충족</td>
+            <td style="text-align:center"><span class="abos-risk-level" style="background:rgba(0,200,150,0.15);color:var(--green)">충족</span></td>
+            <td style="text-align:center"><span style="color:var(--muted)">--</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px" class="fade-in">
+      <div style="border:1px solid rgba(255,69,96,0.2);border-radius:8px;padding:14px;background:rgba(255,69,96,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">NEW MODULES</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--red)">19개</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">~6,100줄 신규 개발</div>
+      </div>
+      <div style="border:1px solid rgba(0,200,150,0.2);border-radius:8px;padding:14px;background:rgba(0,200,150,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">REUSED MODULES</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--green)">12개</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">기존 자산 재활용</div>
+      </div>
+      <div style="border:1px solid rgba(61,127,255,0.2);border-radius:8px;padding:14px;background:rgba(61,127,255,0.05);text-align:center">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px">TEST TARGET</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--blue2)">9,350+</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:2px">기존 5,997 + 신규 3,350</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 4: Sprint 0 Go/No-Go 7 Items -->
+  <div class="section-wrap">
+    <div class="section-title">SPRINT 0 GO/NO-GO</div>
+    <div class="section-h2">7개 판정 기준 <em>Go/No-Go</em></div>
+
+    <div class="scroll-x fade-in">
+      <table class="arr-table" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;min-width:900px">
+        <thead>
+          <tr><th style="width:30px">#</th><th>판정 항목</th><th>Go 기준</th><th>No-Go 대응</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">1</td>
+            <td style="font-weight:600;color:var(--text)">Readability.js 정확도</td>
+            <td style="font-size:11px">주요 사이트 5개 중 4+ 성공</td>
+            <td style="font-size:11px;color:var(--amber)">대안 라이브러리 평가 (Turndown)</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red)">2</td>
+            <td style="font-weight:600;color:var(--text)">SAP Fiori DOM 접근</td>
+            <td style="font-size:11px">sap-ui-content 주요 컴포넌트 추출 가능</td>
+            <td style="font-size:11px;color:var(--amber)">SAP API 직접 연동 전환</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">3</td>
+            <td style="font-weight:600;color:var(--text)">PII 11패턴 검출</td>
+            <td style="font-size:11px">Precision 95%+, Recall 90%+</td>
+            <td style="font-size:11px;color:var(--amber)">패턴 축소 + ML 기반 보완</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--orange)">4</td>
+            <td style="font-weight:600;color:var(--text)">MARS 비용 검증</td>
+            <td style="font-size:11px">$0.30/세션 이하 시뮬레이션</td>
+            <td style="font-size:11px;color:var(--amber)">모델 다운그레이드 + 캐싱</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--amber)">5</td>
+            <td style="font-weight:600;color:var(--text)">PRISM CI Gate</td>
+            <td style="font-size:11px">22개 항목 중 Critical 0건</td>
+            <td style="font-size:11px;color:var(--amber)">아키텍처 수정 후 재심사</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--amber)">6</td>
+            <td style="font-weight:600;color:var(--text)">MV3 Side Panel</td>
+            <td style="font-size:11px">기본 UI + Content Script 통신 정상</td>
+            <td style="font-size:11px;color:var(--amber)">Popup 폴백 전략</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--blue2)">7</td>
+            <td style="font-weight:600;color:var(--text)">성능 기준</td>
+            <td style="font-size:11px">DOM 추출 &lt;2초, 메모리 &lt;100MB</td>
+            <td style="font-size:11px;color:var(--amber)">Worker 오프로딩</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:24px" class="fade-in">
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:12px">전환 기준 (Phase Gate)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="border:1px solid rgba(255,69,96,0.3);border-radius:10px;padding:20px;background:rgba(255,69,96,0.05)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--s0)">Sprint 0 -> P1</span>
+            <span style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--s0)">60%+</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.6">테스트 커버리지 60% 이상<br>Go/No-Go 7개 항목 전체 통과</div>
+        </div>
+        <div style="border:1px solid rgba(61,127,255,0.3);border-radius:10px;padding:20px;background:rgba(61,127,255,0.05)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--p2)">P1 -> P2</span>
+            <span style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--p2)">70%+</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.6">테스트 커버리지 70% 이상<br>에러율 &lt;2% + PII 11패턴 검증</div>
+        </div>
+        <div style="border:1px solid rgba(0,200,150,0.3);border-radius:10px;padding:20px;background:rgba(0,200,150,0.05)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--p3)">P2 -> P3</span>
+            <span style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--p3)">80%+</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.6">테스트 커버리지 80% 이상<br>에러율 &lt;1% + MARS $0.27 확인</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 5: 13-Person Team + Unit Economics -->
+  <div class="section-wrap">
+    <div class="section-title">TEAM & UNIT ECONOMICS</div>
+    <div class="section-h2">13인 팀 + <em>단위 경제</em></div>
+
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px" class="fade-in">
+      <!-- Team Grid -->
+      <div>
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:12px">팀 구성 (13명)</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">PM</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--blue2)">1명</div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">FE</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--green)">3명</div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">BE</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--amber)">3명</div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">ML/AI</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--purple)">2명</div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">DevOps</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--cyan)">1명</div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">QA</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--teal)">1명</div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px;background:var(--surface);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px">유지보수</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--muted2)">2명</div>
+          </div>
+          <div style="border:1px solid rgba(61,127,255,0.3);border-radius:8px;padding:14px;background:rgba(61,127,255,0.05);text-align:center">
+            <div style="font-family:var(--font-display);font-size:12px;font-weight:700;margin-bottom:4px;color:var(--blue2)">합계</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--blue2)">13명</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit Economics -->
+      <div>
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:12px">단위 경제</div>
+        <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+          <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)">
+            <span style="font-size:12px;color:var(--muted2)">CAC</span>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--green)">~$15</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)">
+            <span style="font-size:12px;color:var(--muted2)">LTV (36개월)</span>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--blue2)">$720</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(240,192,64,0.05)">
+            <span style="font-size:12px;color:var(--muted2)">LTV / CAC</span>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--gold)">48x</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)">
+            <span style="font-size:12px;color:var(--muted2)">ARPU / 월</span>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--text)">$20</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)">
+            <span style="font-size:12px;color:var(--muted2)">Gross Margin</span>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--green)">65%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:14px 20px">
+            <span style="font-size:12px;color:var(--muted2)">Payback</span>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--amber)">&lt;1개월</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--muted2);line-height:1.6;text-align:center">
+          업계 평균 LTV/CAC 3-5x 대비<br><strong style="color:var(--gold)">48x</strong> = Forcelist 배포 효과
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECTION 6: Self-Healing System -->
+  <div class="section-wrap">
+    <div class="section-title">SELF-HEALING SYSTEM</div>
+    <div class="section-h2">자가 복구 <em>메커니즘</em></div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px" class="fade-in">
+      <div style="border:1px solid rgba(255,69,96,0.3);border-radius:10px;padding:20px;background:rgba(255,69,96,0.05)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px">MECHANISM 01</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px">3-Strike Rule</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">
+          MAX_HEAL = 3<br>
+          3회 복구 시도 초과 시<br>
+          <strong style="color:var(--text)">OPEN 상태</strong> 전환<br>
+          OPEN 유지: 3,600초
+        </div>
+        <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;padding:6px 10px;border-radius:4px;background:rgba(255,69,96,0.1);color:var(--red);display:inline-block">MAX_HEAL = 3</div>
+      </div>
+      <div style="border:1px solid rgba(255,179,71,0.3);border-radius:10px;padding:20px;background:rgba(255,179,71,0.05)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px">MECHANISM 02</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--amber);margin-bottom:8px">지수 백오프</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">
+          쿨다운 간격 지수 증가<br>
+          1차: <strong style="color:var(--text)">5분</strong><br>
+          2차: <strong style="color:var(--text)">15분</strong><br>
+          3차: <strong style="color:var(--text)">45분</strong>
+        </div>
+        <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;padding:6px 10px;border-radius:4px;background:rgba(255,179,71,0.1);color:var(--amber);display:inline-block">5m -> 15m -> 45m</div>
+      </div>
+      <div style="border:1px solid rgba(168,85,247,0.3);border-radius:10px;padding:20px;background:rgba(168,85,247,0.05)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px">MECHANISM 03</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--purple);margin-bottom:8px">AST + LLM 진단</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">
+          AST 기반 구문 분석<br>
+          LLM 보조 진단 결합<br>
+          구문 오류 자동 수정<br>
+          <strong style="color:var(--text)">85~90%</strong> 성공률
+        </div>
+        <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;padding:6px 10px;border-radius:4px;background:rgba(168,85,247,0.1);color:var(--purple);display:inline-block">85~90% fix rate</div>
+      </div>
+      <div style="border:1px solid rgba(0,212,255,0.3);border-radius:10px;padding:20px;background:rgba(0,212,255,0.05)">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px">MECHANISM 04</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--cyan);margin-bottom:8px">Unified Diff</div>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.6">
+          패치 기반 코드 수정<br>
+          Unified Diff 포맷 적용<br>
+          복구 시간 단축<br>
+          <strong style="color:var(--text)">55~70%</strong> 단축
+        </div>
+        <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;padding:6px 10px;border-radius:4px;background:rgba(0,212,255,0.1);color:var(--cyan);display:inline-block">55~70% faster</div>
+      </div>
+    </div>
+
+    <div style="border:1px solid rgba(168,85,247,0.2);border-radius:8px;padding:16px;background:rgba(168,85,247,0.05);font-size:12px;color:var(--muted2)" class="fade-in">
+      <strong style="color:var(--purple)">SPEC-SH 검증 필수:</strong> MAX_HEAL=3, OPEN 3,600초 동작 확인 테스트. Self-Healing Engine ~500줄 (Cross-cutting 모듈). Signal -> Diagnosis -> Sandbox -> Deploy 4단계 파이프라인. 복구 시간 55~70% 단축 확인 후 P3 출시.
+    </div>
+  </div>
+</div>
+
 <script>
 // ════════════════════════ DATA ════════════════════════
 const PHASES = [
@@ -1545,7 +2771,7 @@ const io = new IntersectionObserver(entries => {
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
 // ════════════════════════ KEYBOARD NAV ════════════════════════
-const viewTabs = ['timeline','phases','milestones','features','business','team','analysis'];
+const viewTabs = ['timeline','phases','milestones','features','business','team','analysis','browseros','planning'];
 let currentViewIdx = 0;
 document.addEventListener('keydown', function(e) {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
