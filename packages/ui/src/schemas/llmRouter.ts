@@ -19,14 +19,8 @@ export const llmModelSchema = z.object({
   category: llmModelCategoryEnum,
   inputPrice: z.number().nonnegative('입력 가격은 0 이상이어야 합니다'),
   outputPrice: z.number().nonnegative('출력 가격은 0 이상이어야 합니다'),
-  contextWindow: z
-    .number()
-    .int()
-    .positive('컨텍스트 윈도우는 1 이상이어야 합니다'),
-  maxOutput: z
-    .number()
-    .int()
-    .positive('최대 출력 토큰은 1 이상이어야 합니다'),
+  contextWindow: z.number().int().positive('컨텍스트 윈도우는 1 이상이어야 합니다'),
+  maxOutput: z.number().int().positive('최대 출력 토큰은 1 이상이어야 합니다'),
   latency: z.string().min(1),
   isPopular: z.boolean().optional(),
 })
@@ -36,10 +30,7 @@ export const llmModelSchema = z.object({
 export const modelFilterParamsSchema = z.object({
   provider: z.string().optional(),
   category: llmModelCategoryEnum.optional(),
-  search: z
-    .string()
-    .max(200, '검색어는 200자를 초과할 수 없습니다')
-    .optional(),
+  search: z.string().max(200, '검색어는 200자를 초과할 수 없습니다').optional(),
   page: z.number().int().min(1).default(1),
   pageSize: z.number().int().min(1).max(100).default(20),
 })
@@ -57,7 +48,7 @@ export const modelComparisonRequestSchema = z.object({
 
 export const apiKeyStatusEnum = z.enum(['active', 'revoked'])
 
-export const apiKeySchema = z.object({
+export const llmApiKeySchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   key: z.string().min(1),
@@ -120,7 +111,7 @@ export const streamingOptionsSchema = z.object({
 export type LLMModelInput = z.infer<typeof llmModelSchema>
 export type ModelFilterParamsInput = z.infer<typeof modelFilterParamsSchema>
 export type ModelComparisonRequestInput = z.infer<typeof modelComparisonRequestSchema>
-export type ApiKeyInput = z.infer<typeof apiKeySchema>
+export type ApiKeyInput = z.infer<typeof llmApiKeySchema>
 export type CreateApiKeyInput = z.infer<typeof createApiKeySchema>
 export type UsageStatInput = z.infer<typeof usageStatSchema>
 export type MonthlyUsageInput = z.infer<typeof monthlyUsageSchema>

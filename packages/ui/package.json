@@ -37,7 +37,8 @@
     "./roi/ROISettings": "./src/roi/ROISettings.tsx",
     "./roi/ROIDataUpload": "./src/roi/ROIDataUpload.tsx",
     "./roi/ROISidebar": "./src/roi/ROISidebar.tsx",
-    "./roi/ROIDataContext": "./src/roi/ROIDataContext.tsx"
+    "./roi/ROIDataContext": "./src/roi/ROIDataContext.tsx",
+    "./schemas": "./src/schemas/index.ts"
   },
   "files": [
     "src"
