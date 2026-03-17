@@ -61,9 +61,14 @@ describe('CSRF Utilities', () => {
     })
 
     it('should generate UUID format token with fallback when crypto.randomUUID is not available', () => {
-      // Remove crypto.randomUUID
+      // Remove crypto.randomUUID but keep getRandomValues
       Object.defineProperty(window, 'crypto', {
-        value: {},
+        value: {
+          getRandomValues: (arr: Uint8Array) => {
+            for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256)
+            return arr
+          },
+        },
         writable: true,
       })
 
@@ -75,9 +80,14 @@ describe('CSRF Utilities', () => {
     })
 
     it('should generate different tokens on multiple calls with fallback', () => {
-      // Remove crypto.randomUUID to test fallback
+      // Remove crypto.randomUUID to test fallback but keep getRandomValues
       Object.defineProperty(window, 'crypto', {
-        value: {},
+        value: {
+          getRandomValues: (arr: Uint8Array) => {
+            for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256)
+            return arr
+          },
+        },
         writable: true,
       })
 

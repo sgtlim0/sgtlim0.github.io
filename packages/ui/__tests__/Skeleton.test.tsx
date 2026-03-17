@@ -11,17 +11,20 @@ import {
 describe('SkeletonPulse', () => {
   it('renders a div', () => {
     const { container } = render(<SkeletonPulse />)
-    expect(container.firstChild).toBeInstanceOf(HTMLDivElement)
+    const div = container.querySelector('div')
+    expect(div).toBeInstanceOf(HTMLDivElement)
   })
 
   it('applies custom className', () => {
     const { container } = render(<SkeletonPulse className="h-6 w-1/3" />)
-    expect(container.firstChild).toHaveClass('h-6', 'w-1/3')
+    const div = container.querySelector('div')
+    expect(div).toHaveClass('h-6', 'w-1/3')
   })
 
   it('applies custom style', () => {
     const { container } = render(<SkeletonPulse style={{ width: '50%' }} />)
-    expect(container.firstChild).toHaveStyle({ width: '50%' })
+    const div = container.querySelector('div')
+    expect(div).toHaveStyle({ width: '50%' })
   })
 })
 
