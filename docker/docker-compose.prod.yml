@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   ai-core:
     build:
@@ -14,9 +12,9 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
       SEARCH_API_KEY: ${SEARCH_API_KEY:-}
-      DATABASE_URL: postgresql://${DB_USER:-hchat}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-hchat}
+      DATABASE_URL: postgresql://${DB_USER:-hchat}:${DB_PASSWORD:?DB_PASSWORD is required}@postgres:5432/${DB_NAME:-hchat}
       REDIS_URL: redis://redis:6379
-      JWT_SECRET: ${JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
     depends_on:
       postgres:
         condition: service_healthy
@@ -49,7 +47,7 @@ services:
     environment:
       POSTGRES_DB: ${DB_NAME:-hchat}
       POSTGRES_USER: ${DB_USER:-hchat}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
     restart: always
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-hchat}']
