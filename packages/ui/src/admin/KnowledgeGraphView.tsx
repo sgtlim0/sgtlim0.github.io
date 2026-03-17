@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { KnowledgeGraph, GraphNode } from './services/knowledgeGraphTypes'
 import { getKnowledgeGraph, searchGraph, extractEntities } from './services/knowledgeGraphService'
+import { useAsyncData } from '../hooks/useAsyncData'
 
 const NODE_COLORS: Record<string, string> = {
   project: '#3B82F6',
@@ -13,18 +14,16 @@ const NODE_COLORS: Record<string, string> = {
 }
 
 export default function KnowledgeGraphView() {
+  const { data: initialGraph, loading } = useAsyncData<KnowledgeGraph>(
+    () => getKnowledgeGraph(),
+    [],
+  )
   const [graph, setGraph] = useState<KnowledgeGraph | null>(null)
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [extractText, setExtractText] = useState('')
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    getKnowledgeGraph().then((g) => {
-      setGraph(g)
-      setLoading(false)
-    })
-  }, [])
+  const currentGraph = graph ?? initialGraph
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
@@ -32,7 +31,7 @@ export default function KnowledgeGraphView() {
     setGraph({
       nodes: result.nodes,
       edges:
-        graph?.edges.filter((e) =>
+        currentGraph?.edges.filter((e) =>
           result.nodes.some((n) => n.id === e.source || n.id === e.target),
         ) ?? [],
     })
@@ -46,7 +45,7 @@ export default function KnowledgeGraphView() {
     )
   }
 
-  if (loading || !graph)
+  if (loading || !currentGraph)
     return <div className="p-8 text-center text-text-secondary">지식 그래프 로딩 중...</div>
 
   return (
@@ -54,7 +53,7 @@ export default function KnowledgeGraphView() {
       <div>
         <h2 className="text-xl font-bold text-text-primary">지식 그래프</h2>
         <p className="text-sm text-text-secondary mt-1">
-          {graph.nodes.length}개 노드, {graph.edges.length}개 관계
+          {currentGraph.nodes.length}개 노드, {currentGraph.edges.length}개 관계
         </p>
       </div>
 
@@ -80,7 +79,7 @@ export default function KnowledgeGraphView() {
 
       {/* Graph Visualization (CSS-based mock) */}
       <div className="relative rounded-xl border border-border bg-admin-bg-section p-8 min-h-[400px] overflow-hidden">
-        {graph.nodes.map((node, i) => {
+        {currentGraph.nodes.map((node, i) => {
           const x = 50 + (i % 4) * 200 + ((i * 17) % 40)
           const y = 50 + Math.floor(i / 4) * 120 + ((i * 31) % 30)
           const isSelected = selectedNode?.id === node.id
@@ -125,7 +124,7 @@ export default function KnowledgeGraphView() {
           <p className="text-xs text-text-tertiary mt-2">
             연결:{' '}
             {
-              graph.edges.filter(
+              currentGraph.edges.filter(
                 (e) => e.source === selectedNode.id || e.target === selectedNode.id,
               ).length
             }

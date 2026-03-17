@@ -1,24 +1,21 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { PromptWithVersions } from './services/promptVersionTypes'
 import { getPromptVersions, diffVersions } from './services/promptVersionService'
+import { useAsyncData } from '../hooks/useAsyncData'
 
 export default function PromptVersionManager() {
-  const [prompts, setPrompts] = useState<PromptWithVersions[]>([])
+  const { data: prompts, loading } = useAsyncData<PromptWithVersions[]>(
+    () => getPromptVersions(),
+    [],
+  )
   const [selected, setSelected] = useState<PromptWithVersions | null>(null)
   const [compareA, setCompareA] = useState<number | null>(null)
   const [compareB, setCompareB] = useState<number | null>(null)
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    getPromptVersions().then((p) => {
-      setPrompts(p)
-      setLoading(false)
-    })
-  }, [])
-
-  if (loading) return <div className="p-8 text-center text-text-secondary">프롬프트 로딩 중...</div>
+  if (loading || !prompts)
+    return <div className="p-8 text-center text-text-secondary">프롬프트 로딩 중...</div>
 
   const diffs =
     selected && compareA !== null && compareB !== null

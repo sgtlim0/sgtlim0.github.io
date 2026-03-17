@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type {
   ChatStats,
   TopicCluster,
@@ -12,34 +12,32 @@ import {
   getTopicClusters,
   getUserBehaviors,
   getHourlyDistribution,
-  getConversationQuality,
 } from './services/chatAnalyticsService'
+import { useAsyncData } from '../hooks/useAsyncData'
+
+interface ChatAnalyticsData {
+  readonly stats: ChatStats
+  readonly clusters: TopicCluster[]
+  readonly behaviors: UserBehavior[]
+  readonly hourly: HourlyDistribution[]
+}
 
 export default function ChatAnalyticsPage() {
-  const [stats, setStats] = useState<ChatStats | null>(null)
-  const [clusters, setClusters] = useState<TopicCluster[]>([])
-  const [behaviors, setBehaviors] = useState<UserBehavior[]>([])
-  const [hourly, setHourly] = useState<HourlyDistribution[]>([])
   const [period, setPeriod] = useState<'7d' | '30d' | '90d'>('30d')
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    Promise.all([
+  const { data, loading } = useAsyncData<ChatAnalyticsData>(async () => {
+    const [stats, clusters, behaviors, hourly] = await Promise.all([
       getChatStats(period),
       getTopicClusters(),
       getUserBehaviors(),
       getHourlyDistribution(),
-    ]).then(([s, c, b, h]) => {
-      setStats(s)
-      setClusters(c)
-      setBehaviors(b)
-      setHourly(h)
-      setLoading(false)
-    })
+    ])
+    return { stats, clusters, behaviors, hourly }
   }, [period])
 
-  if (loading || !stats)
+  if (loading || !data)
     return <div className="p-8 text-center text-text-secondary">채팅 분석 로딩 중...</div>
+
+  const { stats, clusters, behaviors, hourly } = data
 
   const maxHourly = Math.max(...hourly.map((h) => h.count))
   const TREND_ICONS: Record<string, string> = { up: '▲', down: '▼', stable: '—' }

@@ -1,24 +1,23 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import type { ChatRoom, TeamMessage } from './services/teamChatTypes'
 import { getRooms, getMessages, sendMessage } from './services/teamChatService'
+import { useAsyncData } from '../hooks/useAsyncData'
 
 export default function TeamChatRoom() {
-  const [rooms, setRooms] = useState<ChatRoom[]>([])
-  const [activeRoom, setActiveRoom] = useState<string | null>(null)
+  const { data: rooms, loading } = useAsyncData<ChatRoom[]>(() => getRooms(), [])
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null)
   const [messages, setMessages] = useState<TeamMessage[]>([])
   const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    getRooms().then((r) => {
-      setRooms(r)
-      if (r.length > 0) setActiveRoom(r[0].id)
-      setLoading(false)
-    })
-  }, [])
+  // Derive active room: user selection or first room
+  const activeRoom = useMemo(
+    () => selectedRoom ?? (rooms && rooms.length > 0 ? rooms[0].id : null),
+    [selectedRoom, rooms],
+  )
 
+  // Fetch messages when active room changes
   useEffect(() => {
     if (!activeRoom) return
     getMessages(activeRoom).then(setMessages)
@@ -31,7 +30,8 @@ export default function TeamChatRoom() {
     setInput('')
   }
 
-  if (loading) return <div className="p-8 text-center text-text-secondary">채팅 로딩 중...</div>
+  if (loading || !rooms)
+    return <div className="p-8 text-center text-text-secondary">채팅 로딩 중...</div>
 
   const room = rooms.find((r) => r.id === activeRoom)
 
@@ -47,7 +47,7 @@ export default function TeamChatRoom() {
           {rooms.map((r) => (
             <button
               key={r.id}
-              onClick={() => setActiveRoom(r.id)}
+              onClick={() => setSelectedRoom(r.id)}
               className={`w-full text-left p-3 border-b border-border-light transition-colors ${activeRoom === r.id ? 'bg-admin-teal/10' : 'hover:bg-bg-hover'}`}
             >
               <div className="flex items-center justify-between">

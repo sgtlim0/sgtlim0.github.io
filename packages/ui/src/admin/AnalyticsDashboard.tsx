@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   detectAnomalies,
   predictFuture,
@@ -8,25 +8,20 @@ import {
   getMockAnalyticsData,
 } from './services/analyticsService'
 import type { TimeSeriesPoint } from './services/analyticsTypes'
+import { useAsyncData } from '../hooks/useAsyncData'
+
+interface AnalyticsData {
+  readonly apiCalls: TimeSeriesPoint[]
+  readonly tokenUsage: TimeSeriesPoint[]
+  readonly activeUsers: TimeSeriesPoint[]
+  readonly costData: TimeSeriesPoint[]
+}
 
 export default function AnalyticsDashboard() {
-  const [data, setData] = useState<{
-    apiCalls: TimeSeriesPoint[]
-    tokenUsage: TimeSeriesPoint[]
-    activeUsers: TimeSeriesPoint[]
-    costData: TimeSeriesPoint[]
-  } | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { data, loading } = useAsyncData<AnalyticsData>(() => getMockAnalyticsData(), [])
   const [selectedMetric, setSelectedMetric] = useState<
     'apiCalls' | 'tokenUsage' | 'activeUsers' | 'costData'
   >('apiCalls')
-
-  useEffect(() => {
-    getMockAnalyticsData().then((d) => {
-      setData(d)
-      setLoading(false)
-    })
-  }, [])
 
   const METRIC_LABELS: Record<string, string> = {
     apiCalls: 'API 호출',

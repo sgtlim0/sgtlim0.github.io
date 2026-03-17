@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { VoiceModel, MeetingSummary } from './services/voiceTypes'
 import {
   getVoiceModels,
@@ -10,21 +10,14 @@ import {
   summarizeMeeting,
   getTTSConfig,
 } from './services/voiceService'
+import { useAsyncData } from '../hooks/useAsyncData'
 
 export default function VoiceInterface() {
-  const [models, setModels] = useState<VoiceModel[]>([])
+  const { data: models, loading } = useAsyncData<VoiceModel[]>(() => getVoiceModels(), [])
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [summary, setSummary] = useState<MeetingSummary | null>(null)
   const [ttsText, setTtsText] = useState('')
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    getVoiceModels().then((m) => {
-      setModels(m)
-      setLoading(false)
-    })
-  }, [])
 
   const handleListen = async () => {
     if (isListening) {
@@ -51,7 +44,7 @@ export default function VoiceInterface() {
     setSummary(result)
   }
 
-  if (loading)
+  if (loading || !models)
     return <div className="p-8 text-center text-text-secondary">음성 모듈 로딩 중...</div>
 
   const sttModels = models.filter((m) => m.type === 'stt')

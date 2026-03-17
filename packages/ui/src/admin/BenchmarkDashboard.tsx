@@ -1,23 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import type { BenchmarkResult, ModelRecommendation } from './services/benchmarkTypes'
 import { getLatestResults, getRecommendations } from './services/benchmarkService'
+import { useAsyncData } from '../hooks/useAsyncData'
+
+interface BenchmarkData {
+  readonly results: BenchmarkResult[]
+  readonly recommendations: ModelRecommendation[]
+}
 
 export default function BenchmarkDashboard() {
-  const [results, setResults] = useState<BenchmarkResult[]>([])
-  const [recommendations, setRecommendations] = useState<ModelRecommendation[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    Promise.all([getLatestResults(), getRecommendations()]).then(([r, rec]) => {
-      setResults(r)
-      setRecommendations(rec)
-      setLoading(false)
-    })
+  const { data, loading } = useAsyncData<BenchmarkData>(async () => {
+    const [results, recommendations] = await Promise.all([getLatestResults(), getRecommendations()])
+    return { results, recommendations }
   }, [])
 
-  if (loading) return <div className="p-8 text-center text-text-secondary">벤치마크 로딩 중...</div>
+  if (loading || !data)
+    return <div className="p-8 text-center text-text-secondary">벤치마크 로딩 중...</div>
+
+  const { results, recommendations } = data
 
   return (
     <div className="space-y-6">

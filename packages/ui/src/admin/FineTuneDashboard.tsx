@@ -1,23 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import type { TrainingDataset, FineTuneJob } from './services/finetunTypes'
-import { getDatasets, getFineTuneJobs, getEvaluation } from './services/finetunService'
+import { getDatasets, getFineTuneJobs } from './services/finetunService'
+import { useAsyncData } from '../hooks/useAsyncData'
+
+interface FineTuneData {
+  readonly datasets: TrainingDataset[]
+  readonly jobs: FineTuneJob[]
+}
 
 export default function FineTuneDashboard() {
-  const [datasets, setDatasets] = useState<TrainingDataset[]>([])
-  const [jobs, setJobs] = useState<FineTuneJob[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    Promise.all([getDatasets(), getFineTuneJobs()]).then(([d, j]) => {
-      setDatasets(d)
-      setJobs(j)
-      setLoading(false)
-    })
+  const { data, loading } = useAsyncData<FineTuneData>(async () => {
+    const [datasets, jobs] = await Promise.all([getDatasets(), getFineTuneJobs()])
+    return { datasets, jobs }
   }, [])
 
-  if (loading) return <div className="p-8 text-center text-text-secondary">파인튜닝 로딩 중...</div>
+  if (loading || !data)
+    return <div className="p-8 text-center text-text-secondary">파인튜닝 로딩 중...</div>
+
+  const { datasets, jobs } = data
 
   const STATUS_COLORS: Record<string, string> = {
     completed: 'bg-green-100 text-green-700',

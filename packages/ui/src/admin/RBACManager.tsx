@@ -1,22 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import type { Role, PermissionGroup } from './services/rbacTypes'
+import { useState } from 'react'
+import type { Role } from './services/rbacTypes'
 import { getRoles, getPermissionGroups } from './services/rbacService'
+import { useAsyncData } from '../hooks/useAsyncData'
 
 export default function RBACManager() {
-  const [roles, setRoles] = useState<Role[]>([])
+  const { data: roles, loading } = useAsyncData<Role[]>(() => getRoles(), [])
   const [selectedRole, setSelectedRole] = useState<Role | null>(null)
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    getRoles().then((r) => {
-      setRoles(r)
-      setLoading(false)
-    })
-  }, [])
-
-  if (loading) return <div className="p-8 text-center text-text-secondary">권한 로딩 중...</div>
+  if (loading || !roles)
+    return <div className="p-8 text-center text-text-secondary">권한 로딩 중...</div>
 
   const groups = getPermissionGroups()
 

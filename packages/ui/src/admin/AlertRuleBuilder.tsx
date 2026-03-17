@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { AlertRule, AlertHistory } from './services/alertRuleTypes'
 import {
   getAlertRules,
@@ -8,6 +8,7 @@ import {
   getAlertHistory,
   getAlertPresets,
 } from './services/alertRuleService'
+import { useAsyncData } from '../hooks/useAsyncData'
 
 const SEVERITY_COLORS: Record<string, string> = {
   critical: 'bg-red-100 text-red-700',
@@ -22,26 +23,28 @@ const STATUS_COLORS: Record<string, string> = {
   resolved: 'bg-green-100 text-green-700',
 }
 
-export default function AlertRuleBuilder() {
-  const [rules, setRules] = useState<AlertRule[]>([])
-  const [history, setHistory] = useState<AlertHistory[]>([])
-  const [loading, setLoading] = useState(true)
+interface AlertData {
+  readonly rules: AlertRule[]
+  readonly history: AlertHistory[]
+}
 
-  useEffect(() => {
-    Promise.all([getAlertRules(), getAlertHistory()]).then(([r, h]) => {
-      setRules(r)
-      setHistory(h)
-      setLoading(false)
-    })
+export default function AlertRuleBuilder() {
+  const { data, loading } = useAsyncData<AlertData>(async () => {
+    const [rules, history] = await Promise.all([getAlertRules(), getAlertHistory()])
+    return { rules, history }
   }, [])
+  const [localRules, setLocalRules] = useState<AlertRule[] | null>(null)
+
+  const rules = localRules ?? data?.rules ?? []
+  const history = data?.history ?? []
 
   const handleToggle = async (id: string) => {
     await toggleAlertRule(id)
     const updated = await getAlertRules()
-    setRules(updated)
+    setLocalRules(updated)
   }
 
-  if (loading)
+  if (loading || !data)
     return <div className="p-8 text-center text-text-secondary">알림 규칙 로딩 중...</div>
 
   const presets = getAlertPresets()
