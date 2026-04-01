@@ -309,7 +309,7 @@ jobs:
 
       - name: Comment PR with bundle report
         if: always()
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: bundle-size
           path: bundle-report.md
