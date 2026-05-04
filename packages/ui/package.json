@@ -56,6 +56,6 @@
   },
   "devDependencies": {
     "fake-indexeddb": "6.2.5",
-    "msw": "^2.13.6"
+    "msw": "^2.14.2"
   }
 }
